@@ -1,0 +1,71 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-10 mt-5">
+
+      <div class="row mt-3" *ngFor="let i of news">
+        <div class="col-lg-2">
+          <div>
+            <a [routerLink]="['/info-news', i.id]">
+              <img [src]="i.image" class="img-fluid rounded mx-auto d-block"
+                   alt="..."></a>
+          </div>
+        </div>
+        <div class="col-lg-10">
+          <a [routerLink]="['/info-news', i.id]"><h6>&#8226; {{i.title}}</h6></a>
+          <p>{{i.submittedDate}}</p>
+          <p>{{i.content}}</p>
+        </div>
+      </div>
+
+
+      <div class="row mt-5" align="center">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            <div *ngIf="number == 0">
+              <li class="page-item disabled">
+                <button class="page-link" hidden>Previous</button>
+              </li>
+            </div>
+            <div *ngIf="number != 0">
+              <li class="page-item">
+                <button class="page-link" (click)="previousPage()">Previous</button>
+              </li>
+            </div>
+            <div *ngIf="number == totalPages - 1">
+              <li class="page-item disabled">
+                <button class="page-link" hidden>Next</button>
+              </li>
+            </div>
+            <div *ngIf="number != totalPages - 1">
+              <li class="page-item">
+                <button class="page-link" (click)="nextPage()">Next</button>
+              </li>
+            </div>
+          </ul>
+        </nav>
+      </div>
+
+    </div>
+
+    <div class="col-lg-2">
+      <div class="row mt-5">
+        <img src="../../assets/image/b03sm-3.png" alt="">
+      </div>
+      <div class="row mt-5">
+        <img src="../../assets/image/chicken.png" alt="">
+      </div>
+      <div class="row mt-5">
+        <img src="../../assets/image/chickenfood.jpg" alt="">
+      </div>
+      <div class="row mt-5">
+        <img src="../../assets/image/pharma1.jpg" alt="">
+      </div>
+      <div class="row mt-5">
+        <img src="../../assets/image/food.jpg" alt="">
+      </div>
+      <div class="row mt-5">
+        <img src="../../assets/image/food2.jpg" alt="">
+      </div>
+    </div>
+  </div>
+</div>
