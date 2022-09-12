@@ -9,6 +9,7 @@ import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {HttpClientModule} from '@angular/common/http';
 import {BodyModule} from './body/body.module';
+import {ContactModule} from './contact/contact.module';
 
 @NgModule({
   declarations: [
@@ -16,14 +17,15 @@ import {BodyModule} from './body/body.module';
     HeaderComponent,
     FooterComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    ToastrModule.forRoot(),
-    BodyModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        ToastrModule.forRoot(),
+        BodyModule,
+        ContactModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
