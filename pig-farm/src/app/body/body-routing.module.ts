@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {BodyComponent} from "./body.component";
-import {InfoNewsComponent} from "./info-news/info-news.component";
+import {BodyComponent} from './body.component';
+import {InfoNewsComponent} from './info-news/info-news.component';
 
 
 const routes: Routes = [

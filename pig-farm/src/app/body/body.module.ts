@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { BodyRoutingModule } from './body-routing.module';
-import {BodyComponent} from "./body.component";
-import {ReactiveFormsModule} from "@angular/forms";
-import { InfoNewsComponent } from './info-news/info-news.component';
+import {BodyRoutingModule} from './body-routing.module';
+import {BodyComponent} from './body.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {InfoNewsComponent} from './info-news/info-news.component';
 
 
 @NgModule({
@@ -18,4 +18,5 @@ import { InfoNewsComponent } from './info-news/info-news.component';
     ReactiveFormsModule
   ]
 })
-export class BodyModule { }
+export class BodyModule {
+}
