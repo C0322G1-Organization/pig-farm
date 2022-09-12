@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {News} from "./news";
-import {BodyService} from "./body.service";
+import {News} from './news';
+import {BodyService} from './body.service';
 
 @Component({
   selector: 'app-body',
@@ -20,8 +20,7 @@ export class BodyComponent implements OnInit {
   }
 
   getAll(page: number): void {
-    // @ts-ignore
-    this.newsService.findAll(page).subscribe(({content, number: number, totalPages: totalPages}: News[]) => {
+    this.newsService.findAll(page).subscribe(({content, number: number, totalPages: totalPages}: any) => {
 
       this.totalPages = totalPages;
       this.number = number;
