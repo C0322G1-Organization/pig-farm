@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "pig-farm"
+    }
+  },
+  "defaultProject": "pig-farm",
+  "cli": {
+    "analytics": "77275db2-792c-4afe-920d-06f19ee60154"
+  }
 }
