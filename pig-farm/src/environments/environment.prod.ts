@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://trungdc.synology.me:8080/pig-farm-api'
+  apiUrl: 'https://trungdc.synology.me:5152/pig-farm-api/'
 };
