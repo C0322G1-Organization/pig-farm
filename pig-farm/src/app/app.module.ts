@@ -5,6 +5,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
+import {StorageModule} from './storage/storage.module';
 import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {HttpClientModule} from '@angular/common/http';
@@ -22,6 +23,7 @@ import {BodyModule} from './body/body.module';
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    StorageModule,
     BodyModule
   ],
   providers: [],

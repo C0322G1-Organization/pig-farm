@@ -126,6 +126,10 @@
           "builder": "angular-cli-ghpages:deploy"
         }
       }
-    }},
-  "defaultProject": "pig-farm"
+    }
+  },
+  "defaultProject": "pig-farm",
+  "cli": {
+    "analytics": "743f8207-aacb-4c8f-bd0f-6ad402166dbe"
+  }
 }
