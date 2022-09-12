@@ -1,0 +1,49 @@
+<body>
+<div class="container-fluid">
+  <div class="vc_empty_space" style="height: 64px"><span class="vc_empty_space_inner"></span></div>
+  <div class="container">
+    <div class="row formRow">
+      <form class="col-lg-6 formRow_create" [formGroup]="storageForm" (ngSubmit)="submit()">
+        <div class="mb-3 formRow_create_title">
+          <h5> <b>Nhập vào kho</b></h5>
+        </div>
+        <hr>
+        <div class="formRow_create_content">
+          <div class="mb-3">
+            <label class="form-label">Loại thức ăn <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" formControlName="foodType">
+          </div>
+          <div class="mb-3">
+            <div class="row">
+              <div class="col-md">
+                <label class="form-label">Số lượng <span class="text-danger">*</span></label>
+                <input type="number" class="form-control" formControlName="amount">
+              </div>
+              <div class="col-md">
+                <label class="form-label">Đơn vị <span class="text-danger">*</span> </label>
+                <select class="form-control" formControlName="unit">
+                  <option value="" disabled >-----Chọn-----</option>
+                  <option>Kg</option>
+                  <option>Tấn</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Ngày nhập <span class="text-danger">*</span></label>
+            <input type="date" class="form-control" formControlName="date">
+            <!--                            <div  class="form-text text-danger">Không được để trống</div>-->
+          </div>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-around">
+            <button class="btn btn-outline-danger"  ><i class="bi bi-backspace"></i> Quay Lại</button>
+            <button class="btn btn-outline-success" type="submit" ><i class="bi bi-plus-circle"></i> Thêm mới</button>
+            <button class="btn btn-outline-secondary" type="reset" ><i class="bi bi-x-octagon"></i> Nhập lại</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="vc_empty_space" style="height: 64px"><span class="vc_empty_space_inner"></span></div>
+</div>
+</body>
