@@ -1,7 +1,6 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-10 mt-5">
-
       <div class="row mt-3" *ngFor="let i of news">
         <div class="col-lg-2">
           <div>
@@ -21,22 +20,22 @@
       <div class="row mt-5" align="center">
         <nav aria-label="Page navigation example">
           <ul class="pagination justify-content-center">
-            <div *ngIf="number == 0">
+            <div *ngIf="number == 0" class="">
               <li class="page-item disabled">
                 <button class="page-link" hidden>Previous</button>
               </li>
             </div>
-            <div *ngIf="number != 0">
+            <div *ngIf="number != 0" class="mx-2">
               <li class="page-item">
                 <button class="page-link" (click)="previousPage()">Previous</button>
               </li>
             </div>
-            <div *ngIf="number == totalPages - 1">
+            <div *ngIf="number == totalPages - 1" class="mx-2">
               <li class="page-item disabled">
                 <button class="page-link" hidden>Next</button>
               </li>
             </div>
-            <div *ngIf="number != totalPages - 1">
+            <div *ngIf="number != totalPages - 1" class="mx-2">
               <li class="page-item">
                 <button class="page-link" (click)="nextPage()">Next</button>
               </li>
@@ -49,22 +48,25 @@
 
     <div class="col-lg-2">
       <div class="row mt-5">
-        <img src="/assets/img/body/b03sm-3.png" alt="">
+        <input class="form-control me-2 find" type="search"  [(ngModel)]="keyword" name="keyword" (keypress)="search()" placeholder="Tìm kiếm" aria-label="Search">
       </div>
       <div class="row mt-5">
-        <img src="/assets/img/body/chicken.png" alt="">
+        <img src="/assets/img/body/body-pigfood.png" alt="">
       </div>
       <div class="row mt-5">
-        <img src="/assets/img/body/chickenfood.jpg" alt="">
+        <img src="/assets/img/body/body-chicken.png" alt="">
       </div>
       <div class="row mt-5">
-        <img src="/assets/img/body/pharma1.jpg" alt="">
+        <img src="/assets/img/body/body-chickenfood.jpg" alt="">
       </div>
       <div class="row mt-5">
-        <img src="/assets/img/body/food.jpg" alt="">
+        <img src="/assets/img/body/body-pharma1.jpg" alt="">
       </div>
       <div class="row mt-5">
-        <img src="/assets/img/body/food2.jpg" alt="">
+        <img src="/assets/img/body/body-food.jpg" alt="">
+      </div>
+      <div class="row mt-5">
+        <img src="/assets/img/body/body-food2.jpg" alt="">
       </div>
     </div>
   </div>

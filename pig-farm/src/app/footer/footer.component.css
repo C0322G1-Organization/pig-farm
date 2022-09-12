@@ -4,6 +4,10 @@ iframe {
   border: 0;
 }
 
+.footer-bgcolor {
+  background-color: #017428;
+}
+
 /* Nút lên đầu trang */
 #myBtn {
   display: none;
