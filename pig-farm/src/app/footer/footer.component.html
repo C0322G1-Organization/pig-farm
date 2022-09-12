@@ -1,0 +1,50 @@
+<div class="container-fluid mt-4 bg-success">
+  <div class="row">
+    <div class="col-lg-4 col-md-12 mt-3 map" align="center">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3833.7517909401145!2d108.20754761417001!3d16.07836494346534!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31421846431fd0fd%3A0x780138ba60fa3aa6!2zMjk1IE5ndXnhu4VuIFThuqV0IFRow6BuaCwgVGhhbmggQsOsbmgsIEjhuqNpIENow6J1LCDEkMOgIE7hurVuZyA1NTAwMDAsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1661911853461!5m2!1svi!2s"
+              allowfullscreen="" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+
+    <div class="col-lg-8 col-md-12 text-light mt-3">
+      <p><b>Copyright @2022 C0322G1 - Pig Farm</b></p>
+      <p><b>Giấy phép số:</b> 666/GP-TTĐT của Bộ Thông tin và Truyền thông, cấp ngày 30/08/2022.</p>
+      <p><b>Trụ sở:</b> Tầng 10, 295 Nguyễn Tất Thành, P. Thanh Bình, Q. Hải Châu, TP. Đà Nẵng.</p>
+      <p><b>Điện thoại:</b> 0906 06 7530.</p>
+      <p><b>Email:</b> levanle5@gmail.com</p>
+      <p><b>&copy;2022 pigfarm.com.vn</b> giữ bản quyền nội dung trên website này. Ghi rõ nguồn "pigfarm.com.vn"
+        khi
+        bạn phát hành lại thông tin từ website này.</p>
+
+    </div>
+  </div>
+</div>
+
+<button id="myBtn" title="Trở về đầu trang ">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-up-square"
+       viewBox="0 0 16 16">
+    <path fill-rule="evenodd"
+          d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm8.5 9.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"/>
+  </svg>
+</button>
+
+<script>
+  window.onscroll = function () {
+    scrollFunction()
+  };
+
+  function scrollFunction() {
+
+    if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+      document.getElementById("myBtn").style.display = "block";
+    } else {
+      document.getElementById("myBtn").style.display = "none";
+    }
+  }
+
+  document.getElementById('myBtn').addEventListener("click", function () {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  });
+
+</script>
