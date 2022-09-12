@@ -5,6 +5,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
+import {FoodModule} from "./food/food.module";
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import {ToastrModule} from 'ngx-toastr';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    FoodModule
   ],
   providers: [],
   bootstrap: [AppComponent]
