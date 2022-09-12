@@ -49,9 +49,6 @@ export class BodyComponent implements OnInit {
       this.totalPages = totalPages;
       this.number = number;
       this.news = content;
-    },
-    error => {
-
     });
   }
 }

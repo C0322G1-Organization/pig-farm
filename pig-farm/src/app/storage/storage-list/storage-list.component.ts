@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {StorageService} from '../service/storage.service';
+import {StorageService} from '../storage.service';
 import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
