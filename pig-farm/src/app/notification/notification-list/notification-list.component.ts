@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {NotificationService} from '../../notification.service';
 import {FormControl, FormGroup} from '@angular/forms';
-import {NotificationService} from '../notification.service';
 import {Router} from '@angular/router';
+import {Notification} from '../../model/notification';
 import {ToastrService} from 'ngx-toastr';
-import {Notifications} from '../model/notification';
+import {Notifications} from '../../model/notification';
 
 @Component({
   selector: 'app-notification-list',
@@ -15,7 +16,11 @@ export class NotificationListComponent implements OnInit {
   clss: string;
   content = '';
   number: number;
+<<<<<<< HEAD
   notifications: Notifications[] = [];
+=======
+  notifications: Notification[] = [];
+>>>>>>> 8e075d5df1a3e22e604115b3ef4206de5ffdfb11
   nameDelete: any = [];
   ids: number[] = [];
   check: string[] = [];
@@ -109,11 +114,13 @@ export class NotificationListComponent implements OnInit {
   goPrevious() {
     this.number--;
     this.getNotifications(this.number, this.content);
+    this.check = [];
   }
 
   goNext() {
     this.number++;
     this.getNotifications(this.number, this.content);
+    this.check = [];
   }
 
   search() {

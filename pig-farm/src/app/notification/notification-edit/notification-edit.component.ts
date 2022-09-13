@@ -4,7 +4,7 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {finalize} from 'rxjs/operators';
 import {formatDate} from '@angular/common';
-import {NotificationService} from '../notification.service';
+import {NotificationService} from '../../service/notification.service';
 import {ToastrService} from 'ngx-toastr';
 
 @Component({
