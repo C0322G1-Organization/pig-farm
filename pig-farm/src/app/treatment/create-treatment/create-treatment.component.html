@@ -1,12 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Nhập thông tin khám chữa bệnh</title>
-<!--  <link rel="stylesheet" href="css.css">-->
-<!--  <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">-->
-</head>
-<body>
 
 <div class="container-fluid">
 </div>
@@ -30,7 +21,7 @@
         </div>
         <div class="mb-3">
           <label class="form-label">Chuồng <span class="text-danger">*</span></label>
-          <select  class="form-control" formControlName="cage">
+          <select  class="form-control" formControlName="pigstyCode">
             <option>---Chọn---</option>
             <option>C01</option>
             <option>C02</option>
@@ -39,12 +30,12 @@
             <option>C05</option>
           </select>
           <div class="form-text">
-            <p *ngIf="creatTreatmentForm.controls['cage'].hasError('required')">Không được để trống.</p>
+            <p *ngIf="creatTreatmentForm.controls['pigstyCode'].hasError('required')">Không được để trống.</p>
           </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Mã lợn <span class="text-danger">*</span></label>
-          <select   class="form-control" formControlName="pig_id">
+          <select   class="form-control" formControlName="pigCode">
             <option>---Chọn---</option>
             <option>L01</option>
             <option>L02</option>
@@ -53,7 +44,7 @@
             <option>L05</option>
           </select>
           <div class="form-text">
-            <p *ngIf="creatTreatmentForm.controls['pig_id'].hasError('required')">Không được để trống.</p>
+            <p *ngIf="creatTreatmentForm.controls['pigCode'].hasError('required')">Không được để trống.</p>
           </div>
         </div>
         <div class="mb-3">
@@ -84,12 +75,12 @@
               <div class="form-text">
                 <p *ngIf="creatTreatmentForm.controls['amount'].hasError('required')">Không được để trống.</p>
               </div>                            </div>
-
+            <input type="number" class="form-control" formControlName="isDelete" hidden>
           </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Ghi chú:</label>
-          <textarea class="form-control"  formControlName="note"></textarea>
+          <textarea class="form-control" ></textarea>
 
         </div>
         <div class="button">
@@ -102,6 +93,5 @@
   </div>
 </div>
 <div class="vc_empty_space" style="height: 64px"><span class="vc_empty_space_inner"></span></div>
-</body>
-</html>
+
 
