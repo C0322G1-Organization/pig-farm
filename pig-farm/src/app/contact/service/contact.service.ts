@@ -38,4 +38,13 @@ export class ContactService {
     return this.httpClient.post<any>(url, data);
   }
 
+  search(content: any): Observable<Contact[]> {
+    const contentSearch: string = content.content;
+    return this.httpClient.get<Contact[]>(URL_CONTACT + '/page?nameSearch=' + contentSearch);
+  }
+
+  save(contact: Contact): Observable<Contact> {
+    return this.httpClient.post(URL_CONTACT + '/create', contact);
+  }
+
 }
