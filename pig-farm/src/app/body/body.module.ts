@@ -5,6 +5,7 @@ import {BodyRoutingModule} from './body-routing.module';
 import {BodyComponent} from './body.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {InfoNewsComponent} from './info-news/info-news.component';
+import {ContactModule} from '../contact/contact.module';
 
 
 @NgModule({
@@ -12,11 +13,12 @@ import {InfoNewsComponent} from './info-news/info-news.component';
     BodyComponent,
     InfoNewsComponent
   ],
-  imports: [
-    CommonModule,
-    BodyRoutingModule,
-    ReactiveFormsModule
-  ]
+    imports: [
+        CommonModule,
+        BodyRoutingModule,
+        ReactiveFormsModule,
+        ContactModule
+    ]
 })
 export class BodyModule {
 }

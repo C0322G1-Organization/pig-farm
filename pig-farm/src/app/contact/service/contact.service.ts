@@ -48,4 +48,8 @@ export class ContactService {
     const contentSearch: string = content.content;
     return this.httpClient.get<Contact[]>(this.URL_CONTACT + '/page?nameSearch=' + contentSearch);
   }
+
+  save(contact: Contact): Observable<Contact> {
+    return this.httpClient.post(this.URL_CONTACT + '/create', contact);
+  }
 }
