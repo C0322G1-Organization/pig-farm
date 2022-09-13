@@ -3,17 +3,15 @@ import {NgModule} from '@angular/core';
 
 import {TreatmentRoutingModule} from './treatment-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {TreatmentListComponent} from './list-treatment/treatment-list.component';
-import {TreatmentCreateComponent} from './create-treatment/treatment-create.component';
+import {TreatmentCreateComponent} from './treatment-create/treatment-create.component';
+import {TreatmentListComponent} from './treatment-list/treatment-list.component';
 
 @NgModule({
   declarations: [
     TreatmentListComponent,
     TreatmentCreateComponent
-
   ],
   imports: [
     BrowserModule,
