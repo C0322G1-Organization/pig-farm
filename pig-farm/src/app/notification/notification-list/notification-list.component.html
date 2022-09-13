@@ -30,11 +30,11 @@
       <table class="table table-striped table-hover mt-3 mb-3">
         <thead>
         <tr style="background-color: #017428">
-          <th class="text-light">STT</th>
-          <th class="text-light">Tiêu đề</th>
-          <th class="text-light">Nội dung thông báo</th>
-          <th class="text-light">Hình ảnh</th>
-          <th class="text-light">Ngày đăng thông báo</th>
+          <th class="text-light" width="10%">STT</th>
+          <th class="text-light" width="20%">Tiêu đề</th>
+          <th class="text-light" width="40%">Nội dung thông báo</th>
+          <th class="text-light" width="15%">Hình ảnh</th>
+          <th class="text-light" width="15%">Ngày đăng thông báo</th>
           <th></th>
         </tr>
         </thead>
@@ -44,21 +44,20 @@
         <tr *ngFor="let item of notifications; let i=index">
           <td> {{ (i + 1) + number * 5}}</td>
           <td>{{item.title}}</td>
-          <!--          <td>{{(item.title.length > 30) ? (item.title| slice:0:30) + '...' : (item.title)}}</td>-->
           <td>{{(item.content.length > 70) ? (item.content| slice:0:70) + '...' : (item.content)}}</td>
           <td><img src="{{item.image}}" height="30px"/></td>
           <td>{{item.submittedDate | date: 'dd/MM/yyyy' }}</td>
-          <td><input *ngIf="item" type="checkbox" ngModel [name]="''+item.id" (ngModelChange)="checkButton(item.id)">
+          <td><input type="checkbox" (change)="checkButton(item.id)" ngModel  [name]="''+item.id" >
           </td>
         </tr>
         </tbody>
       </table>
       <div style="text-align: center; display: flex; justify-content: center">
         <button class="col-3 btn btn-outline-primary" style="width: auto; margin-right: 5%"
-                routerLink="/create" type="button">Thêm mới
+                routerLink="/notification/create" type="button">Thêm mới
         </button>
         <button class="col-3 btn btn-outline-warning" style="width: auto; margin-right: 5%"
-                type="button" [routerLink]="['notifications/edit',editId]"
+                type="button" [routerLink]="['/notification/edit/',editId]"
                 [disabled]="check.length!=1">Chỉnh sửa
         </button>
         <button class="col-3 btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"
@@ -122,7 +121,7 @@
           </form>
           <div style="color: red;" class="col-12">
             <h1>Không có thông báo !!!</h1>
-            <button class="col-3 btn btn-outline-primary" style="width: auto; margin-right: 5%">Thêm mới</button>
+            <button class="col-3 btn btn-outline-primary" style="width: auto; margin-right: 5%" routerLink="/notification/create">Thêm mới</button>
           </div>
         </div>
       </div>

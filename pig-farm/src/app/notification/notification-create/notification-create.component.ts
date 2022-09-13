@@ -1,28 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {NotificationService} from '../service/notification.service';
 import {Router} from '@angular/router';
+import {AngularFireStorage} from '@angular/fire/storage';
 import {finalize} from 'rxjs/operators';
 import {formatDate} from '@angular/common';
-import {AngularFireStorage} from '@angular/fire/storage';
+import {NotificationService} from '../../service/notification.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
-  selector: 'app-create',
-  templateUrl: './create.component.html',
-  styleUrls: ['./create.component.css']
+  selector: 'app-notification-create',
+  templateUrl: './notification-create.component.html',
+  styleUrls: ['./notification-create.component.css']
 })
-export class CreateComponent implements OnInit {
+export class NotificationCreateComponent implements OnInit {
   selectedImage: File = null;
   notificationForm: FormGroup = new FormGroup({
     image: new FormControl('', [Validators.required]),
-    content: new FormControl('', [Validators.required, Validators.maxLength(1000)]),
     title: new FormControl('', [Validators.required]),
+    content: new FormControl('', [Validators.required, Validators.maxLength(1000)]),
     dateSubmitted: new FormControl(Date())
   });
 
   constructor(private notificationService: NotificationService,
               private router: Router,
-              private storage: AngularFireStorage) {
+              private storage: AngularFireStorage,
+              private toast: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -41,8 +43,8 @@ export class CreateComponent implements OnInit {
           console.log(this.notificationForm.value);
           this.notificationService.save(this.notificationForm.value).subscribe(
             () => {
-              alert('Thêm mới thành công');
-              this.router.navigateByUrl('');
+              this.toast.success('Huyền đã thêm mới thành công', 'MỪNG QUÁ');
+              this.router.navigateByUrl('/notification');
             },
           );
         });
@@ -57,6 +59,7 @@ export class CreateComponent implements OnInit {
 
   getCurrentDateTime(): string {
     return formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss', 'en-US');
-   }
+  }
 }
+
 

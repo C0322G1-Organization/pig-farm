@@ -1,17 +1,20 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import {CreateComponent} from './createNotification/create.component';
-import {EditComponent} from './editNotification/edit.component';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
+import {NotificationListComponent} from './notification-list/notification-list.component';
+import {NotificationCreateComponent} from './notification-create/notification-create.component';
+import {NotificationEditComponent} from './notification-edit/notification-edit.component';
 
 
 const routes: Routes = [
   {
-    path: 'add',
-    component: CreateComponent
-  },
-  {
-    path: 'edit/update/:id',
-    component: EditComponent
+    path: 'notification',
+    component: NotificationListComponent
+  }, {
+    path: 'notification/create',
+    component: NotificationCreateComponent
+  }, {
+    path: 'notification/edit/:id',
+    component: NotificationEditComponent
   }
 ];
 
@@ -19,4 +22,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class NotificationRoutingModule { }
+export class NotificationRoutingModule {
+}

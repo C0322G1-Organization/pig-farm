@@ -4,6 +4,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Notification} from '../../model/notification';
 import {ToastrService} from 'ngx-toastr';
+import {Notifications} from '../../model/notification';
 
 @Component({
   selector: 'app-notification-list',
@@ -15,7 +16,11 @@ export class NotificationListComponent implements OnInit {
   clss: string;
   content = '';
   number: number;
+<<<<<<< HEAD
+  notifications: Notifications[] = [];
+=======
   notifications: Notification[] = [];
+>>>>>>> 8e075d5df1a3e22e604115b3ef4206de5ffdfb11
   nameDelete: any = [];
   ids: number[] = [];
   check: string[] = [];
@@ -82,6 +87,7 @@ export class NotificationListComponent implements OnInit {
   }
 
   checkButton(value: any) {
+    console.log('vlaue' + value);
     this.msg = '';
     if (this.check.includes(value)) {
       this.check.filter(item => item !== value);
