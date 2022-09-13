@@ -8,7 +8,7 @@ import {ToastrModule} from 'ngx-toastr';
 import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {HttpClientModule} from "@angular/common/http";
-import {NotificationListComponent} from './notification/notification-list/notification-list.component';
+import { NotificationListComponent } from './notification/notification-list/notification-list.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
@@ -25,13 +25,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     FormsModule,
-    ReactiveFormsModule,
-    ToastrModule.forRoot({
-      timeOut: 3000,
-      progressBar: true,
-      progressAnimation: 'increasing',
-      preventDuplicates: true
-    })
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
