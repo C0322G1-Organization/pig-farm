@@ -12,6 +12,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {BodyModule} from './body/body.module';
 import {TreatmentModule} from './treatment/treatment.module';
 import {VaccinationModule} from './vaccination/vaccination.module';
+import {DatePipe} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import {VaccinationModule} from './vaccination/vaccination.module';
     BodyModule,
     TreatmentModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule {
