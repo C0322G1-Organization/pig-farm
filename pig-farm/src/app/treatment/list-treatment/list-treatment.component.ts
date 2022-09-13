@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {TreatmentService} from '../../service/treatment-service';
-import {Treatment} from '../../model/treatment';
-
+import {Treatment} from "../module/treatment";
+import {TreatmentService} from "../service/treatment.service";
 
 @Component({
   selector: 'app-list-treatment',
