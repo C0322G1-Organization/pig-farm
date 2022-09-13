@@ -13,6 +13,7 @@ import {BodyModule} from './body/body.module';
 import {VaccinationModule} from './vaccination/vaccination.module';
 import {TreatmentModule} from './treatment/treatment.module';
 import {StorageModule} from './storage/storage.module';
+import {StatisticModule} from "./statistic/statistic.module";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {StorageModule} from './storage/storage.module';
     VaccinationModule,
     StorageModule,
     BodyModule,
-    TreatmentModule
+    TreatmentModule,
+    StatisticModule
   ],
   providers: [],
   bootstrap: [AppComponent]
