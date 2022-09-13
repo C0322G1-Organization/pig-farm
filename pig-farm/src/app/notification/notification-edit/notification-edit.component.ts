@@ -1,17 +1,18 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
-import {NotificationService} from '../service/notification.service';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {formatDate} from '@angular/common';
-import {finalize} from 'rxjs/operators';
 import {AngularFireStorage} from '@angular/fire/storage';
+import {finalize} from 'rxjs/operators';
+import {formatDate} from '@angular/common';
+import {NotificationService} from '../notification.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
-  selector: 'app-edit',
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.css']
+  selector: 'app-notification-edit',
+  templateUrl: './notification-edit.component.html',
+  styleUrls: ['./notification-edit.component.css']
 })
-export class EditComponent implements OnInit {
+export class NotificationEditComponent implements OnInit {
   id: number;
   notificationForm: FormGroup;
   selectedImage: File = null;
@@ -25,12 +26,14 @@ export class EditComponent implements OnInit {
   constructor(private notificationService: NotificationService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              private storage: AngularFireStorage) {
+              private storage: AngularFireStorage,
+              private  toast: ToastrService) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = +paramMap.get('id');
       this.getNotification(this.id);
     });
   }
+
 
   ngOnInit(): void {
   }
@@ -39,8 +42,9 @@ export class EditComponent implements OnInit {
     return this.notificationService.findById(id).subscribe(notification => {
       this.notificationForm = new FormGroup({
         id: new FormControl(notification.id),
-        content: new FormControl(notification.content),
-        image: new FormControl(notification.image),
+        title: new FormControl(notification.title, [Validators.required]),
+        content: new FormControl(notification.content, [Validators.required, Validators.maxLength(1000)]),
+        image: new FormControl(notification.image, [Validators.required]),
       });
     });
   }
@@ -57,7 +61,8 @@ export class EditComponent implements OnInit {
           console.log(this.notificationForm.value);
           this.notificationService.update(this.id, this.notificationForm.value).subscribe(
             () => {
-              this.router.navigateByUrl('');
+              this.toast.success('Huyền đã sửa thành công', 'MỪNG QUÁ');
+              this.router.navigateByUrl('/notification');
             },
           );
         });
@@ -111,3 +116,4 @@ export class EditComponent implements OnInit {
     };
   }
 }
+

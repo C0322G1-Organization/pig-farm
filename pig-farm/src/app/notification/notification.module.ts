@@ -1,22 +1,27 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import {BrowserModule} from '@angular/platform-browser';
-import {AppRoutingModule} from '../app-routing.module';
+import {NotificationRoutingModule} from './notification-routing.module';
+import {NotificationCreateComponent} from './notification-create/notification-create.component';
+import {NotificationEditComponent} from './notification-edit/notification-edit.component';
+import {NotificationListComponent} from './notification-list/notification-list.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {EditComponent} from './editNotification/edit.component';
-import {CreateComponent} from './createNotification/create.component';
+
 
 @NgModule({
-  declarations: [],
-  exports: [
+  declarations: [
+    NotificationCreateComponent,
+    NotificationEditComponent,
+    NotificationListComponent
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
+    CommonModule,
+    NotificationRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
   ]
 })
-export class NotificationModule { }
+export class NotificationModule {
+}
