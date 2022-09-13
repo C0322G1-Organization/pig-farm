@@ -18,7 +18,10 @@ export class TreatmentService {
   }
 
   deleteTreatment(id: number): Observable<Treatment> {
-    // @ts-ignore
     return this.http.put<Treatment>(this.URL_API + `${id}`);
+  }
+
+  save(saving: Treatment): Observable<Treatment> {
+    return this.http.post<Treatment>(API_URL + '/api/treatment/v1/create', saving);
   }
 }
