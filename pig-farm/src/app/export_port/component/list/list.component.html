@@ -60,7 +60,7 @@
         </thead>
         <tbody *ngFor="let item of listExport, index as i">
         <tr>
-          <td>{{i + 1}}</td>
+          <td>{{(i + 1) + 5 * number}}</td>
           <td>{{item.codeExport}}</td>
           <td>{{item.codeEmployee}}</td>
           <td>{{item.nameEmployee}}</td>
@@ -84,11 +84,12 @@
     </div>
     <div style="text-align: center; display: flex; justify-content: center">
 
-      <button class="col-3 btn btn-outline-warning" style="width: auto; margin-right: 5%"> Sửa
+      <button class="col-3 btn btn-outline-warning" style="width: auto; margin-right: 5%" [disabled]="check.length != 1">
+        Sửa
       </button>
 
       <button class="col-3 btn btn-outline-danger" style="width: auto;" data-bs-toggle="modal"
-              data-bs-target="#exampleModal" type="submit">
+              data-bs-target="#exampleModal" type="submit" [disabled]="check.length < 1">
         Xóa
       </button>
     </div>

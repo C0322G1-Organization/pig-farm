@@ -35,22 +35,6 @@ export class ListComponent implements OnInit {
     this.getListExport(this.page - 1);
   }
 
-  searchExport() {
-    // tao const ojb de hung gia tri tu form
-    const obj = {
-      codeExportSearch: this.searchForm.value.codeExport,
-      companySearch: this.searchForm.value.company,
-      nameSearch: this.searchForm.value.nameEmployee,
-    };
-    console.log(this.searchForm.value.titleSearch);
-    this.exportService.searchAdvertisement(obj).subscribe((value: Export[]) => {
-      // @ts-ignore
-      this.listExport = value.content;
-    }, error => {
-      console.log(error);
-    });
-  }
-
   getListExport(page: number) {
     // @ts-ignore
     // tslint:disable-next-line:variable-name
@@ -66,6 +50,7 @@ export class ListComponent implements OnInit {
   }
 
   goPrevious() {
+    this.check = [];
     let numberPage: number = this.number;
     if (numberPage > 0) {
       numberPage--;
@@ -74,6 +59,7 @@ export class ListComponent implements OnInit {
   }
 
   goNext() {
+    this.check = [];
     let numberPage: number = this.number;
     if (numberPage < this.totalPages - 1) {
       numberPage++;
@@ -82,33 +68,21 @@ export class ListComponent implements OnInit {
   }
 
   goItem(i: number) {
+    this.check = [];
     this.getListExport(i);
   }
 
   checkDelete(value: any) {
-    console.log(1);
     this.ids = [];
-    for (const valueElement of this.listExport) {
-      if (value[valueElement.id] === true) {
-        this.ids.push(valueElement.id);
+    this.nameDelete = [];
+    for (let i = 0; i < this.listExport.length; i++) {
+      if (value[this.listExport[i].id] === true) {
+        this.ids.push(this.listExport[i].id);
+        this.nameDelete.push(this.listExport[i].codeExport);
       }
     }
-    console.log(this.ids);
-    // tslint:disable-next-line:no-shadowed-variable
-    this.exportService.getAll(0).subscribe((value: any) => {
-      // tslint:disable-next-line:prefer-for-of
-      for (let i = 0; i < this.ids.length; i++) {
-        // tslint:disable-next-line:prefer-for-of
-        for (let j = 0; j < value?.content.length; j++) {
-          if (this.ids.includes(this.ids[i]) && this.ids[i] === value?.content[j].id) {
-            this.nameDelete.splice(i, 1);
-            this.nameDelete.push(value?.content[j].codeExport);
-            console.log(this.nameDelete);
-          }
-        }
-      }
+    this.exportService.getAll(0).subscribe((listAds: any) => {
     });
-    console.log(this.nameDelete);
   }
 
   resetId() {
@@ -135,8 +109,9 @@ export class ListComponent implements OnInit {
   }
 
   checkButton(value: any) {
-    this.mess = '';
+    // tìm trùng lặp trong mảng check
     if (this.check.includes(value)) {
+      // lọc những data khác value
       this.check.filter(item => item !== value);
       for (let i = 0; i < this.check.length; i++) {
         if (this.check[i] === value) {
@@ -153,5 +128,24 @@ export class ListComponent implements OnInit {
     }
   }
 
+  searchExport() {
+    // tao const ojb de hung gia tri tu form
+    const obj = {
+      codeExportSearch: this.searchForm.value.codeExport,
+      companySearch: this.searchForm.value.company,
+      nameSearch: this.searchForm.value.nameEmployee,
+    };
+    console.log(this.searchForm.value.titleSearch);
+    this.exportService.searchAdvertisement(obj).subscribe((value: any) => {
+      this.totalPages = value?.totalPages;
+      this.countTotalPages = new Array(value?.totalPages);
+      this.number = value?.number;
+      // @ts-ignore
+      this.listExport = value?.content;
+      console.log(this.listExport);
+    }, error => {
+      console.log(error);
+    });
+  }
 
 }
