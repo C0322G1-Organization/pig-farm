@@ -10,20 +10,16 @@ import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {HttpClientModule} from '@angular/common/http';
 import {BodyModule} from './body/body.module';
-import {CreateComponent} from './notification/createNotification/create.component';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {NotificationModule} from './notification/notification.module';
-import {EditComponent} from './notification/editNotification/edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    CreateComponent,
-    EditComponent,
   ],
   imports: [
     BrowserModule,
