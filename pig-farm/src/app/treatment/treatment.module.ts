@@ -6,13 +6,13 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {ListTreatmentComponent} from './list-treatment/list-treatment.component';
-import {CreateTreatmentComponent} from './create-treatment/create-treatment.component';
+import {TreatmentListComponent} from './list-treatment/treatment-list.component';
+import {TreatmentCreateComponent} from './create-treatment/treatment-create.component';
 
 @NgModule({
   declarations: [
-    ListTreatmentComponent,
-    CreateTreatmentComponent
+    TreatmentListComponent,
+    TreatmentCreateComponent
 
   ],
   imports: [
