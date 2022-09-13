@@ -5,20 +5,26 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
-import {PigstyModule} from './pigsty/pigsty.module';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {StorageModule} from './storage/storage.module';
+import {HeaderComponent} from './header/header.component';
+import {FooterComponent} from './footer/footer.component';
+import {HttpClientModule} from '@angular/common/http';
+import {BodyModule} from './body/body.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
-    PigstyModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    StorageModule,
+    BodyModule
   ],
   providers: [],
   bootstrap: [AppComponent]
