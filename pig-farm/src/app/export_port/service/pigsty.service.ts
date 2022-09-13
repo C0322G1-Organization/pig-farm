@@ -12,6 +12,6 @@ export class PigstyService {
 
   constructor(private http: HttpClient) { }
   getAllPigsty(): Observable<Pigsty[]> {
-    return this.http.get<Pigsty[]>(this.API_URL + '/' + 'pigsty' );
+    return this.http.get<Pigsty[]>(this.API_URL + '/pigsty/getList' );
   }
 }

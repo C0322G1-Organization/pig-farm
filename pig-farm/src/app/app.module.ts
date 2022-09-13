@@ -5,24 +5,26 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
-import {ExportPortCreateComponent} from './export_port/export-port-create/export-port-create.component';
-import {ExportPortUpdateComponent} from './export_port/export-port-update/export-port-update.component';
+import {StorageModule} from './storage/storage.module';
+import {HeaderComponent} from './header/header.component';
+import {FooterComponent} from './footer/footer.component';
 import {HttpClientModule} from '@angular/common/http';
-import {ReactiveFormsModule} from '@angular/forms';
-import {ExportModule} from './export_port/export.module';
+import {BodyModule} from './body/body.module';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    HttpClientModule,
-    ReactiveFormsModule,
-    ExportModule
+    StorageModule,
+    BodyModule
   ],
   providers: [],
   bootstrap: [AppComponent]

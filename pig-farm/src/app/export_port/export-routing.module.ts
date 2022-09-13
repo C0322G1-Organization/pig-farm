@@ -5,7 +5,7 @@ import {ExportPortUpdateComponent} from './export-port-update/export-port-update
 
 
 const routes: Routes = [
-  {path: 'create', component: ExportPortCreateComponent},
+  {path: 'export/create', component: ExportPortCreateComponent},
   {path: 'export-port-update/:id', component: ExportPortUpdateComponent},
 ];
 

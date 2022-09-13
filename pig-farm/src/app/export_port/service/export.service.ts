@@ -16,7 +16,7 @@ export class ExportService {
   }
 
   getAll(page: number): Observable<Export[]> {
-    return this.http.get<Export[]>(API_URL + '/page?page=' + page);
+    return this.http.get<Export[]>(API_URL + 'export/page?page=' + page);
   }
 
   getAllPigsTy(): Observable<Pigsty[]> {
@@ -24,14 +24,20 @@ export class ExportService {
   }
 
   createExport(exports): Observable<Export> {
-    return this.http.post<Export>(API_URL + '/export' + '/create', exports);
+    return this.http.post<Export>(API_URL + '/export/create', exports);
   }
 
   // @ts-ignore
   updateExport(id: number, exports: Export): Observable<Export> {
-    return this.http.put<Export>(API_URL + '/' + id, exports);
+    return this.http.put<Export>(API_URL + '/export' + '/' + id, exports);
   }
+
+  getTotalWeightCount(id: number) {
+    return this.http.get<number[]>(API_URL + '/totalWeightCount' + id);
+  }
+
   getTotal(kilogram: number, price: number): number {
     return kilogram * price;
   }
+
 }

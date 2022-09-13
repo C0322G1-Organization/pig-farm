@@ -26,6 +26,8 @@ export class ExportPortCreateComponent implements OnInit {
     pigsty: new FormControl(),
     employee: new FormControl()
   });
+  amounts: number;
+  kilograms: number;
   pigstyList: Pigsty[];
   employeeList: Employee[];
   total: number;
@@ -39,7 +41,7 @@ export class ExportPortCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.employeeService.getAllEmployee().subscribe(value => {
-      console.log(value);
+      // console.log(value);
       this.employeeList = value.content;
       // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < this.employeeList.length; i++) {
@@ -50,7 +52,7 @@ export class ExportPortCreateComponent implements OnInit {
     });
     this.pigstyService.getAllPigsty().subscribe(value => {
       this.pigstyList = value;
-
+      // console.log(value);
     });
     this.exportForm = new FormGroup({
       codeExport: new FormControl('', [Validators.required]),
@@ -61,9 +63,20 @@ export class ExportPortCreateComponent implements OnInit {
       price: new FormControl('', [Validators.required]),
       totalMoney: new FormControl(),
       typePigs: new FormControl('', [Validators.required]),
-      isDeleted: new FormControl('', [Validators.required]),
       pigsty: new FormControl('', [Validators.required]),
       employee: new FormControl('', [Validators.required])
+    });
+  }
+
+  getPigsty(value) {
+    this.exportService.getTotalWeightCount(value).subscribe(next => {
+      console.log(next);
+      this.exportForm = new FormGroup({
+        codeExport: new FormControl(this.exportForm.value.codeExport),
+        company: new FormControl(),
+        amount: new FormControl(next[0]),
+        kilograms: new FormControl(next[1]),
+      });
     });
   }
 
@@ -81,6 +94,9 @@ export class ExportPortCreateComponent implements OnInit {
     this.total = this.exportService.getTotal(this.exportForm.value.kilogram, this.exportForm.value.price);
   }
 
-
+  chang(value) {
+    console.log(value);
+    // this.employeeName = value.name;
+  }
 
 }

@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {Employee} from '../model/employee';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 
@@ -12,6 +11,6 @@ export class EmployeeService {
 
   constructor(private http: HttpClient) { }
   getAllEmployee(): Observable<any> {
-    return this.http.get<any>(this.API_URL + '/' + 'employee/searchList' );
+    return this.http.get<any>(this.API_URL + '/employee/list' );
   }
 }
