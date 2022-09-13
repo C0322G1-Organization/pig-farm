@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {BodyService} from "../body.service";
-import {ActivatedRoute, ParamMap} from "@angular/router";
+import {BodyService} from '../body.service';
+import {ActivatedRoute, ParamMap} from '@angular/router';
 
 @Component({
   selector: 'app-info-news',

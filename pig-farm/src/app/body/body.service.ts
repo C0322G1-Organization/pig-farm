@@ -14,8 +14,8 @@ export class BodyService {
   constructor(private http: HttpClient) {
   }
 
-  findAll(page: number): Observable<News[]> {
-    return this.http.get<News[]>(API_URL + '/api/v1/notification?page=' + page);
+  findAll(page: number, keyword: string): Observable<News[]> {
+    return this.http.get<News[]>(API_URL + '/api/v1/notification/list?page=' + page + '&keyword=' + keyword);
   }
 
   findById(id: number): Observable<News> {
