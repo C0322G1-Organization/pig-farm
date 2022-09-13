@@ -6,7 +6,6 @@ import {BodyComponent} from './body.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {InfoNewsComponent} from './info-news/info-news.component';
 
-
 @NgModule({
   declarations: [
     BodyComponent,
