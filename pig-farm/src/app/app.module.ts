@@ -11,12 +11,12 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BodyModule} from './body/body.module';
 import {VaccinationModule} from './vaccination/vaccination.module';
-import {TreatmentModule} from './treatment/treatment.module';
-import {StorageModule} from './storage/storage.module';
-import {NotificationModule} from './notification/notification.module';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {StorageModule} from './storage/storage.module';
+import {TreatmentModule} from './treatment/treatment.module';
+import {NotificationModule} from './notification/notification.module';
 
 @NgModule({
   declarations: [
@@ -39,6 +39,7 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
     BodyModule,
     TreatmentModule,
     NotificationModule,
+    VaccinationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
