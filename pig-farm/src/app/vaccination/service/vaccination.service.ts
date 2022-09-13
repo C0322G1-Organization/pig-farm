@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {Vaccination} from '../model/vaccination';
 import {environment} from '../../../environments/environment';
 
-const API_URL = environment.apiUrlVaccination;
+const API_URL = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +15,12 @@ export class VaccinationService {
   }
 
   findAll(page: number, name: string): Observable<Vaccination[]> {
-    return this.http.get<Vaccination[]>(API_URL + '/list?page=' + page + '&name=' + name);
+    return this.http.get<Vaccination[]>(API_URL + '/api/vaccination/list?page=' + page + '&name=' + name);
   }
 
   searchVaccination(objSearch: any): Observable<Vaccination[]> {
     const keySearch: string = objSearch.vaccinPersonSearch;
-    return this.http.get<Vaccination[]>(`${API_URL}/list?name=` + keySearch);
+    return this.http.get<Vaccination[]>(`${API_URL}/api/vaccination/list?name=` + keySearch);
   }
 
   deleteVaccination(ids: number[]): Observable<any> {

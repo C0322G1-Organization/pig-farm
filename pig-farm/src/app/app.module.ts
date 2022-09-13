@@ -5,19 +5,28 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
-import {VaccinationListComponent} from './vaccination/vaccination-list/vaccination-list.component';
+import {StorageModule} from './storage/storage.module';
+import {HeaderComponent} from './header/header.component';
+import {FooterComponent} from './footer/footer.component';
+import {HttpClientModule} from '@angular/common/http';
+import {BodyModule} from './body/body.module';
 import {VaccinationModule} from './vaccination/vaccination.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    VaccinationModule
+    VaccinationModule,
+    StorageModule,
+    BodyModule
   ],
   providers: [],
   bootstrap: [AppComponent]
