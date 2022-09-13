@@ -25,7 +25,7 @@
         <th class="text-light">Nội dung</th>
         <th class="text-light">Địa chỉ</th>
         <th class="text-light">Ngày liên hệ</th>
-        <th class="text-light">Chi tiết</th>
+        <th class="text-light">Chức năng</th>
         <th class="text-light"></th>
       </tr>
       </thead>
@@ -33,66 +33,43 @@
       <tr *ngFor="let contact of contact; let i=index">
         <td>{{ (i + 1) + number * 5}}</td>
         <td>{{contact.name}}</td>
-        <td>{{contact.content}}</td>
+        <td>{{(contact.content.length > 100) ? (contact.content| slice:0:10) + '...' : (contact.content)}}</td>
         <td>{{contact.address}}</td>
         <td>{{contact.date | date: "dd/MM/yyyy"}}</td>
         <td>
-          <!-- Button trigger modal -->
-          <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            Xem chi tiết
-          </button>
-        </td>
-        <td>
-          <input *ngIf="contact" type="checkbox" ngModel [name]="''+contact.id">
+          <input *ngIf="contact" type="checkbox" ngModel [name]="''+contact.id" (ngModelChange)="checkButton(contact.id)">
         </td>
       </tr>
       </tbody>
     </table>
+
     <div style="text-align: center; display: flex; justify-content: center">
+      <button  class="col-3 btn btn-outline-success" style="width: auto; margin-right: 5%" data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop" type="submit" [disabled]="check.length!=1" (click)="getDetails()">
+        Xem chi tiết
+      </button>
       <button class="col-3 btn btn-outline-danger" style="width: auto;" data-bs-toggle="modal"
-              data-bs-target="#exampleModal" type="submit">
+              data-bs-target="#exampleModal" type="submit" [disabled]="check.length<1">
         Xoá
       </button>
     </div>
   </form>
   <!--Phan trang-->
-  <div style="display: flex; justify-content: flex-end">
+  <nav aria-label="...">
     <ul class="pagination">
-      <div *ngIf="number == 0">
-        <li class="page-item disabled">
-          <button class="page-link" hidden>Previous</button>
-        </li>
-      </div>
-      <div *ngIf="number != 0">
-        <li class="page-item">
-          <button class="page-link" (click)="goPrevious()">Previous</button>
-        </li>
-      </div>
-
-      <div *ngFor="let count of countTotalPages; index as i">
-        <div *ngIf="i == number">
-          <li class="page-item active">
-            <button class="page-link" (click)="goItem(i)">{{i + 1}}</button>
-          </li>
-        </div>
-        <div *ngIf="i != number">
-          <li class="page-item">
-            <button class="page-link" (click)="goItem(i)">{{i + 1}}</button>
-          </li>
-        </div>
-      </div>
-      <div *ngIf="number == totalPages - 1">
-        <li class="page-item disabled">
-          <button class="page-link" hidden>Next</button>
-        </li>
-      </div>
-      <div *ngIf="number != totalPages - 1">
-        <li class="page-item">
-          <button class="page-link" (click)="goNext()">Next</button>
-        </li>
-      </div>
+      <li class="page-item " *ngIf="checkPrevious">
+        <a class="page-link"  (click)="goPrevious()" tabindex="-1">Trang trước</a>
+      </li>
+      <li class="page-item" *ngIf="checkPrevious"><a class="page-link" (click)="goPrevious()">{{number}}</a></li>
+      <li class="page-item active">
+        <a class="page-link" > <span class="sr-only">{{number+1}}</span></a>
+      </li>
+      <li class="page-item" *ngIf="checkNext"><a class="page-link" (click)="goNext()">{{number+2}}</a></li>
+      <li class="page-item" *ngIf="checkNext">
+        <a class="page-link" (click)="goNext()">Trang sau</a>
+      </li>
     </ul>
-  </div>
+  </nav>
 </div>
 
 
@@ -132,27 +109,27 @@
         <form class="col-lg-6 formRow_create">
           <div class="formRow_create_content">
             <div class="mb-3">
-              <label class="form-label">Tên người liên hệ: <span style="color: #5c636a">{{contact}}</span></label>
+              <label class="form-label">Tên người liên hệ: <span style="color: #5c636a">{{contactDetail.name}}</span></label>
             </div>
 
             <div class="mb-3">
-              <label class="form-label">Email: <span style="color: #5c636a">nguyenvana@gmail.com</span></label>
+              <label class="form-label">Email: <span style="color: #5c636a">{{contactDetail.email}}</span></label>
             </div>
 
             <div class="mb-3">
-              <label class="form-label">Số điện thoại: <span style="color: #5c636a">0993456789</span></label>
+              <label class="form-label">Số điện thoại: <span style="color: #5c636a">{{contactDetail.phone}}</span></label>
             </div>
 
             <div class="mb-3">
-              <label class="form-label">Địa chỉ: <span style="color: #5c636a">Quảng Trị</span> </label>
+              <label class="form-label">Địa chỉ: <span style="color: #5c636a">{{contactDetail.address}}</span> </label>
             </div>
 
             <div class="mb-3">
-              <label class="form-label">Nội dung: <span style="color: #5c636a">Cần mua 10 con lợn</span> </label>
+              <label class="form-label">Nội dung: <span style="color: #5c636a">{{contactDetail.content}}</span> </label>
             </div>
 
             <div class="mb-3">
-              <label class="form-label">Ngày liên hệ: <span style="color: #5c636a">20/08/2022</span> </label>
+              <label class="form-label">Ngày liên hệ: <span style="color: #5c636a">{{contactDetail.date}}</span> </label>
             </div>
 
           </div>
