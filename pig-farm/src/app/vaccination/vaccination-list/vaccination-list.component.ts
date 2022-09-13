@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Vaccination} from '../model/vaccination';
+import {Vaccination} from '../../model/vaccination';
 import {FormControl, FormGroup} from '@angular/forms';
 import {VaccinationService} from '../../service/vaccination.service';
 import {ToastrService} from 'ngx-toastr';
