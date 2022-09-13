@@ -26,7 +26,7 @@ export class VaccinationService {
   deleteVaccination(ids: number[]): Observable<any> {
     const data = {id: ids};
     console.log(data);
-    const url = API_URL + '/delete';
+    const url = API_URL + '/api/vaccination/delete';
     const options = {
       headers: new HttpHeaders({
         Accept: 'application/json',
