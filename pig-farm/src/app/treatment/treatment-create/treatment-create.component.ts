@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Treatment} from '../../model/treatment';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {TreatmentService} from '../../service/treatment-service';
 import {Router} from '@angular/router';
 import {DatePipe} from '@angular/common';
+
+import {TreatmentService} from '../../service/treatment.service';
 
 @Component({
   selector: 'app-create-treatment',
@@ -14,15 +15,15 @@ export class TreatmentCreateComponent implements OnInit {
   treatment: Treatment[];
   today = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
   creatTreatmentForm: FormGroup = new FormGroup({
-    id: new FormControl('', [Validators.required ]),
+    id: new FormControl('', [Validators.required]),
     pigstyCode: new FormControl('', [Validators.required]),
-    date: new FormControl(this.today , [Validators.required,
+    date: new FormControl(this.today, [Validators.required,
       Validators.pattern('^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d$')]),
-    doctor: new FormControl('' , [Validators.required]),
-    diseases: new FormControl('' , [Validators.required]),
-    medicine: new FormControl('' , [Validators.required]),
-    amount: new FormControl('' , [Validators.required]),
-    pigCode: new FormControl('' , [Validators.required]),
+    doctor: new FormControl('', [Validators.required]),
+    diseases: new FormControl('', [Validators.required]),
+    medicine: new FormControl('', [Validators.required]),
+    amount: new FormControl('', [Validators.required]),
+    pigCode: new FormControl('', [Validators.required]),
     isDelete: new FormControl('0')
   });
 
@@ -32,7 +33,6 @@ export class TreatmentCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.treatmentService.getAll(name);
   }
 
   submit() {
