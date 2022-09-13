@@ -10,7 +10,7 @@
       </div>
     </form>
   </div>
-  <form #formPigsty="ngForm" autocomplete="off" (ngSubmit)="edit(formPigsty.value)">
+  <form #formPigsty="ngForm" (ngSubmit)="edit(formPigsty.value)">
     <table style="text-align: center;" class="table table-striped table-hover mt-3 mb-3">
       <tr style="background-color: #017428">
         <th class="text-light">STT</th>
@@ -55,7 +55,7 @@
       </ul>
     </div>
     <div style="text-align: center; display: flex; justify-content: center" class="mb-2">
-      <button *ngIf="checkEdit" type="submit" href="edit.html" class="col-lg-3 btn btn-warning"
+      <button [disabled]="!checkEdit"  type="submit" href="edit.html" class="col-lg-3 btn btn-warning"
          style="width: auto; margin-right: 5%">Sửa</button>
     </div>
   </form>
