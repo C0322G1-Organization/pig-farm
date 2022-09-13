@@ -12,6 +12,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {BodyModule} from './body/body.module';
 import {TreatmentModule} from './treatment/treatment.module';
 import {VaccinationModule} from './vaccination/vaccination.module';
+import {FoodModule} from './food/food.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {VaccinationModule} from './vaccination/vaccination.module';
     VaccinationModule,
     StorageModule,
     BodyModule,
-    TreatmentModule
+    TreatmentModule,
+    FoodModule
   ],
   providers: [],
   bootstrap: [AppComponent]
