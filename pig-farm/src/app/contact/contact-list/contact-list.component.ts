@@ -13,9 +13,9 @@ import {ContactService} from '../service/contact.service';
 export class ContactListComponent implements OnInit {
   msg: string;
   clss: string;
-  name: string;
+  name = '';
   totalPages: number;
-  number: number;
+  number = 0;
   countTotalPages: number[];
   contact: Contact[] = [];
   searchForm = new FormGroup({
@@ -24,6 +24,11 @@ export class ContactListComponent implements OnInit {
   contacts: Contact;
   nameDelete: any = [];
   ids: number[] = [];
+  content = '';
+  checkNext: boolean;
+  checkPrevious: boolean;
+  check: any[] = [];
+  contactDetail: Contact = {};
 
   constructor(private contactService: ContactService,
               private router: Router,
@@ -31,15 +36,17 @@ export class ContactListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getContact(0);
+    this.getContact(0, '');
   }
 
-  getContact(page: number) {
-    this.contactService.getAllContact(page).subscribe((value: any) => {
+  getContact(page: number, name: string) {
+    this.contactService.getAllContact(page, name).subscribe((value: any) => {
       this.totalPages = value?.totalPages;
       this.countTotalPages = new Array(value?.totalPages);
       this.number = value?.number;
       this.contact = value?.content;
+      this.checkNext = !value.last;
+      this.checkPrevious = !value.first;
       this.msg = '';
     }, error => {
       console.log(error);
@@ -47,9 +54,10 @@ export class ContactListComponent implements OnInit {
   }
 
   deleteId() {
+    this.check = [];
     if (this.ids.length > 0) {
       this.contactService.deleteContact(this.ids).subscribe(value1 => {
-        this.getContact(0);
+        this.getContact(0, '');
         this.toast.error('Xóa thành công !!!', 'Liên hệ');
         this.ids = [];
       }, err => {
@@ -65,25 +73,16 @@ export class ContactListComponent implements OnInit {
   }
 
   checkDelete(value: any) {
-    this.nameDelete = [];
     this.ids = [];
     this.msg = '';
-    for (const valueElement of this.contact) {
-      if (value[valueElement.id] === true) {
-        this.ids.push(valueElement.id);
+    this.nameDelete = [];
+    this.contact.forEach(item => {
+      if (value[item.id] === true) {
+        this.ids.push(item.id);
+        this.nameDelete.push(item.name);
       }
-    }
-    // tslint:disable-next-line:no-shadowed-variable
-    this.contactService.getAllContact(0).subscribe((value: any) => {
-      for (let i = 0; i < this.ids.length; i++) {
-        // tslint:disable-next-line:prefer-for-of
-        for (let j = 0; j < value?.content.length; j++) {
-          if (this.ids.includes(this.ids[i]) && this.ids[i] === value?.content[j].id) {
-            this.nameDelete.splice(i, 1);
-            this.nameDelete.push(value?.content[j].content);
-          }
-        }
-      }
+    });
+    this.contactService.getAllContact(0, '').subscribe(() => {
     });
   }
 
@@ -93,33 +92,37 @@ export class ContactListComponent implements OnInit {
   }
 
   goPrevious() {
-    let numberPage: number = this.number;
-    if (numberPage > 0) {
-      numberPage--;
-      console.log(numberPage--);
-      this.getContact(numberPage);
-    }
+    this.number--;
+    this.getContact(this.number, this.name);
   }
 
   goNext() {
-    let numberPage: number = this.number;
-    if (numberPage < this.totalPages - 1) {
-      numberPage++;
-      this.getContact(numberPage);
-    }
-  }
-
-  goItem(i: number) {
-    this.getContact(i);
+    this.number++;
+    this.getContact(this.number, this.name);
   }
 
   search() {
-    const obj = {content: this.searchForm.value.name};
-    this.contactService.search(obj).subscribe((value: any) => {
-      this.contact = value.content;
-    }, error => {
-      console.log(error);
-    });
+    this.name = this.searchForm.value.name;
+    this.getContact(0, this.name);
   }
 
+  checkButton(value: any) {
+    this.msg = '';
+    if (this.check.includes(value)) {
+      this.check.filter(item => item !== value);
+      for (let i = 0; i < this.check.length; i++) {
+        if (this.check[i] === value) {
+          this.check.splice(i, 1);
+        }
+      }
+    } else {
+      this.check.push(value);
+    }
+  }
+
+  getDetails() {
+    this.contactService.getContactById(this.check[0]).subscribe(value => {
+      this.contactDetail = value;
+    });
+  }
 }
