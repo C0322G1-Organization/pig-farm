@@ -4,10 +4,11 @@
     <div style="text-align: center; font-size: 30px;" class="mt-3">ĐĂNG THÔNG BÁO</div>
     <form [formGroup]="searchForm" novalidate>
       <div class="col-3 position-relative mx-auto me-3" style=" display: flex">
-        <div style="display: flex; border: 1px solid;justify-content: space-evenly;width: 65%;border-radius: 8px;margin-right: 4%;">
+        <div
+          style="display: flex; border: 1px solid;justify-content: space-evenly;width: 65%;border-radius: 8px;margin-right: 4%;">
           <div>
             <input style="border: 0" class="form-control " type="text" placeholder="Tìm Kiếm" formControlName="content"
-                   [(ngModel)]="content"
+                   [ngModel]="title"
                    id="content" (keyup)="search()">
           </div>
           <div style="margin-right: 3%;">
@@ -65,44 +66,21 @@
         </button>
       </div>
     </form>
-    <!--Phan trang-->
-    <div style="display: flex; justify-content: flex-end">
+    <nav aria-label="...">
       <ul class="pagination">
-        <div *ngIf="number == 0">
-          <li class="page-item disabled">
-            <button class="page-link" hidden>Previous</button>
-          </li>
-        </div>
-        <div *ngIf="number != 0">
-          <li class="page-item">
-            <button class="page-link" (click)="goPrevious()">Previous</button>
-          </li>
-        </div>
-
-        <div *ngFor="let count of countTotalPages; index as i">
-          <div *ngIf="i == number">
-            <li class="page-item active">
-              <button class="page-link" (click)="goItem(i)">{{i + 1}}</button>
-            </li>
-          </div>
-          <div *ngIf="i != number">
-            <li class="page-item">
-              <button class="page-link" (click)="goItem(i)">{{i + 1}}</button>
-            </li>
-          </div>
-        </div>
-        <div *ngIf="number == totalPages - 1">
-          <li class="page-item disabled">
-            <button class="page-link" hidden>Next</button>
-          </li>
-        </div>
-        <div *ngIf="number != totalPages - 1">
-          <li class="page-item">
-            <button class="page-link" (click)="goNext()">Next</button>
-          </li>
-        </div>
+        <li class="page-item " *ngIf="checkPrevious">
+          <a class="page-link" (click)="goPrevious()" tabindex="-1">Trang trước</a>
+        </li>
+        <li class="page-item" *ngIf="checkPrevious"><a class="page-link" (click)="goPrevious()">{{number}}</a></li>
+        <li class="page-item active">
+          <a class="page-link"> <span class="sr-only">{{number + 1}}</span></a>
+        </li>
+        <li class="page-item" *ngIf="checkNext"><a class="page-link" (click)="goNext()">{{number + 2}}</a></li>
+        <li class="page-item" *ngIf="checkNext">
+          <a class="page-link" (click)="goNext()">Trang sau</a>
+        </li>
       </ul>
-    </div>
+    </nav>
   </div>
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
@@ -129,16 +107,16 @@
   </div>
 
   <!-- Khi không có dữ liệu thì hiện  -->
-  <div style="text-align: center; display: flex; justify-content: center; height: 250px" >
+  <div style="text-align: center; display: flex; justify-content: center; height: 250px">
     <ng-template #elseBlock>
       <div class="body">
         <div class="container mt-5 pb-2" style="text-align: center">
 
           <div style="text-align: center; font-size: 30px;" class="mt-3">ĐĂNG THÔNG BÁO</div>
           <form [formGroup]="searchForm" novalidate>
-            <div class="col-3 position-relative mx-auto me-4" >
+            <div class="col-3 position-relative mx-auto me-4">
               <input type="search" class="input-search form-control" style="width: 250px"
-                     placeholder="Tìm kiếm" formControlName="content" [(ngModel)]="content"
+                     placeholder="Tìm kiếm" formControlName="content" [ngModel]="content"
                      (keyup)="search()">
             </div>
           </form>

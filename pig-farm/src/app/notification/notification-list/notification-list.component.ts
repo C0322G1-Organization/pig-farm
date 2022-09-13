@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {NotificationService} from '../../notification.service';
 import {FormControl, FormGroup} from '@angular/forms';
-import {NotificationService} from '../notification.service';
 import {Router} from '@angular/router';
+import {Notification} from '../../model/notification';
 import {ToastrService} from 'ngx-toastr';
 
 @Component({
@@ -10,23 +11,21 @@ import {ToastrService} from 'ngx-toastr';
   styleUrls: ['./notification-list.component.css']
 })
 export class NotificationListComponent implements OnInit {
-
   msg: string;
   clss: string;
-  abc: any;
-  content: string;
-  totalPages: number;
+  content = '';
   number: number;
-  countTotalPages: number[];
   notifications: Notification[] = [];
-  searchForm = new FormGroup({
-    content: new FormControl('')
-  });
   nameDelete: any = [];
   ids: number[] = [];
   check: string[] = [];
   editId: string;
-
+  title: any;
+  checkNext: boolean;
+  checkPrevious: boolean;
+  searchForm = new FormGroup({
+    content: new FormControl('')
+  });
 
   constructor(private notificationService: NotificationService,
               private router: Router,
@@ -34,18 +33,16 @@ export class NotificationListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getNotifications(0);
+    this.getNotifications(0, '');
   }
 
-  getNotifications(page: number) {
-    // @ts-ignore
-    // tslint:disable-next-line:variable-name
-    this.notificationService.getAllNotifications(page).subscribe((value: any) => {
-      this.totalPages = value?.totalPages;
-      this.countTotalPages = new Array(value?.totalPages);
+  getNotifications(page: number, content: string) {
+    this.notificationService.getAllNotifications(page, content).subscribe((value: any) => {
       this.number = value?.number;
       this.notifications = value?.content;
       this.msg = '';
+      this.checkNext = !value.last;
+      this.checkPrevious = !value.first;
     }, error => {
       console.log(error);
     });
@@ -55,7 +52,7 @@ export class NotificationListComponent implements OnInit {
     this.check = [];
     if (this.ids.length > 0) {
       this.notificationService.deleteNotifications(this.ids).subscribe(value1 => {
-        this.getNotifications(0);
+        this.getNotifications(0, '');
         this.toast.error('Xóa thành công !!!', 'Thông báo');
         this.ids = [];
       }, err => {
@@ -73,22 +70,14 @@ export class NotificationListComponent implements OnInit {
   checkDelete(value: any) {
     this.ids = [];
     this.msg = '';
-    for (const valueElement of this.notifications) {
-      if (value[valueElement.id] === true) {
-        this.ids.push(valueElement.id);
+    this.nameDelete = [];
+    this.notifications.forEach(item => {
+      if (value[item.id] === true) {
+        this.ids.push(item.id);
+        this.nameDelete.push(item.title);
       }
-    }
-    // tslint:disable-next-line:no-shadowed-variable
-    this.notificationService.getAllNotifications(0).subscribe((value: any) => {
-      for (let i = 0; i < this.ids.length; i++) {
-        // tslint:disable-next-line:prefer-for-of
-        for (let j = 0; j < value?.content.length; j++) {
-          if (this.ids.includes(this.ids[i]) && this.ids[i] === value?.content[j].id) {
-            this.nameDelete.splice(i, 1);
-            this.nameDelete.push(value?.content[j].content);
-          }
-        }
-      }
+    });
+    this.notificationService.getAllNotifications(0, '').subscribe(() => {
     });
   }
 
@@ -117,34 +106,19 @@ export class NotificationListComponent implements OnInit {
   }
 
   goPrevious() {
-    let numberPage: number = this.number;
-    if (numberPage > 0) {
-      numberPage--;
-      this.getNotifications(numberPage);
-    }
+    this.number--;
+    this.getNotifications(this.number, this.content);
+    this.check = [];
   }
 
   goNext() {
-    let numberPage: number = this.number;
-    if (numberPage < this.totalPages - 1) {
-      numberPage++;
-      this.getNotifications(numberPage);
-    }
-  }
-
-  goItem(i: number) {
-    this.getNotifications(i);
+    this.number++;
+    this.getNotifications(this.number, this.content);
+    this.check = [];
   }
 
   search() {
-    const obj = {content: this.searchForm.value.content};
-    this.notificationService.searchByContent(obj).subscribe((value: any) => {
-      this.notifications = value?.content;
-      this.totalPages = value.totalPages;
-      this.countTotalPages = new Array(value?.totalPages);
-    }, error => {
-      console.log(error);
-    });
+    this.content = this.searchForm.value.content;
+    this.getNotifications(0, this.content);
   }
-
 }
