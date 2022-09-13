@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {ListTreatmentComponent} from './list-treatment/list-treatment.component';
-import {CreateTreatmentComponent} from './create-treatment/create-treatment.component';
+import {TreatmentCreateComponent} from './treatment-create/treatment-create.component';
+import {TreatmentListComponent} from './treatment-list/treatment-list.component';
 
 const routes: Routes = [
   {
     path: 'treatment',
-    component: ListTreatmentComponent
+    component: TreatmentListComponent
   }, {
     path: 'treatment/create',
-    component: CreateTreatmentComponent
+    component: TreatmentCreateComponent
   }];
 
 @NgModule({
