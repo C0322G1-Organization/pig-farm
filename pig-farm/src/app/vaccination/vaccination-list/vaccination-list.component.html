@@ -36,8 +36,8 @@
           <th class="text-light" scope="row" style="width: 5%">STT</th>
           <th class="text-light" style="width: 20%">Ngày</th>
           <th class="text-light" style="width: 10%">Chuồng</th>
-          <th class="text-light" style="text-align: left ;width: 25%">Người tiêm</th>
-          <th class="text-light" style="text-align: left ; width: 25%">Loại vaccine</th>
+          <th class="text-light" style="text-align: left ;width: 20%">Người tiêm</th>
+          <th class="text-light" style="text-align: left ; width: 30%">Loại vaccine</th>
           <th class="text-light" style="text-align: left">Số lượng</th>
           <th></th>
         </tr>
@@ -63,24 +63,23 @@
       </div>
     </form>
 
-<!--    th:if="${customerList.hasPrevious()}-->
     <!--Phan trang-->
     <div style="display: flex; justify-content: flex-end">
-    <nav aria-label="...">
-      <ul class="pagination">
-        <li class="page-item " *ngIf="checkPrevious">
-          <a class="page-link"  (click)="goPrevious()" tabindex="-1">Trước</a>
-        </li>
-        <li class="page-item" *ngIf="checkPrevious"><a class="page-link" (click)="goPrevious()">{{number}}</a></li>
-        <li class="page-item active">
-          <a class="page-link" > <span class="sr-only">{{number+1}}</span></a>
-        </li>
-        <li class="page-item" *ngIf="checkNext"><a class="page-link" (click)="goNext()">{{number+2}}</a></li>
-        <li class="page-item" *ngIf="checkNext">
-          <a class="page-link" (click)="goNext()">Sau</a>
-        </li>
-      </ul>
-    </nav>
+      <nav aria-label="...">
+        <ul class="pagination">
+          <li class="page-item " *ngIf="checkPrevious">
+            <a class="page-link" (click)="goPrevious()" tabindex="-1">Trước</a>
+          </li>
+          <li class="page-item" *ngIf="checkPrevious"><a class="page-link" (click)="goPrevious()">{{number}}</a></li>
+          <li class="page-item active">
+            <a class="page-link"> <span class="sr-only">{{number + 1}}</span></a>
+          </li>
+          <li class="page-item" *ngIf="checkNext"><a class="page-link" (click)="goNext()">{{number + 2}}</a></li>
+          <li class="page-item" *ngIf="checkNext">
+            <a class="page-link" (click)="goNext()">Sau</a>
+          </li>
+        </ul>
+      </nav>
     </div>
 
     <div style="text-align: center; display: flex; justify-content: center">
@@ -117,4 +116,5 @@
       </div>
     </div>
   </div>
+  <div class="vc_empty_space" style="height: 50px"><span class="vc_empty_space_inner"></span></div>
 </div>
