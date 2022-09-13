@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {StorageService} from '../storage.service';
 import {FormControl, FormGroup} from '@angular/forms';
 
@@ -13,63 +13,41 @@ export class StorageListComponent implements OnInit {
     foodType: new FormControl('')
   });
   storageList: Storage[] = [];
-  totalPages: number;
   number: number;
-  countTotalPages: number[];
+  foodType = '';
+  checkNext: boolean;
+  checkPreview: boolean;
 
   constructor(private storageService: StorageService) {
   }
 
   ngOnInit(): void {
-    this.getAll(0);
+    this.getAll(0, '');
   }
 
-  getAll(page: number) {
-    // @ts-ignore
-    // tslint:disable-next-line:variable-name
-    this.storageService.getAll(page).subscribe(({content, number: number, totalPages: totalPages}: Storage[]) => {
-      this.totalPages = totalPages;
-      this.countTotalPages = new Array(totalPages);
-      this.number = number;
-      this.storageList = content;
+  getAll(page: number, foodType: string) {
+    this.storageService.getAll(page, foodType).subscribe((value: any) => {
+      this.number = value?.number;
+      this.storageList = value?.content;
+      this.checkNext = !value.last;
+      this.checkPreview = !value.first;
     }, error => {
       console.log(error);
     });
   }
 
   goPrevious() {
-    let numberPage: number = this.number;
-    if (numberPage > 0) {
-      numberPage--;
-      this.getAll(numberPage);
-    }
+    this.number--;
+    this.getAll(this.number, this.foodType);
   }
 
   goNext() {
-    let numberPage: number = this.number;
-    if (numberPage < this.totalPages - 1) {
-      numberPage++;
-      this.getAll(numberPage);
-    }
-  }
-
-  goItem(i: number) {
-    this.getAll(i);
+    this.number++;
+    this.getAll(this.number, this.foodType);
   }
 
   searchStorage() {
-// tao const ojb de hung gia tri tu form
-    const obj = {
-      foodType: this.searchForm.value.foodType,
-    };
-    console.log(this.searchForm.value.foodType);
-    // @ts-ignore
-    this.storageService.searchStorage(obj).subscribe((value: Storage[]) => {
-      // @ts-ignore
-      this.storageList = value.content;
-    }, error => {
-      console.log(error);
-    });
+    this.foodType = this.searchForm.value.foodType;
+    this.getAll(0, this.foodType);
   }
-
 }
