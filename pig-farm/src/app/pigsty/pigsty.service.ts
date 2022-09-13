@@ -11,10 +11,10 @@ export class PigstyService {
 
   constructor(private http: HttpClient) { }
   getAll(): Observable<Pigsty[]> {
-    return this.http.get<Pigsty[]>(API_URL + '/api/vaccination/create');
+    return this.http.get<Pigsty[]>(API_URL + '/pigsty/list');
   }
 
   findById(id: number): Observable<Pigsty> {
-    return this.http.get<Pigsty>(`${API_URL}/api/vaccination/create/${id}`);
+    return this.http.get<Pigsty>(`${API_URL}/pigsty/by/${id}`);
   }
 }

@@ -3,7 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import {CommonModule} from '@angular/common';
 
 
-const routes: Routes = [];
+const routes: Routes = [
+];
 
 @NgModule({
   declarations: [],

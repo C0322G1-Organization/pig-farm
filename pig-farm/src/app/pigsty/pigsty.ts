@@ -1,8 +1,10 @@
 export interface Pigsty {
-  id ?: number;
+  id?: number;
+  creationDate?: string;
+  typePigs?: number;
   code?: string;
-  creationDate ?: string;
-  buildDate ?: string;
-  maxNumber ?: number;
-  isDeleted ?: boolean;
+  buildDate?: string;
+  maxNumber?: number;
+  isDeleted?: boolean;
+
 }

@@ -12,27 +12,27 @@
             <label class="form-label">Chuồng<span>*</span>:</label>
             <select class="form-select" id="inlineFormSelectPref" formControlName="pigsty">
               <option value="" [selected]="pigstyType" selected disabled>{{pigstyType}}</option>
-              <option *ngFor="let p of pigstys" [ngValue]="p.id">{{p.code}}</option>
+              <option *ngFor="let p of pigstys" [ngValue]="p.id" >{{p.code}}</option>
             </select>
             <div class="form-text"><span><p *ngIf="vaccinationForm.controls.pigsty.hasError('required') && vaccinationForm.controls.pigsty.touched">Không
                 được để trống</p></span></div>
           </div>
 
-<!--          <div class="mb-3">-->
-<!--            <label class="form-label">Ngày đóng chuồng:</label>-->
-<!--            <input type="text" class="form-control" formControlName="pigsty">-->
+          <div class="mb-3">
+            <label class="form-label">Ngày đóng chuồng:</label>
+            <input type="date" class="form-control" formControlName="date1">
 <!--            <div class="form-text"><span>Không được để trống</span></div>-->
-<!--          </div>-->
+          </div>
 
           <div class="mb-3">
             <label class="form-label">Loại vaccine<span>*</span>:</label>
-            <select class="form-select" id="inlineFormSelectPref1" formControlName="vaccineType">
+            <select class="form-select" id="inlineFormSelectPref1" formControlName="vaccineType" (change)="checkDate()">
               <option value="" [selected]="vaccineType" selected disabled>{{vaccineType}}</option>
-              <option value="Phòng PRRS">Phòng PRRS</option>
-              <option value="Phòng Mycoplasma">Phòng Mycoplasma</option>
-              <option value="Phòng CSF(dịch tả)">Phòng CSF(dịch tả)</option>
-              <option value="Phòng FMD(lở mồm long móng)">Phòng FMD(lở mồm long móng)</option>
-              <option value="Phòng APP(viêm phổi dính sườn)">Phòng APP(viêm phổi dính sườn)</option>
+              <option value="PRRS" >Phòng PRRS</option>
+              <option value="Mycoplasma">Phòng Mycoplasma</option>
+              <option value="CSF">Phòng CSF(dịch tả)</option>
+              <option value="FMD">Phòng FMD(lở mồm long móng)</option>
+              <option value="APP">Phòng APP(viêm phổi dính sườn)</option>
             </select>
             <div class="form-text"><span><p
               *ngIf="vaccinationForm.controls.vaccineType.hasError('required') && vaccinationForm.controls.vaccineType.touched">
@@ -40,7 +40,7 @@
           </div>
           <div class="mb-3">
             <label class="form-label">Ngày tiêm phòng<span>*</span>:</label>
-            <input type="date" class="form-control" formControlName="date">
+            <input type="text" class="form-control" formControlName="date" [(ngModel)]="date2">
             <div class="form-text"><span><p
               *ngIf="vaccinationForm.controls.date.hasError('required') && vaccinationForm.controls.date.touched">
                   Không được để trống</p></span></div>
