@@ -97,5 +97,4 @@ export class VaccinationListComponent implements OnInit {
     this.nameDelete = [];
     this.ids = [];
   }
-
 }
