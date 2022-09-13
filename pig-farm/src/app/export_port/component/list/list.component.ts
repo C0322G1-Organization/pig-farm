@@ -37,13 +37,29 @@ export class ListComponent implements OnInit {
 
   getListExport(page: number) {
     // @ts-ignore
-    // tslint:disable-next-line:variable-name
-    this.exportService.getAll(page).subscribe((value: any) => {
+    this.exportService.getAll(page).subscribe((value?: any) => {
       this.totalPages = value?.totalPages;
       this.countTotalPages = new Array(value?.totalPages);
       this.number = value?.number;
       this.listExport = value?.content;
       console.log(value?.content);
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  searchExport() {
+    // tao const ojb de hung gia tri tu form
+    const obj = {
+      codeExportSearch: this.searchForm.value.codeExport,
+      companySearch: this.searchForm.value.company,
+      nameSearch: this.searchForm.value.nameEmployee,
+    };
+    console.log(this.searchForm.value.titleSearch);
+    this.exportService.searchAdvertisement(obj).subscribe((value?: any) => {
+      // @ts-ignore
+      this.listExport = value?.content;
+      console.log(this.listExport);
     }, error => {
       console.log(error);
     });
@@ -88,6 +104,8 @@ export class ListComponent implements OnInit {
   resetId() {
     this.nameDelete = [];
     this.ids = [];
+    this.ngOnInit();
+    this.check = [];
   }
 
   deleteId() {
@@ -126,26 +144,6 @@ export class ListComponent implements OnInit {
     } else {
       this.editId = this.check[0];
     }
-  }
-
-  searchExport() {
-    // tao const ojb de hung gia tri tu form
-    const obj = {
-      codeExportSearch: this.searchForm.value.codeExport,
-      companySearch: this.searchForm.value.company,
-      nameSearch: this.searchForm.value.nameEmployee,
-    };
-    console.log(this.searchForm.value.titleSearch);
-    this.exportService.searchAdvertisement(obj).subscribe((value: any) => {
-      this.totalPages = value?.totalPages;
-      this.countTotalPages = new Array(value?.totalPages);
-      this.number = value?.number;
-      // @ts-ignore
-      this.listExport = value?.content;
-      console.log(this.listExport);
-    }, error => {
-      console.log(error);
-    });
   }
 
 }
