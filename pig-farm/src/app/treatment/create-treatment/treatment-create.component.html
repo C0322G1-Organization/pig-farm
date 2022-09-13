@@ -1,4 +1,4 @@
-
+<body>
 <div class="container-fluid">
 </div>
 <div class="vc_empty_space" style="height: 64px"><span class="vc_empty_space_inner"></span></div>
@@ -15,14 +15,14 @@
           <label class="form-label">Ngày <span class="text-danger">*</span> </label>
           <input type="date" class="form-control" formControlName="date">
           <div class="form-text">
-            <p *ngIf="creatTreatmentForm.controls['date'].hasError('required')">Không được để trống.</p>
-<!--            <p *ngIf="creatTreatmentForm.controls['date'].hasError('pattern')"> Không đúng định dạng</p>-->
-            </div>
+            <p *ngIf="creatTreatmentForm.controls['date'].hasError('required') && creatTreatmentForm.controls['date'].dirty">Không được để trống.</p>
+<!--            <p *ngIf="creatTreatmentForm.controls['date'].hasError('pattern') && creatTreatmentForm.controls['date'].dirty"> Không đúng định dạng</p>-->
+          </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Chuồng <span class="text-danger">*</span></label>
           <select  class="form-control" formControlName="pigstyCode">
-            <option>---Chọn---</option>
+            <option selected [value]="null" disabled>---Chọn---</option>
             <option>C01</option>
             <option>C02</option>
             <option>C03</option>
@@ -30,35 +30,35 @@
             <option>C05</option>
           </select>
           <div class="form-text">
-            <p *ngIf="creatTreatmentForm.controls['pigstyCode'].hasError('required')">Không được để trống.</p>
+            <p *ngIf="creatTreatmentForm.controls['pigstyCode'].hasError('required') && creatTreatmentForm.dirty">Không được để trống.</p>
           </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Mã lợn <span class="text-danger">*</span></label>
           <select   class="form-control" formControlName="pigCode">
-            <option>---Chọn---</option>
-            <option>L01</option>
-            <option>L02</option>
-            <option>L03</option>
-            <option>L04</option>
-            <option>L05</option>
+            <option selected [value]="null" disabled >---Chọn---</option>
+            <option value="L01">L01</option>
+            <option value="L02">L02</option>
+            <option value="L03">L03</option>
+            <option value="L04">L04</option>
+            <option value="L05">L05</option>
           </select>
           <div class="form-text">
-            <p *ngIf="creatTreatmentForm.controls['pigCode'].hasError('required')">Không được để trống.</p>
+            <p *ngIf="creatTreatmentForm.controls['pigCode'].hasError('required') && creatTreatmentForm.dirty">Không được để trống.</p>
           </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Người/ TT khám:</label>
           <input type="text" class="form-control" formControlName="doctor" placeholder="Nhập tên người khám bệnh">
           <div class="form-text">
-            <p *ngIf="creatTreatmentForm.controls['doctor'].hasError('required')">Không được để trống.</p>
+            <p *ngIf="creatTreatmentForm.controls['doctor'].hasError('required') && creatTreatmentForm.dirty">Không được để trống.</p>
           </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Loại bệnh <span class="text-danger">*</span></label>
           <input type="text" class="form-control" formControlName="diseases" placeholder="Nhập tên bệnh" required>
           <div class="form-text">
-            <p *ngIf="creatTreatmentForm.controls['diseases'].hasError('required')">Không được để trống.</p>
+            <p *ngIf="creatTreatmentForm.controls['diseases'].hasError('required') && creatTreatmentForm.dirty">Không được để trống.</p>
           </div>
         </div>
         <div class="mb-3">
@@ -67,13 +67,13 @@
               <label class="form-label">Thuốc <span class="text-danger">*</span></label>
               <input type="text" class="form-control" formControlName="medicine" placeholder="Nhập tên thuốc" required>
               <div class="form-text">
-                <p *ngIf="creatTreatmentForm.controls['medicine'].hasError('required')">Không được để trống.</p>
+                <p *ngIf="creatTreatmentForm.controls['medicine'].hasError('required')&& creatTreatmentForm.dirty">Không được để trống.</p>
               </div>                            </div>
             <div class="col-6">
               <label class="form-label">Số lượng <span class="text-danger">*</span></label>
               <input type="number" class="form-control" formControlName="amount" required>
               <div class="form-text">
-                <p *ngIf="creatTreatmentForm.controls['amount'].hasError('required')">Không được để trống.</p>
+                <p *ngIf="creatTreatmentForm.controls['amount'].hasError('required') && creatTreatmentForm.dirty">Không được để trống.</p>
               </div>                            </div>
             <input type="number" class="form-control" formControlName="isDelete" hidden>
           </div>
@@ -93,5 +93,7 @@
   </div>
 </div>
 <div class="vc_empty_space" style="height: 64px"><span class="vc_empty_space_inner"></span></div>
+</body>
+
 
 

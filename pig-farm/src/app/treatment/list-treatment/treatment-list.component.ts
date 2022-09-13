@@ -5,10 +5,10 @@ import {Treatment} from '../../model/treatment';
 
 @Component({
   selector: 'app-list-treatment',
-  templateUrl: './list-treatment.component.html',
-  styleUrls: ['./list-treatment.component.css']
+  templateUrl: './treatment-list.component.html',
+  styleUrls: ['./treatment-list.component.css']
 })
-export class ListTreatmentComponent implements OnInit {
+export class TreatmentListComponent implements OnInit {
 
   treatmentList: Treatment[] = [];
   deleteList: number[] = [];
