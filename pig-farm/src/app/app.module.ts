@@ -10,6 +10,7 @@ import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {HttpClientModule} from '@angular/common/http';
 import {BodyModule} from './body/body.module';
+import {VaccinationModule} from './vaccination/vaccination.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import {BodyModule} from './body/body.module';
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    VaccinationModule,
     StorageModule,
     BodyModule
   ],
