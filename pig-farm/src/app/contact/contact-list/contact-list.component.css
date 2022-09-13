@@ -1,14 +1,14 @@
-body {
+.body {
   margin: 0 auto;
   background-image: url('../../../assets/image/backgroup.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;
 }
-
 .container {
   background-color: white;
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 20px;
-  opacity: 94%;
+  opacity: 90%;
+  min-height: 555px;
 }
