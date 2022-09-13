@@ -7,7 +7,7 @@
         <div style="display: flex; border: 1px solid;justify-content: space-evenly;width: 65%;border-radius: 8px;margin-right: 4%;">
           <div>
             <input style="border: 0" class="form-control " type="text" placeholder="Tìm Kiếm" formControlName="content"
-                   [(ngModel)]="content"
+                   [ngModel]="title"
                    id="content" (keyup)="search()">
           </div>
           <div style="margin-right: 3%;">
@@ -29,11 +29,11 @@
       <table class="table table-striped table-hover mt-3 mb-3">
         <thead>
         <tr style="background-color: #017428">
-          <th class="text-light">STT</th>
-          <th class="text-light">Tiêu đề</th>
-          <th class="text-light">Nội dung thông báo</th>
-          <th class="text-light">Hình ảnh</th>
-          <th class="text-light">Ngày đăng thông báo</th>
+          <th class="text-light" width="10%">STT</th>
+          <th class="text-light" width="20%">Tiêu đề</th>
+          <th class="text-light" width="40%">Nội dung thông báo</th>
+          <th class="text-light" width="15%">Hình ảnh</th>
+          <th class="text-light" width="15%">Ngày đăng thông báo</th>
           <th></th>
         </tr>
         </thead>
@@ -47,7 +47,7 @@
           <td>{{(item.content.length > 70) ? (item.content| slice:0:70) + '...' : (item.content)}}</td>
           <td><img src="{{item.image}}" height="30px"/></td>
           <td>{{item.submittedDate | date: 'dd/MM/yyyy' }}</td>
-          <td><input *ngIf="item" type="checkbox" ngModel [name]="''+item.id" (ngModelChange)="checkButton(item.id)">
+          <td><input type="checkbox" (change)="checkButton(item.id)" ngModel  [name]="''+item.id" >
           </td>
         </tr>
         </tbody>
@@ -57,7 +57,7 @@
                 routerLink="/create" type="button">Thêm mới
         </button>
         <button class="col-3 btn btn-outline-warning" style="width: auto; margin-right: 5%"
-                type="button" [routerLink]="['notification/edit',editId]"
+                type="button" [routerLink]="['notifications/edit',editId]"
                 [disabled]="check.length!=1">Chỉnh sửa
         </button>
         <button class="col-3 btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"
@@ -65,47 +65,21 @@
         </button>
       </div>
     </form>
-    <!--Phan trang-->
-    <div style="display: flex; justify-content: flex-end">
+    <nav aria-label="...">
       <ul class="pagination">
-        <div *ngIf="number == 0">
-          <li class="page-item disabled">
-            <button class="page-link" hidden>Previous</button>
-          </li>
-        </div>
-        <div *ngIf="number != 0">
-          <li class="page-item">
-            <button class="page-link" (click)="goPrevious()">Previous</button>
-          </li>
-        </div>
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/notification-HaiTV
-        <div *ngFor="let count of countTotalPages; index as i">
-          <div *ngIf="i == number">
-            <li class="page-item active">
-              <button class="page-link" (click)="goItem(i)">{{i + 1}}</button>
-            </li>
-          </div>
-          <div *ngIf="i != number">
-            <li class="page-item">
-              <button class="page-link" (click)="goItem(i)">{{i + 1}}</button>
-            </li>
-          </div>
-        </div>
-        <div *ngIf="number == totalPages - 1">
-          <li class="page-item disabled">
-            <button class="page-link" hidden>Next</button>
-          </li>
-        </div>
-        <div *ngIf="number != totalPages - 1">
-          <li class="page-item">
-            <button class="page-link" (click)="goNext()">Next</button>
-          </li>
-        </div>
+        <li class="page-item " *ngIf="checkPrevious">
+          <a class="page-link"  (click)="goPrevious()" tabindex="-1">Trang trước</a>
+        </li>
+        <li class="page-item" *ngIf="checkPrevious"><a class="page-link" (click)="goPrevious()">{{number}}</a></li>
+        <li class="page-item active">
+          <a class="page-link" > <span class="sr-only">{{number+1}}</span></a>
+        </li>
+        <li class="page-item" *ngIf="checkNext"><a class="page-link" (click)="goNext()">{{number+2}}</a></li>
+        <li class="page-item" *ngIf="checkNext">
+          <a class="page-link" (click)="goNext()">Trang sau</a>
+        </li>
       </ul>
-    </div>
+    </nav>
   </div>
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
@@ -128,10 +102,7 @@
         </div>
       </div>
     </div>
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/notification-HaiTV
   </div>
 
   <!-- Khi không có dữ liệu thì hiện  -->
@@ -144,7 +115,7 @@
           <form [formGroup]="searchForm" novalidate>
             <div class="col-3 position-relative mx-auto me-4" >
               <input type="search" class="input-search form-control" style="width: 250px"
-                     placeholder="Tìm kiếm" formControlName="content" [(ngModel)]="content"
+                     placeholder="Tìm kiếm" formControlName="content" [ngModel]="content"
                      (keyup)="search()">
             </div>
           </form>
