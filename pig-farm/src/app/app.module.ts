@@ -10,6 +10,9 @@ import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {HttpClientModule} from '@angular/common/http';
 import {BodyModule} from './body/body.module';
+import {environment} from '../environments/environment';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,9 @@ import {BodyModule} from './body/body.module';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     StorageModule,
-    BodyModule
+    BodyModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -14,12 +14,8 @@ export class EmployeeService {
   constructor(private http: HttpClient) {
   }
 
-  getAll(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(API_URL + '/employee');
-  }
-
   saveEmployee(employee: Employee): Observable<Employee> {
-    return this.http.post<Employee>(API_URL + '/employee', employee);
+    return this.http.post<Employee>(API_URL + '/employee/create', employee);
   }
 
   findById(id: number): Observable<Employee> {
@@ -27,6 +23,6 @@ export class EmployeeService {
   }
 
   editEmployee(id: number, employee: Employee): Observable<Employee> {
-    return this.http.put<Employee>(`${API_URL}/employee/${id}`, employee);
+    return this.http.put<Employee>(`${API_URL}/employee/edit/${id}`, employee);
   }
 }

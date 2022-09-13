@@ -1,6 +1,7 @@
 import {Employee} from '../employee/employee';
+import {UserRole} from './user-role';
 
-export interface User {
+export interface UserDto {
   id?: number;
   username?: string;
   password?: string;
@@ -8,4 +9,5 @@ export interface User {
   creationDate?: string;
   isDeleted?: boolean;
   employee?: Employee;
+  userRoles?: UserRole;
 }

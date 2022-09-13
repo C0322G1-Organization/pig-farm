@@ -1,19 +1,15 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {ListComponent} from './list/list.component';
-import {CreateComponent} from './create/create.component';
-import {EditComponent} from './edit/edit.component';
+import {EmployeeCreateComponent} from './employee-create/employee-create.component';
+import {EmployeeEditComponent} from './employee-edit/employee-edit.component';
 
 const routes: Routes = [
   {
-    path: '',
-    component: ListComponent
-  }, {
     path: 'create',
-    component: CreateComponent
+    component: EmployeeCreateComponent
   }, {
     path: 'edit/:id',
-    component: EditComponent
+    component: EmployeeEditComponent
   }
 ];
 

@@ -1,15 +1,15 @@
 import {Export} from '../export_port/export';
-import {User} from '../user/user';
+import {UserDto} from '../user/user';
 
 export interface Employee {
   id?: number;
   code?: string;
   name?: string;
-  birthday?: string;
+  birthDay?: string;
   gender?: string;
   idCard?: string;
   image?: string;
   isDeleted?: boolean;
   export?: Export;
-  user?: User;
+  userDto?: UserDto;
 }

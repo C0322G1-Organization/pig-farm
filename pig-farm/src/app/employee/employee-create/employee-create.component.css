@@ -6,3 +6,7 @@ body {
 .form-text, span {
   color: red;
 }
+
+label {
+  font-weight: bold;
+}
