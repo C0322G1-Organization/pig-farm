@@ -17,6 +17,7 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {StorageModule} from './storage/storage.module';
 import {TreatmentModule} from './treatment/treatment.module';
 import {NotificationModule} from './notification/notification.module';
+import {EmployeeModule} from './employee/employee.module';
 
 @NgModule({
   declarations: [
@@ -30,16 +31,16 @@ import {NotificationModule} from './notification/notification.module';
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule,
     FormsModule,
     ReactiveFormsModule,
     VaccinationModule,
     StorageModule,
     BodyModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
     TreatmentModule,
     NotificationModule,
-    VaccinationModule
+    EmployeeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

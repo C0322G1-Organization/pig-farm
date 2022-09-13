@@ -3,7 +3,7 @@ import {StorageService} from '../storage.service';
 import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
-  selector: 'app-storage-list',
+  selector: 'app-storage-employee-list',
   templateUrl: './storage-list.component.html',
   styleUrls: ['./storage-list.component.css']
 })

@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 
 @Component({
-  selector: 'app-storage-create',
+  selector: 'app-storage-employee-create',
   templateUrl: './storage-create.component.html',
   styleUrls: ['./storage-create.component.css']
 })
