@@ -1,0 +1,114 @@
+<div class="container-fluid">
+  <div class="row" style="height: 150px; background-color: #ff0000">
+
+  </div>
+  <div class="vc_empty_space" style="height: 64px"><span class="vc_empty_space_inner"></span></div>
+
+  <div class="container">
+    <div class="row formRow">
+<!--      <form class="col-lg-8 formRow_create">-->
+        <div class="mb-3 text-center formRow_create_title">
+          <h2> Chỉnh sửa bản ghi</h2>
+        </div>
+        <hr>
+        <div class="formRow_create_content">
+
+          <div class="mb-3">
+            <div class="row">
+              <div class="col-6">
+                <label class="form-label">Mã chuồng <span style="color: red">*</span></label>
+                <select class="form-control custom-select bg-light" name="">
+                  <option>Vui lòng chọn</option>
+                  <option>MC01</option>
+                  <option>MC02</option>
+                  <option>MC03</option>
+                </select>
+                <div class="form-text">Không được để trống</div>
+              </div>
+              <div class="col-6">
+                <label class="form-label">Loại lợn muốn xuất <span style="color: red">*</span></label>
+                <select class="form-control">
+                  <option>Vui lòng chọn</option>
+                  <option [value]="0">Xuất lợn thịt</option>
+                  <option [value]="1">Xuất lợn giống</option>
+                </select>
+                <div class="form-text">Không được để trống</div>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="row">
+              <div class="col-6">
+                <label class="form-label">Mã nhân viên<span style="color: red">*</span></label>
+                <select class="form-control">
+                  <option>NV01</option>
+                  <option>NV02</option>
+                </select>
+                <div class="form-text">Không được để trống</div>
+              </div>
+              <div class="col-6">
+                <label class="form-label">Tên nhân viên<span style="color: red">*</span></label>
+                <input type="text" class="form-control" value="Nguyễn Thị Cúc">
+                <div class="form-text">Không được để trống</div>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="row">
+              <div class="col-6">
+                <label class="form-label">Đơn vị mua<span style="color: red">*</span></label>
+                <input type="text" class="form-control" value="Cửa hàng Trí Tâm – số 7 Hồ Khắc Di, chợ Cẩm Lệ">
+                <div class="form-text">Không được để trống</div>
+              </div>
+              <div class="col-6">
+                <label class="form-label">Ngày xuất chuồng<span style="color: red">*</span></label>
+                <input type="date" class="form-control" >
+                <div class="form-text">Không được để trống</div>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="row">
+              <div class="col-6">
+                <label class="form-label">Số lượng lợn xuất chuồng<span style="color: red">*</span></label>
+                <input type="number" class="form-control" value="50 con">
+                <div class="form-text">Không được âm</div>
+              </div>
+              <div class="col-6">
+                <label class="form-label">Số lượng (Kg)<span style="color: red">*</span></label>
+                <input type="number" class="form-control" value="100">
+                <div class="form-text">Không được âm</div>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="row">
+              <div class="col-6">
+                <label class="form-label">Số tiền đơn giá (VNĐ)<span style="color: red">*</span></label>
+                <input type="number" class="form-control" value="1000">
+                <div class="form-text">Không được âm</div>
+              </div>
+              <div class="col-6">
+                <label class="form-label">Tổng tiền (VNĐ)<span style="color: red">*</span></label>
+                <input type="number" readonly class="form-control">
+                <div class="form-text">Không được âm</div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="d-grid gap-2 d-md-flex justify-content-md-around">
+            <button class="btn btn-outline-danger back" > Quay Lại</button>
+            <button class="btn btn-outline-success"> Thêm mới</button>
+            <button class="btn btn-outline-secondary reset" > Nhập lại</button>
+          </div>
+        </div>
+<!--      </form>-->
+    </div>
+  </div>
+  <div class="vc_empty_space" style="height: 64px"><span class="vc_empty_space_inner"></span></div>
+
+  <div class="row" style="height: 150px; background-color: #ff0000">
+
+  </div>
+</div>
