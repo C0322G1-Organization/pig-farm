@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Vaccination} from '../model/vaccination';
 import {FormControl, FormGroup} from '@angular/forms';
-import {VaccinationService} from '../service/vaccination.service';
+import {VaccinationService} from '../../service/vaccination.service';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
 
@@ -36,8 +36,6 @@ export class VaccinationListComponent implements OnInit {
   }
 
   getAll(page: number, name: string) {
-    // @ts-ignore
-    // tslint:disable-next-line:variable-name
     this.vaccinService.findAll(page, name).subscribe((value: any) => {
       this.number = value?.number;
       this.vaccins = value?.content;

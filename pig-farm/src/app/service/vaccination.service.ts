@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Vaccination} from '../model/vaccination';
-import {environment} from '../../../environments/environment';
+import {Vaccination} from '../vaccination/model/vaccination';
+import {environment} from '../../environments/environment';
 
 const API_URL = environment.apiUrl;
 
