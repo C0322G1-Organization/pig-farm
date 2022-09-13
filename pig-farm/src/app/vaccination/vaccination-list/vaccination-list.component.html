@@ -14,10 +14,9 @@
           </div>
           <div class="col-3">
           </div>
-
-          <div class="col-3 mx-auto me-0" style="display: flex; width: 300px">
-            <input formControlName="vaccinPerson" class="form-control bg-transparent me-1" type="text"
-                   placeholder="Nhập người tiêm">
+          <div class="col-3 mx-auto me-0" style="display: flex; width: 330px">
+            <input formControlName="vaccinPerson" class="form-control bg-transparent me-2" type="text"
+                   placeholder="Nhập người tiêm hoặc chuồng">
             <button class="btn btn-outline-success" (click)="searchVaccin()">
               Tìm
             </button>
@@ -34,11 +33,11 @@
       <table style="border-radius: 10px " class="table table-striped table-hover  mt-3 mb-3">
         <thead>
         <tr style="background-color: #017428;text-align: center;">
-          <th class="text-light" scope="row">STT</th>
-          <th class="text-light">Ngày</th>
-          <th class="text-light">Chuồng</th>
-          <th class="text-light" style="text-align: left">Người tiêm</th>
-          <th class="text-light" style="text-align: left">Loại vaccine</th>
+          <th class="text-light" scope="row" style="width: 5%">STT</th>
+          <th class="text-light" style="width: 20%">Ngày</th>
+          <th class="text-light" style="width: 10%">Chuồng</th>
+          <th class="text-light" style="text-align: left ;width: 25%">Người tiêm</th>
+          <th class="text-light" style="text-align: left ; width: 25%">Loại vaccine</th>
           <th class="text-light" style="text-align: left">Số lượng</th>
           <th></th>
         </tr>
@@ -64,51 +63,30 @@
       </div>
     </form>
 
-
+<!--    th:if="${customerList.hasPrevious()}-->
     <!--Phan trang-->
     <div style="display: flex; justify-content: flex-end">
+    <nav aria-label="...">
       <ul class="pagination">
-        <div *ngIf="number == 0">
-          <li class="page-item disabled">
-            <button class="page-link" hidden>Previous</button>
-          </li>
-        </div>
-        <div *ngIf="number != 0">
-          <li class="page-item">
-            <button class="page-link" (click)="goPrevious()">Previous</button>
-          </li>
-        </div>
-
-        <div *ngFor="let count of countTotalPages; index as i">
-          <div *ngIf="i == number">
-            <li class="page-item active">
-              <button class="page-link" (click)="goItem(i)">{{i + 1}}</button>
-            </li>
-          </div>
-          <div *ngIf="i != number">
-            <li class="page-item">
-              <button class="page-link" (click)="goItem(i)">{{i + 1}}</button>
-            </li>
-          </div>
-        </div>
-
-        <div *ngIf="number == totalPages - 1">
-          <li class="page-item disabled">
-            <button class="page-link" hidden>Next</button>
-          </li>
-        </div>
-        <div *ngIf="number != totalPages - 1">
-          <li class="page-item">
-            <button class="page-link" (click)="goNext()">Next</button>
-          </li>
-        </div>
+        <li class="page-item " *ngIf="checkPrevious">
+          <a class="page-link"  (click)="goPrevious()" tabindex="-1">Trước</a>
+        </li>
+        <li class="page-item" *ngIf="checkPrevious"><a class="page-link" (click)="goPrevious()">{{number}}</a></li>
+        <li class="page-item active">
+          <a class="page-link" > <span class="sr-only">{{number+1}}</span></a>
+        </li>
+        <li class="page-item" *ngIf="checkNext"><a class="page-link" (click)="goNext()">{{number+2}}</a></li>
+        <li class="page-item" *ngIf="checkNext">
+          <a class="page-link" (click)="goNext()">Sau</a>
+        </li>
       </ul>
+    </nav>
     </div>
 
     <div style="text-align: center; display: flex; justify-content: center">
       <ng-template #elseBlock>
         <div style="color: red;" class="col-12">
-          <h1>Không có dữ liệu !!!</h1>
+          <h3>Không có dữ liệu !!!</h3>
         </div>
       </ng-template>
     </div>

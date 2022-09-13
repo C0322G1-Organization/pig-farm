@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Vaccination} from '../model/vaccination';
+import {environment} from '../../../environments/environment';
 
-const API_URL = 'http://localhost:8080/api/vaccination';
+const API_URL = environment.apiUrlVaccination;
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,8 @@ export class VaccinationService {
   constructor(private http: HttpClient) {
   }
 
-  findAll(page: number): Observable<Vaccination[]> {
-    return this.http.get<Vaccination[]>(API_URL + '/list?page=' + page);
+  findAll(page: number, name: string): Observable<Vaccination[]> {
+    return this.http.get<Vaccination[]>(API_URL + '/list?page=' + page + '&name=' + name);
   }
 
   searchVaccination(objSearch: any): Observable<Vaccination[]> {

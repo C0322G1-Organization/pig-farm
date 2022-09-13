@@ -2,27 +2,27 @@ import {Component, OnInit} from '@angular/core';
 import {Vaccination} from '../model/vaccination';
 import {FormControl, FormGroup} from '@angular/forms';
 import {VaccinationService} from '../service/vaccination.service';
-import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
-
+import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-vaccin-list',
-  templateUrl: './vaccin-list.component.html',
-  styleUrls: ['./vaccin-list.component.css']
+  selector: 'app-vaccination-list',
+  templateUrl: './vaccination-list.component.html',
+  styleUrls: ['./vaccination-list.component.css']
 })
 export class VaccinationListComponent implements OnInit {
   vaccins: Vaccination[] = [];
-  totalPages: number;
   number: number;
-  countTotalPages: number[];
   msg: string;
   clss: string;
   nameDelete: any = [];
   ids: number[] = [];
+  checkNext: boolean;
+  checkPrevious: boolean;
+  nameContent = '';
 
   searchForm: FormGroup = new FormGroup({
-    vaccinatedPerson: new FormControl('')
+    vaccinPerson: new FormControl('')
   });
 
 
@@ -32,64 +32,42 @@ export class VaccinationListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAll(0);
+    this.getAll(0, '');
   }
 
-  getAll(page: number) {
+  getAll(page: number, name: string) {
     // @ts-ignore
     // tslint:disable-next-line:variable-name
-    this.vaccinService.findAll(page).subscribe((value: any) => {
-      this.totalPages = value?.totalPages;
-      this.countTotalPages = new Array(value?.totalPages);
+    this.vaccinService.findAll(page, name).subscribe((value: any) => {
       this.number = value?.number;
       this.vaccins = value?.content;
       console.log(value?.content);
+      this.checkNext = !value.last;
+      this.checkPrevious = !value.first;
     }, error => {
       console.log(error);
     });
   }
 
   goPrevious() {
-    let numberPage: number = this.number;
-    if (numberPage > 0) {
-      numberPage--;
-      this.getAll(numberPage);
-    }
+    this.number--;
+    this.getAll(this.number, this.nameContent);
   }
 
   goNext() {
-    let numberPage: number = this.number;
-    if (numberPage < this.totalPages - 1) {
-      numberPage++;
-      this.getAll(numberPage);
-    }
-  }
-
-  goItem(i: number) {
-    this.getAll(i);
+    this.number++;
+    this.getAll(this.number, this.nameContent);
   }
 
   searchVaccin() {
-    // tao const ojb de hung gia tri tu form
-    const obj = {
-      vaccinPersonSearch: this.searchForm.value.vaccinPerson,
-    };
-    console.log(this.searchForm.value.vaccinPerson);
-    this.vaccinService.searchVaccination(obj).subscribe((value?: any) => {
-      this.totalPages = value?.totalPages;
-      this.countTotalPages = new Array(value?.totalPages);
-      this.number = value?.number;
-      // @ts-ignore
-      this.vaccins = value?.content;
-    }, error => {
-      console.log(error);
-    });
+    this.nameContent = this.searchForm.value.vaccinPerson;
+    this.getAll(0, this.nameContent);
   }
 
   deleteId() {
     if (this.ids.length > 0) {
       this.vaccinService.deleteVaccination(this.ids).subscribe(value1 => {
-        this.getAll(0);
+        this.getAll(0, '');
         this.toast.success('Xóa thành công !!!', 'Thông báo');
         this.ids = [];
       }, err => {
@@ -105,30 +83,21 @@ export class VaccinationListComponent implements OnInit {
 
   checkDelete(value: any) {
     this.ids = [];
+    this.msg = '';
     this.nameDelete = [];
-    for (const valueElement of this.vaccins) {
-      if (value[valueElement.id] === true) {
-        this.ids.push(valueElement.id);
-      }
-    }
-    // tslint:disable-next-line:no-shadowed-variable
-    this.vaccinService.findAll(0).subscribe((value: any) => {
-      // tslint:disable-next-line:prefer-for-of
-      for (let i = 0; i < this.ids.length; i++) {
-        // tslint:disable-next-line:prefer-for-of
-        for (let j = 0; j < value?.content.length; j++) {
-          if (this.ids.includes(this.ids[i]) && this.ids[i] === value?.content[j].id) {
-            this.nameDelete.splice(i, 1);
-            this.nameDelete.push(value?.content[j].vaccinatedPerson);
-          }
-        }
+    this.vaccins.forEach(item => {
+      if (value[item.id] === true) {
+        this.ids.push(item.id);
+        this.nameDelete.push(item.vaccinatedPerson);
       }
     });
-    console.log(this.nameDelete);
+    this.vaccinService.findAll(0, '').subscribe(() => {
+    });
   }
 
   resetDelete() {
     this.nameDelete = [];
     this.ids = [];
   }
+
 }

@@ -6,6 +6,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
+import {CommonModule} from '@angular/common';
+import {VaccinationRoutingModule} from './vaccination-routing.module';
 
 
 @NgModule({
@@ -13,18 +15,11 @@ import {ToastrModule} from 'ngx-toastr';
     VaccinationListComponent
   ],
   imports: [
-    BrowserModule,
     HttpClientModule,
-    AppRoutingModule,
     ReactiveFormsModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    ToastrModule.forRoot({
-      timeOut: 3000,
-      progressBar: true,
-      progressAnimation: 'increasing',
-      preventDuplicates: true
-    })
+    CommonModule,
+    VaccinationRoutingModule,
+    FormsModule
   ]
 })
 export class VaccinationModule {
