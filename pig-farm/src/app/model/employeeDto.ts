@@ -1,4 +1,4 @@
-export interface Employee {
+export interface EmployeeDto {
   id?: number;
   userName?: string;
   code?: string;
@@ -10,7 +10,7 @@ export interface Employee {
   creationDate?: string;
   roleName?: string;
   userId?: string;
-  password?: string;
+  passWord?: string;
   isDeleted?: string;
   nameEmployee?: string;
 }

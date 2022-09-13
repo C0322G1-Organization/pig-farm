@@ -33,7 +33,12 @@ h4:hover{
   overflow: visible;
 }
 
-
+.employees-title{
+  font-weight: bolder;
+  text-align: center;
+  font-size: 32px;
+  font-family: "Raleway", sans-serif;
+}
 
 /*--------------------------------------------------------------
 # Sections General
@@ -42,15 +47,62 @@ section {
   padding: 60px 0;
   overflow: hidden;
 }
+
+/*--------------------------------------------------------------
+# About
+--------------------------------------------------------------*/
+.about .content h3 {
+  font-weight: 700;
+  font-size: 22px;
+  color: #555555;
+}
+
+.about .content ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+  margin-left: 10px;
+}
+
+.about .content ul {
+  padding-bottom: 10px;
+}
+
+.about .content li {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.about .content ul i {
+  font-size: 20px;
+  padding-right: 2px;
+  color: #34b7a7;
+}
+
+.about .content p:last-child {
+  margin-bottom: 0;
+}
+
+/*--------------------------------------------------------------
+# Pagination
+--------------------------------------------------------------*/
+.pagination-employee{
+  height: 40px;
+  background-color: white;
+  border-radius:0 0 10px 10px;
+  opacity: 92%;
+  position: relative;
+}
+
 /*--------------------------------------------------------------
 # Employees
 --------------------------------------------------------------*/
 .employees {
   background: #fff;
   padding: 40px 45px 30px 45px;
-  border-radius: 10px;
+  border-radius: 10px 10px 0 0;
   opacity: 92%;
-  min-height: 826.39px;
+  min-height: 770px;
 }
 
 

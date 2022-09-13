@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {EmployeeService} from "../../model/employee.service";
+import {Component, OnInit} from '@angular/core';
+import {EmployeeService} from "../employee.service";
 import {FormControl} from "@angular/forms";
-import {Employee} from "../../model/employee";
+import {EmployeeDto} from "../../model/employeeDto";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-employee-list',
@@ -10,9 +11,9 @@ import {Employee} from "../../model/employee";
 })
 export class EmployeeListComponent implements OnInit {
 
-  employeeList: Employee[] = [];
+  employeeList: EmployeeDto[] = [];
 
-  // Modal
+  // Modal delete
   codeModal: string;
   nameModal: string;
   idModal: number;
@@ -24,11 +25,14 @@ export class EmployeeListComponent implements OnInit {
   // pagination
   indexPagination = 0;
   pages: Array<number>;
-  totalPagination: number;
-  previousPageClass = '';
-  nextPageClass = '';
+  previousPageClass = 'inline-block';
+  nextPageClass = 'inline-block';
 
-  constructor(private employeeService: EmployeeService) {
+  // Modal detail
+  employeeDetail: EmployeeDto = {};
+
+  constructor(private employeeService: EmployeeService,
+              private toast: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -36,44 +40,64 @@ export class EmployeeListComponent implements OnInit {
   }
 
   getListBySearchAndPagination() {
-    if (this.employeeList.length === 0) {
-      if (this.indexPagination === 0) {
-
-      } else {
-        this.indexPagination = this.indexPagination - 1;
-        console.log('OK');
-      }
-    }
     this.employeeService.getListEmployeeBySearchAndPagination(this.nameSearch.value, this.idCardSearch.value,
       this.indexPagination).subscribe(data => {
-      console.log(data);
       if (data === null) {
+        this.pages = new Array(0);
         this.employeeList = [];
-        console.log(this.employeeList.length);
       } else {
-        console.log(data);
         this.employeeList = data.content;
         this.pages = new Array(data.totalPages);
-        console.log(this.employeeList.length);
       }
-    });
+      this.checkPreviousAndNext();
+    })
   }
 
-  previousPage() {
-
-  }
-
-  nextPage() {
-
-  }
-
-  searchEmployee() {
-
+  previousPage(event: any) {
+    event.preventDefault();
+    this.indexPagination--;
+    this.checkPreviousAndNext();
+    this.ngOnInit();
   }
 
   setPage(i: number, event: any) {
     event.preventDefault();
     this.indexPagination = i;
+    this.checkPreviousAndNext();
+    this.getListBySearchAndPagination();
+  }
+
+  nextPage(event: any) {
+    event.preventDefault();
+    this.indexPagination++
+    this.checkPreviousAndNext()
+    this.ngOnInit();
+  }
+
+  //kiem tra hien thi nut tiep theo va truoc
+  checkPreviousAndNext(){
+    if (this.indexPagination == 0) {
+      this.previousPageClass = 'none';
+    }else if (this.indexPagination != 0) {
+      this.previousPageClass = 'inline-block';
+    }
+
+    if (this.indexPagination < (this.pages.length - 1)) {
+      this.nextPageClass = 'inline-block';
+    }else if (this.indexPagination == (this.pages.length - 1) || this.indexPagination > (this.pages.length - 1)) {
+      this.nextPageClass = 'none';
+    }
+
+  }
+
+  getEmployeeById(id: number) {
+    this.employeeService.getEmployeeById(id).subscribe(data => {
+      this.employeeDetail = data;
+    })
+  }
+
+  searchEmployee() {
+    this.indexPagination = 0;
     this.getListBySearchAndPagination();
   }
 
@@ -84,6 +108,9 @@ export class EmployeeListComponent implements OnInit {
   }
 
   deleteEmployee() {
+    if (this.employeeList.length === 1 && this.indexPagination != 0) {
+      this.indexPagination = this.indexPagination - 1;
+    }
     this.employeeService.deleteEmployee(this.idModal).subscribe(() => {
     }, error => {
       console.log(error);
