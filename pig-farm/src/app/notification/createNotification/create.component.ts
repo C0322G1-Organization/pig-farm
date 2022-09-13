@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {NotificationService} from '../service/notification.service';
 import {Router} from '@angular/router';
-import {AngularFireStorage} from '@angular/fire/storage';
 import {finalize} from 'rxjs/operators';
 import {formatDate} from '@angular/common';
+import {AngularFireStorage} from '@angular/fire/storage';
 
 @Component({
   selector: 'app-create',
@@ -57,6 +57,6 @@ export class CreateComponent implements OnInit {
 
   getCurrentDateTime(): string {
     return formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss', 'en-US');
-  }
+   }
 }
 

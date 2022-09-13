@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Notifications} from '../model/notification';
+import {environment} from '../../../environments/environment';
 
-const API_URL = 'http://localhost:8080/api/v1/notification/';
+const API_URL = environment.apiUrl + '/api/v1/notification/';
 
 @Injectable({
   providedIn: 'root'
