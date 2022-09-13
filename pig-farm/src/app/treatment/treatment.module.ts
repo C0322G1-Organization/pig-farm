@@ -1,12 +1,11 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import {TreatmentRoutingModule} from './treatment-routing.module';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HttpClientModule} from '@angular/common/http';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {TreatmentCreateComponent} from './treatment-create/treatment-create.component';
+import { TreatmentRoutingModule } from './treatment-routing.module';
 import {TreatmentListComponent} from './treatment-list/treatment-list.component';
+import {TreatmentCreateComponent} from './treatment-create/treatment-create.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -14,15 +13,10 @@ import {TreatmentListComponent} from './treatment-list/treatment-list.component'
     TreatmentCreateComponent
   ],
   imports: [
-    BrowserModule,
+    CommonModule,
     TreatmentRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
     ReactiveFormsModule,
-    HttpClientModule,
     FormsModule
-  ],
-  providers: []
+  ]
 })
-export class TreatmentModule {
-}
+export class TreatmentModule { }

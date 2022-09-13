@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Treatment} from '../../model/treatment';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {TreatmentService} from '../../service/treatment-service';
 import {Router} from '@angular/router';
+import {TreatmentService} from '../../service/treatment.service';
 
 
 @Component({
@@ -30,7 +30,6 @@ export class TreatmentCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.treatmentService.getAll(name);
   }
 
   submit() {

@@ -10,8 +10,8 @@ import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {HttpClientModule} from '@angular/common/http';
 import {BodyModule} from './body/body.module';
-import {TreatmentModule} from './treatment/treatment.module';
 import {VaccinationModule} from './vaccination/vaccination.module';
+import {TreatmentModule} from './treatment/treatment.module';
 
 @NgModule({
   declarations: [
