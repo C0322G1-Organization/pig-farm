@@ -8,15 +8,17 @@ import {ToastrModule} from 'ngx-toastr';
 import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {HttpClientModule} from '@angular/common/http';
-import { NotificationListComponent } from './notification/notification-list/notification-list.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {BodyModule} from './body/body.module';
+import {VaccinationModule} from './vaccination/vaccination.module';
+import {TreatmentModule} from './treatment/treatment.module';
+import {StorageModule} from './storage/storage.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    FooterComponent,
-    NotificationListComponent
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +27,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    VaccinationModule,
+    StorageModule,
+    BodyModule,
+    TreatmentModule
   ],
   providers: [],
   bootstrap: [AppComponent]
