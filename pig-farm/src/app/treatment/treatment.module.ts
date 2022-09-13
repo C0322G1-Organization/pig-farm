@@ -5,7 +5,7 @@ import {TreatmentRoutingModule} from './treatment-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {HttpClientModule} from '@angular/common/http';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ListTreatmentComponent} from './list-treatment/list-treatment.component';
 import {CreateTreatmentComponent} from './create-treatment/create-treatment.component';
 
@@ -21,7 +21,8 @@ import {CreateTreatmentComponent} from './create-treatment/create-treatment.comp
     HttpClientModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: []
 })
