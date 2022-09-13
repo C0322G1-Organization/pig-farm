@@ -1,15 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserDto} from '../../user/user';
-import {EmployeeService} from '../employee.service';
+import {EmployeeService} from '../../service/employee.service';
 import {UserService} from '../../user/user.service';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
-import {Employee} from '../employee';
+import {Employee} from '../../model/employee';
 import {checkBirthDay, checkDay} from '../../validate/check-birth-day';
 import {formatDate} from '@angular/common';
 import {finalize} from 'rxjs/operators';
-// @ts-ignore
 import {AngularFireStorage} from '@angular/fire/storage';
 
 @Component({

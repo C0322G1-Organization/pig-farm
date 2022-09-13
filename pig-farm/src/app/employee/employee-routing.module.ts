@@ -5,10 +5,10 @@ import {EmployeeEditComponent} from './employee-edit/employee-edit.component';
 
 const routes: Routes = [
   {
-    path: 'create',
+    path: 'employee/create',
     component: EmployeeCreateComponent
   }, {
-    path: 'edit/:id',
+    path: 'employee/edit/:id',
     component: EmployeeEditComponent
   }
 ];

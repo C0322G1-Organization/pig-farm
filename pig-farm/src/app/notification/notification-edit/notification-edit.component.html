@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CHỈNH SỬA THÔNG BÁO</title>
+</head>
+<body>
+<div class="vc_empty_space" style="height: 64px"><span class="vc_empty_space_inner"></span></div>
+<div class="container">
+  <div class="row formRow">
+    <form class="col-lg-6 formRow_create">
+      <div class="mb-3 formRow_create_title">
+        <h4><b>CHỈNH SỬA THÔNG BÁO</b></h4>
+      </div>
+      <form [formGroup]="notificationForm" (ngSubmit)= updateNotification() >
+        <hr>
+        <div class="mb-3" style="text-align: left ;margin-bottom: 10px">
+          <label class="form-label">Ảnh</label><label class="form-text"> *</label>
+          <input type="file" class="form-control-file" multiple (change)="selectFile($event)"
+                 (change)="onFileSelected($event)" >
+        </div>
+        <div class="col-md-8" style="height: 200px">
+          <img *ngIf="!editImageState" [src]="notificationForm.get('image').value" width="300" height="200" >
+          <img class="preview-img rounded" [src]="url" *ngIf="editImageState" width="300" height="200">
+        </div>
+
+        <p style="color:red" *ngIf="notificationForm.controls.image.hasError('required') &&
+         notificationForm.controls.image.dirty">Ảnh không để trống</p>
+
+        <div class="mb-3">
+          <label class="form-label">Tiêu đề </label><label class="form-text"> *</label>
+          <input type="text" formControlName="title" class="form-control">
+        </div>
+
+        <p style="color:red" *ngIf="notificationForm.controls.title.hasError('required') &&
+         notificationForm.controls.title.dirty">Tiêu đề không để trống</p>
+
+        <div class="mb-3">
+          <label class="form-label">Nội dung</label><label class="form-text"> *</label>
+          <textarea type="text" formControlName="content" class="form-control" aria-describedby="emailHelp"
+                    style="height: 200px"></textarea>
+        </div>
+
+        <p style="color:red" *ngIf="notificationForm.controls.content.hasError('required') &&
+         notificationForm.controls.content.dirty">Nội dung không để trống</p>
+
+        <p style="color:red" *ngIf="notificationForm.controls.content.hasError('maxlength') &&
+         notificationForm.controls.content.dirty">Nội dung không nhập quá 1000 kí tự</p>
+        <div class="button">
+          <button class="btn btn-outline-danger back" routerLink=""><i class="bi bi-backspace"></i> Hủy bỏ</button>
+          <button class="btn btn-outline-success" type="submit"><i class="bi bi-plus-circle"></i> Cập nhật</button>
+        </div>
+      </form>
+    </form>
+  </div>
+</div>
+<div class="vc_empty_space" style="height: 64px"><span class="vc_empty_space_inner"></span></div>
+</body>
+</html>
+
+
+

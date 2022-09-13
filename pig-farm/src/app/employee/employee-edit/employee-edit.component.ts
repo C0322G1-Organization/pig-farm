@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserDto} from '../../user/user';
-import {EmployeeService} from '../employee.service';
 import {UserService} from '../../user/user.service';
 import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {checkBirthDay, checkDay} from '../../validate/check-birth-day';
+import {EmployeeService} from '../../service/employee.service';
 
 @Component({
   selector: 'app-employee-edit',

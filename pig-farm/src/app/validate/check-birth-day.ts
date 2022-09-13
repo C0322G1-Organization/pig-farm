@@ -1,5 +1,5 @@
 import {AbstractControl, ValidationErrors, ValidatorFn} from '@angular/forms';
-import {Employee} from '../employee/employee';
+import {Employee} from '../model/employee';
 
 function dateDiff(first, second) {
   return Math.round((second - first) / (1000 * 60 * 60 * 24));

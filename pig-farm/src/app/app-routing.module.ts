@@ -1,14 +1,10 @@
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
-
-const routes: Routes = [{
-  path: 'employee',
-  loadChildren: () => import('./employee/employee.module').then(module => module.EmployeeModule)
-}
-];
+const routes: Routes = [ ];
 
 @NgModule({
+  declarations: [],
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
