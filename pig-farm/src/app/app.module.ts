@@ -11,7 +11,7 @@ import {FooterComponent} from './footer/footer.component';
 import {HttpClientModule} from '@angular/common/http';
 import {BodyModule} from './body/body.module';
 import {TreatmentModule} from './treatment/treatment.module';
-
+import {VaccinationModule} from './vaccination/vaccination.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +25,7 @@ import {TreatmentModule} from './treatment/treatment.module';
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    VaccinationModule,
     StorageModule,
     BodyModule,
     TreatmentModule
