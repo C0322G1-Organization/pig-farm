@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 
 import { PigRoutingModule } from './pig-routing.module';
 import { PigCreateComponent } from './pig/pig-create/pig-create.component';
-import { EditPigComponent } from './pig/edit-pig/edit-pig.component';
+import { UpdatePigComponent } from './pig/update-pig/update-pig.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
-  declarations: [PigCreateComponent, EditPigComponent],
+  declarations: [PigCreateComponent, UpdatePigComponent],
   imports: [
     CommonModule,
     PigRoutingModule,

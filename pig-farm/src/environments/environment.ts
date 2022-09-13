@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: undefined
+  apiUrlPig: 'http://localhost:8080/api/pig'
 };
 
 /*

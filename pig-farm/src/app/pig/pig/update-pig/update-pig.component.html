@@ -1,0 +1,60 @@
+<body>
+<div class="container-fluid">
+</div>
+<div class="vc_empty_space" style="height: 64px"><span class="vc_empty_space_inner"></span></div>
+<div class="container">
+  <div class="row formRow">
+    <form class="col-lg-6 formRow_create" [formGroup]="formEditPig" (ngSubmit)="submit()">
+      <div class="mb-3 formRow_create_title">
+        <h5> Chỉnh sửa cá thể</h5>
+      </div>
+      <hr>
+      <div class="formRow_create_content">
+        <div class="mb-3">
+          <label class="form-label">Mã Lợn<span class="text-danger">*</span> </label>
+          <input type="text" class="form-control input" aria-describedby="emailHelp" id="ma" formControlName="code"
+                 readonly>
+        </div>
+        <div class="mb-3" formGroupName="pigstyCode">
+          <label class="form-label">Mã Chuồng Nuôi<span class="text-danger">*</span> </label>
+          <select class="form-control">
+            <option class="form-control">---Chọn---</option>
+            <option *ngFor="let type of pigsty" class="form-control" [value]="type.id">{{type.code}}</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <div class="row">
+            <div class="col-md">
+              <label class="form-label">Ngày Nhập Chuồng<span class="text-danger">*</span></label>
+              <input type="date" class="form-control" formControlName="dateIn">
+            </div>
+            <div class="col-md">
+              <label class="form-label">Ngày xuất chuồng<span class="text-danger">*</span></label>
+              <input type="date" class="form-control" formControlName="dateOut">
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Tình Trạng<span class="text-danger">*</span> </label>
+          <select class="form-control" id="status" formControlName="status">
+            <option class="form-control">---Chọn---</option>
+            <option class="form-control">Có Bệnh</option>
+            <option class="form-control" selected>Khỏe Mạnh</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Cân Nặng(Kg)<span class="text-danger">*</span> </label>
+          <input type="text" class="form-control" placeholder="VD: 80Kg">
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-around">
+          <button type="button" (click)="cancel()" class="btn btn-outline-danger"><i class="bi bi-backspace"></i> Quay
+            Lại
+          </button>
+          <button type="submit" class="btn btn-outline-success"><i class="bi bi-plus-circle"></i> Chỉnh sửa</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="vc_empty_space" style="height: 64px"><span class="vc_empty_space_inner"></span></div>
+</body>

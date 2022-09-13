@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {Pig} from '../model/pig';
 import {environment} from '../../../environments/environment';
 
-const API_URL = `${environment.apiUrl}`;
+const API_URL = `${environment.apiUrlPig}`;
 
 @Injectable({
   providedIn: 'root'
@@ -16,15 +16,14 @@ export class PigService {
   }
 
   createPig(pig: Pig): Observable<Pig> {
-    return this.http.post<Pig>(API_URL + '/pig/create', pig);
+    return this.http.post<Pig>(API_URL + '/create', pig);
   }
 
   findById(id: number) {
-    return this.http.get<Pig>(API_URL + `/pig/page/${id}`);
+    return this.http.get<Pig>(API_URL + `/page/${id}`);
   }
 
-  editComputer(id: number, pig: Pig) {
-    return this.http.get<Pig>(API_URL + `/pig/edit/${id}`);
-
+  updateComputer(id: number, pig: Pig) {
+    return this.http.patch<Pig>(API_URL + `/update/${id}`, pig);
   }
 }

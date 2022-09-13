@@ -1,3 +1,5 @@
+import {Pigsty} from './pigsty';
+
 export interface Pig {
   id?: number;
   code?: string;
@@ -6,5 +8,5 @@ export interface Pig {
   status?: number;
   weight?: number;
   isDeleted?: number;
-  pigstyCode?: string;
+  pigsty?: Pigsty;
 }
