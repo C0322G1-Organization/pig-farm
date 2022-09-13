@@ -11,13 +11,11 @@
         </div>
         <div class="col-3">
         </div>
-        <div class="col-3 position-relative mx-auto ">
-          <input formControlName="titleSearch" class="form-control bg-transparent py-2 w-100" type="search"
+        <div class="col-5 position-relative mx-auto  d-flex">
+          <input formControlName="titleSearch" class="form-control bg-transparent py-2 " type="search"
                  placeholder="Nhập tên tiêu đề">
-        </div>
-        <div class="col-2 position-relative mx-auto" style="text-align: right">
-          <button class="btn btn-outline-success" (click)="searchAdvertisement()">
-            Tìm kiếm
+          <button class="btn btn-outline-success" (click)="searchAds()">
+            Tìm
           </button>
         </div>
       </div>
@@ -45,6 +43,7 @@
         <td>{{ads.timeExistence|date: 'dd/MM/yyyy'}}</td>
         <td style="text-align: right">
           <input *ngIf="ads" type="checkbox" ngModel [name]="''+ads.id" (ngModelChange)="checkButton(ads.id)">
+          <!--        <td><input class="form-check-input" type="checkbox" [checked]="checkbox(ads)" (change)="getListDelete(ads)"></td>-->
         </td>
       </tr>
       </tbody>
@@ -52,55 +51,71 @@
 
     <div style="text-align: center; display: flex; justify-content: center">
       <button [routerLink]=" ['/advertisement/edit',editId] " class="col-3 btn btn-outline-warning"
-               style="width: auto; margin-right: 2%" [disabled]="check.length!=1">
+              style="width: auto; margin-right: 2%" [disabled]="check.length!=1">
         Sửa
       </button>
       <button type=" submit
       " class="col-3 btn btn-outline-danger" data-bs-toggle="modal"
-      data-bs-target="#exampleModal" style="width: auto;" [disabled]="check.length<1">
-      Xoá
+              data-bs-target="#exampleModal" style="width: auto;" [disabled]="check.length<1">
+        Xoá
       </button>
     </div>
   </form>
-
-  <!--Phan trang-->
-  <div style="display: flex; justify-content: flex-end">
-    <ul class="pagination">
-      <div *ngIf="number == 0">
-        <li class="page-item disabled">
-          <button class="page-link" hidden>Previous</button>
+  <!--Phân trang-->
+  <div class="pagination-employee container">
+    <div style="position: absolute;bottom: 0px;right: 45px" class="paging mt-3">
+      <ul class="pagination justify-content-end">
+        <li [ngStyle]="{'display':previousPageClass}" (click)="previousPage($event)" class="page-item"><a
+          class="page-link" href="#" tabindex="-1" aria-disabled="true">
+          Trước</a></li>
+        <li class="page-item" [ngClass]="{'active':i==indexPagination}" *ngFor="let temp of pages;let i =index">
+          <a class="page-link" href="#" (click)="setPage(i,$event)">{{i + 1}}</a>
         </li>
-      </div>
-      <div *ngIf="number != 0">
-        <li class="page-item">
-          <button class="page-link" (click)="goPrevious()">Previous</button>
-        </li>
-      </div>
-
-      <div *ngFor="let count of countTotalPages; index as i">
-        <div *ngIf="i == number">
-          <li class="page-item active">
-            <button class="page-link" (click)="goItem(i)">{{i + 1}}</button>
-          </li>
-        </div>
-        <div *ngIf="i != number">
-          <li class="page-item">
-            <button class="page-link" (click)="goItem(i)">{{i + 1}}</button>
-          </li>
-        </div>
-      </div>
-      <div *ngIf="number == totalPages - 1">
-        <li class="page-item disabled">
-          <button class="page-link" hidden>Next</button>
-        </li>
-      </div>
-      <div *ngIf="number != totalPages - 1">
-        <li class="page-item">
-          <button class="page-link" (click)="goNext()">Next</button>
-        </li>
-      </div>
-    </ul>
+        <li [ngStyle]="{'display':nextPageClass}" (click)="nextPage($event)" class="page-item"><a class="page-link"
+                                                                                                  href="#">Tiếp
+          theo </a></li>
+      </ul>
+    </div>
   </div>
+
+  <!--  &lt;!&ndash;Phan trang&ndash;&gt;-->
+  <!--  <div style="display: flex; justify-content: flex-end">-->
+  <!--    <ul class="pagination">-->
+  <!--      <div *ngIf="number == 0">-->
+  <!--        <li class="page-item disabled">-->
+  <!--          <button class="page-link" hidden>Previous</button>-->
+  <!--        </li>-->
+  <!--      </div>-->
+  <!--      <div *ngIf="number != 0">-->
+  <!--        <li class="page-item">-->
+  <!--          <button class="page-link" (click)="goPrevious()">Previous</button>-->
+  <!--        </li>-->
+  <!--      </div>-->
+
+  <!--      <div *ngFor="let count of countTotalPages; index as i">-->
+  <!--        <div *ngIf="i == number">-->
+  <!--          <li class="page-item active">-->
+  <!--            <button class="page-link" (click)="goItem(i)">{{i + 1}}</button>-->
+  <!--          </li>-->
+  <!--        </div>-->
+  <!--        <div *ngIf="i != number">-->
+  <!--          <li class="page-item">-->
+  <!--            <button class="page-link" (click)="goItem(i)">{{i + 1}}</button>-->
+  <!--          </li>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--      <div *ngIf="number == totalPages - 1">-->
+  <!--        <li class="page-item disabled">-->
+  <!--          <button class="page-link" hidden>Next</button>-->
+  <!--        </li>-->
+  <!--      </div>-->
+  <!--      <div *ngIf="number != totalPages - 1">-->
+  <!--        <li class="page-item">-->
+  <!--          <button class="page-link" (click)="goNext()">Next</button>-->
+  <!--        </li>-->
+  <!--      </div>-->
+  <!--    </ul>-->
+  <!--  </div>-->
 
 </div>
 
