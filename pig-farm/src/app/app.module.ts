@@ -13,6 +13,10 @@ import {BodyModule} from './body/body.module';
 import {VaccinationModule} from './vaccination/vaccination.module';
 import {TreatmentModule} from './treatment/treatment.module';
 import {StorageModule} from './storage/storage.module';
+import {NotificationModule} from './notification/notification.module';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -26,12 +30,15 @@ import {StorageModule} from './storage/storage.module';
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
     FormsModule,
     ReactiveFormsModule,
     VaccinationModule,
     StorageModule,
     BodyModule,
-    TreatmentModule
+    TreatmentModule,
+    NotificationModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

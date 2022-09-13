@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {NotificationService} from '../../notification.service';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
-import {Notification} from '../../model/notification';
 import {ToastrService} from 'ngx-toastr';
+import {NotificationService} from '../../service/notification.service';
 import {Notifications} from '../../model/notification';
 
 @Component({
@@ -16,11 +15,7 @@ export class NotificationListComponent implements OnInit {
   clss: string;
   content = '';
   number: number;
-<<<<<<< HEAD
   notifications: Notifications[] = [];
-=======
-  notifications: Notification[] = [];
->>>>>>> 8e075d5df1a3e22e604115b3ef4206de5ffdfb11
   nameDelete: any = [];
   ids: number[] = [];
   check: string[] = [];
