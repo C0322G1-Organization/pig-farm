@@ -1,9 +1,13 @@
 body, h2 {
   margin: 0 auto;
-  /*background-image: url('../img/soil-association-pigs-1024x768.jpeg');*/
+  /*background-image: url('src/assets/soil-association-pigs-1024x768.jpeg');*/
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;
+}
+
+.bg{
+  background-image: url('src/assets/soil-association-pigs-1024x768.jpeg');
 }
 
 .container {

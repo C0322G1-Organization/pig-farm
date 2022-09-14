@@ -31,13 +31,14 @@ export class PigComponent implements OnInit {
   clss: string;
   content: string;
   checkNext: boolean;
-  checkPrevious: boolean;
   previousPageClass: any;
   pages: any;
   nextPageClass: any;
-  checkPreview: boolean;
   dateInSearch: string;
   statusSearch: string;
+  check: string[] = [];
+  editId: string;
+  informationDelete: Pig[];
 
   constructor(private pigService: PigService,
               private toastrService: ToastrService) {
@@ -53,18 +54,6 @@ export class PigComponent implements OnInit {
       statusSearch: new FormControl(''),
     });
   }
-
-  // getAllPig(page: number) {
-  //   this.pigService.findAllPig(page).subscribe((data: any) => {
-  //     this.totalPages = data?.totalPages;
-  //     this.countTotalPages = new Array(data?.totalPages);
-  //     this.number = data?.number;
-  //     this.pigs = data?.content;
-  //     this.checkNext = !data.last;
-  //     this.checkPrevious = !data.first;
-  //     this.msg = '';
-  //   });
-  // }
 
   getPigPage(page: number, codeSearch: string, dateInSearch: string, statusSearch: string) {
     this.pigService.getAllPig(page, codeSearch, dateInSearch, statusSearch).subscribe((data: Pig[]) => {
@@ -93,38 +82,7 @@ export class PigComponent implements OnInit {
       this.searchForm.value.dateInSearch,
       this.searchForm.value.statusSearch);
   }
-  // getAll(page: number) {
-  //   this.searchForm = new FormGroup({
-  //     codeSearch: new FormControl(''),
-  //     dateInSearch: new FormControl(''),
-  //     statusSearch: new FormControl(''),
-  //     content: new FormControl('')
-  //   });
-  //   if (this.codeSearch === undefined) {
-  //     this.codeSearch = '';
-  //   }
-  //   if (this.dateInSearch === undefined) {
-  //     this.dateInSearch = '';
-  //   }
-  //   if (this.statusSearch === undefined) {
-  //     this.statusSearch = '';
-  //   }
-  //   console.log('---------' + this.codeSearch);
-  //   this.pigService.getAllPig(page, this.codeSearch, this.dateInSearch, this.statusSearch).subscribe((data?: any) => {
-  //     if (data?.content.length < 1) {
-  //       return this.toastrService.success('Không tìm thấy !!!', 'Cá thể');
-  //     }
-  //     this.number = data?.number;
-  //     this.checkNext = !data.last;
-  //     this.checkPreview = !data.first;
-  //     this.pigs = data?.content;
-  //     console.log(data);
-  //   }, error => {
-  //     console.log(error);
-  //   }, () => {
-  //     console.log('get all ok');
-  //   });
-  // }
+
   goPrevious() {
     let numberPage: number = this.number;
     if (numberPage > 0) {
@@ -198,5 +156,50 @@ export class PigComponent implements OnInit {
     }
     this.pigService.getAllPig(0, '', '', '').subscribe(() => {
     });
+  }
+
+  checkButton(value: any) {
+    this.msg = '';
+    if (this.check.includes(value)) {
+      this.check.filter(item => item !== value);
+      for (let i = 0; i < this.check.length; i++) {
+        if (this.check[i] === value) {
+          this.check.splice(i, 1);
+        }
+      }
+    } else {
+      this.check.push(value);
+    }
+    if (this.check.length > 1) {
+      this.editId = null;
+    } else {
+      this.editId = this.check[0];
+    }
+  }
+
+
+  getListDelete(notificationDelete: Pig) {
+    for (let i = 0; i < this.nameDelete.length; i++) {
+      if (this.nameDelete[i].id === notificationDelete.id) {
+        this.nameDelete.splice(i, 1);
+        return;
+      }
+    }
+    this.nameDelete.push(notificationDelete);
+    this.ids = [];
+    this.informationDelete = [];
+    for (const item of this.nameDelete) {
+      this.ids.push(item.id);
+      this.informationDelete.push(item.title);
+    }
+  }
+
+  checkbox(notificationDelete: Pig) {
+    for (const item of this.nameDelete) {
+      if (item.id === notificationDelete.id) {
+        return true;
+      }
+    }
+    return false;
   }
 }
