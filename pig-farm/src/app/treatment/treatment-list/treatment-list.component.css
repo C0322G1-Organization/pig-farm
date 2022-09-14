@@ -1,0 +1,46 @@
+.formRow {
+  display: flex;
+  justify-content: center;;
+}
+
+.formRow_create {
+  border-radius: 15px;
+  padding: 15px 15px 15px 15px;
+  box-shadow: 2px 7px 9px 3px #1b191933;
+  background: white;
+  opacity: 94%
+}
+
+.form-text {
+  color: red;
+}
+
+.container {
+  background-color: white;
+  border-radius: 5px;
+  padding: 20px;
+  opacity: 94%;
+}
+
+body {
+  margin: 0 auto;
+  background-image: url("../../../assets/img/little-piggy-987544824-5c8ba8b7c9e77c00014a9d22 (1).jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+
+}
+hr {
+  border:none;
+  height: 20px;
+  width: 90%;
+  height: 50px;
+  margin-top: 0;
+  border-bottom: 2px solid #1f1209;
+  box-shadow: 0 20px 20px -20px #242323;
+  margin: -50px auto 10px;
+}
+.button{
+  display: flex;
+  justify-content: center
+}
