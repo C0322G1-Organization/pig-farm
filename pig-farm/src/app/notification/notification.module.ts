@@ -8,7 +8,6 @@ import {NotificationListComponent} from './notification-list/notification-list.c
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-
 @NgModule({
   declarations: [
     NotificationCreateComponent,
@@ -23,5 +22,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     FormsModule,
   ]
 })
+
 export class NotificationModule {
 }

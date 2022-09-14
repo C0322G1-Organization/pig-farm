@@ -7,7 +7,10 @@ import {HttpClientModule} from '@angular/common/http';
 import {VaccinationListComponent} from './vaccination-list/vaccination-list.component';
 
 @NgModule({
-  declarations: [VaccinationCreateComponent, VaccinationListComponent],
+  declarations: [
+    VaccinationCreateComponent,
+    VaccinationListComponent
+  ],
   imports: [
     CommonModule,
     VaccinationRoutingModule,
