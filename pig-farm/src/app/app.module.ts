@@ -18,6 +18,7 @@ import {StorageModule} from './storage/storage.module';
 import {TreatmentModule} from './treatment/treatment.module';
 import {NotificationModule} from './notification/notification.module';
 import {EmployeeModule} from './employee/employee.module';
+import {ContactModule} from './contact/contact.module';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {EmployeeModule} from './employee/employee.module';
     AngularFirestoreModule,
     TreatmentModule,
     NotificationModule,
-    EmployeeModule
+    EmployeeModule,
+    ContactModule
   ],
   providers: [],
   bootstrap: [AppComponent]
