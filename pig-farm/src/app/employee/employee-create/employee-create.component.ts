@@ -39,8 +39,6 @@ export class EmployeeCreateComponent implements OnInit {
     image: new FormControl('')
   });
 
-  // users: UserDto[] = [];
-
   constructor(private employeeService: EmployeeService,
               private userService: UserService,
               private toast: ToastrService,
@@ -50,31 +48,6 @@ export class EmployeeCreateComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  // submit(): void {
-  //   let employee: Employee;
-  //   employee = {
-  //     code: this.employeeForm.value.code,
-  //     name: this.employeeForm.value.name,
-  //     userDto: {
-  //       username: this.employeeForm.value.username,
-  //       password: this.employeeForm.value.password,
-  //       email: this.employeeForm.value.email
-  //     },
-  //     birthDay: this.employeeForm.value.birthDay,
-  //     gender: this.employeeForm.value.gender,
-  //     idCard: this.employeeForm.value.idCard,
-  //     image: this.employeeForm.value.image
-  //   };
-  //   console.log(employee);
-  //   this.employeeService.saveEmployee(employee).subscribe(() => {
-  //     this.employeeForm.reset();
-  //     // this.router.navigate(['/employee/list']);
-  //     this.toast.success('Thêm Mới Nhân Viên Thành Công !!');
-  //   }, error => {
-  //     this.toast.error('Thêm Mới Nhân Viên Thất Bại !!');
-  //   });
-  // }
 
   getCurrentDateTime(): string {
     return formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss', 'en-US');

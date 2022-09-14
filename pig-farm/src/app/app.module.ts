@@ -13,6 +13,7 @@ import {BodyModule} from './body/body.module';
 import {environment} from '../environments/environment';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {EmployeeModule} from './employee/employee.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
     ToastrModule.forRoot(),
     StorageModule,
     BodyModule,
+    EmployeeModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule
   ],
