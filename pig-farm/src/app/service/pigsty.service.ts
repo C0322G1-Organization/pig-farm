@@ -9,19 +9,19 @@ const API_URL = `${environment.apiUrl}`;
   providedIn: 'root'
 })
 export class PigstyService {
-  private URL_PIGSTY = environment.apiUrl + "/pigsty"
+  private URL_PIGSTY = environment.apiUrl + '/pigsty';
 
   constructor(private http: HttpClient) { }
   createPigsty(pigsty: Pigsty): Observable<Pigsty> {
-    return this.http.post(this.URL_PIGSTY + "/createPigsty", pigsty)
+    return this.http.post(this.URL_PIGSTY + '/createPigsty', pigsty);
   }
 
   editPigsty(pigsty: Pigsty): Observable<Pigsty> {
-    return this.http.patch(this.URL_PIGSTY + "/editPigsty", pigsty)
+    return this.http.patch(this.URL_PIGSTY + '/editPigsty', pigsty);
   }
 
   getPigsty(id: number): Observable<Pigsty> {
-    return this.http.get<Pigsty>(this.URL_PIGSTY + "/getPigstyById"+`/${id}`)
+    return this.http.get<Pigsty>(this.URL_PIGSTY + '/getPigstyById' + `/${id}`);
   }
 
   getAll(page: number, search: string): Observable<any> {

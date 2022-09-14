@@ -24,16 +24,14 @@ body {
   background-size: 100% 100%
 }
 .background {
-  background-image: url("/assets/img/pigsty/pig.jpeg");
+  background-image: url("../../../assets/pigty-list.jpeg");
   background-size: 100%
 }
 
 .hrLine {
   border: none;
-  height: 20px;
   width: 90%;
   height: 50px;
-  margin-top: 0;
   border-bottom: 2px solid #1f1209;
   box-shadow: 0 20px 20px -20px #242323;
   margin: -50px auto 10px;
@@ -44,7 +42,7 @@ body {
 }
 .hgu{
   font-size: 2vw;
-  padding: 1% 0%;
+  padding: 1% 0;
 }
 .formRow_create_title{
   text-align: center;
