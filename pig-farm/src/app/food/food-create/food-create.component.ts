@@ -1,13 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {PigstyServiceService} from "../service/pigsty-service.service";
-import {Router} from "@angular/router";
-import {ToastrService} from "ngx-toastr";
-import {FoodServiceService} from "../service/food-service.service";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Pigsty} from "../model/pigsty";
-import {StorageServiceService} from "../service/storage-service.service";
-import {Storages} from "../model/storages";
-
+import {Router} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
+import {FoodServiceService} from '../service/food-service.service';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Pigsty} from '../../model/pigsty';
+import {StorageService} from '../../service/storage.service';
+import {PigstyService} from '../../service/pigsty.service';
+import {Storage} from '../../model/storage';
 @Component({
   selector: 'app-food-create',
   templateUrl: './food-create.component.html',
@@ -15,17 +14,17 @@ import {Storages} from "../model/storages";
 })
 export class FoodCreateComponent implements OnInit {
   pigsties: Pigsty[] = [];
-  storages: Storages[] = [];
+  storages: Storage[] = [];
 
   foodForm: FormGroup = new FormGroup({
-    amount: new FormControl('',[Validators.required]),
-    unit: new FormControl('',[Validators.required]),
-    storage: new FormControl('',[Validators.required]),
-    pigsty: new FormControl('',[Validators.required]),
+    amount: new FormControl('', [Validators.required]),
+    unit: new FormControl('', [Validators.required]),
+    storage: new FormControl('', [Validators.required]),
+    pigsty: new FormControl('', [Validators.required]),
   });
 
-  constructor(private pigstyService: PigstyServiceService,
-              private storageService: StorageServiceService,
+  constructor(private pigstyService: PigstyService,
+              private storageService: StorageService,
               private foodService: FoodServiceService,
               private router: Router,
               private toast: ToastrService) {
@@ -34,7 +33,7 @@ export class FoodCreateComponent implements OnInit {
   ngOnInit(): void {
     // this.getPigsties();
     this.getStorages();
-    console.log(this.getStorages())
+    console.log(this.getStorages());
   }
 
   getPigsties(): void {
@@ -44,8 +43,9 @@ export class FoodCreateComponent implements OnInit {
   }
 
   getStorages(): void {
+    // @ts-ignore
     this.storageService.getAll().subscribe((storageService?: any) => {
-      console.log(storageService.content)
+      console.log(storageService.content);
       this.storages = storageService.content;
     });
   }
@@ -54,11 +54,11 @@ export class FoodCreateComponent implements OnInit {
     const food = this.foodForm.value;
     food.storage = {
       id: +food.storage
-    }
+    };
     food.pigsty = {
       id: +food.pigsty
-    }
-    console.log(food)
+    };
+    console.log(food);
     this.foodService.saveFood(food).subscribe(() => {
     }, error => {
       console.log(error);
