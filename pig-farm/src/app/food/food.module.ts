@@ -3,14 +3,17 @@ import { CommonModule } from '@angular/common';
 
 import { FoodRoutingModule } from './food-routing.module';
 import {HttpClientModule} from '@angular/common/http';
-import {ListFoodComponent} from './list-food/list-food.component';
+import {ListFoodComponent} from './food-list/list-food.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {FoodCreateComponent} from './food-create/food-create.component';
+import {FoodEditComponent} from './food-edit/food-edit.component';
 
 
 @NgModule({
-  declarations: [ListFoodComponent],
+  declarations: [ ListFoodComponent,
+    FoodCreateComponent, FoodEditComponent],
   exports: [
-    ListFoodComponent
+
   ],
   imports: [
     CommonModule,

@@ -11,7 +11,6 @@ import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {BodyModule} from './body/body.module';
 import {VaccinationModule} from './vaccination/vaccination.module';
-import {FoodModule} from './food/food.module';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
@@ -22,6 +21,7 @@ import {NotificationModule} from './notification/notification.module';
 import {EmployeeModule} from './employee/employee.module';
 import {ContactModule} from './contact/contact.module';
 import {PigModule} from './pig/pig.module';
+import {FoodModule} from './food/food.module';
 
 @NgModule({
   declarations: [

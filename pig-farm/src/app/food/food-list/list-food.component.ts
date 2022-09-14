@@ -5,7 +5,7 @@ import {FoodService} from '../service/food.service';
 import {ToastrService} from 'ngx-toastr';
 
 @Component({
-  selector: 'app-list-food',
+  selector: 'app-food-list',
   templateUrl: './list-food.component.html',
   styleUrls: ['./list-food.component.css']
 })
