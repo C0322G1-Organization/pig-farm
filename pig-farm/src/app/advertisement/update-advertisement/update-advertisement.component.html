@@ -43,10 +43,13 @@
             </div>
             <div>
               <div class="col-md-4" style="text-align: left ;margin-bottom: 10px">
-                <input type="file" class="form-control-file" (click)="showImg($event)" >
+                <input type="file" class="form-control-file" multiple (change)="selectFile($event)"
+                       (change)="onFileSelected($event)" >
               </div>
               <div class="col-md-8" style="height: 200px">
-                <img [src]="formAdvertisement.get('image').value" width="300" height="200" ></div>
+                <img *ngIf="!editImageState" [src]="formAdvertisement.get('image').value" width="300" height="200" >
+                <img class="preview-img rounded" [src]="url" *ngIf="editImageState" width="300" height="200">
+              </div>
               <div style="color:red;"
                    *ngIf="!formAdvertisement.controls.image?.valid && (formAdvertisement.controls.image?.dirty||formAdvertisement.controls.image?.touched)">
                 Ảnh không được để trống

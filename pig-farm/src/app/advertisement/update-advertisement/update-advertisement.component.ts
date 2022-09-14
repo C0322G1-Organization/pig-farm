@@ -3,10 +3,10 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {AdvertisementService} from '../service/advertisement.service';
 import {AngularFireStorage} from '@angular/fire/storage';
-import {Placement} from "../model/placement";
-import {Form, FormControl, FormGroup, Validators} from "@angular/forms";
-import {finalize} from "rxjs/operators";
-import {formatDate} from "@angular/common";
+import {Placement} from '../model/placement';
+import {Form, FormControl, FormGroup, Validators} from '@angular/forms';
+import {finalize} from 'rxjs/operators';
+import {formatDate} from '@angular/common';
 
 @Component({
   selector: 'app-update-advertisement',
@@ -19,16 +19,21 @@ export class UpdateAdvertisementComponent implements OnInit {
   formAdvertisement: FormGroup;
   advertisementId: number;
   selectedImage: File = null;
+  regexImageUrl = false;
+  editImageState = false;
+  checkImg: boolean;
+  url: any;
+  msg = '';
   constructor(private route: Router,
               private toast: ToastrService,
               private placementService: AdvertisementService,
               private storage: AngularFireStorage,
               private activatedRoute: ActivatedRoute) {
-     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
-        this.advertisementId = +paramMap.get('id');
-        console.log(this.advertisementId);
-        this.getAdvertisement(this.advertisementId);
-     });
+    this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
+      this.advertisementId = +paramMap.get('id');
+      console.log(this.advertisementId);
+      this.getAdvertisement(this.advertisementId);
+    });
   }
 
   ngOnInit(): void {
@@ -44,11 +49,11 @@ export class UpdateAdvertisementComponent implements OnInit {
     });
   }
 
-   getAdvertisement(id: number) {
-      this.placementService.findById(id).subscribe(ads => {
-        this.formAdvertisement.patchValue(ads);
-      });
-   }
+  getAdvertisement(id: number) {
+    this.placementService.findById(id).subscribe(ads => {
+      this.formAdvertisement.patchValue(ads);
+    });
+  }
 
   submit() {
     const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
@@ -73,23 +78,52 @@ export class UpdateAdvertisementComponent implements OnInit {
       })
     ).subscribe();
   }
-  showImg(event: any) {
-    console.log(event);
-    if (event.target.size > 9000000) {
-      this.checkImgSize = false;
-      return ;
-    }
-    if (event.target.name.match('^.*\\.(jpg|JPG)$')) {
-      this.checkImgSize = true;
-      return ;
+
+  onFileSelected(event) {
+    this.regexImageUrl = false;
+    if (event.target.files[0].size > 9000000) {
+      return;
     }
     this.selectedImage = event.target.files[0];
-    // this.formAdvertisement.patchValue({image : this.selectedImage.name});
+    if (!event.target.files[0].name.match('^.*\\.(jpg|JPG)$')) {
+      this.regexImageUrl = true;
+      return;
+    }
+    this.formAdvertisement.patchValue({imageUrl: this.selectedImage.name});
   }
+  selectFile(event: any) {
+    if (!event.target.files[0] || event.target.files[0].length === 0) {
+      return;
+    }
+    if (event.target.files[0].size > 9000000) {
+      return;
+    }
+    if (!event.target.files[0].name.match('^.*\\.(jpg|JPG)$')) {
+      return;
+    }
+    this.checkImgSize = false;
+    this.checkImg = false;
+    this.editImageState = true;
+
+    const mimeType = event.target.files[0].type;
+
+    if (mimeType.match(/image\/*/) == null) {
+      this.msg = 'Chỉ có file ảnh được hỗ trợ';
+      return;
+    }
+    const reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+    // tslint:disable-next-line:variable-name
+    reader.onload = (_event) => {
+      this.msg = '';
+      this.url = reader.result;
+    };
+  }
+
   getCurrentDateTime(): string {
     return formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss', 'en-US');
   }
-  compare(value, option): boolean{
+  compare(value, option): boolean {
     return value.id === option.id;
     console.log(value);
     console.log(option);

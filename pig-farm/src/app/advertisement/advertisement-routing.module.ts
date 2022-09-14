@@ -3,19 +3,15 @@ import { Routes, RouterModule } from '@angular/router';
 import {PostAdvertisementComponent} from './post-advertisement/post-advertisement.component';
 import {UpdateAdvertisementComponent} from './update-advertisement/update-advertisement.component';
 
-import {ListAdvertisementComponent} from "./list-advertisement/list-advertisement.component";
+
 
 
 const routes: Routes = [
-  {
-    path: 'list',
-    component: ListAdvertisementComponent
-  },
  {
-    path: 'post',
+    path: 'advertisement/post',
     component: PostAdvertisementComponent
   }, {
-    path: 'edit/:id',
+    path: 'advertisement/edit/:id',
     component: UpdateAdvertisementComponent
   },
 ];

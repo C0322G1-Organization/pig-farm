@@ -6,16 +6,17 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { PostAdvertisementComponent } from './post-advertisement/post-advertisement.component';
 import { UpdateAdvertisementComponent } from './update-advertisement/update-advertisement.component';
 import { ListPlacementComponent } from './list-placement/list-placement.component';
-import { ListAdvertisementComponent } from './list-advertisement/list-advertisement.component';
+import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
-  declarations: [PostAdvertisementComponent, UpdateAdvertisementComponent, ListPlacementComponent, ListAdvertisementComponent],
+  declarations: [PostAdvertisementComponent, UpdateAdvertisementComponent, ListPlacementComponent],
   imports: [
     CommonModule,
     FormsModule,
     AdvertisementRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ]
 })
 export class AdvertisementModule { }

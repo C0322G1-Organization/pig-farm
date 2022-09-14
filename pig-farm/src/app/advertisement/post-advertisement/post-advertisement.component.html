@@ -14,7 +14,7 @@
             <label class="form-label">Tiêu đề </label>
             <input type="text" class="form-control" formControlName="title">
             <div style="color:red;"
-              *ngIf="!formAdvertisement.controls.title?.valid && (formAdvertisement.controls.title?.dirty||formAdvertisement.controls.title?.touched)">
+                 *ngIf="!formAdvertisement.controls.title?.valid && (formAdvertisement.controls.title?.dirty||formAdvertisement.controls.title?.touched)">
               Không được để trống và không nhập kí tự
             </div>
           </div>
@@ -30,8 +30,8 @@
             <label class="form-label">Ngày đăng</label>
             <input type="date" class="form-control" formControlName="submittedDate">
             <div style="color:red;"
-                 *ngIf="!formAdvertisement.controls.submittedDate?.valid && (formAdvertisement.controls.submittedDate?.dirty||formAdvertisement.controls.submittedDate?.touched)">
-              Không được để trống , quảng cáo khác đang được tồn tại
+                 *ngIf="formAdvertisement.controls.submittedDate.hasError('duplicateDate') && (formAdvertisement.controls.submittedDate?.dirty||formAdvertisement.controls.submittedDate?.touched)">
+              Quảng cáo khác đang được tồn tại
             </div>
           </div>
           <div class="mb-3">
@@ -49,11 +49,13 @@
               <div class="col-md-12 mb-3">
                 <label>Hình ảnh  <span style="color: red">(*)</span></label>
               </div>
-              <div>
-
-                <img src="/assets/image/advertisement.jpg" ></div>
               <div style="margin-top: 20px">
-                <input type="file" class="form-control-file" (change)="showImg($event)" >
+                <input type="file" class="form-control-file" multiple (change)="selectFile($event)"
+                       (change)="onFileSelected($event)" >
+              </div>
+              <div style="margin-top: 20px">
+                <img *ngIf="!editImageState" [src]="formAdvertisement.get('image').value" width="300" height="200" >
+                <img class="preview-img rounded" [src]="url" *ngIf="editImageState" width="300" height="200">
               </div>
               <div style="color:red;"
                    *ngIf="!formAdvertisement.controls.image?.valid && (formAdvertisement.controls.image?.dirty||formAdvertisement.controls.image?.touched)">
