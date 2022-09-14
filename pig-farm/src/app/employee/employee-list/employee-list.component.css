@@ -7,6 +7,12 @@
   color: #444444;
 }
 
+#employees {
+  background-image: url("../../../assets/image/803470.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100% ;
+}
+
 a {
   color: #1977cc;
   text-decoration: none;
