@@ -5,8 +5,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 // @ts-ignore
 import {AdsService} from './service/ads.service';
 import {ToastrService} from 'ngx-toastr';
-import {Advertisement} from '../model/advertisement';
-import {AdvertisementService} from '../service/advertisement.service';
+import {Advertisement} from '../../model/advertisement';
+import {AdvertisementService} from '../../service/advertisement.service';
 
 @Component({
   selector: 'app-advertisement',

@@ -101,6 +101,7 @@ export class StatisticComponent implements OnInit {
     this.valueAmountPieChart = [];
     this.valuePricePieChart = [];
     this.namePieChart = [];
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.listStatistic.length; i++) {
       this.valueAmountPieChart.push(this.listStatistic[i].amount);
       this.valuePricePieChart.push(this.listStatistic[i].price);

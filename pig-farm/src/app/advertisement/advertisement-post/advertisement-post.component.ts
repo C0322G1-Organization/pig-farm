@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Placement} from '../model/placement';
-import {Advertisement} from '../model/advertisement';
+import {Placement} from '../../model/placement';
+import {Advertisement} from '../../model/advertisement';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
-import {AdvertisementService} from '../service/advertisement.service';
+import {AdvertisementService} from '../../service/advertisement.service';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {finalize} from 'rxjs/operators';
 import {formatDate} from '@angular/common';

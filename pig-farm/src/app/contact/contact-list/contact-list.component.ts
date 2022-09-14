@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
-import {Contact} from '../model/contact';
-import {ContactService} from '../service/contact.service';
+import {Contact} from '../../model/contact';
+import {ContactService} from '../../service/contact.service';
 
 @Component({
   selector: 'app-contact-list',

@@ -4,7 +4,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgModule} from '@angular/core';
 import {StatisticComponent} from './statistic/statistic.component';
 
-
 @NgModule({
   declarations: [ StatisticComponent],
   imports: [

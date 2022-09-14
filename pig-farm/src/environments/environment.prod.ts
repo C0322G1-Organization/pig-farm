@@ -2,13 +2,13 @@ export const environment = {
   production: true,
   apiUrl: 'https://trungdc.synology.me:5152/pig-farm-api',
   firebaseConfig : {
-    apiKey: 'AIzaSyBYH6IrJ1z76jwUfO6bqSwug9keJDuGrOM',
-    authDomain: 'notification-1b988.firebaseapp.com',
-    databaseURL: 'https://notification-1b988-default-rtdb.asia-southeast1.firebasedatabase.app',
-    projectId: 'notification-1b988',
-    storageBucket: 'notification-1b988.appspot.com',
-    messagingSenderId: '482166598328',
-    appId: '1:482166598328:web:cd4a422766d3ca2056a24d',
-    measurementId: 'G-NPMC25R69V'
+    apiKey: 'AIzaSyCdZCDM62DHR9Wxk-C-HTAgYgHh3eAGB9E',
+    authDomain: 'notification-a799c.firebaseapp.com',
+    databaseURL: 'https://notification-a799c-default-rtdb.asia-southeast1.firebasedatabase.app',
+    projectId: 'notification-a799c',
+    storageBucket: 'notification-a799c.appspot.com',
+    messagingSenderId: '1034475190969',
+    appId: '1:1034475190969:web:c0ca027d17e2a240a3b968',
+    measurementId: 'G-FGKRX2J4PS'
   }
 };

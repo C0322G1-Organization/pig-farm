@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Placement} from '../model/placement';
-import {AdvertisementService} from '../service/advertisement.service';
+import {Placement} from '../../model/placement';
+import {AdvertisementService} from '../../service/advertisement.service';
 
 @Component({
   selector: 'app-placement-list',

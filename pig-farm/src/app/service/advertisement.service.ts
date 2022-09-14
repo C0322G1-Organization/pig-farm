@@ -4,7 +4,7 @@ import {ToastrModule, ToastrService} from 'ngx-toastr';
 import { Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {Advertisement} from '../model/advertisement';
-import {environment} from '../../../environments/environment';
+import {environment} from '../../environments/environment';
 import {Placement} from '../model/placement';
 const API_URL = `${environment.apiUrl}`;
 @Injectable({

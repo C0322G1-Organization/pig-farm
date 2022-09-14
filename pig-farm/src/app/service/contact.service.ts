@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Contact} from '../model/contact';
-import {environment} from '../../../environments/environment';
+import {environment} from '../../environments/environment';
 
 const URL_CONTACT = `${environment.apiUrl + '/api/contact'}`;
 

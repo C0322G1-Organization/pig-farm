@@ -6,5 +6,4 @@ export interface Pigsty {
   buildDate?: string;
   maxNumber?: number;
   isDeleted?: boolean;
-
 }
