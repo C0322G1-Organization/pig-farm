@@ -22,6 +22,8 @@ export class NotificationEditComponent implements OnInit {
   url: any;
   msg = '';
   checkImgSize: boolean;
+  check = true;
+  isExits = false;
 
   constructor(private notificationService: NotificationService,
               private activatedRoute: ActivatedRoute,
@@ -34,22 +36,28 @@ export class NotificationEditComponent implements OnInit {
     });
   }
 
-
   ngOnInit(): void {
+    this.notificationForm = new FormGroup({
+      id: new FormControl(''),
+      title: new FormControl('', [Validators.required]),
+      content: new FormControl('', [Validators.required, Validators.maxLength(1000)]),
+      image: new FormControl('', [Validators.required]),
+    });
   }
 
   getNotification(id: number) {
     return this.notificationService.findById(id).subscribe(notification => {
-      this.notificationForm = new FormGroup({
-        id: new FormControl(notification.id),
-        title: new FormControl(notification.title, [Validators.required]),
-        content: new FormControl(notification.content, [Validators.required, Validators.maxLength(1000)]),
-        image: new FormControl(notification.image, [Validators.required]),
-      });
+      this.notificationForm.patchValue(notification);
     });
   }
 
   updateNotification() {
+    this.check = false;
+    if (this.notificationForm.invalid) {
+      this.toast.error('Nhập đầy đủ thông tin!');
+      this.check = true;
+      return;
+    }
     const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
     const filePath = `news/${nameImg}`;
     const fileRef = this.storage.ref(filePath);
@@ -61,9 +69,12 @@ export class NotificationEditComponent implements OnInit {
           console.log(this.notificationForm.value);
           this.notificationService.update(this.id, this.notificationForm.value).subscribe(
             () => {
-              this.toast.success('Huyền đã sửa thành công', 'MỪNG QUÁ');
+              this.toast.success('Cập nhật thành công');
               this.router.navigateByUrl('/notification');
             },
+            error => {
+              this.toast.error('Cập nhật thất bại, xin hãy thử lại');
+            }
           );
         });
       })
@@ -115,5 +126,27 @@ export class NotificationEditComponent implements OnInit {
       this.url = reader.result;
     };
   }
+
+  // checkImage() {
+  //   if (!this.selectedImage || this.selectedImage.name === '') {
+  //     this.checkImg = true;
+  //     return;
+  //   }
+  // }
+  //
+  // checkGameName($event: Event) {
+  //   this.notificationService.checkNotification(String($event)).subscribe(
+  //     value => {
+  //       if (value) {
+  //         this.isExits = true;
+  //       } else {
+  //         this.isExits = false;
+  //       }
+  //     }
+  //   );
+  //   if (String($event) === '') {
+  //     this.isExits = false;
+  //   }
+  // }
 }
 

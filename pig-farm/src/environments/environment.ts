@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:8080',
-  firebaseConfig: {
+  firebaseConfig : {
     apiKey: 'AIzaSyCdZCDM62DHR9Wxk-C-HTAgYgHh3eAGB9E',
     authDomain: 'notification-a799c.firebaseapp.com',
     databaseURL: 'https://notification-a799c-default-rtdb.asia-southeast1.firebasedatabase.app',

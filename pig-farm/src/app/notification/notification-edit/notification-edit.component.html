@@ -15,9 +15,12 @@
       <form [formGroup]="notificationForm" (ngSubmit)= updateNotification() >
         <hr>
         <div class="mb-3" style="text-align: left ;margin-bottom: 10px">
-          <label class="form-label">Ảnh</label><label class="form-text"> *</label>
+          <label class="form-label">Hình ảnh</label><label class="form-text"> *</label>
+<!--          <label class="input-img w-100 rounded">Hình ảnh:<span class="text-danger"-->
+<!--                                                                             (change)="checkGameName($event.target.value)"> *</span></label>-->
+
           <input type="file" class="form-control-file" multiple (change)="selectFile($event)"
-                 (change)="onFileSelected($event)" >
+                 (change)="onFileSelected($event)"  accept="image/*">
         </div>
         <div class="col-md-8" style="height: 200px">
           <img *ngIf="!editImageState" [src]="notificationForm.get('image').value" width="300" height="200" >
@@ -46,8 +49,9 @@
 
         <p style="color:red" *ngIf="notificationForm.controls.content.hasError('maxlength') &&
          notificationForm.controls.content.dirty">Nội dung không nhập quá 1000 kí tự</p>
+
         <div class="button">
-          <button class="btn btn-outline-danger back" routerLink=""><i class="bi bi-backspace"></i> Hủy bỏ</button>
+          <button class="btn btn-outline-danger back" routerLink="/notification"><i class="bi bi-backspace"></i> Hủy bỏ</button>
           <button class="btn btn-outline-success" type="submit"><i class="bi bi-plus-circle"></i> Cập nhật</button>
         </div>
       </form>

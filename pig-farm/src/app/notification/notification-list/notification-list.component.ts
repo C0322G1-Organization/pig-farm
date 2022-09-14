@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
-import {Notifications} from '../../model/notification';
 import {NotificationService} from '../../service/notification.service';
+import {Notifications} from '../../model/notification';
 
 @Component({
   selector: 'app-notification-list',

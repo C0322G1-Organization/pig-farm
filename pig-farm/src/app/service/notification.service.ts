@@ -42,4 +42,8 @@ export class NotificationService {
   update(id: number, notifications: Notifications): Observable<Notifications> {
     return this.http.put<Notifications>(URL_NOTIFICATION + '/update/' + id, notifications);
   }
+
+  // checkNotification(name: string): Observable<string> {
+  //   return this.http.get<string>(URL_NOTIFICATION + '/checkNotification/' + name);
+  // }
 }
