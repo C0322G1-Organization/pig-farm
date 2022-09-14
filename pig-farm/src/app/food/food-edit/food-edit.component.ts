@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {Pigsty} from "../model/pigsty";
-import {Storages} from "../model/storages";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {PigstyServiceService} from "../service/pigsty-service.service";
-import {StorageServiceService} from "../service/storage-service.service";
-import {FoodServiceService} from "../service/food-service.service";
-import {ActivatedRoute, ParamMap, Router} from "@angular/router";
-import {ToastrService} from "ngx-toastr";
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FoodServiceService} from '../service/food-service.service';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
+import {Pigsty} from '../../model/pigsty';
+import {PigstyService} from '../../service/pigsty.service';
+import {StorageService} from '../../service/storage.service';
 
 @Component({
   selector: 'app-food-edit',
@@ -22,10 +21,10 @@ export class FoodEditComponent implements OnInit {
   });
   pigsties: Pigsty[] = [];
   id: number;
-  storages: Storages[] = [];
+  storages: Storage[] = [];
 
-  constructor(private pigstyService: PigstyServiceService,
-              private storageService: StorageServiceService,
+  constructor(private pigstyService: PigstyService,
+              private storageService: StorageService,
               private foodService: FoodServiceService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
@@ -44,12 +43,14 @@ export class FoodEditComponent implements OnInit {
     this.getStorages();
   }
   getPigsties(): void {
+    // @ts-ignore
     this.pigstyService.getAll().subscribe((pigstyService?: any) => {
       this.pigsties = pigstyService.content;
     });
   }
 
   getStorages(): void {
+    // @ts-ignore
     this.storageService.getAll().subscribe((storageService?: any) => {
       this.storages = storageService.content;
     });
@@ -57,10 +58,10 @@ export class FoodEditComponent implements OnInit {
   getFood(id: number) {
     return this.foodService.findById(id).subscribe(food => {
       this.foodForm = new FormGroup({
-        amount: new FormControl(food.amount,[Validators.required, Validators.pattern('\\d')]),
-        unit: new FormControl(food.unit,[Validators.required]),
-        storage: new FormControl(food.storage.id,[Validators.required]),
-        pigsty: new FormControl(food.pigsty.id,[Validators.required]),
+        amount: new FormControl(food.amount, [Validators.required, Validators.pattern('\\d')]),
+        unit: new FormControl(food.unit, [Validators.required]),
+        storage: new FormControl(food.storage.id, [Validators.required]),
+        pigsty: new FormControl(food.pigsty.id, [Validators.required]),
       });
     });
 
@@ -69,11 +70,11 @@ export class FoodEditComponent implements OnInit {
     const food = this.foodForm.value;
     food.storage = {
       id: +food.storage
-    }
+    };
     food.pigsty = {
       id: +food.pigsty
-    }
-      this.foodService.editFood(id, food).subscribe(() => {
+    };
+    this.foodService.editFood(id, food).subscribe(() => {
       },  error => {
         console.log(error);
       }, () => {

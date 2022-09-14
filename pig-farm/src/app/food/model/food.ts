@@ -1,11 +1,10 @@
-import {Pigsty} from "./pigsty";
-import {Storages} from "./storages";
+import {Pigsty} from '../../model/pigsty';
 
 export interface Food {
   id?: number;
   amount?: number;
   unit?: string;
-  storage?: Storages;
+  storage?: Storage;
   pigsty?: Pigsty;
   isDeleted?: boolean;
 
