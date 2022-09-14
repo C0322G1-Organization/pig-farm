@@ -8,7 +8,10 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
-  declarations: [StorageListComponent, StorageCreateComponent],
+  declarations: [
+    StorageListComponent,
+    StorageCreateComponent
+  ],
   imports: [
     CommonModule,
     StorageRoutingModule,

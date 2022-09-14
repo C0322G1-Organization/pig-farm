@@ -1,4 +1,4 @@
-import {Export} from '../export_port/export';
+import {Export} from './export';
 import {UserDto} from '../user/user';
 
 export interface Employee {
