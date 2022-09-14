@@ -4,7 +4,7 @@ import {UserDto} from '../../user/user';
 import {UserService} from '../../user/user.service';
 import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {checkBirthDay, checkDay} from '../../validate/check-birth-day';
+import {checkBirthDay, checkDay} from '../../validated/check-birth-day';
 import {EmployeeService} from '../../service/employee.service';
 
 @Component({
