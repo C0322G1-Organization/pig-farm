@@ -1,26 +1,26 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
-import {HttpClientModule} from '@angular/common/http';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BodyModule} from './body/body.module';
 import {VaccinationModule} from './vaccination/vaccination.module';
 import {DatePipe} from '@angular/common';
-
-import {TreatmentModule} from './treatment/treatment.module';
 import {StorageModule} from './storage/storage.module';
-import {NotificationModule} from './notification/notification.module';
-// @ts-ignore
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
-// @ts-ignore
 import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {StatisticModule} from './statistic/statistic.module';
+import {TreatmentModule} from './treatment/treatment.module';
+import {NotificationModule} from './notification/notification.module';
+import {EmployeeModule} from './employee/employee.module';
+import {ContactModule} from './contact/contact.module';
+import {PigModule} from './pig/pig.module';
 
 @NgModule({
   declarations: [
@@ -33,16 +33,22 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     ToastrModule.forRoot(),
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule,
     FormsModule,
     ReactiveFormsModule,
     VaccinationModule,
     StorageModule,
     BodyModule,
     TreatmentModule,
+    StatisticModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
+    TreatmentModule,
     NotificationModule,
+    EmployeeModule,
+    ContactModule,
+    PigModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

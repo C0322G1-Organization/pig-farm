@@ -1,0 +1,12 @@
+body {
+  /*background-image: url('../../image/1-1598259623.png');*/
+  opacity: 90%;
+}
+
+.form-text, span {
+  color: red;
+}
+
+label {
+  font-weight: bold;
+}

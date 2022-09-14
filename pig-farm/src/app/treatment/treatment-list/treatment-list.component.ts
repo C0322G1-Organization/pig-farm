@@ -31,8 +31,14 @@ export class TreatmentListComponent implements OnInit {
     }
     console.log('---------' + this.keySearch);
     this.treatmentService.getAll(page, this.keySearch).subscribe((data?: any) => {
-      if (data?.content.length < 1) {
-        return this.toastrService.success('Không tìm thấy !!!', 'Thông báo');
+      console.log(data);
+      if (data?.content === null) {
+        this.keySearch = '';
+        this.toastrService.success('Không tìm thấy !!!', 'Thông báo');
+      }
+      if (data?.content.length < 1 || data?.content.length === undefined) {
+        this.treatmentList.length = 0;
+        return;
       }
       this.number = data?.number;
       this.checkNext = !data.last;
@@ -57,6 +63,8 @@ export class TreatmentListComponent implements OnInit {
         this.checkDelete = this.deleteList.length < 1;
         this.getAll(0);
       }, error => {
+        this.toastrService.error('Xóa không thành công !!!', 'Cảnh báo');
+        this.checkDelete = this.deleteList.length < 1;
         console.log('error', error);
       });
     }
