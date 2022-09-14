@@ -24,8 +24,8 @@ export class PigstyService {
     return this.http.get<Pigsty>(this.URL_PIGSTY + "/getPigstyById"+`/${id}`)
   }
 
-  getAll(): Observable<Pigsty[]> {
-    return this.http.get<Pigsty[]>(API_URL + '/api/pig/list/pigsty');
+  getAll(page: number, search: string): Observable<any> {
+    return this.http.get<any>(API_URL + 'list?search=' + search + '&page=' + page);
   }
 
 }

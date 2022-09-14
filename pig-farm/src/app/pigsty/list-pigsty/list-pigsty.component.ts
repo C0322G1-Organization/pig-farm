@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {PigstyService} from '../service/pigsty.service';
-import {Pigsty} from '../model/pigsty';
+
 import {FormControl, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
+import {Pigsty} from "../../model/pigsty";
+import {PigstyService} from "../../service/pigsty.service";
 
 @Component({
   selector: 'app-list-pigsty',

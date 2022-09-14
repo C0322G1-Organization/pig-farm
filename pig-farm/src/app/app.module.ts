@@ -23,13 +23,11 @@ import {NotificationModule} from './notification/notification.module';
 import {EmployeeModule} from './employee/employee.module';
 import {ContactModule} from './contact/contact.module';
 import {PigModule} from './pig/pig.module';
+import {PigstyModule} from "./pigsty/pigsty.module";
 
-// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
-    PigstyCreateComponent,
-    PigstyEditComponent,
     HeaderComponent,
     FooterComponent
   ],
@@ -53,7 +51,8 @@ import {PigModule} from './pig/pig.module';
     NotificationModule,
     EmployeeModule,
     ContactModule,
-    PigModule
+    PigModule,
+    PigstyModule
   ],
   providers: [],
   bootstrap: [AppComponent]
