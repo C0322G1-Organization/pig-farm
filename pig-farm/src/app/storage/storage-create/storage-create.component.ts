@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {StorageService} from '../storage.service';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-storage-create',
@@ -10,22 +11,22 @@ import {ToastrService} from 'ngx-toastr';
   styleUrls: ['./storage-create.component.css']
 })
 export class StorageCreateComponent implements OnInit {
-
+  today = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
   storageList: Storage[];
 
   storageForm: FormGroup = new FormGroup({
-    id: new FormControl(''),
-    foodType: new FormControl('', [Validators.required]),
-    amount: new FormControl('', [Validators.required, Validators.pattern('[1-9][0-9]*')]),
+    foodType: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+    amount: new FormControl('', checkAmount),
     unit: new FormControl('', [Validators.required]),
-    date: new FormControl('', [Validators.required]),
+    date: new FormControl(this.today, [Validators.required]),
   });
 
   foodType: string;
 
   constructor(private storageService: StorageService,
               private router: Router,
-              private toastrService: ToastrService) {
+              private toastrService: ToastrService,
+              private datePipe: DatePipe) {
   }
 
   ngOnInit(): void {
@@ -46,4 +47,17 @@ export class StorageCreateComponent implements OnInit {
       this.storageForm.reset();
     }, e => console.log(e));
   }
+}
+
+function checkAmount(formControl: FormControl) {
+  if (formControl.value === '') {
+    return {name: true, message: 'Không được để trống'};
+  }
+  if (formControl.value < 1) {
+    return {name: true, message: 'Số phải lớn hơn 0'};
+  }
+  if (formControl.value > 9999999999) {
+    return {name: true, message: 'Độ dài tối đa 10 số'};
+  }
+  return null;
 }

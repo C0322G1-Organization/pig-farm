@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 
 import {StorageRoutingModule} from './storage-routing.module';
 import {StorageListComponent} from './storage-list/storage-list.component';
@@ -14,7 +14,8 @@ import {HttpClientModule} from '@angular/common/http';
     StorageRoutingModule,
     ReactiveFormsModule,
     HttpClientModule
-  ]
+  ],
+  providers: [DatePipe]
 })
 export class StorageModule {
 }

@@ -17,6 +17,7 @@ export class StorageListComponent implements OnInit {
   foodType = '';
   checkNext: boolean;
   checkPreview: boolean;
+  elseBlock: any;
 
   constructor(private storageService: StorageService) {
   }
