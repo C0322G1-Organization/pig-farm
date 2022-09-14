@@ -7,18 +7,53 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import { PigstyCreateComponent } from './pigsty/pigsty-create/pigsty-create.component';
 import { PigstyEditComponent } from './pigsty/pigsty-edit/pigsty-edit.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+import {HeaderComponent} from './header/header.component';
+import {FooterComponent} from './footer/footer.component';
+import {BodyModule} from './body/body.module';
+import {VaccinationModule} from './vaccination/vaccination.module';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {StorageModule} from './storage/storage.module';
+import {StatisticModule} from './statistic/statistic.module';
+import {TreatmentModule} from './treatment/treatment.module';
+import {NotificationModule} from './notification/notification.module';
+import {EmployeeModule} from './employee/employee.module';
+import {ContactModule} from './contact/contact.module';
+import {PigModule} from './pig/pig.module';
 
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
     PigstyCreateComponent,
-    PigstyEditComponent
+    PigstyEditComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ReactiveFormsModule,
+    ToastrModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
+    VaccinationModule,
+    StorageModule,
+    BodyModule,
+    TreatmentModule,
+    StatisticModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
+    TreatmentModule,
+    NotificationModule,
+    EmployeeModule,
+    ContactModule,
+    PigModule
   ],
   providers: [],
   bootstrap: [AppComponent]
