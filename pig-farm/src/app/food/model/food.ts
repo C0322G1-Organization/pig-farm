@@ -1,4 +1,4 @@
-import {Pigsty} from '../../pigsty/pigsty';
+import {Pigsty} from '../../model/pigsty';
 
 export interface Food {
   id?: number;

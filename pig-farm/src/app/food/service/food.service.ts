@@ -14,8 +14,8 @@ export class FoodService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getAll(pageable: number, searchType: string, sort: any): Observable<any[]> {
-    return this.httpClient.get<any[]>(URL_API + '/api/food/list?page=' +
-      pageable + '&foodType=' + searchType + '&sort=' + sort);
+  getAll(pageable: number, searchType: string, sort: string): Observable<any> {
+    return this.httpClient.get<any>(URL_API + '/api/food/list?page=' +
+      pageable + '&foodType=' + searchType + '&sort=' + sort );
   }
 }

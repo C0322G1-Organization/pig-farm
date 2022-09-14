@@ -3,21 +3,8 @@
     <div style="text-align: center; font-size: 30px;" class="mt-3">Danh Sách Thức Ăn</div>
 
     <div class="row mt-5">
-      <div>
-        <select class="form-select" aria-label="Default select example">
-          <option value="1" (click)="sortFood('amout')">One</option>
-          <option value="1" (click)="sortFood('amout')">One</option>
-
-        </select>
-      </div>
-      <select class="form-select" aria-label="Default select example">
-        <option selected>Open this select menu</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
       <div class="col-4">
-        <a class=" btn btn-success" style="width: auto;" href="create.html">
+        <a class=" btn btn-success" style="width: auto;" href="" routerLink='/food/create'>
           Thêm mới
         </a>
       </div>
@@ -25,7 +12,7 @@
         <form [formGroup]="formSearch" (ngSubmit)="searchByType()" *ngIf="formSearch">
           <div class="col-3 mx-auto me-0" style="display: flex; width: 300px">
             <input class="form-control me-1" type="text" placeholder="Loại thức ăn..."
-                   formControlName="type" name="type">
+                   formControlName="type">
             <button type="submit" class="btn btn-success" style="width: auto;">Tìm</button>
           </div>
         </form>
@@ -37,9 +24,24 @@
         <tr style="background-color: #017428">
           <th class="text-light">STT</th>
           <th class="text-light">MÃ ĐÀN LỢN</th>
-          <th class="text-light">SỐ LƯỢNG</th>
-          <th class="text-light">LOẠI THỨC ĂN</th>
-          <th class="text-light">ĐƠN VỊ</th>
+          <th class="text-light">
+            SỐ LƯỢNG
+            <button (click)="sortAmount(amountValue)" style="background-color:  #017428;border:none">
+            <i class="fa fa-sort-numeric-desc" aria-hidden="true"></i>
+          </button>
+          </th>
+          <th class="text-light">
+            LOẠI THỨC ĂN
+            <button (click)="sortFoodType(foodTypeValue)" style="background-color:  #017428;border:none">
+              <i class="fa fa-sort-numeric-desc" aria-hidden="true"></i>
+            </button>
+          </th>
+          <th class="text-light">
+            ĐƠN VỊ
+            <button (click)="sortUnit(unitValue)" style="background-color:  #017428;border:none">
+              <i class="fa fa-sort-numeric-desc" aria-hidden="true"></i>
+            </button>
+          </th>
           <th class="text-light">CHỌN</th>
         </tr>
         </thead>
@@ -49,36 +51,39 @@
           <td>{{item.pigsty.code}}</td>
           <td>{{item.amount}}</td>
           <td>{{item.storage.foodType}}</td>
-          <td>{{item.storage.unit}}</td>
+          <td>{{item.unit}}</td>
           <td>
-            <input class="form-check-input" type="checkbox" value="">
+            <input class="form-check-input" type="radio" name="edit" (click)="getValue(item.id)" value="idEdit">
           </td>
         </tr>
         </tbody>
       </table>
     </div>
+
     <div class="d-grid gap-2 d-md-flex justify-content-md-center mb-2">
-      <button class=" btn btn-warning mx-4">Sửa</button>
+      <button [routerLink]="['/food/edit']" value="idEdit" class=" btn btn-warning mx-4">Sửa</button>
     </div>
     <div class="paging">
       <ul class="pagination justify-content-end">
         <li class="page-item disabled" *ngIf="page <= 0 ">
-          <a class="page-link" tabindex="-1">Trang trước</a>
+          <a class="page-link" [routerLink]="" tabindex="-1">Trang trước</a>
         </li>
         <li class="page-item" *ngIf="page > 0">
-          <a class="page-link" (click)="goPrevious()">
+          <a class="page-link" [routerLink]="" (click)="goPrevious()">
             Trang trước
           </a>
         </li>
         <li class="page-item disabled">
-          <a class="page-link" href="#"> <span class="sr-only">{{number + 1}}/{{totalPages}}</span></a>
+          <a class="page-link" [routerLink]="">
+            {{number + 1}}/{{totalPages}}
+          </a>
         </li>
         <li class="page-item disabled" *ngIf="page >= totalPages -1">
-          <a class="page-link" >Trang kế
+          <a class="page-link" [routerLink]="" >Trang kế
           </a>
         </li>
         <li class="page-item" *ngIf="page < totalPages - 1">
-          <a class="page-link" (click)="goNext()">
+          <a class="page-link" [routerLink]="" (click)="goNext()">
             Trang kế
           </a>
         </li>
