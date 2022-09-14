@@ -52,17 +52,26 @@
             </div>
             <div class="col-lg-6">
               <label class="form-label">Giới Tính <span>*</span></label><br>
-              <div class="form-check form-check-inline mt-2">
-                <input class="form-check-input" type="radio" formControlName="gender" id="male" value="Nam">
-                <label class="form-check-label" for="male">Nam</label>
+              <!--              <div class="form-check form-check-inline mt-2">-->
+              <!--                <input class="form-check-input" type="radio" formControlName="gender" id="male" value="Nam">-->
+              <!--                <label class="form-check-label" for="male">Nam</label>-->
+              <!--              </div>-->
+              <!--              <div class="form-check form-check-inline mt-2">-->
+              <!--                <input class="form-check-input" type="radio" formControlName="gender" id="female" value="Nữ">-->
+              <!--                <label class="form-check-label" for="female">Nữ</label>-->
+              <!--              </div>-->
+              <!--              <div class="form-check form-check-inline mt-2">-->
+              <!--                <input class="form-check-input" type="radio" formControlName="gender" id="other" value="Khác">-->
+              <!--                <label class="form-check-label" for="other">Khác</label>-->
+              <!--              </div>-->
+              <div class="form-check form-check-inline ms-5">
+                <input class="form-check-input" type="radio" value="Nam" formControlName="gender"> Nam
               </div>
-              <div class="form-check form-check-inline mt-2">
-                <input class="form-check-input" type="radio" formControlName="gender" id="female" value="Nữ">
-                <label class="form-check-label" for="female">Nữ</label>
+              <div class="form-check form-check-inline ms-5">
+                <input class="form-check-input" type="radio" value="Nữ" formControlName="gender"> Nữ
               </div>
-              <div class="form-check form-check-inline mt-2">
-                <input class="form-check-input" type="radio" formControlName="gender" id="other" value="Khác">
-                <label class="form-check-label" for="other">Khác</label>
+              <div class="form-check form-check-inline ms-5">
+                <input class="form-check-input" type="radio" value="Khác" formControlName="gender"> Khác
               </div>
               <div class="form-text"
                    *ngIf="employeeForm.controls.gender.hasError('required') && employeeForm.controls.gender.touched">
@@ -96,8 +105,7 @@
 
         <div class="d-md-flex justify-content-lg-around">
           <a routerLink="/employee/list" class="btn btn-danger"> Quay Lại </a>
-          <button class="btn btn-success" (click)="editEmployee(id)" [disabled]="!employeeForm.valid"> Chỉnh Sửa
-          </button>
+          <button class="btn btn-success" (click)="editEmployee(id)" [disabled]="!employeeForm.valid"> Chỉnh Sửa</button>
         </div>
       </div>
     </form>

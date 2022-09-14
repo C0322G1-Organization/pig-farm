@@ -40,12 +40,10 @@ export class PigService {
       }),
       responseType: 'text' as 'json'
     };
-    // @ts-ignore
     return this.httpClient.post<any>(url, data, options);
   }
 
-  getAllPig(page: number, code: string, dateIn: string, status: string ) {
-    // tslint:disable-next-line:max-line-length
+  getAllPig(page: number, code: string, dateIn: string, status: string) {
     return this.httpClient.get<Pig[]>(API_URL + '/page?page=' + page + '&codeSearch=' + code + '&dateInSearch=' + dateIn + '&statusSearch=' + status);
   }
 }

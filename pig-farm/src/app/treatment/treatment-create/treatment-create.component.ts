@@ -4,7 +4,6 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {TreatmentService} from '../../service/treatment.service';
 
-
 @Component({
   selector: 'app-create-treatment',
   templateUrl: './treatment-create.component.html',

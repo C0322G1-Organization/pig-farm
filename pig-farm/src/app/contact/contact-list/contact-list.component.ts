@@ -29,8 +29,8 @@ export class ContactListComponent implements OnInit {
   checkPrevious: boolean;
   check: any[] = [];
   contactDetail: Contact = {};
-  informationDelete: Contact[] =[];
-  checkContent= false;
+  informationDelete: Contact[] = [];
+  checkContent = false;
 
   constructor(private contactService: ContactService,
               private router: Router,
@@ -51,16 +51,16 @@ export class ContactListComponent implements OnInit {
         this.checkPrevious = !value.first;
         this.msg = '';
         this.checkContent = false;
-      console.log(this.contact)
+        console.log(this.contact);
       }, (error) => {
         this.contact = [];
         this.checkContent = true;
       }
-    )
+    );
   }
 
   deleteId() {
-    let id: number[] =[];
+    const id: number[] = [];
     for (const argument of this.informationDelete) {
       id.push(argument.id);
     }

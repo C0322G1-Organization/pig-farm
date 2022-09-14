@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {FoodServiceService} from '../service/food-service.service';
+import {FoodService} from '../../service/food.service';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {Pigsty} from '../../model/pigsty';
@@ -25,7 +25,7 @@ export class FoodEditComponent implements OnInit {
 
   constructor(private pigstyService: PigstyService,
               private storageService: StorageService,
-              private foodService: FoodServiceService,
+              private foodService: FoodService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private toast: ToastrService) {
@@ -42,6 +42,7 @@ export class FoodEditComponent implements OnInit {
   ngOnInit(): void {
     this.getStorages();
   }
+
   getPigsties(): void {
     // @ts-ignore
     this.pigstyService.getAll().subscribe((pigstyService?: any) => {
@@ -55,6 +56,7 @@ export class FoodEditComponent implements OnInit {
       this.storages = storageService.content;
     });
   }
+
   getFood(id: number) {
     return this.foodService.findById(id).subscribe(food => {
       this.foodForm = new FormGroup({
@@ -66,6 +68,7 @@ export class FoodEditComponent implements OnInit {
     });
 
   }
+
   editFood(id: number) {
     const food = this.foodForm.value;
     food.storage = {
@@ -75,12 +78,12 @@ export class FoodEditComponent implements OnInit {
       id: +food.pigsty
     };
     this.foodService.editFood(id, food).subscribe(() => {
-      },  error => {
-        console.log(error);
-      }, () => {
-        this.foodForm.reset();
-        this.router.navigate(['/food/create']);
-        this.toast.success('Cập nhập thành công', 'Thông báo');
-      });
+    }, error => {
+      console.log(error);
+    }, () => {
+      this.foodForm.reset();
+      this.router.navigate(['/food/create']);
+      this.toast.success('Cập nhập thành công', 'Thông báo');
+    });
   }
 }

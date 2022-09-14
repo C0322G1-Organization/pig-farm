@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
-import {FoodServiceService} from '../service/food-service.service';
+import {FoodService} from '../../service/food.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Pigsty} from '../../model/pigsty';
 import {PigstyService} from '../../service/pigsty.service';
@@ -25,7 +25,7 @@ export class FoodCreateComponent implements OnInit {
 
   constructor(private pigstyService: PigstyService,
               private storageService: StorageService,
-              private foodService: FoodServiceService,
+              private foodService: FoodService,
               private router: Router,
               private toast: ToastrService) {
   }

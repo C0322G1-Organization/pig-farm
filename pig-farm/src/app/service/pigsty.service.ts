@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Pigsty} from '../model/pigsty';
 import {environment} from '../../environments/environment';
+
 const API_URL = `${environment.apiUrl}`;
 
 @Injectable({
@@ -11,7 +12,9 @@ const API_URL = `${environment.apiUrl}`;
 export class PigstyService {
   private URL_PIGSTY = environment.apiUrl + '/pigsty';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
+
   createPigsty(pigsty: Pigsty): Observable<Pigsty> {
     return this.http.post(this.URL_PIGSTY + '/createPigsty', pigsty);
   }

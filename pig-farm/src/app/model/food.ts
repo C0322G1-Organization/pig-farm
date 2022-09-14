@@ -1,4 +1,4 @@
-import {Pigsty} from '../../model/pigsty';
+import {Pigsty} from './pigsty';
 
 export interface Food {
   id?: number;
@@ -7,5 +7,4 @@ export interface Food {
   storage?: Storage;
   pigsty?: Pigsty;
   isDeleted?: boolean;
-
 }
