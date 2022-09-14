@@ -15,6 +15,7 @@ import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {StorageModule} from './storage/storage.module';
+import {StatisticModule} from './statistic/statistic.module';
 import {TreatmentModule} from './treatment/treatment.module';
 import {NotificationModule} from './notification/notification.module';
 import {EmployeeModule} from './employee/employee.module';
@@ -37,6 +38,8 @@ import {ContactModule} from './contact/contact.module';
     VaccinationModule,
     StorageModule,
     BodyModule,
+    TreatmentModule,
+    StatisticModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     TreatmentModule,
