@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {UserDto} from '../../user/user';
-import {UserService} from '../../user/user.service';
 import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {checkBirthDay, checkDay} from '../../validated/check-birth-day';
 import {EmployeeService} from '../../service/employee.service';
+import {checkBirthDay, checkDay} from '../../validated/check-birth-day';
+import {AppUserService} from '../../service/app-user.service';
 
 @Component({
   selector: 'app-employee-edit',
@@ -24,12 +23,10 @@ export class EmployeeEditComponent implements OnInit {
     image: new FormControl('')
   });
 
-  user: UserDto[] = [];
-
   id: number;
 
   constructor(private employeeService: EmployeeService,
-              private userService: UserService,
+              private userService: AppUserService,
               private toast: ToastrService,
               private activatedRoute: ActivatedRoute,
               private router: Router) {
@@ -49,27 +46,17 @@ export class EmployeeEditComponent implements OnInit {
     });
   }
 
-  getUser(): void {
-    this.userService.getAll().subscribe(user => {
-      this.user = user;
-    });
-  }
-
   ngOnInit(): void {
-    this.getUser();
   }
 
   editEmployee(id: number): void {
     const employee = this.employeeForm.value;
     this.employeeService.editEmployee(id, employee).subscribe(() => {
       this.router.navigate(['/employee/list']);
-      this.toast.success('Sửa Thông Tin Nhân Viên Thành Công..', 'Thông Báo');
+      this.toast.success('Sửa Thông Tin Nhân Viên Thành Công !!');
     }, error => {
+      this.toast.error('Chỉnh Sửa Nhân Viên Thất Bại !!');
       console.log(error);
     });
   }
-
-  // onFileSelected($event: Event) {
-  //
-  // }
 }

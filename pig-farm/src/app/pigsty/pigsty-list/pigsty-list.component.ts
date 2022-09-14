@@ -5,7 +5,6 @@ import {Router} from '@angular/router';
 import {Pigsty} from '../../model/pigsty';
 import {PigstyService} from '../../service/pigsty.service';
 
-
 @Component({
   selector: 'app-pigsty-list',
   templateUrl: './pigsty-list.component.html',

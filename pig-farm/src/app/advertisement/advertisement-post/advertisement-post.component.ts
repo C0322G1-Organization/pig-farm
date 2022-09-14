@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Placement} from '../../model/placement';
 import {Advertisement} from '../../model/advertisement';
@@ -39,15 +39,14 @@ export class AdvertisementPostComponent implements OnInit {
       this.placementList = next;
     });
     this.formAdvertisement = new FormGroup({
-      // tslint:disable-next-line:max-line-length
       title: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z _ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễếệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+')]),
       image: new FormControl('', Validators.required),
-      // tslint:disable-next-line:max-line-length
       submittedDate: new FormControl('', [Validators.required]),
       timeExistence: new FormControl('', [Validators.required, Validators.pattern('^[0-9]+$')]),
       placement: new FormControl('', Validators.required)
     });
   }
+
   checkDate(form: FormControl): any {
     for (const e of this.advertisement) {
       if (form.value.submittedDate === e.submittedDate) {
@@ -56,6 +55,7 @@ export class AdvertisementPostComponent implements OnInit {
     }
     return null;
   }
+
   submit() {
     const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
     const filePath = `advertisement/${nameImg}`;

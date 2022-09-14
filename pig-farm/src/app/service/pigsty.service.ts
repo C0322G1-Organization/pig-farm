@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Pigsty} from '../model/pigsty';
 import {environment} from '../../environments/environment';
 
+
 @Injectable({
   providedIn: 'root'
 })

@@ -1,15 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {UserDto} from '../../user/user';
-import {EmployeeService} from '../../service/employee.service';
-import {UserService} from '../../user/user.service';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
-import {Employee} from '../../model/employee';
-import {checkBirthDay, checkDay} from '../../validated/check-birth-day';
 import {formatDate} from '@angular/common';
 import {finalize} from 'rxjs/operators';
 import {AngularFireStorage} from '@angular/fire/storage';
+import {checkBirthDay, checkDay} from '../../validated/check-birth-day';
+import {EmployeeService} from '../../service/employee.service';
+import {Employee} from '../../model/employee';
+import {AppUserService} from '../../service/app-user.service';
 
 @Component({
   selector: 'app-employee-create',
@@ -25,63 +24,29 @@ export class EmployeeCreateComponent implements OnInit {
   checkImg: boolean;
   url: any;
   msg = '';
-  employeeForm: FormGroup;
 
-  users: UserDto[] = [];
+  employeeForm: FormGroup = new FormGroup({
+    id: new FormControl(''),
+    code: new FormControl('', [Validators.required, Validators.pattern('^(NV-)+([0-9]{3})$')]),
+    name: new FormControl('', [Validators.required, Validators.pattern('^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*(?:[ ][A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*)*$'), Validators.maxLength(30)]),
+    username: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    birthDay: new FormControl('', [Validators.required, checkBirthDay, checkDay]),
+    gender: new FormControl('', [Validators.required]),
+    idCard: new FormControl('', [Validators.required, Validators.pattern('^\\d{9}|\\d{12}$')]),
+    image: new FormControl('')
+  });
 
   constructor(private employeeService: EmployeeService,
-              private userService: UserService,
+              private userService: AppUserService,
               private toast: ToastrService,
               private router: Router,
               private storage: AngularFireStorage) {
   }
 
-  getUser(): void {
-    this.userService.getAll().subscribe(user => {
-      this.users = user;
-    });
-  }
-
   ngOnInit(): void {
-    this.getUser();
-    this.employeeForm = new FormGroup({
-      id: new FormControl(''),
-      code: new FormControl('', [Validators.required, Validators.pattern('^(NV-)+([0-9]{3})$')]),
-      name: new FormControl('', [Validators.required, Validators.pattern('^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*(?:[ ][A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*)*$'), Validators.maxLength(30)]),
-      username: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      birthDay: new FormControl('', [Validators.required, checkBirthDay, checkDay]),
-      gender: new FormControl('', [Validators.required]),
-      idCard: new FormControl('', [Validators.required, Validators.pattern('^\\d{9}|\\d{12}$')]),
-      image: new FormControl('')
-    });
   }
-
-  // submit(): void {
-  //   let employee: Employee;
-  //   employee = {
-  //     code: this.employeeForm.value.code,
-  //     name: this.employeeForm.value.name,
-  //     userDto: {
-  //       username: this.employeeForm.value.username,
-  //       password: this.employeeForm.value.password,
-  //       email: this.employeeForm.value.email
-  //     },
-  //     birthDay: this.employeeForm.value.birthDay,
-  //     gender: this.employeeForm.value.gender,
-  //     idCard: this.employeeForm.value.idCard,
-  //     image: this.employeeForm.value.image
-  //   };
-  //   console.log(employee);
-  //   this.employeeService.saveEmployee(employee).subscribe(() => {
-  //     this.employeeForm.reset();
-  //     this.router.navigate(['/employee/list']);
-  //     this.toast.success('Thêm Mới Nhân Viên Thành Công !!');
-  //   }, error => {
-  //     this.toast.error('Thêm Mới Nhân Viên Thất Bại !!');
-  //   });
-  // }
 
   getCurrentDateTime(): string {
     return formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss', 'en-US');
@@ -92,29 +57,32 @@ export class EmployeeCreateComponent implements OnInit {
     const filePath = `employee/${nameImg}`;
     const fileRef = this.storage.ref(filePath);
     let employee: Employee;
-    employee = {
-      code: this.employeeForm.value.code,
-      name: this.employeeForm.value.name,
-      userDto: {
-        username: this.employeeForm.value.username,
-        password: this.employeeForm.value.password,
-        email: this.employeeForm.value.email
-      },
-      birthDay: this.employeeForm.value.birthDay,
-      gender: this.employeeForm.value.gender,
-      idCard: this.employeeForm.value.idCard,
-      image: this.employeeForm.value.image
-    };
-    console.log(employee);
     this.storage.upload(filePath, this.selectedImage).snapshotChanges().pipe(finalize(() => {
         fileRef.getDownloadURL().subscribe((url) => {
           this.employeeForm.patchValue({image: url});
           console.log(url);
-          this.employeeService.saveEmployee(employee).subscribe(() => {
-              this.employeeForm.reset();
-              this.router.navigateByUrl('/employee/list');
-            }
-          );
+          employee = {
+            code: this.employeeForm.value.code,
+            name: this.employeeForm.value.name,
+            userDto: {
+              username: this.employeeForm.value.username,
+              password: this.employeeForm.value.password,
+              email: this.employeeForm.value.email
+            },
+            birthDay: this.employeeForm.value.birthDay,
+            gender: this.employeeForm.value.gender,
+            idCard: this.employeeForm.value.idCard,
+            image: this.employeeForm.value.image
+          };
+          console.log(employee);
+          this.employeeService.saveEmployee(this.employeeForm.value).subscribe(() => {
+            console.log(1);
+            this.router.navigate(['/employee/list']);
+            this.toast.success('Thêm Mới Nhân Viên Thành Công !!');
+          }, error => {
+            this.toast.error('Thêm Mới Nhân Viên Thất Bại !!');
+            console.log(error);
+          });
         });
       })
     ).subscribe();
