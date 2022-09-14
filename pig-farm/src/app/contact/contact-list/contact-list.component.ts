@@ -29,6 +29,8 @@ export class ContactListComponent implements OnInit {
   checkPrevious: boolean;
   check: any[] = [];
   contactDetail: Contact = {};
+  informationDelete: Contact[] =[];
+  checkContent= false;
 
   constructor(private contactService: ContactService,
               private router: Router,
@@ -41,25 +43,32 @@ export class ContactListComponent implements OnInit {
 
   getContact(page: number, name: string) {
     this.contactService.getAllContact(page, name).subscribe((value: any) => {
-      this.totalPages = value?.totalPages;
-      this.countTotalPages = new Array(value?.totalPages);
-      this.number = value?.number;
-      this.contact = value?.content;
-      this.checkNext = !value.last;
-      this.checkPrevious = !value.first;
-      this.msg = '';
-    }, error => {
-      console.log(error);
-    });
+        this.totalPages = value?.totalPages;
+        this.countTotalPages = new Array(value?.totalPages);
+        this.number = value?.number;
+        this.contact = value?.content;
+        this.checkNext = !value.last;
+        this.checkPrevious = !value.first;
+        this.msg = '';
+        this.checkContent = false;
+      console.log(this.contact)
+      }, (error) => {
+        this.contact = [];
+        this.checkContent = true;
+      }
+    )
   }
 
   deleteId() {
-    this.check = [];
-    if (this.ids.length > 0) {
-      this.contactService.deleteContact(this.ids).subscribe(value1 => {
+    let id: number[] =[];
+    for (const argument of this.informationDelete) {
+      id.push(argument.id);
+    }
+    if (id.length > 0) {
+      this.contactService.deleteContact(id).subscribe(value1 => {
         this.getContact(0, '');
         this.toast.error('Xóa thành công !!!', 'Liên hệ');
-        this.ids = [];
+        this.informationDelete = [];
       }, err => {
         this.clss = 'rd';
         this.msg = 'Có sự cố khi xóa liên hệ';
@@ -70,20 +79,6 @@ export class ContactListComponent implements OnInit {
       this.toast.error('Bạn phải chọn mục để xóa !!!', 'Liên hệ');
     }
     this.nameDelete = [];
-  }
-
-  checkDelete(value: any) {
-    this.ids = [];
-    this.msg = '';
-    this.nameDelete = [];
-    this.contact.forEach(item => {
-      if (value[item.id] === true) {
-        this.ids.push(item.id);
-        this.nameDelete.push(item.name);
-      }
-    });
-    this.contactService.getAllContact(0, '').subscribe(() => {
-    });
   }
 
   resetDelete() {
@@ -106,23 +101,31 @@ export class ContactListComponent implements OnInit {
     this.getContact(0, this.name);
   }
 
-  checkButton(value: any) {
-    this.msg = '';
-    if (this.check.includes(value)) {
-      this.check.filter(item => item !== value);
-      for (let i = 0; i < this.check.length; i++) {
-        if (this.check[i] === value) {
-          this.check.splice(i, 1);
-        }
-      }
-    } else {
-      this.check.push(value);
-    }
+  getDetails() {
+    this.contactDetail = this.informationDelete[0];
   }
 
-  getDetails() {
-    this.contactService.getContactById(this.check[0]).subscribe(value => {
-      this.contactDetail = value;
-    });
+  checkbox(contact: Contact) {
+    for (const item of this.informationDelete) {
+      if (item.id === contact.id) {
+        return true;
+      }
+    }
+    return false;
   }
+
+  checkList(contact: Contact) {
+    for (let i = 0; i < this.informationDelete.length; i++) {
+      if (this.informationDelete[i].id === contact.id) {
+        this.informationDelete.splice(i, 1);
+        return;
+      }
+    }
+    this.informationDelete.push(contact);
+  }
+
+  showDetail() {
+    return !(this.informationDelete.length === 1);
+  }
+
 }
