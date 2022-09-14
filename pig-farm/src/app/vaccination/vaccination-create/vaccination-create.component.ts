@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Pigsty} from '../../pigsty/pigsty';
+import {Pigsty} from '../../model/pigsty';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {PigstyService} from '../../pigsty/pigsty.service';
-import {VaccinationService} from '../vaccination.service';
+import {PigstyService} from '../../service/pigsty.service';
+import {VaccinationService} from '../../service/vaccination.service';
 import {Router} from '@angular/router';
 
 @Component({

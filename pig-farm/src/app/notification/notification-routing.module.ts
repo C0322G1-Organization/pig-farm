@@ -4,7 +4,6 @@ import {NotificationListComponent} from './notification-list/notification-list.c
 import {NotificationCreateComponent} from './notification-create/notification-create.component';
 import {NotificationEditComponent} from './notification-edit/notification-edit.component';
 
-
 const routes: Routes = [
   {
     path: 'notification',
