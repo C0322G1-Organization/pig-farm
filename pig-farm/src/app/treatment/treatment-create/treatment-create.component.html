@@ -35,16 +35,16 @@
         </div>
         <div class="mb-3">
           <label class="form-label">Mã lợn <span class="text-danger">*</span></label>
-          <select   class="form-control" formControlName="pigCode">
+          <select   class="form-control" formControlName="pig">
             <option selected [value]="null" disabled >---Chọn---</option>
-            <option value="L01">L01</option>
-            <option value="L02">L02</option>
-            <option value="L03">L03</option>
-            <option value="L04">L04</option>
-            <option value="L05">L05</option>
+            <option value= 1>L-001</option>
+            <option value= 2>L-002</option>
+            <option value="3">L-003</option>
+            <option value="4">L-004</option>
+            <option value="5">L-005</option>
           </select>
           <div class="form-text">
-            <p *ngIf="creatTreatmentForm.controls.pigCode.hasError('required') && creatTreatmentForm.controls.pigCode.touched">Không được để trống.</p>
+            <p *ngIf="creatTreatmentForm.controls.pig.hasError('required') && creatTreatmentForm.controls.pig.touched">Không được để trống.</p>
           </div>
         </div>
         <div class="mb-3">
@@ -86,7 +86,7 @@
         <div class="button">
           <button class="btn btn-outline-danger" style="margin-right: 5%"><i class="bi bi-backspace"></i> Xoá </button>
           <button class="btn btn-outline-success" type="submit"><i class="bi bi-plus-circle" ></i> Cập nhật </button>
-          <button class="btn btn-outline-warning" style="margin-left: 5%"><i class="bi bi-x-octagon"></i> Huỷ</button>
+          <button class="btn btn-outline-warning" style="margin-left: 5%" routerLink="/treatment"><i class="bi bi-x-octagon"></i> Huỷ</button>
         </div>
       </div>
     </form>
