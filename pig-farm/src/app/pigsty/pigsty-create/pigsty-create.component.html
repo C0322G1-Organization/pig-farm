@@ -1,0 +1,90 @@
+<div class="background" style="padding-bottom: 100px">
+  <div class="container-fluid">
+    <div class="vc_empty_space" style="height: 64px"><span class="vc_empty_space_inner"></span></div>
+    <div class="container">
+      <div class="row formRow">
+        <form [formGroup]="formPigsty" (ngSubmit)="createPigsty()" class="col-lg-6 formRow_create">
+          <div class="mb-3 formRow_create_title">
+            <h5 class="hgu"><b>Khởi tạo chuồng nuôi</b></h5>
+          </div>
+          <hr class="hrLine">
+          <div class="formRow_create_content">
+            <div class="mb-3">
+              <label for="pigstyCode">Mã chuồng nuôi</label>
+              <input formControlName="code" type="text" id="pigstyCode" class="form-control"
+                     placeholder="Nhập mã chuồng heo">
+              <p style="color: red" *ngIf="formPigsty.controls.code.hasError('required') && formPigsty.controls.code.touched">Vui lòng nhập thông tin</p>
+              <p style="color: red" *ngIf="formPigsty.controls.code.hasError('pattern')">Nhập sai định dạng CXXX</p>
+
+            </div>
+
+            <div class="mb-3">
+              <label for="employeeCode">Mã nhân viên</label>
+              <input formControlName="employee" type="text" id="employeeCode" class="form-control">
+            </div>
+
+            <div class="mb-3">
+              <div class="row">
+                <div class="col-6">
+                  <label for="numberOfIndividuals">Số lượng cá thể </label>
+                  <input formControlName="maxNumber" type="number" id="numberOfIndividuals" class="form-control"
+
+                         placeholder="Nhập số lượng cá thể">
+                  <p style="color: red" *ngIf="formPigsty.controls.maxNumber.hasError('required') && formPigsty.controls.maxNumber.touched">Vui lòng nhập thông tin</p>
+                  <p style="color: red" *ngIf="formPigsty.controls.maxNumber.hasError('min')">Vui lòng nhập lớn hơn 1</p>
+                  <p style="color: red" *ngIf="formPigsty.controls.maxNumber.hasError('max')">Vui lòng nhập nhỏ hơn 20</p>
+
+                </div>
+                <div class="col-6">
+                  <label for="typePigs">Loại lợn</label>
+                  <select formControlName="typePigs" class="form-control" id="typePigs" ngModel="">
+                    <option value="">--Vui lòng chọn--</option>
+                    <option value="0">Lợn thịt</option>
+                    <option value="1">Lợn giống</option>
+                  </select>
+                  <p style="color: red" *ngIf="formPigsty.controls.typePigs.hasError('required') && formPigsty.controls.typePigs.touched">Vui lòng nhập thông tin</p>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <div class="row">
+                <div class="col-6">
+                  <label>Ngày tạo chuồng</label>
+                  <input formControlName="creationDate" type="date" id="myText" class="form-control" required>
+                  <p style="color: red" *ngIf="formPigsty.controls.creationDate.hasError('required') && formPigsty.controls.creationDate.touched">Vui lòng nhập thông tin</p>
+
+                </div>
+                <div class="col-6">
+                  <label for="closeTime">Ngày đóng chuồng</label>
+                  <input formControlName="buildDate" type="date" id="closeTime" class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-around">
+              <button class="btn btn-outline-danger button " [routerLink]="['/pigsty-list']">Quay Lại</button>
+              <button class="btn btn-outline-success button">Thêm mới</button>
+              <button class="btn btn-outline-secondary button ">Nhập lại</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="vc_empty_space" style="height: 64px"><span class="vc_empty_space_inner"></span></div>
+  </div>
+</div>
+<script>
+  function myFunction() {
+    date = new Date();
+    year = date.getFullYear();
+    month = date.getMonth() + 1;
+    day = date.getDate();
+    if (day < 10) day = '0' + day;
+    if (month < 10) month = '0' + month;
+    document.getElementById("myText").value = year + "-" + month + "-" + day;
+  }
+
+  myFunction()
+</script>
+

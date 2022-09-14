@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {PigstyService} from '../service/pigsty.service';
-import {Pigsty} from '../model/pigsty';
+
 import {FormControl, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
+import {Pigsty} from '../../model/pigsty';
+import {PigstyService} from '../../service/pigsty.service';
+
 
 @Component({
   selector: 'app-pigsty-list',
@@ -16,7 +18,6 @@ export class PigstyListComponent implements OnInit {
   previous: boolean;
   search = '';
   formSearch: FormGroup;
-  checkContentList = false;
   deleteList: number[] = [];
 
   constructor(private pigstyService: PigstyService, private router: Router) {
@@ -56,7 +57,7 @@ export class PigstyListComponent implements OnInit {
 
   edit() {
     if (this.deleteList.length === 1) {
-      console.log(this.deleteList[0]);
+      this.router.navigateByUrl('pigsty/edit/' + this.deleteList[0]);
     }
   }
 
@@ -81,6 +82,6 @@ export class PigstyListComponent implements OnInit {
   }
 
   showEdit() {
-    return !(this.deleteList.length === 1);
+    return (this.deleteList.length === 1);
   }
 }
