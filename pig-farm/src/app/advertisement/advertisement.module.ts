@@ -3,14 +3,17 @@ import { CommonModule } from '@angular/common';
 
 import { AdvertisementRoutingModule } from './advertisement-routing.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { PostAdvertisementComponent } from './post-advertisement/post-advertisement.component';
-import { UpdateAdvertisementComponent } from './update-advertisement/update-advertisement.component';
-import { ListPlacementComponent } from './list-placement/list-placement.component';
 import {HttpClientModule} from '@angular/common/http';
 
 
+import { PlacementListComponent } from './placement-list/placement-list.component';
+import { AdvertisementPostComponent } from './advertisement-post/advertisement-post.component';
+import { AdvertisementEditComponent } from './advertisement-edit/advertisement-edit.component';
+import {AdvertisementComponent} from './advertisement-list/advertisement.component';
+
+
 @NgModule({
-  declarations: [PostAdvertisementComponent, UpdateAdvertisementComponent, ListPlacementComponent],
+  declarations: [ AdvertisementComponent, PlacementListComponent, AdvertisementPostComponent, AdvertisementEditComponent],
   imports: [
     CommonModule,
     FormsModule,

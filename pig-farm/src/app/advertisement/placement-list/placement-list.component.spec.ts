@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListPlacementComponent } from './list-placement.component';
+import { PlacementListComponent } from './placement-list.component';
 
-describe('ListPlacementComponent', () => {
-  let component: ListPlacementComponent;
-  let fixture: ComponentFixture<ListPlacementComponent>;
+describe('PlacementListComponent', () => {
+  let component: PlacementListComponent;
+  let fixture: ComponentFixture<PlacementListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListPlacementComponent ]
+      declarations: [ PlacementListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ListPlacementComponent);
+    fixture = TestBed.createComponent(PlacementListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -27,8 +27,14 @@ export class AdvertisementService {
   getListPlacement(): Observable<Placement[]> {
     return this.http.get<Placement[]>(`${API_URL}/advertisement/list/placement`);
   }
-  getList(): Observable<Advertisement[]> {
-    return this.http.get<Advertisement[]>(API_URL );
+  getListAndSearch(indexPagination: number, keySearch: string): Observable<any> {
+    return this.http.get<any>(API_URL + '/advertisement/page?page=' + indexPagination + '&keySearch=' + keySearch);
+  }
+
+  deleteAdvertisement(ids: number[]): Observable<any> {
+    const data = {id: ids};
+    const url = API_URL + '/delete';
+    return this.http.post<any>(url, data);
   }
 
 }

@@ -3,11 +3,12 @@ import {Placement} from '../model/placement';
 import {AdvertisementService} from '../service/advertisement.service';
 
 @Component({
-  selector: 'app-list-placement',
-  templateUrl: './list-placement.component.html',
-  styleUrls: ['./list-placement.component.css']
+  selector: 'app-placement-list',
+  templateUrl: './placement-list.component.html',
+  styleUrls: ['./placement-list.component.css']
 })
-export class ListPlacementComponent implements OnInit {
+export class PlacementListComponent implements OnInit {
+
   placementList: Placement[];
   constructor(private placementService: AdvertisementService) { }
 
@@ -16,5 +17,6 @@ export class ListPlacementComponent implements OnInit {
       this.placementList = next;
     });
   }
+
 
 }

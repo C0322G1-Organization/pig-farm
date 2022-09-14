@@ -1,66 +1,61 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import {Placement} from '../model/placement';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {AdvertisementService} from '../service/advertisement.service';
 import {AngularFireStorage} from '@angular/fire/storage';
-import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
-import {Placement} from '../model/placement';
 import {finalize} from 'rxjs/operators';
 import {formatDate} from '@angular/common';
-import {Advertisement} from '../model/advertisement';
-
-// import {checkDate} from "../validate/checkDate";
 
 @Component({
-  selector: 'app-post-advertisement',
-  templateUrl: './post-advertisement.component.html',
-  styleUrls: ['./post-advertisement.component.css']
+  selector: 'app-advertisement-edit',
+  templateUrl: './advertisement-edit.component.html',
+  styleUrls: ['./advertisement-edit.component.css']
 })
-export class PostAdvertisementComponent implements OnInit {
-  formAdvertisement: FormGroup;
-  selectedImage: File = null;
+export class AdvertisementEditComponent implements OnInit {
+
   placementList: Placement[];
-  advertisement: Advertisement[];
   checkImgSize = false;
+  formAdvertisement: FormGroup;
+  advertisementId: number;
+  selectedImage: File = null;
   regexImageUrl = false;
   editImageState = false;
   checkImg: boolean;
   url: any;
   msg = '';
-
   constructor(private route: Router,
               private toast: ToastrService,
               private placementService: AdvertisementService,
               private storage: AngularFireStorage,
-              private ads: AdvertisementService) {
+              private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
+      this.advertisementId = +paramMap.get('id');
+      console.log(this.advertisementId);
+      this.getAdvertisement(this.advertisementId);
+    });
   }
 
   ngOnInit(): void {
     this.placementService.getListPlacement().subscribe(next => {
-      this.placementList = next;
-    });
-    this.ads.getList().subscribe(next => {
-      this.advertisement = next;
-      console.log(this.advertisement);
+      return this.placementList = next;
     });
     this.formAdvertisement = new FormGroup({
       // tslint:disable-next-line:max-line-length
       title: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z _ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễếệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+')]),
       image: new FormControl('', Validators.required),
-      // tslint:disable-next-line:max-line-length
-      submittedDate: new FormControl('', [Validators.required]),
       timeExistence: new FormControl('', [Validators.required, Validators.pattern('^[0-9]+$')]),
       placement: new FormControl('', Validators.required)
     });
   }
-  checkDate(form: FormControl): any {
-    for (const e of this.advertisement) {
-      if (form.value.submittedDate === e.submittedDate) {
-        return {duplicateDate: true};
-      }
-    }
-    return null;
+
+  getAdvertisement(id: number) {
+    this.placementService.findById(id).subscribe(ads => {
+      this.formAdvertisement.patchValue(ads);
+    });
   }
+
   submit() {
     const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
     const filePath = `advertisement/${nameImg}`;
@@ -71,13 +66,13 @@ export class PostAdvertisementComponent implements OnInit {
           this.formAdvertisement.patchValue({image: url});
           console.log(url);
           console.log(this.formAdvertisement.value);
-          this.placementService.save(this.formAdvertisement.value).subscribe(
+          this.placementService.update(this.advertisementId, this.formAdvertisement.value).subscribe(
             () => {
               this.route.navigateByUrl('/advertisement/page');
-              this.toast.success('Đăng quảng cáo thành công');
+              this.toast.success('Sửa  quảng cáo thành công');
             },
             error => {
-              this.toast.error('Đăng quảng cáo thất bại');
+              this.toast.error('Sửa quảng cáo thất bại');
             }
           );
         });
@@ -97,7 +92,6 @@ export class PostAdvertisementComponent implements OnInit {
     }
     this.formAdvertisement.patchValue({imageUrl: this.selectedImage.name});
   }
-
   selectFile(event: any) {
     if (!event.target.files[0] || event.target.files[0].length === 0) {
       return;
@@ -129,6 +123,11 @@ export class PostAdvertisementComponent implements OnInit {
 
   getCurrentDateTime(): string {
     return formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss', 'en-US');
+  }
+  compare(value, option): boolean {
+    return value.id === option.id;
+    console.log(value);
+    console.log(option);
   }
 
 }

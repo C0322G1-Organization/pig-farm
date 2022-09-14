@@ -1,23 +1,31 @@
+
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {PostAdvertisementComponent} from './post-advertisement/post-advertisement.component';
-import {UpdateAdvertisementComponent} from './update-advertisement/update-advertisement.component';
+import {AdvertisementComponent} from './advertisement-list/advertisement.component';
+import {AdvertisementPostComponent} from './advertisement-post/advertisement-post.component';
+import {AdvertisementEditComponent} from './advertisement-edit/advertisement-edit.component';
 
 
 
 
 const routes: Routes = [
+  {
+    path: 'advertisement/page',
+    component: AdvertisementComponent
+  },
  {
     path: 'advertisement/post',
-    component: PostAdvertisementComponent
+    component: AdvertisementPostComponent
   }, {
     path: 'advertisement/edit/:id',
-    component: UpdateAdvertisementComponent
+    component: AdvertisementEditComponent
   },
-];
-
+  ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
+
 export class AdvertisementRoutingModule { }
+
+
