@@ -10,6 +10,7 @@ import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {HttpClientModule} from '@angular/common/http';
 import {BodyModule} from './body/body.module';
+import {PigstyModule} from './pigsty/pigsty.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {BodyModule} from './body/body.module';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     StorageModule,
-    BodyModule
+    BodyModule,
+    PigstyModule
   ],
   providers: [],
   bootstrap: [AppComponent]

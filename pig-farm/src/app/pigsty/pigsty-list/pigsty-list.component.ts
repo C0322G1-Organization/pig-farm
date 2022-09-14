@@ -5,18 +5,19 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-list-pigsty',
-  templateUrl: './list-pigsty.component.html',
-  styleUrls: ['./list-pigsty.component.css']
+  selector: 'app-pigsty-list',
+  templateUrl: './pigsty-list.component.html',
+  styleUrls: ['./pigsty-list.component.css']
 })
-export class ListPigstyComponent implements OnInit {
+export class PigstyListComponent implements OnInit {
   pigstys: Pigsty[];
   page = 0;
   next: boolean;
   previous: boolean;
   search = '';
   formSearch: FormGroup;
-  checkEdit = false;
+  checkContentList = false;
+  deleteList: number[] = [];
 
   constructor(private pigstyService: PigstyService, private router: Router) {
   }
@@ -49,32 +50,37 @@ export class ListPigstyComponent implements OnInit {
 
   getSearch() {
     this.search = this.formSearch.value.search;
-    this.formSearch = new FormGroup({
-      search: new FormControl('')
-    });
     this.page = 0;
     this.getPage();
   }
 
-  edit(value: any) {
-    for (const valueKey in value) {
-      if (value[valueKey] === true) {
-        this.router.navigateByUrl('');
-      }
+  edit() {
+    if (this.deleteList.length === 1) {
+      console.log(this.deleteList[0]);
     }
   }
 
-  checkForm(value: any) {
-    this.checkEdit = false;
-    for (const valueKey in value) {
-      if (value[valueKey] === true) {
-        if (this.checkEdit === false) {
-          this.checkEdit = true;
-        } else {
-          this.checkEdit = false;
-          return;
-        }
+  checkbox(pigsty: Pigsty) {
+    for (const item of this.deleteList) {
+      if (item === pigsty.id) {
+        return true;
       }
     }
+    return false;
+  }
+
+  checkList(id: number) {
+    for (let i = 0; i < this.deleteList.length; i++) {
+      if (this.deleteList[i] === id) {
+        this.deleteList.splice(i, 1);
+        console.log(this.deleteList);
+        return;
+      }
+    }
+    this.deleteList.push(id);
+  }
+
+  showEdit() {
+    return !(this.deleteList.length === 1);
   }
 }

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {ListPigstyComponent} from './list-pigsty/list-pigsty.component';
+import {PigstyListComponent} from './pigsty-list/pigsty-list.component';
 
 
 const routes: Routes = [
   {
     path: 'pigsty/list',
-    component: ListPigstyComponent
+    component: PigstyListComponent
   }
 ];
 
