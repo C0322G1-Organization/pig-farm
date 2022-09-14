@@ -7,6 +7,7 @@ import {isDate} from 'rxjs/internal-compatibility';
 import {Title} from '@angular/platform-browser';
 import {Toast, ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
+// @ts-ignore
 import {Chart, registerables} from 'chart.js';
 
 Chart.register(...registerables);

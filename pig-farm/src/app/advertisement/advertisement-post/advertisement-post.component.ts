@@ -37,6 +37,7 @@ export class AdvertisementPostComponent implements OnInit {
   ngOnInit(): void {
     this.placementService.getListPlacement().subscribe(next => {
       this.placementList = next;
+      console.log(next);
     });
     this.formAdvertisement = new FormGroup({
       // tslint:disable-next-line:max-line-length

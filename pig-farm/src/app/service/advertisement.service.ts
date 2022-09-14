@@ -22,7 +22,7 @@ export class AdvertisementService {
   }
 
   update(id: number, advertisement: Advertisement): Observable<Advertisement> {
-    return this.http.put<Advertisement>(`${API_URL}/advertisement/${id}`, advertisement);
+    return this.http.put<Advertisement>(`${API_URL}/advertisement/edit/${id}`, advertisement);
   }
   getListPlacement(): Observable<Placement[]> {
     return this.http.get<Placement[]>(`${API_URL}/advertisement/list/placement`);
@@ -33,7 +33,7 @@ export class AdvertisementService {
 
   deleteAdvertisement(ids: number[]): Observable<any> {
     const data = {id: ids};
-    const url = API_URL + '/delete';
+    const url = API_URL + '/advertisement/delete';
     return this.http.post<any>(url, data);
   }
 
