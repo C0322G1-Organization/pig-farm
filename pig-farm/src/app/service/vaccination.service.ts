@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Vaccination} from '../vaccination/model/vaccination';
+import {Vaccination} from '../model/vaccination';
 import {environment} from '../../environments/environment';
 
 const API_URL = environment.apiUrl;
@@ -26,7 +26,7 @@ export class VaccinationService {
   deleteVaccination(ids: number[]): Observable<any> {
     const data = {id: ids};
     console.log(data);
-    const url = API_URL + '/delete';
+    const url = API_URL + '/api/vaccination/delete';
     const options = {
       headers: new HttpHeaders({
         Accept: 'application/json',

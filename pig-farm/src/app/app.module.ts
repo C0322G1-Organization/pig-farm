@@ -11,9 +11,15 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BodyModule} from './body/body.module';
 import {VaccinationModule} from './vaccination/vaccination.module';
-import {TreatmentModule} from './treatment/treatment.module';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {StorageModule} from './storage/storage.module';
-import {StatisticModule} from "./statistic/statistic.module";
+import {StatisticModule} from './statistic/statistic.module';
+import {TreatmentModule} from './treatment/treatment.module';
+import {NotificationModule} from './notification/notification.module';
+import {EmployeeModule} from './employee/employee.module';
+import {ContactModule} from './contact/contact.module';
 
 @NgModule({
   declarations: [
@@ -33,7 +39,13 @@ import {StatisticModule} from "./statistic/statistic.module";
     StorageModule,
     BodyModule,
     TreatmentModule,
-    StatisticModule
+    StatisticModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
+    TreatmentModule,
+    NotificationModule,
+    EmployeeModule,
+    ContactModule
   ],
   providers: [],
   bootstrap: [AppComponent]
