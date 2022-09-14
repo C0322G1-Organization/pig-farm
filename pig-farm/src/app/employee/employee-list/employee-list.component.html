@@ -4,7 +4,7 @@
     <div class="employees-title" >DANH SÁCH NHÂN VIÊN</div>
 
     <div class="container mt-5" style="display: flex;justify-content: space-between">
-      <button style="margin-left: 10px" type="button" class="btn btn-outline-success">Thêm mới</button>
+      <button routerLink="/employee/create" style="margin-left: 10px" type="button" class="btn btn-outline-success">Thêm mới</button>
 
       <div style="display: flex;width: 55% ">
         <div class="col-lg position-relative mx-auto me-2 ">
@@ -31,7 +31,7 @@
               <i (click)="getEmployeeById(employee.id)" data-bs-toggle="modal" data-bs-target="#detailModal" class="detail bi bi-info-circle"></i>
             </div>
             <div class="social">
-              <a class="edit" href=""><i class="bi bi-pencil"></i></a>
+              <a [routerLink]="['/employee/edit',employee.id]" class="edit" href=""><i class="bi bi-pencil"></i></a>
               <a (click)="getModal(employee.id,employee.code,employee.nameEmployee)" class="delete"
                  data-bs-toggle="modal" data-bs-target="#deleteModal" href=""><i
                 class="bi bi-trash3"></i></a>
