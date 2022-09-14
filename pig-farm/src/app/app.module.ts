@@ -5,12 +5,21 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
-import {SecurityModule} from './security/security.module';
-import {StorageModule} from './storage/storage.module';
-import {HttpClientModule} from '@angular/common/http';
-import {BodyModule} from './body/body.module';
 import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
+import {HttpClientModule} from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {BodyModule} from './body/body.module';
+import {VaccinationModule} from './vaccination/vaccination.module';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {StorageModule} from './storage/storage.module';
+import {TreatmentModule} from './treatment/treatment.module';
+import {NotificationModule} from './notification/notification.module';
+import {EmployeeModule} from './employee/employee.module';
+import {ContactModule} from './contact/contact.module';
+import {SecurityModule} from './security/security.module';
 
 @NgModule({
   declarations: [
@@ -25,9 +34,17 @@ import {FooterComponent} from './footer/footer.component';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     SecurityModule,
-    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    VaccinationModule,
     StorageModule,
-    BodyModule
+    BodyModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
+    TreatmentModule,
+    NotificationModule,
+    EmployeeModule,
+    ContactModule
   ],
   providers: [],
   bootstrap: [AppComponent]
