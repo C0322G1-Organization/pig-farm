@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Food} from '../model/food';
 import {FormControl, FormGroup} from '@angular/forms';
 import {FoodService} from '../service/food.service';
@@ -16,6 +16,7 @@ export class ListFoodComponent implements OnInit {
   page = 0;
   number: number;
   totalPages = 0;
+  private sortList: string;
 
   constructor(private foodService: FoodService, private toast: ToastrService) {
 
@@ -23,10 +24,11 @@ export class ListFoodComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllFood(this.page, this.searchName);
-    this.toast.success('chào mừng bạn đến với chúng tôi', 'Quản lí thức ăn' );
+    this.toast.success('chào mừng bạn đến với chúng tôi', 'Quản lí thức ăn');
   }
+
   getAllFood(pageable: number, searchName: string) {
-    this.foodService.getAll(pageable, searchName).subscribe((value: any) => {
+    this.foodService.getAll(pageable, searchName, this.sortList).subscribe((value: any) => {
         if (value != null) {
           this.foodList = value.content;
           this.number = value?.number;
@@ -35,7 +37,8 @@ export class ListFoodComponent implements OnInit {
           this.foodList = [];
           this.toast.success('không tìm thấy vui lòng tìm lại');
         }
-      }, error => {},
+      }, error => {
+      },
       () => {
         this.createForm();
       });
@@ -63,5 +66,10 @@ export class ListFoodComponent implements OnInit {
       this.page++;
     }
     this.getAllFood(this.page, this.searchName);
+  }
+
+  sortFood(amout: string) {
+    this.sortList = amout;
+
   }
 }
