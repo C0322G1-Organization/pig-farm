@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {StorageService} from '../storage.service';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-storage-list',
@@ -10,7 +10,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 export class StorageListComponent implements OnInit {
 
   searchForm: FormGroup = new FormGroup({
-    foodType: new FormControl('')
+    foodType: new FormControl('', [Validators.maxLength(100)])
   });
   storageList: Storage[] = [];
   number: number;
