@@ -19,7 +19,11 @@ describe('HeaderComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+<<<<<<< HEAD
+  it('should employee-create', () => {
+=======
+  it('should createNotification', () => {
+>>>>>>> developer
     expect(component).toBeTruthy();
   });
 });

@@ -3,22 +3,22 @@ import {CommonModule} from '@angular/common';
 
 import {BodyRoutingModule} from './body-routing.module';
 import {BodyComponent} from './body.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {InfoNewsComponent} from './info-news/info-news.component';
 import {ContactModule} from '../contact/contact.module';
-
 
 @NgModule({
   declarations: [
     BodyComponent,
     InfoNewsComponent
   ],
-    imports: [
-        CommonModule,
-        BodyRoutingModule,
-        ReactiveFormsModule,
-        ContactModule
-    ]
+  imports: [
+    CommonModule,
+    BodyRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    ContactModule
+  ]
 })
 export class BodyModule {
 }
