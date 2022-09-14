@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListPigstyComponent } from './list-pigsty.component';
+import { PigstyListComponent } from './pigsty-list.component';
 
 describe('ListPigstyComponent', () => {
-  let component: ListPigstyComponent;
-  let fixture: ComponentFixture<ListPigstyComponent>;
+  let component: PigstyListComponent;
+  let fixture: ComponentFixture<PigstyListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListPigstyComponent ]
+      declarations: [ PigstyListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ListPigstyComponent);
+    fixture = TestBed.createComponent(PigstyListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

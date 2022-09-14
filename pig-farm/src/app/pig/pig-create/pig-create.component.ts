@@ -35,7 +35,7 @@ export class PigCreateComponent implements OnInit {
   }
 
   getAllPigsty() {
-    this.pigstyService.getAll().subscribe(value => {
+    this.pigstyService.getAllList().subscribe(value => {
       this.pigsty = value;
     });
   }
