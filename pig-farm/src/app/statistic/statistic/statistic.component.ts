@@ -65,10 +65,10 @@ export class StatisticComponent implements OnInit {
     const end = new Date(v.endDate);
     end.setDate(end.getDate() - 1);
     if (start > end) {
-      return {dateNotValid: true};
+      return {dateNotValid: true, message: 'Ngày bắt đầu phải nhỏ hơn ngày kết thúc'};
     }
     if (start > new Date()) {
-      return {futureDate: true};
+      return {futureDate: true, message: 'Ngày bắt đầu không lớn hơn ngày hiện tại'};
     } else {
       return null;
     }
@@ -78,18 +78,20 @@ export class StatisticComponent implements OnInit {
     const v = abstractControl.value;
     const start = new Date(v);
     if (!isDate(start)) {
-      return {dateNotExist: true};
+      return {dateNotExist: true, message: 'Ngày không tồn tại'};
     }
   }
 
   dateInFuture(abstractControl: AbstractControl) {
     const v = abstractControl.value;
     const end = new Date(v);
-    if (end > new Date()) {
-      return {futureDate: true};
+    const check = new Date();
+    // @ts-ignore
+    if (end > check) {
+      return {futureDate: true, message: 'Ngày kết thúc không lớn hơn ngày hiện tại'};
     }
     if (!isDate(end)) {
-      return {dateNotExist: true};
+      return {dateNotExist: true, message: 'Ngày kết thúc không tồn tại'};
     } else {
       return null;
     }
@@ -99,7 +101,6 @@ export class StatisticComponent implements OnInit {
     this.valueAmountPieChart = [];
     this.valuePricePieChart = [];
     this.namePieChart = [];
-    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.listStatistic.length; i++) {
       this.valueAmountPieChart.push(this.listStatistic[i].amount);
       this.valuePricePieChart.push(this.listStatistic[i].price);
