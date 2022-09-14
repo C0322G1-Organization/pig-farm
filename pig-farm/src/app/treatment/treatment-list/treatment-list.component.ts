@@ -31,8 +31,14 @@ export class TreatmentListComponent implements OnInit {
     }
     console.log('---------' + this.keySearch);
     this.treatmentService.getAll(page, this.keySearch).subscribe((data?: any) => {
-      if (data?.content.length < 1) {
-        return this.toastrService.success('Không tìm thấy !!!', 'Thông báo');
+      console.log(data);
+      if (data?.content === null) {
+        this.keySearch = '';
+        this.toastrService.success('Không tìm thấy !!!', 'Thông báo');
+      }
+      if (data?.content.length < 1 || data?.content.length === undefined) {
+        this.treatmentList.length = 0;
+        return;
       }
       this.number = data?.number;
       this.checkNext = !data.last;
@@ -48,7 +54,6 @@ export class TreatmentListComponent implements OnInit {
 
   delete() {
     this.getAll(0);
-    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.deleteList.length; i++) {
       console.log('delete', this.deleteList[i]);
       this.treatmentService.deleteTreatment(this.deleteList[i].id).subscribe(() => {
@@ -57,6 +62,8 @@ export class TreatmentListComponent implements OnInit {
         this.checkDelete = this.deleteList.length < 1;
         this.getAll(0);
       }, error => {
+        this.toastrService.error('Xóa không thành công !!!', 'Cảnh báo');
+        this.checkDelete = this.deleteList.length < 1;
         console.log('error', error);
       });
     }
@@ -90,7 +97,6 @@ export class TreatmentListComponent implements OnInit {
 
 
   checkbox(treatment: Treatment) {
-    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.deleteList.length; i++) {
       if (this.deleteList[i].id === treatment.id) {
         return true;

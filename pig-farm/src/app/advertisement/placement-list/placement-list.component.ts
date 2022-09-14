@@ -17,6 +17,4 @@ export class PlacementListComponent implements OnInit {
       this.placementList = next;
     });
   }
-
-
 }

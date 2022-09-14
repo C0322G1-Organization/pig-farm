@@ -86,7 +86,6 @@ export class StatisticComponent implements OnInit {
     const v = abstractControl.value;
     const end = new Date(v);
     const check = new Date();
-    // @ts-ignore
     if (end > check) {
       return {futureDate: true, message: 'Ngày kết thúc không lớn hơn ngày hiện tại'};
     }

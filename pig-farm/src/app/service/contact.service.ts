@@ -14,20 +14,10 @@ export class ContactService {
   constructor(private httpClient: HttpClient) {
   }
 
-  /**
-   * Created by: TriPT
-   * Date created: 11/09/2022
-   * Function: getAll Contact
-   */
   getAllContact(page: number, nameSearch: string): Observable<Contact[]> {
     return this.httpClient.get<Contact[]>(URL_CONTACT + '/page?page=' + page + '&nameSearch=' + nameSearch);
   }
 
-  /**
-   * Created by: TriPT
-   * Date created: 11/09/2022
-   * Function: findById
-   */
   getContactById(id: number): Observable<Contact> {
     return this.httpClient.get<Contact>(URL_CONTACT + `/${id}`);
   }

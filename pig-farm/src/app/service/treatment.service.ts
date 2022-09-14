@@ -14,11 +14,12 @@ export class TreatmentService {
   }
 
   getAll(page: number, name: string): Observable<Treatment[]> {
-    return this.http.get<Treatment[]>(`${API_URL}?keySearch=` + name + `&page=` + page);
+    return this.http.get<Treatment[]>(API_URL + `/api/treatment/v1/?keySearch=` + name + `&page=` + page);
   }
 
   deleteTreatment(id: number): Observable<Treatment> {
-    return null;
+    // @ts-ignore
+    return this.http.put<Treatment>(API_URL + `/api/treatment/v1/` + id);
   }
 
   save(saving: Treatment): Observable<Treatment> {
