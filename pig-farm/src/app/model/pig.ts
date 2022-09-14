@@ -5,7 +5,7 @@ export interface Pig {
   code?: string;
   dateIn?: string;
   dateOut?: string;
-  status?: number;
+  status?: string;
   weight?: number;
   isDeleted?: number;
   pigsty?: Pigsty;
