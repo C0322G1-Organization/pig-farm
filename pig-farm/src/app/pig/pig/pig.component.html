@@ -6,7 +6,7 @@
         <i class="fa-solid fa-plus"></i></button>
     </div>
     <div class="col-sm-12 col-lg-10 d-flex justify-content-end">
-      <form class="d-flex justify-content-end" [formGroup]="searchForm" (ngSubmit)="searchPig()">
+      <form class="d-flex justify-content-end" [formGroup]="searchForm" (ngSubmit)="searchPig()" >
         <div class="col-sm-3 pe-2">
           <label>Mã cá thể</label>
           <input class=" form-control" placeholder="Mã cá thể" type="text" formControlName="codeSearch"
@@ -74,7 +74,73 @@
       </button>
     </div>
   </form>
+<!--  <div class="paging">-->
+<!--    <ul class="pagination justify-content-end">-->
+<!--      <li class="page-item" *ngIf="checkPreview">-->
+<!--        <a class="page-link" (click)="goPrevious()" tabindex="-1">Trang trước</a>-->
+<!--      </li>-->
+<!--      <li class="page-item" *ngIf="checkPreview"><a class="page-link" (click)="goPrevious()">{{number}}</a></li>-->
+<!--      <li class="page-item active">-->
+<!--        <a class="page-link" href="#"> <span class="sr-only">{{number + 1}}</span></a>-->
+<!--      </li>-->
+<!--      <li class="page-item" *ngIf="checkNext"><a class="page-link" (click)="goNext()">{{number + 2}}</a></li>-->
+<!--      <li class="page-item" *ngIf="checkNext">-->
+<!--        <a class="page-link" (click)="goNext()">Trang kế</a>-->
+<!--      </li>-->
+<!--    </ul>-->
+<!--  </div>-->
+<!--</div>-->
+
+  <div class="py-3">
+    <nav aria-label="Page navigation example d-flex flex-row-reverse">
+      <ul class="pagination justify-content-end">
+        <div *ngIf="number == 0">
+          <li class="page-item disabled">
+            <button class="page-link" (click)="goStart()" hidden><<</button>
+          </li>
+        </div>
+        <div *ngIf="number != 0">
+          <li class="page-item">
+            <button class="page-link" (click)="goStart()"><<</button>
+          </li>
+        </div>
+        <div *ngIf="number == 0">
+          <li class="page-item disabled">
+            <button class="page-link" (click)="goPrevious()" hidden><</button>
+          </li>
+        </div>
+        <div *ngIf="number != 0">
+          <li class="page-item">
+            <button class="page-link" (click)="goPrevious()">Privious</button>
+          </li>
+        </div>
+
+        <div class="number-pages">{{number + 1}} | {{totalPages}}</div>
+        <div *ngIf="number == totalPages - 1">
+          <li class="page-item disabled">
+            <button class="page-link" (click)="goNext()" hidden>></button>
+          </li>
+        </div>
+        <div *ngIf="number != totalPages - 1">
+          <li class="page-item">
+            <button class="page-link" (click)="goNext()">Next</button>
+          </li>
+        </div>
+        <div *ngIf="number == totalPages - 1">
+          <li class="page-item disabled">
+            <button class="page-link" (click)="goEnd()" hidden>>></button>
+          </li>
+        </div>
+        <div *ngIf="number != totalPages - 1">
+          <li class="page-item">
+            <button class="page-link" (click)="goEnd()">>></button>
+          </li>
+        </div>
+      </ul>
+    </nav>
+  </div>
 </div>
+
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -97,42 +163,6 @@
   </div>
 </div>
 
-<div class="container">
-  <ul class="pagination float-end">
-    <div *ngIf="number == 0">
-      <li class="page-item disabled">
-        <button class="page-link" hidden>Previous</button>
-      </li>
-    </div>
-    <div *ngIf="number != 0">
-      <li class="page-item">
-        <button class="page-link" (click)="goPrevious()">Previous</button>
-      </li>
-    </div>
-    <div *ngFor="let count of countTotalPages; index as i">
-      <div *ngIf="i == number">
-        <li class="page-item active">
-          <button class="page-link" (click)="goItem(i)">{{i + 1}}</button>
-        </li>
-      </div>
-      <div *ngIf="i != number">
-        <li class="page-item">
-          <button class="page-link" (click)="goItem(i)">{{i + 1}}</button>
-        </li>
-      </div>
-    </div>
-    <div *ngIf="number == totalPages - 1">
-      <li class="page-item disabled">
-        <button class="page-link" hidden>Next</button>
-      </li>
-    </div>
-    <div *ngIf="number != totalPages - 1">
-      <li class="page-item">
-        <button class="page-link" (click)="goNext()">Next</button>
-      </li>
-    </div>
-  </ul>
-</div>
 <div style="text-align: center; display: flex; justify-content: center">
   <ng-template #elseBlock>
     <div style="color: red;" class="col-12">
