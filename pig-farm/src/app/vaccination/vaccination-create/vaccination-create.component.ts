@@ -37,29 +37,29 @@ export class VaccinationCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllPigsty();
+    // this.getAllPigsty();
   }
 
-  submit() {
-    const vaccination = this.vaccinationForm.value;
-    this.pigstyService.findById(vaccination.pigsty).subscribe(pigstys => {
-      vaccination.pigsty = {
-        id: pigstys.id,
-        code: pigstys.code
-      };
-      this.vaccinationService.saveVaccination(vaccination).subscribe(() => {
-        alert('Thêm mới thành công');
-        this.vaccinationForm.reset();
-        this.router.navigateByUrl('/vaccination/vaccination-list');
-      }, e => console.log(e));
-    });
-  }
-
-  getAllPigsty() {
-    this.pigstyService.getAll().subscribe(pigsty => {
-      this.pigstys = pigsty;
-    });
-  }
+  // submit() {
+  //   const vaccination = this.vaccinationForm.value;
+  //   this.pigstyService.findById(vaccination.pigsty).subscribe(pigstys => {
+  //     vaccination.pigsty = {
+  //       id: pigstys.id,
+  //       code: pigstys.code
+  //     };
+  //     this.vaccinationService.saveVaccination(vaccination).subscribe(() => {
+  //       alert('Thêm mới thành công');
+  //       this.vaccinationForm.reset();
+  //       this.router.navigateByUrl('/vaccination/vaccination-list');
+  //     }, e => console.log(e));
+  //   });
+  // }
+  //
+  // getAllPigsty() {
+  //   this.pigstyService.getAll().subscribe(pigsty => {
+  //     this.pigstys = pigsty;
+  //   });
+  // }
 
   checkDate() {
     // @ts-ignore
