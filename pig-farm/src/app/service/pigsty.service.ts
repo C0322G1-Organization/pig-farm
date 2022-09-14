@@ -1,0 +1,36 @@
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {Pigsty} from '../model/pigsty';
+import {environment} from '../../environments/environment';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class PigstyService {
+  private URL_PIGSTY = environment.apiUrl + '/pigsty';
+
+  constructor(private http: HttpClient) {
+  }
+
+  createPigsty(pigsty: Pigsty): Observable<Pigsty> {
+    return this.http.post<Pigsty>(this.URL_PIGSTY + '/createPigsty', pigsty);
+  }
+
+  editPigsty(pigsty: Pigsty): Observable<Pigsty> {
+    return this.http.patch<Pigsty>(this.URL_PIGSTY + '/editPigsty', pigsty);
+  }
+
+  getPigsty(id: number): Observable<Pigsty> {
+    return this.http.get<Pigsty>(this.URL_PIGSTY + '/getPigstyById' + `/${id}`);
+  }
+
+  getAll(page: number, search: string): Observable<any> {
+    return this.http.get<any>(this.URL_PIGSTY + 'list?search=' + search + '&page=' + page);
+  }
+
+  getAllList(): Observable<any> {
+    return this.http.get<any>(this.URL_PIGSTY + 'list');
+  }
+
+}
