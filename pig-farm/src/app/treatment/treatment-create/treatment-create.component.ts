@@ -23,7 +23,7 @@ export class TreatmentCreateComponent implements OnInit {
     diseases: new FormControl('', [Validators.required]),
     medicine: new FormControl('', [Validators.required]),
     amount: new FormControl('', [Validators.required]),
-    pigCode: new FormControl('', [Validators.required]),
+    pig: new FormControl('', [Validators.required]),
     isDelete: new FormControl('0')
   });
 
@@ -43,6 +43,7 @@ export class TreatmentCreateComponent implements OnInit {
 
   submit() {
     const saving = this.creatTreatmentForm.value;
+    console.log(saving);
     this.treatmentService.save(saving).subscribe(() => {
       this.router.navigate(['/treatment']);
     });
