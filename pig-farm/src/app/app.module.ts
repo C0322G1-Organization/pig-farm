@@ -5,6 +5,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
+
 import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {HttpClientModule} from '@angular/common/http';
@@ -19,6 +20,7 @@ import {TreatmentModule} from './treatment/treatment.module';
 import {NotificationModule} from './notification/notification.module';
 import {EmployeeModule} from './employee/employee.module';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +33,8 @@ import {EmployeeModule} from './employee/employee.module';
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    HttpClientModule,
+    ReactiveFormsModule,
     FormsModule,
     ReactiveFormsModule,
     VaccinationModule,
