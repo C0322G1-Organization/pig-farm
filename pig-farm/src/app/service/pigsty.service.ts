@@ -25,7 +25,7 @@ export class PigstyService {
   }
 
   getAll(page: number, search: string): Observable<any> {
-    return this.http.get<any>(API_URL + 'list?search=' + search + '&page=' + page);
+    return this.http.get<any>(this.URL_PIGSTY + 'list?search=' + search + '&page=' + page);
   }
 
 }
