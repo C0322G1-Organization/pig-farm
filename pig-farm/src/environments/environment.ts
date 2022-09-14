@@ -3,7 +3,8 @@ export const environment = {
   apiUrl: 'http://localhost:8080',
   firebaseConfig: {
     apiKey: 'AIzaSyBnC8anvokACsGObyXLRD4qcW7ng_p6ZAo',
-    databaseURL: 'https://notification-a799c-default-rtdb.asia-southeast1.firebasedatabase.app',
+    // databaseURL: 'https://notification-a799c-default-rtdb.asia-southeast1.firebasedatabase.app',
+    databaseURL: 'https://image-e4034-default-rtdb.asia-southeast1.firebasedatabase.app',
     authDomain: 'image-e4034.firebaseapp.com',
     projectId: 'image-e4034',
     storageBucket: 'image-e4034.appspot.com',
@@ -12,4 +13,3 @@ export const environment = {
     measurementId: 'G-GV6STQXD8X'
   }
 };
-
