@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
@@ -13,13 +13,12 @@ export class StorageService {
   constructor(private http: HttpClient) {
   }
 
-  getAll(page: number): Observable<Storage[]> {
-    return this.http.get<Storage[]>(URL_S + '/storage/page?page=' + page);
+  getAll(page: number, foodTypeSearch: string): Observable<Storage[]> {
+    return this.http.get<Storage[]>(URL_S + '/storage/page?page=' + page + '&keyWord=' + foodTypeSearch);
   }
 
-  searchStorage(objSearch: any): Observable<Storage[]> {
-    const foodTypeSearch: string = objSearch.foodType;
-    return this.http.get<Storage[]>(`${URL_S}/storage/page?keyWord=` + foodTypeSearch);
+  getAllS(): Observable<Storage[]> {
+    return this.http.get<Storage[]>(URL_S + '/storage/list');
   }
 
   saveStorage(storage): Observable<Storage> {

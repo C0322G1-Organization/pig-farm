@@ -19,7 +19,7 @@ describe('InfoNewsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should createNotification', () => {
     expect(component).toBeTruthy();
   });
 });

@@ -1,6 +1,6 @@
-.bg {
+.body {
   margin: 0 auto;
-  background-image: url("../../../assets/img/pig-backgroup.jpeg");
+  background-image: url('../../../assets/img/notification-backgroup-list.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;

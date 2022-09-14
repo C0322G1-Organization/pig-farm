@@ -90,6 +90,7 @@ export class TreatmentListComponent implements OnInit {
 
 
   checkbox(treatment: Treatment) {
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.deleteList.length; i++) {
       if (this.deleteList[i].id === treatment.id) {
         return true;
