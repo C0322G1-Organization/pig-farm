@@ -5,10 +5,10 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
-import {HttpClientModule} from '@angular/common/http';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BodyModule} from './body/body.module';
 import {VaccinationModule} from './vaccination/vaccination.module';
 import {AngularFireModule} from '@angular/fire';
@@ -32,6 +32,7 @@ import {ContactModule} from './contact/contact.module';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     ToastrModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
