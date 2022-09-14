@@ -5,7 +5,7 @@ import {StorageCreateComponent} from './storage-create/storage-create.component'
 
 const routes: Routes = [
   {path: 'storage/page', component: StorageListComponent},
-  {path: 'storage/create', component: StorageCreateComponent}
+  {path: 'storage/employee-create', component: StorageCreateComponent}
 ];
 
 @NgModule({

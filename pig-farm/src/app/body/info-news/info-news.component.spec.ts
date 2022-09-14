@@ -19,7 +19,11 @@ describe('InfoNewsComponent', () => {
     fixture.detectChanges();
   });
 
+<<<<<<< HEAD
+  it('should employee-create', () => {
+=======
   it('should createNotification', () => {
+>>>>>>> developer
     expect(component).toBeTruthy();
   });
 });

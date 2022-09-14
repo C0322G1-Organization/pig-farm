@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {StorageService} from '../storage.service';
+import {StorageService} from '../../service/storage.service';
 import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
-  selector: 'app-storage-list',
+  selector: 'app-storage-employee-list',
   templateUrl: './storage-list.component.html',
   styleUrls: ['./storage-list.component.css']
 })
