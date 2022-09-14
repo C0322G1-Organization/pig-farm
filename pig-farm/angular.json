@@ -121,12 +121,15 @@
               "devServerTarget": "pig-farm:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
   },
   "defaultProject": "pig-farm",
   "cli": {
-    "analytics": "591d53d6-3f40-4274-bac4-7969ccea6c85"
+    "analytics": "8432dd81-3fbd-4ce8-996d-9d39f259faca"
   }
 }

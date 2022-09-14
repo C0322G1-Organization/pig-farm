@@ -5,25 +5,28 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
-import {RouterModule} from '@angular/router';
-import {ReactiveFormsModule} from '@angular/forms';
+import {StorageModule} from './storage/storage.module';
+import {HeaderComponent} from './header/header.component';
+import {FooterComponent} from './footer/footer.component';
 import {HttpClientModule} from '@angular/common/http';
-import {PigModule} from "./pig/pig.module";
+import {BodyModule} from './body/body.module';
+import {PigModule} from './pig/pig.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    RouterModule,
-    ReactiveFormsModule,
-    HttpClientModule,
+    StorageModule,
+    BodyModule,
     PigModule
-
   ],
   providers: [],
   bootstrap: [AppComponent]
