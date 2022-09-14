@@ -1,6 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -11,10 +10,11 @@ import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {BodyModule} from './body/body.module';
 import {VaccinationModule} from './vaccination/vaccination.module';
+import {DatePipe} from '@angular/common';
+import {StorageModule} from './storage/storage.module';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
-import {StorageModule} from './storage/storage.module';
 import {StatisticModule} from './statistic/statistic.module';
 import {TreatmentModule} from './treatment/treatment.module';
 import {NotificationModule} from './notification/notification.module';
@@ -50,7 +50,7 @@ import {PigModule} from './pig/pig.module';
     ContactModule,
     PigModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule {
