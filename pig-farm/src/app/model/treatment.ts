@@ -1,5 +1,3 @@
-import {Pig} from './pig';
-
 export interface Treatment {
   id?: number;
   date?: string;
