@@ -20,6 +20,7 @@ export class VaccinationListComponent implements OnInit {
   checkNext: boolean;
   checkPrevious: boolean;
   nameContent = '';
+  informationDelete: Vaccination[] = [];
 
   searchForm: FormGroup = new FormGroup({
     vaccinPerson: new FormControl('')
@@ -32,69 +33,82 @@ export class VaccinationListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.getAll(0, '');
+    this.getAll(0, '');
   }
 
-  // getAll(page: number, name: string) {
-  //   this.vaccinService.findAll(page, name).subscribe((value: any) => {
-  //     this.number = value?.number;
-  //     this.vaccins = value?.content;
-  //     console.log(value?.content);
-  //     this.checkNext = !value.last;
-  //     this.checkPrevious = !value.first;
-  //   }, error => {
-  //     console.log(error);
-  //   });
-  // }
-  //
-  // goPrevious() {
-  //   this.number--;
-  //   this.getAll(this.number, this.nameContent);
-  // }
-  //
-  // goNext() {
-  //   this.number++;
-  //   this.getAll(this.number, this.nameContent);
-  // }
-  //
-  // searchVaccin() {
-  //   this.nameContent = this.searchForm.value.vaccinPerson;
-  //   this.getAll(0, this.nameContent);
-  // }
-  //
-  // deleteId() {
-  //   if (this.ids.length > 0) {
-  //     this.vaccinService.deleteVaccination(this.ids).subscribe(value1 => {
-  //       this.getAll(0, '');
-  //       this.toast.success('Xóa thành công !!!', 'Thông báo');
-  //       this.ids = [];
-  //     }, err => {
-  //       this.clss = 'rd';
-  //       this.msg = 'Có sự cố khi xóa thông báo';
-  //     });
-  //   } else {
-  //     this.clss = 'rd';
-  //     this.msg = 'Bạn phải chọn mới có thể tiến hành xoá';
-  //   }
-  //   this.nameDelete = [];
-  // }
-  //
-  // checkDelete(value: any) {
-  //   this.ids = [];
-  //   this.msg = '';
-  //   this.nameDelete = [];
-  //   this.vaccins.forEach(item => {
-  //     if (value[item.id] === true) {
-  //       this.ids.push(item.id);
-  //       this.nameDelete.push(item.vaccinatedPerson);
-  //     }
-  //   });
-  //   this.vaccinService.findAll(0, '').subscribe(() => {
-  //   });
-  // }
-  //
-  // resetDelete() {
-  //   this.nameDelete = [];
-  //   this.ids = [];
-  // }
+  getAll(page: number, name: string) {
+    // @ts-ignore
+    // tslint:disable-next-line:variable-name
+    this.vaccinService.findAll(page, name).subscribe((value: any) => {
+      this.number = value?.number;
+      this.vaccins = value?.content;
+      console.log(value?.content);
+      this.checkNext = !value.last;
+      this.checkPrevious = !value.first;
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  goPrevious() {
+    this.number--;
+    this.getAll(this.number, this.nameContent);
+  }
+
+  goNext() {
+    this.number++;
+    this.getAll(this.number, this.nameContent);
+  }
+
+  searchVaccin() {
+    this.nameContent = this.searchForm.value.vaccinPerson;
+    this.getAll(0, this.nameContent);
+  }
+
+  deleteId() {
+    if (this.ids.length > 0) {
+      this.vaccinService.deleteVaccination(this.ids).subscribe(value1 => {
+        this.getAll(0, '');
+        this.toast.success('Xóa thành công !!!', 'Thông báo');
+        this.ids = [];
+      }, err => {
+        this.clss = 'rd';
+        this.msg = 'Có sự cố khi xóa thông báo';
+      });
+    } else {
+      this.clss = 'rd';
+      this.msg = 'Bạn phải chọn mới có thể tiến hành xoá';
+    }
+    this.nameDelete = [];
+  }
+
+  resetDelete() {
+    this.nameDelete = [];
+    this.ids = [];
+  }
+
+  getListDelete(vaccinationDelete: Vaccination) {
+    for (let i = 0; i < this.nameDelete.length; i++) {
+      if (this.nameDelete[i].id === vaccinationDelete.id) {
+        this.nameDelete.splice(i, 1);
+        return;
+      }
+    }
+    this.nameDelete.push(vaccinationDelete);
+    this.ids = [];
+    this.informationDelete = [];
+    for (const item of this.nameDelete) {
+      this.ids.push(item.id);
+      this.informationDelete.push(item.title);
+    }
+  }
+
+  checkbox(notificationDelete: Vaccination) {
+    for (const item of this.nameDelete) {
+      if (item.id === notificationDelete.id) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

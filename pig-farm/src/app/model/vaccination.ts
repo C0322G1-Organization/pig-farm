@@ -8,5 +8,5 @@ export interface Vaccination {
   vaccinatedPerson ?: string;
   note ?: string;
   isDeleted ?: boolean;
-  pigsty ?: Pigsty;
+  pigstyCode ?: Pigsty;
 }

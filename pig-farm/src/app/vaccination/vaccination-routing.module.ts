@@ -3,15 +3,10 @@ import {VaccinationCreateComponent} from './vaccination-create/vaccination-creat
 import {NgModule} from '@angular/core';
 import {VaccinationListComponent} from './vaccination-list/vaccination-list.component';
 
+
 const routes: Routes = [
-  {
-    path: 'vaccination',
-    component: VaccinationListComponent
-  },
-  {
-    path: 'api/vaccination/create',
-    component: VaccinationCreateComponent
-  }
+  {path: 'vaccination', component: VaccinationListComponent},
+  {path: 'vaccination/create', component: VaccinationCreateComponent}
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
