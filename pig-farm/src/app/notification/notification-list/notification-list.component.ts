@@ -36,7 +36,6 @@ export class NotificationListComponent implements OnInit {
 
   getNotifications(page: number, content: string) {
     this.notificationService.getAllNotifications(page, content).subscribe((value: any) => {
-      console.log(value);
       this.number = page;
       this.notifications = value?.content;
       this.msg = '';

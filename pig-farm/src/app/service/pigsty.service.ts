@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Pigsty} from '../model/pigsty';
 import {environment} from '../../environments/environment';
 
+const API_URL = `${environment.apiUrl}`;
 @Injectable({
   providedIn: 'root'
 })
@@ -34,6 +35,6 @@ export class PigstyService {
   }
 
   getAllPigsty(): Observable<Pigsty[]> {
-    return this.http.get<Pigsty[]>(this.URL_PIGSTY + '/list/pigsty');
+    return this.http.get<Pigsty[]>(API_URL + '/list/pigsty');
   }
 }
