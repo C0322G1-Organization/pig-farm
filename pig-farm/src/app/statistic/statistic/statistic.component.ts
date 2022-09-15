@@ -9,10 +9,10 @@ import {Toast, ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
 import {Chart, registerables} from 'chart.js';
 
-Chart.register(...registerables);
+// Chart.register(...registerables);
 
 @Component({
-  selector: 'app-statictis',
+  selector: 'app-statistic',
   templateUrl: './statistic.component.html',
   styleUrls: ['./statistic.component.css']
 })

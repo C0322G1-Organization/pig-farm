@@ -22,7 +22,7 @@ import {ContactModule} from './contact/contact.module';
 import {PigModule} from './pig/pig.module';
 import {PigstyModule} from './pigsty/pigsty.module';
 import {AdvertisementModule} from './advertisement/advertisement.module';
-import {FoodModule} from "./food/food.module";
+import {FoodModule} from './food/food.module';
 
 @NgModule({
   declarations: [

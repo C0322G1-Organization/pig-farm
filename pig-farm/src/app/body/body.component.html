@@ -36,7 +36,8 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-lg-10 mt-5">
+    <div class="col-lg-10 mt-5" >
+      <div *ngIf="news && news.length > 0; else elseBlock">
       <div class="row mt-3" *ngFor="let i of news">
         <div class="col-lg-2">
           <div>
@@ -51,34 +52,35 @@
           <p>{{i.content}}</p>
         </div>
       </div>
-
-
-      <div class="row mt-5" align="center">
-        <nav aria-label="Page navigation example">
-          <ul class="pagination justify-content-center">
-            <div *ngIf="number == 0" class="">
-              <li class="page-item disabled">
-                <button class="page-link" hidden>Previous</button>
-              </li>
-            </div>
-            <div *ngIf="number != 0" class="mx-2">
-              <li class="page-item">
-                <button class="page-link" (click)="previousPage()">Previous</button>
-              </li>
-            </div>
-            <div *ngIf="number == totalPages - 1" class="mx-2">
-              <li class="page-item disabled">
-                <button class="page-link" hidden>Next</button>
-              </li>
-            </div>
-            <div *ngIf="number != totalPages - 1" class="mx-2">
-              <li class="page-item">
-                <button class="page-link" (click)="nextPage()">Next</button>
-              </li>
-            </div>
-          </ul>
-        </nav>
       </div>
+      <!-- Khi không có dữ liệu thì hiện  -->
+      <div style="text-align: center; display: flex; justify-content: center; height: 250px">
+        <ng-template #elseBlock>
+
+            <div class="row mt-3" style="text-align: center">
+              <div style="color: red;" class="col-12">
+                <h1>Không tìm thấy dữ liệu. Vui lòng thử lại!</h1>
+              </div>
+            </div>
+
+        </ng-template>
+      </div>
+
+      <nav aria-label="...">
+        <ul class="pagination justify-content-center">
+          <li class="page-item " *ngIf="checkPrevious">
+            <a class="page-link" (click)="goPrevious()" tabindex="-1">Trang trước</a>
+          </li>
+          <li class="page-item" *ngIf="checkPrevious"><a class="page-link" (click)="goPrevious()">{{number}}</a></li>
+          <li class="page-item active">
+            <a class="page-link"> <span class="sr-only">{{number + 1}}</span></a>
+          </li>
+          <li class="page-item" *ngIf="checkNext"><a class="page-link" (click)="goNext()">{{number + 2}}</a></li>
+          <li class="page-item" *ngIf="checkNext">
+            <a class="page-link" (click)="goNext()">Trang sau</a>
+          </li>
+        </ul>
+      </nav>
 
     </div>
 
