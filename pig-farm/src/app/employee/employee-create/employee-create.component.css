@@ -3,7 +3,7 @@ body {
   opacity: 90%;
 }
 
-.form-text, span {
+.form-text, span, i {
   color: red;
 }
 

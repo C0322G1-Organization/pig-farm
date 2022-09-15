@@ -1,14 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {EmployeeService} from '../employee.service';
-import {UserService} from '../../user/user.service';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
 import {Employee} from '../employee';
 import {checkBirthDay, checkDay} from '../../validate/check-birth-day';
 import {formatDate} from '@angular/common';
 import {finalize} from 'rxjs/operators';
-// @ts-ignore
 import {AngularFireStorage} from '@angular/fire/storage';
 
 @Component({
@@ -33,6 +31,7 @@ export class EmployeeCreateComponent implements OnInit {
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     email: new FormControl('', [Validators.required, Validators.email]),
+    creationDate: new FormControl(''),
     birthDay: new FormControl('', [Validators.required, checkBirthDay, checkDay]),
     gender: new FormControl('', [Validators.required]),
     idCard: new FormControl('', [Validators.required, Validators.pattern('^\\d{9}|\\d{12}$')]),
@@ -40,7 +39,6 @@ export class EmployeeCreateComponent implements OnInit {
   });
 
   constructor(private employeeService: EmployeeService,
-              private userService: UserService,
               private toast: ToastrService,
               private router: Router,
               private storage: AngularFireStorage) {
@@ -68,17 +66,17 @@ export class EmployeeCreateComponent implements OnInit {
             userDto: {
               username: this.employeeForm.value.username,
               password: this.employeeForm.value.password,
-              email: this.employeeForm.value.email
+              email: this.employeeForm.value.email,
             },
             birthDay: this.employeeForm.value.birthDay,
             gender: this.employeeForm.value.gender,
             idCard: this.employeeForm.value.idCard,
-            image: this.employeeForm.value.image
+            image: url
           };
           console.log(employee);
-          this.employeeService.saveEmployee(this.employeeForm.value).subscribe(() => {
+          this.employeeService.saveEmployee(employee).subscribe(() => {
             console.log(1);
-            // this.router.navigate(['/employee/list']);
+            this.router.navigate(['/employee/list']);
             this.toast.success('Thêm Mới Nhân Viên Thành Công !!');
           }, error => {
             this.toast.error('Thêm Mới Nhân Viên Thất Bại !!');

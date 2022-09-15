@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {UserDto} from '../../user/user';
 import {EmployeeService} from '../employee.service';
-import {UserService} from '../../user/user.service';
 import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {checkBirthDay, checkDay} from '../../validate/check-birth-day';
+import {finalize} from 'rxjs/operators';
+import {formatDate} from '@angular/common';
+import {AngularFireStorage} from '@angular/fire/storage';
 
 @Component({
   selector: 'app-employee-edit',
@@ -25,12 +26,19 @@ export class EmployeeEditComponent implements OnInit {
   });
 
   id: number;
+  selectedImage: File = null;
+  checkImgSize = false;
+  regexImageUrl = false;
+  editImageState = false;
+  checkImg: boolean;
+  url: any;
+  msg = '';
 
   constructor(private employeeService: EmployeeService,
-              private userService: UserService,
               private toast: ToastrService,
               private activatedRoute: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private storage: AngularFireStorage) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = +paramMap.get('id');
       this.employeeService.findById(this.id).subscribe(employee => {
@@ -50,14 +58,69 @@ export class EmployeeEditComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  editEmployee(id: number): void {
-    const employee = this.employeeForm.value;
-    this.employeeService.editEmployee(id, employee).subscribe(() => {
-      // this.router.navigate(['/employee/list']);
-      this.toast.success('Sửa Thông Tin Nhân Viên Thành Công !!');
-    }, error => {
-      this.toast.error('Chỉnh Sửa Nhân Viên Thất Bại !!');
-      console.log(error);
-    });
+  getCurrentDateTime(): string {
+    return formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss', 'en-US');
+  }
+
+  editEmployee() {
+    const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
+    const filePath = `employee/${nameImg}`;
+    const fileRef = this.storage.ref(filePath);
+    this.storage.upload(filePath, this.selectedImage).snapshotChanges().pipe(finalize(() => {
+        fileRef.getDownloadURL().subscribe((url) => {
+          this.employeeForm.patchValue({image: url});
+          console.log(url);
+          this.employeeService.editEmployee(this.id, this.employeeForm.value).subscribe(() => {
+            this.router.navigate(['/employee/list']);
+            this.toast.success('Sửa Thông Tin Nhân Viên Thành Công !!');
+          }, error => {
+            this.toast.error('Sửa Thông Tin Nhân Viên Thất Bại !!');
+            console.log(error);
+          });
+        });
+      })
+    ).subscribe();
+  }
+
+  onFileSelected(event) {
+    this.regexImageUrl = false;
+    if (event.target.files[0].size > 9000000) {
+      return;
+    }
+    this.selectedImage = event.target.files[0];
+    if (!event.target.files[0].name.match('^.*\\.(jpg|JPG)$')) {
+      this.regexImageUrl = true;
+      return;
+    }
+    this.employeeForm.patchValue({imageUrl: this.selectedImage.name});
+  }
+
+  selectFile(event: any) {
+    if (!event.target.files[0] || event.target.files[0].length === 0) {
+      return;
+    }
+    if (event.target.files[0].size > 9000000) {
+      return;
+    }
+    if (!event.target.files[0].name.match('^.*\\.(jpg|JPG)$')) {
+      return;
+    }
+    this.checkImgSize = false;
+    this.checkImg = false;
+    this.editImageState = true;
+
+    const mimeType = event.target.files[0].type;
+
+    if (mimeType.match(/image\/*/) == null) {
+      this.msg = 'Chỉ có file ảnh được hỗ trợ';
+      return;
+    }
+    const reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+    // tslint:disable-next-line:variable-name
+    reader.onload = (_event) => {
+      this.msg = '';
+      this.url = reader.result;
+    };
   }
 }
