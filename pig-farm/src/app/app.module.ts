@@ -44,7 +44,7 @@ import {ContactModule} from './contact/contact.module';
     TreatmentModule,
     NotificationModule,
     EmployeeModule,
-    ContactModule,
+    ContactModule
   ],
   providers: [],
   bootstrap: [AppComponent]
