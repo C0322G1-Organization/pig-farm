@@ -13,15 +13,14 @@
         <div class="formRow_create_content">
           <div class="mb-3">
             <label class="form-label">Mã đàn lợn <span class="text-danger">*</span> </label>
-            <select class="form-control" formControlName="pigsty" [compareWith]="compareWithId">
+            <select class="form-control" formControlName="pigsty">
               <option selected *ngFor="let item of pigsties" [ngValue]="item.id">{{item.code}}</option>
-              <option value="1">1</option>
             </select>
             <span style="color: red" *ngIf="foodForm.controls.pigsty.hasError('required') && foodForm.controls.pigsty.touched">=> Please input !</span>
           </div>
           <div class="mb-3">
             <label class="form-label">Loại thức ăn <span class="text-danger">*</span></label>
-            <select class="form-control" formControlName="storage" [compareWith]="compareWithId">
+            <select class="form-control" formControlName="storage" >
               <option *ngFor="let item of storages" [ngValue]="item.id">{{item.foodType}}</option>
             </select>
             <span style="color: red" *ngIf="foodForm.controls.storage.hasError('required') && foodForm.controls.storage.touched">=> Please input !</span>
@@ -35,7 +34,12 @@
               </div>
               <div class="col-md">
                 <label class="form-label">Đơn vị <span class="text-danger">*</span> </label>
-                <input type="text" class="form-control" formControlName="unit">
+                <select class="form-control" formControlName="unit">
+                  <option value="" disabled >vui lòng chọn </option>
+                  <option value="Kg/Ngày">Kg/Ngày</option>
+                  <option value="Kg/Tháng">Kg/Tháng</option>
+                  <option value="Kg/Năm">Kg/Năm</option>
+                </select>
                 <span style="color: red" *ngIf="foodForm.controls.unit.hasError('required') && foodForm.controls.unit.touched">=> Please input !</span>
               </div>
             </div>

@@ -13,16 +13,15 @@
         <div class="formRow_create_content">
           <div class="mb-3">
             <label class="form-label">Mã đàn lợn <span class="text-danger">*</span> </label>
-            <select class="form-control" formControlName="pigsty">
-              <!--              <option selected *ngFor="let item of pigsties" [ngValue]="item.id">{{item.code}}</option>-->
+            <select class="form-control" formControlName="pigsty" >
               <option value="" disabled >vui lòng chọn </option>
-              <option value="1">1</option>
+              <option selected *ngFor="let item of pigsties" [ngValue]="item.id">{{item.code}}</option>
             </select>
             <span style="color: red" *ngIf="foodForm.controls.pigsty.hasError('required') && foodForm.controls.pigsty.touched">=> Please input !</span>
           </div>
           <div class="mb-3">
             <label class="form-label">Loại thức ăn <span class="text-danger">*</span></label>
-            <select class="form-control" formControlName="storage">
+            <select class="form-control" formControlName="storage" >
               <option value="" disabled >vui lòng chọn </option>
               <option  *ngFor="let item of storages" [ngValue]="item.id">{{item.foodType}}</option>
             </select>
@@ -39,6 +38,7 @@
               <div class="col-md">
                 <label class="form-label">Đơn vị <span class="text-danger">*</span> </label>
                 <select class="form-control" formControlName="unit">
+                  <option value="" disabled >vui lòng chọn </option>
                   <option value="Kg/Ngày">Kg/Ngày</option>
                   <option value="Kg/Tháng">Kg/Tháng</option>
                   <option value="Kg/Năm">Kg/Năm</option>

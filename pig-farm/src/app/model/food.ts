@@ -1,5 +1,5 @@
-import {Pigsty} from '../../model/pigsty';
-import {Storage} from '../../model/storage';
+import {Pigsty} from './pigsty';
+import {Storage} from './storage';
 
 export interface Food {
   id?: number;

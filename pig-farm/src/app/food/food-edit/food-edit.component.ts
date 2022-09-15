@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {FoodServiceService} from '../service/food-service.service';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {PigstyService} from '../../service/pigsty.service';
 import {StorageService} from '../../service/storage.service';
 import {Pig} from '../../model/pig';
 import {Storage} from '../../model/storage';
+import {FoodService} from "../../service/food.service";
 
 @Component({
   selector: 'app-food-edit',
@@ -26,7 +26,7 @@ export class FoodEditComponent implements OnInit {
 
   constructor(private pigstyService: PigstyService,
               private storageService: StorageService,
-              private foodService: FoodServiceService,
+              private foodService: FoodService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private toast: ToastrService) {
@@ -36,24 +36,20 @@ export class FoodEditComponent implements OnInit {
     });
   }
 
-  compareWithId(item1, item2) {
-    return item1 && item2 && item1.id === item2.id;
-  }
-
   ngOnInit(): void {
     this.getStorages();
+    this.getPigsties();
   }
 
   getPigsties(): void {
     this.pigstyService.getAll().subscribe((pigstyService?: any) => {
-      this.pigsties = pigstyService.content;
+      this.pigsties = pigstyService;
     });
   }
 
   getStorages(): void {
-    // @ts-ignore
-    this.storageService.getAll().subscribe((storageService?: any) => {
-      this.storages = storageService.content;
+    this.storageService.getAllS().subscribe((storageService?: any) => {
+      this.storages = storageService;
     });
   }
 
@@ -65,6 +61,7 @@ export class FoodEditComponent implements OnInit {
         storage: new FormControl(food.storage.id, [Validators.required]),
         pigsty: new FormControl(food.pigsty.id, [Validators.required]),
       });
+      console.log(this.foodForm);
     });
 
   }

@@ -50,7 +50,8 @@ import {FoodModule} from './food/food.module';
     NotificationModule,
     EmployeeModule,
     ContactModule,
-    PigModule
+    PigModule,
+    FoodModule
   ],
   providers: [],
   bootstrap: [AppComponent]

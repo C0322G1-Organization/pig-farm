@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Food} from '../model/food';
+import {Food} from '../../model/food';
 import {FormControl, FormGroup} from '@angular/forms';
-import {FoodService} from '../service/food.service';
+import {FoodService} from '../../service/food.service';
 import {ToastrService} from 'ngx-toastr';
 
 @Component({

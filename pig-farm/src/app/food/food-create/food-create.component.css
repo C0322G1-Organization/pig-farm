@@ -11,24 +11,24 @@
   opacity: 85%
 }
 
-/*body {*/
-/*  margin: 0 auto;*/
-/*  background-image: url('../../../assets/img/img-food/listFood.jpg');*/
-/*  background-repeat: no-repeat;*/
-/*  background-attachment: fixed;*/
-/*  background-size: 100% 100%*/
-/*}*/
+body {
+  margin: 0 auto;
+  background-image: url('../../../assets/img/food-create.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%
+}
 
-/*hr {*/
-/*  border: none;*/
-/*  height: 20px;*/
-/*  width: 90%;*/
-/*  height: 50px;*/
-/*  margin-top: 0;*/
-/*  border-bottom: 2px solid #1f1209;*/
-/*  box-shadow: 0 21px 20px -20px #242323;*/
-/*  margin: -50px auto 10px;*/
-/*}*/
+hr {
+  border: none;
+  height: 20px;
+  width: 90%;
+  height: 50px;
+  margin-top: 0;
+  border-bottom: 2px solid #1f1209;
+  box-shadow: 0 21px 20px -20px #242323;
+  margin: -50px auto 10px;
+}
 
 .formRow_create_title {
   text-align: center;
