@@ -7,7 +7,6 @@ import {StorageService} from '../../service/storage.service';
 import {Pig} from '../../model/pig';
 import {Storage} from '../../model/storage';
 import {FoodService} from '../../service/food.service';
-
 @Component({
   selector: 'app-food-edit',
   templateUrl: './food-edit.component.html',

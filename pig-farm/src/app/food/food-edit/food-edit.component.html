@@ -40,6 +40,7 @@
                   <option value="Kg/Năm">Kg/Năm</option>
                 </select>
                 <span style="color: red" *ngIf="foodForm.controls.unit.hasError('required') && foodForm.controls.unit.touched">=> Không được để trống !</span>
+                <span style="color: red" *ngIf="foodForm.controls.unit.hasError('required') && foodForm.controls.unit.touched">=> Please input !</span>
               </div>
             </div>
           </div>

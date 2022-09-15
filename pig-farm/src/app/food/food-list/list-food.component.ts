@@ -110,6 +110,5 @@ export class ListFoodComponent implements OnInit {
 
   getValue(id: number) {
     this.idEdit = id;
-    console.log(this.idEdit);
   }
 }

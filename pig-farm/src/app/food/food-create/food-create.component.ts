@@ -7,7 +7,6 @@ import {StorageService} from '../../service/storage.service';
 import {PigstyService} from '../../service/pigsty.service';
 import {Storage} from '../../model/storage';
 import {FoodService} from '../../service/food.service';
-
 @Component({
   selector: 'app-food-create',
   templateUrl: './food-create.component.html',
