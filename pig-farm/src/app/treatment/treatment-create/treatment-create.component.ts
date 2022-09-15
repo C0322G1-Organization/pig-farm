@@ -3,7 +3,6 @@ import {Treatment} from '../../model/treatment';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {DatePipe} from '@angular/common';
-
 import {TreatmentService} from '../../service/treatment.service';
 import {isDate} from 'rxjs/internal-compatibility';
 

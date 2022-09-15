@@ -1,5 +1,5 @@
 import {Export} from './export';
-import {UserDto} from '../user/user';
+import {AppUser} from './app-user';
 
 export interface Employee {
   id?: number;
@@ -11,5 +11,5 @@ export interface Employee {
   image?: string;
   isDeleted?: boolean;
   export?: Export;
-  userDto?: UserDto;
+  userDto?: AppUser;
 }

@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 
-const URL_S = `${environment.apiUrl}`;
+const API_URL = `${environment.apiUrl}`;
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +14,14 @@ export class StorageService {
   }
 
   getAll(page: number, foodTypeSearch: string): Observable<Storage[]> {
-    return this.http.get<Storage[]>(URL_S + '/storage/page?page=' + page + '&keyWord=' + foodTypeSearch);
+    return this.http.get<Storage[]>(API_URL + '/storage/page?page=' + page + '&keyWord=' + foodTypeSearch);
   }
 
   getAllS(): Observable<Storage[]> {
-    return this.http.get<Storage[]>(URL_S + '/storage/list');
+    return this.http.get<Storage[]>(API_URL + '/storage/list');
   }
 
   saveStorage(storage): Observable<Storage> {
-    return this.http.post<Storage>(`${URL_S}/storage/create`, storage);
+    return this.http.post<Storage>(`${API_URL}/storage/create`, storage);
   }
 }

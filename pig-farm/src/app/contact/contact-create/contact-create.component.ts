@@ -49,5 +49,4 @@ export class ContactCreateComponent implements OnInit {
     }
   }
 
-
 }

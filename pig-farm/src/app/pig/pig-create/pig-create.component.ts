@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Pig} from '../../model/pig';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
-import {PigService} from '../../service/pig.service';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
 import {PigstyService} from '../../service/pigsty.service';
 import {Pigsty} from '../../model/pigsty';
+import {PigService} from '../../service/pig.service';
 
 @Component({
   selector: 'app-pig-create',
@@ -35,6 +35,7 @@ export class PigCreateComponent implements OnInit {
   }
 
   getAllPigsty() {
+    // @ts-ignore
     this.pigstyService.getAll().subscribe(value => {
       this.pigsty = value;
     });

@@ -21,6 +21,9 @@ import {NotificationModule} from './notification/notification.module';
 import {EmployeeModule} from './employee/employee.module';
 import {ContactModule} from './contact/contact.module';
 import {PigModule} from './pig/pig.module';
+import {PigstyModule} from './pigsty/pigsty.module';
+import {AdvertisementModule} from './advertisement/advertisement.module';
+import {FoodModule} from "./food/food.module";
 
 @NgModule({
   declarations: [
@@ -48,7 +51,10 @@ import {PigModule} from './pig/pig.module';
     NotificationModule,
     EmployeeModule,
     ContactModule,
-    PigModule
+    PigModule,
+    PigstyModule,
+    AdvertisementModule,
+    FoodModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

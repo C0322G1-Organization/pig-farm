@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {News} from "./news";
-import {BodyService} from "./body.service";
+import {News} from './news';
+import {BodyService} from './body.service';
 
 @Component({
   selector: 'app-body',
@@ -11,7 +11,7 @@ export class BodyComponent implements OnInit {
   news: News[] = [];
   totalPages: number;
   number: number;
-  keyword = "";
+  keyword = '';
 
   constructor(private newsService: BodyService) {
   }
@@ -21,10 +21,10 @@ export class BodyComponent implements OnInit {
   }
 
   getAll(page: number, keyword): void {
-    this.newsService.findAll(page, keyword).subscribe(({content, number: number, totalPages: totalPages}: any) => {
-      this.totalPages = totalPages;
-      this.number = number;
-      this.news = content;
+    this.newsService.findAll(page, keyword).subscribe((result: any) => {
+      this.totalPages = result.totalPages;
+      this.number = result.number;
+      this.news = result.content;
     });
   }
 
@@ -45,10 +45,10 @@ export class BodyComponent implements OnInit {
   }
 
   search() {
-    this.newsService.findAll(this.number, this.keyword).subscribe(({content, number: number, totalPages: totalPages}: any) => {
-      this.totalPages = totalPages;
-      this.number = number;
-      this.news = content;
+    this.newsService.findAll(this.number, this.keyword).subscribe((result: any) => {
+      this.totalPages = result.totalPages;
+      this.number = result.number;
+      this.news = result.content;
     });
   }
 }
