@@ -6,7 +6,7 @@ import {UserService} from '../../user/user.service';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
 import {Employee} from '../../model/employee';
-import {checkBirthDay, checkDay} from '../../validate/check-birth-day';
+import {checkBirthDay, checkDay} from '../../validated/check-birth-day';
 import {formatDate} from '@angular/common';
 import {finalize} from 'rxjs/operators';
 import {AngularFireStorage} from '@angular/fire/storage';

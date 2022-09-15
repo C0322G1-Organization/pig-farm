@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Placement} from '../model/placement';
-import {Advertisement} from '../model/advertisement';
+import {Placement} from '../../model/placement';
+import {Advertisement} from '../../model/advertisement';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
-import {AdvertisementService} from '../service/advertisement.service';
+import {AdvertisementService} from '../../service/advertisement.service';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {finalize} from 'rxjs/operators';
 import {formatDate} from '@angular/common';
@@ -26,6 +26,7 @@ export class AdvertisementPostComponent implements OnInit {
   checkImg: boolean;
   url: any;
   msg = '';
+  buttonAdvertisementStatus = true;
 
   constructor(private route: Router,
               private toast: ToastrService,
@@ -35,19 +36,24 @@ export class AdvertisementPostComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.placementService.getListPlacement().subscribe(next => {
       this.placementList = next;
+      console.log(next);
     });
     this.formAdvertisement = new FormGroup({
       // tslint:disable-next-line:max-line-length
       title: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z _ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễếệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+')]),
-      image: new FormControl('', Validators.required),
+      image: new FormControl(''),
       // tslint:disable-next-line:max-line-length
       submittedDate: new FormControl('', [Validators.required]),
       timeExistence: new FormControl('', [Validators.required, Validators.pattern('^[0-9]+$')]),
       placement: new FormControl('', Validators.required)
     });
+
+    console.log('truoc' + this.formAdvertisement);
   }
+
   checkDate(form: FormControl): any {
     for (const e of this.advertisement) {
       if (form.value.submittedDate === e.submittedDate) {
@@ -56,16 +62,27 @@ export class AdvertisementPostComponent implements OnInit {
     }
     return null;
   }
+
+  reset() {
+    this.formAdvertisement = new FormGroup({
+      title: new FormControl(''),
+      image: new FormControl(''),
+      // tslint:disable-next-line:max-line-length
+      submittedDate: new FormControl(''),
+      timeExistence: new FormControl(''),
+      placement: new FormControl('')
+    });
+  }
+
   submit() {
     const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
+    this.buttonAdvertisementStatus = false;
     const filePath = `advertisement/${nameImg}`;
     const fileRef = this.storage.ref(filePath);
     this.storage.upload(filePath, this.selectedImage).snapshotChanges().pipe(
       finalize(() => {
         fileRef.getDownloadURL().subscribe((url) => {
           this.formAdvertisement.patchValue({image: url});
-          console.log(url);
-          console.log(this.formAdvertisement.value);
           this.placementService.save(this.formAdvertisement.value).subscribe(
             () => {
               this.route.navigateByUrl('/advertisement/page');

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {Placement} from '../model/placement';
+import {Placement} from '../../model/placement';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
-import {AdvertisementService} from '../service/advertisement.service';
+import {AdvertisementService} from '../../service/advertisement.service';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {finalize} from 'rxjs/operators';
 import {formatDate} from '@angular/common';
@@ -25,6 +25,7 @@ export class AdvertisementEditComponent implements OnInit {
   checkImg: boolean;
   url: any;
   msg = '';
+  buttonAdvertisementStatus = true;
   constructor(private route: Router,
               private toast: ToastrService,
               private placementService: AdvertisementService,
@@ -44,7 +45,8 @@ export class AdvertisementEditComponent implements OnInit {
     this.formAdvertisement = new FormGroup({
       // tslint:disable-next-line:max-line-length
       title: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z _ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễếệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+')]),
-      image: new FormControl('', Validators.required),
+      image: new FormControl(''),
+      submittedDate: new FormControl(''),
       timeExistence: new FormControl('', [Validators.required, Validators.pattern('^[0-9]+$')]),
       placement: new FormControl('', Validators.required)
     });
@@ -62,6 +64,7 @@ export class AdvertisementEditComponent implements OnInit {
     const fileRef = this.storage.ref(filePath);
     this.storage.upload(filePath, this.selectedImage).snapshotChanges().pipe(
       finalize(() => {
+        this.buttonAdvertisementStatus = false;
         fileRef.getDownloadURL().subscribe((url) => {
           this.formAdvertisement.patchValue({image: url});
           console.log(url);
@@ -130,4 +133,16 @@ export class AdvertisementEditComponent implements OnInit {
     console.log(option);
   }
 
+  reset(id: number) {
+    this.placementService.findById(id).subscribe(next => {
+      this.formAdvertisement = new FormGroup({
+        // tslint:disable-next-line:max-line-length
+        title: new FormControl(next.title),
+        image: new FormControl(next.image),
+        submittedDate: new FormControl(next.submittedDate),
+        timeExistence: new FormControl(next.timeExistence),
+        placement: new FormControl(next.placement)
+      });
+    });
+  }
 }

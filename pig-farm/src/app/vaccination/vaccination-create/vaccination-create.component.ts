@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Pigsty} from '../../pigsty/pigsty';
+import {Pigsty} from '../../model/pigsty';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {PigstyService} from '../../pigsty/pigsty.service';
-import {VaccinationService} from '../vaccination.service';
+import {PigstyService} from '../../service/pigsty.service';
+import {VaccinationService} from '../../service/vaccination.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -37,29 +37,29 @@ export class VaccinationCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllPigsty();
+    // this.getAllPigsty();
   }
 
-  submit() {
-    const vaccination = this.vaccinationForm.value;
-    this.pigstyService.findById(vaccination.pigsty).subscribe(pigstys => {
-      vaccination.pigsty = {
-        id: pigstys.id,
-        code: pigstys.code
-      };
-      this.vaccinationService.saveVaccination(vaccination).subscribe(() => {
-        alert('Thêm mới thành công');
-        this.vaccinationForm.reset();
-        this.router.navigateByUrl('/vaccination/vaccination-list');
-      }, e => console.log(e));
-    });
-  }
-
-  getAllPigsty() {
-    this.pigstyService.getAll().subscribe(pigsty => {
-      this.pigstys = pigsty;
-    });
-  }
+  // submit() {
+  //   const vaccination = this.vaccinationForm.value;
+  //   this.pigstyService.findById(vaccination.pigsty).subscribe(pigstys => {
+  //     vaccination.pigsty = {
+  //       id: pigstys.id,
+  //       code: pigstys.code
+  //     };
+  //     this.vaccinationService.saveVaccination(vaccination).subscribe(() => {
+  //       alert('Thêm mới thành công');
+  //       this.vaccinationForm.reset();
+  //       this.router.navigateByUrl('/vaccination/vaccination-list');
+  //     }, e => console.log(e));
+  //   });
+  // }
+  //
+  // getAllPigsty() {
+  //   this.pigstyService.getAll().subscribe(pigsty => {
+  //     this.pigstys = pigsty;
+  //   });
+  // }
 
   checkDate() {
     // @ts-ignore
