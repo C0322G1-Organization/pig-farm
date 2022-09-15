@@ -1,3 +1,5 @@
+<div class="vc_empty_space" style="height: 10px"><span class="vc_empty_space_inner"></span></div>
+<!--</div>-->
 <div class="bg">
   <div class="vc_empty_space" style="height: 10px"><span class="vc_empty_space_inner"></span></div>
   <div class="container mt-4 pb-2">
@@ -15,6 +17,9 @@
           <div class="col-3 position-relative mx-auto ">
             <input formControlName="foodType" class="form-control bg-transparent py-2 w-100" type="text"
                    placeholder="Loại thức ăn" (keydown.enter)="searchStorage()">
+            <p style="color:red"
+               *ngIf="searchForm.controls.foodType.hasError('maxlength') && searchForm.controls.foodType.dirty">
+              Không được nhập quá 100 ký tự</p>
           </div>
           <div class="col-2 position-relative mx-auto" style="text-align: left">
             <button class="btn btn-outline-success" (click)="searchStorage()">
@@ -27,11 +32,11 @@
     <table style="border-radius: 20px " class="table table-striped table-hover mt-3 mb-3">
       <thead>
       <tr style="background-color: #017428">
-        <th class="text-light">STT</th>
-        <th class="text-light">LOẠI THỨC ĂN</th>
-        <th class="text-light">SỐ LƯỢNG</th>
-        <th class="text-light">ĐƠN VỊ</th>
-        <th class="text-light">NGÀY NHẬP</th>
+        <th class="text-light">Stt</th>
+        <th class="text-light">Loại thức ăn</th>
+        <th class="text-light">Số lượng</th>
+        <th class="text-light">Đơn vị</th>
+        <th class="text-light">Ngày nhập</th>
       </tr>
       </thead>
       <tbody>

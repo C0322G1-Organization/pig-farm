@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import {TreatmentListComponent} from './treatment-list/treatment-list.component';
 import {TreatmentCreateComponent} from './treatment-create/treatment-create.component';
 
-
 const routes: Routes = [
   {
     path: 'treatment',

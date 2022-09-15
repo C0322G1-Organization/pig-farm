@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {StorageService} from '../storage.service';
+import {StorageService} from '../../service/storage.service';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 
 @Component({
-  selector: 'app-storage-create',
+  selector: 'app-storage-employee-create',
   templateUrl: './storage-create.component.html',
   styleUrls: ['./storage-create.component.css']
 })

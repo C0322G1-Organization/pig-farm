@@ -5,7 +5,7 @@
 
     <div class="row mt-4">
       <div class="col-3">
-        <a class=" btn btn-outline-success" style="width: auto;" href="/">Thêm mới
+        <a class=" btn btn-outline-success" style="width: auto;" [routerLink]="['/vaccination/create']">Thêm mới
         </a>
       </div>
       <div class="col-9" [formGroup]="searchForm">
@@ -47,7 +47,6 @@
           <td>{{vaccinList.vaccinatedPerson}}</td>
           <td>{{vaccinList.vaccineType}}</td>
           <td>{{vaccinList.amount}}</td>
-          <!--          <td><input *ngIf="vaccinList" type="checkbox" ngModel [name]="''+vaccinList.id"></td>-->
           <td><input class="form-check-input" type="checkbox" [checked]="checkbox(vaccinList)" (change)="getListDelete(vaccinList)">
         </tr>
         </tbody>

@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Pigsty} from '../../pigsty/pigsty';
+import {Pigsty} from '../../model/pigsty';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {PigstyService} from '../../pigsty/pigsty.service';
-import {VaccinationService} from '../vaccination.service';
+import {PigstyService} from '../../service/pigsty.service';
+import {VaccinationService} from '../../service/vaccination.service';
 import {Router} from '@angular/router';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-vaccination-create',
@@ -11,6 +12,11 @@ import {Router} from '@angular/router';
   styleUrls: ['./vaccination-create.component.css']
 })
 export class VaccinationCreateComponent implements OnInit {
+  constructor(private pigstyService: PigstyService,
+              private vaccinationService: VaccinationService,
+              private router: Router,
+              private datePipe: DatePipe) {
+  }
   pigstyType = '---Chọn loại chuồng---';
   vaccineType = '---Chọn loại vaccine---';
   pigstys: Pigsty[] = [];
@@ -19,22 +25,20 @@ export class VaccinationCreateComponent implements OnInit {
   CSF: string;
   FMD: string;
   APP: string;
+// @ts-ignore
   date2: any;
+  createPigsty: any;
   vaccinationForm: FormGroup = new FormGroup({
     date: new FormControl('', [Validators.required]),
-    date1: new FormControl('', [Validators.required]),
-    amount: new FormControl('', [Validators.required, Validators.pattern('^[1-9]{1}$')]),
+    amount: new FormControl('', [Validators.required, Validators.min(1), Validators.max(20)]),
     vaccineType: new FormControl('', [Validators.required]),
     vaccinatedPerson: new FormControl('', [Validators.required,
+      // tslint:disable-next-line:max-line-length
       Validators.pattern('^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*(?:[ ][A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*)*$')]),
-    note: new FormControl(''),
-    pigsty: new FormControl('', [Validators.required]),
+    note: new FormControl('', Validators.maxLength(255)),
+    pigstyCode: new FormControl('', [Validators.required]),
   });
-
-  constructor(private pigstyService: PigstyService,
-              private vaccinationService: VaccinationService,
-              private router: Router) {
-  }
+  type = '';
 
   ngOnInit(): void {
     this.getAllPigsty();
@@ -42,7 +46,7 @@ export class VaccinationCreateComponent implements OnInit {
 
   submit() {
     const vaccination = this.vaccinationForm.value;
-    this.pigstyService.findById(vaccination.pigsty).subscribe(pigstys => {
+    this.vaccinationService.findById(vaccination.pigstyCode).subscribe(pigstys => {
       vaccination.pigsty = {
         id: pigstys.id,
         code: pigstys.code
@@ -50,53 +54,54 @@ export class VaccinationCreateComponent implements OnInit {
       this.vaccinationService.saveVaccination(vaccination).subscribe(() => {
         alert('Thêm mới thành công');
         this.vaccinationForm.reset();
-        this.router.navigateByUrl('/vaccination/vaccination-list');
+        this.router.navigateByUrl('vaccination/vaccination-list');
       }, e => console.log(e));
     });
   }
 
+  getData(type) {
+    this.type = type;
+    // tslint:disable-next-line:radix
+    this.vaccinationService.findById(parseInt(this.type)).subscribe(item => {
+        this.createPigsty = item.creationDate;
+      }
+    );
+  }
+
   getAllPigsty() {
-    this.pigstyService.getAll().subscribe(pigsty => {
+    this.vaccinationService.getAll().subscribe(pigsty => {
       this.pigstys = pigsty;
     });
   }
 
   checkDate() {
     // @ts-ignore
-    const day = new Date(this.vaccinationForm.controls.date1.value);
+    const day = new Date(this.createPigsty);
     const vaccineType = this.vaccinationForm.controls.vaccineType.value;
     if (vaccineType === 'PRRS') {
       // @ts-ignore
-      const d2 = new Date(day.setDate(day.getDate() + 10));
+      const d2 =  this.datePipe.transform(new Date(day.setDate(day.getDate() + 10)), 'yyyy-MM-dd');
       this.date2 = d2;
     }
     if (vaccineType === 'Mycoplasma') {
       // @ts-ignore
-      const d2 = new Date(day.setDate(day.getDate() + 15));
+      const d2 = this.datePipe.transform(new Date(day.setDate(day.getDate() + 15)), 'yyyy-MM-dd');
       this.date2 = d2;
     }
     if (vaccineType === 'CSF') {
       // @ts-ignore
-      const d2 = new Date(day.setDate(day.getDate() + 35));
+      const d2 = this.datePipe.transform(new Date(day.setDate(day.getDate() + 35)), 'yyyy-MM-dd');
       this.date2 = d2;
     }
     if (vaccineType === 'FMD') {
       // @ts-ignore
-      const d2 = new Date(day.setDate(day.getDate() + 49));
+      const d2 = this.datePipe.transform(new Date(day.setDate(day.getDate() + 49)), 'yyyy-MM-dd');
       this.date2 = d2;
     }
     if (vaccineType === 'APP') {
       // @ts-ignore
-      const d2 = new Date(day.setDate(day.getDate() + 77));
+      const d2 = this.datePipe.transform(new Date(day.setDate(day.getDate() + 77)), 'yyyy-MM-dd');
       this.date2 = d2;
     }
   }
-
-  // a = '';
-  // b = '';
-  // day(id) {
-  //  this.a = id;
-  //   this.pigstyService.findById(id);
-  //
-  // }
 }
