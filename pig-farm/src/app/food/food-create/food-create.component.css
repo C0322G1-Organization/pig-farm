@@ -11,6 +11,7 @@
   opacity: 85%
 }
 
+
 body {
   margin: 0 auto;
   background-image: url('../../../assets/img/food-create.jpg');
@@ -18,7 +19,6 @@ body {
   background-attachment: fixed;
   background-size: 100% 100%
 }
-
 hr {
   border: none;
   height: 20px;

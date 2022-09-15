@@ -4,6 +4,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {FoodService} from '../../service/food.service';
 import {ToastrService} from 'ngx-toastr';
 
+
 @Component({
   selector: 'app-food-list',
   templateUrl: './list-food.component.html',
@@ -20,6 +21,9 @@ export class ListFoodComponent implements OnInit {
   amountValue = 'amount,asc';
   unitValue = 'unit,asc';
   foodTypeValue = 'storage.food_type,asc';
+  idEdit: number;
+  checkNext: boolean;
+  checkPreview: boolean;
 
   constructor(private foodService: FoodService, private toast: ToastrService) {
 
@@ -37,6 +41,8 @@ export class ListFoodComponent implements OnInit {
         this.foodList = value.content;
         this.number = value.number;
         this.totalPages = value.totalPages;
+        this.checkNext = !value.last;
+        this.checkPreview = !value.first;
       } else {
         this.foodList = [];
         this.toast.success('không tìm thấy vui lòng tìm lại');
@@ -66,6 +72,7 @@ export class ListFoodComponent implements OnInit {
       this.page++;
     }
     this.getAllFood(this.page, this.searchName, this.sort);
+
   }
 
   sortAmount(amount: string) {
@@ -102,6 +109,6 @@ export class ListFoodComponent implements OnInit {
   }
 
   getValue(id: number) {
-
+    this.idEdit = id;
   }
 }

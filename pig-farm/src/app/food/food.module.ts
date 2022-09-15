@@ -13,7 +13,6 @@ import {FoodEditComponent} from './food-edit/food-edit.component';
   declarations: [ ListFoodComponent,
     FoodCreateComponent, FoodEditComponent],
   exports: [
-
   ],
   imports: [
     CommonModule,

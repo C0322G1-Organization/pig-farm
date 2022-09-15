@@ -6,8 +6,7 @@ import {PigstyService} from '../../service/pigsty.service';
 import {StorageService} from '../../service/storage.service';
 import {Pig} from '../../model/pig';
 import {Storage} from '../../model/storage';
-import {FoodService} from "../../service/food.service";
-
+import {FoodService} from '../../service/food.service';
 @Component({
   selector: 'app-food-edit',
   templateUrl: './food-edit.component.html',
@@ -56,7 +55,7 @@ export class FoodEditComponent implements OnInit {
   getFood(id: number) {
     return this.foodService.findById(id).subscribe(food => {
       this.foodForm = new FormGroup({
-        amount: new FormControl(food.amount, [Validators.required, Validators.pattern('\\d')]),
+        amount: new FormControl(food.amount, [Validators.required, Validators.min(1)]),
         unit: new FormControl(food.unit, [Validators.required]),
         storage: new FormControl(food.storage.id, [Validators.required]),
         pigsty: new FormControl(food.pigsty.id, [Validators.required]),
@@ -79,7 +78,7 @@ export class FoodEditComponent implements OnInit {
       console.log(error);
     }, () => {
       this.foodForm.reset();
-      this.router.navigate(['/food/create']);
+      this.router.navigate(['/food']);
       this.toast.success('Cập nhập thành công', 'Thông báo');
     });
   }

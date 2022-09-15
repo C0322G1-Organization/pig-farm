@@ -6,7 +6,7 @@ import {Pigsty} from '../../model/pigsty';
 import {StorageService} from '../../service/storage.service';
 import {PigstyService} from '../../service/pigsty.service';
 import {Storage} from '../../model/storage';
-import {FoodService} from "../../service/food.service";
+import {FoodService} from '../../service/food.service';
 @Component({
   selector: 'app-food-create',
   templateUrl: './food-create.component.html',
@@ -17,7 +17,7 @@ export class FoodCreateComponent implements OnInit {
   storages: Storage[] = [];
 
   foodForm: FormGroup = new FormGroup({
-    amount: new FormControl('', [Validators.required]),
+    amount: new FormControl('', [Validators.required, Validators.min(1)]),
     unit: new FormControl('', [Validators.required]),
     storage: new FormControl('', [Validators.required]),
     pigsty: new FormControl('', [Validators.required]),
@@ -33,6 +33,15 @@ export class FoodCreateComponent implements OnInit {
   ngOnInit(): void {
     this.getPigsties();
     this.getStorages();
+  }
+
+  reset(): void {
+    this.foodForm = new FormGroup({
+      amount: new FormControl('', [Validators.required]),
+      unit: new FormControl('', [Validators.required]),
+      storage: new FormControl('', [Validators.required]),
+      pigsty: new FormControl('', [Validators.required]),
+    });
   }
 
   getPigsties(): void {
@@ -62,7 +71,7 @@ export class FoodCreateComponent implements OnInit {
       console.log(error);
     }, () => {
       this.foodForm.reset();
-      this.router.navigate(['/food/create']);
+      this.router.navigate(['/food']);
       this.toast.success('Thêm mới thành công', 'Thông báo');
     });
   }
