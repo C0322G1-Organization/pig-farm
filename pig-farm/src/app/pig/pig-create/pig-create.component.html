@@ -12,7 +12,7 @@
         <div class="mb-3">
           <label class="form-label">Mã Lợn <span class="text-danger">*</span> </label>
           <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="VD: L-001"
-                 formControlName="code" (change)="checkCode($event.target.value)">
+                 formControlName="code" (change)="checkCode($event.target)">
           <div>
             <div><span style="color:red" *ngIf="formPig.get('code').dirty
           &&formPig.hasError('required','code')">Mã Lợn Không Được Để Trống</span></div>

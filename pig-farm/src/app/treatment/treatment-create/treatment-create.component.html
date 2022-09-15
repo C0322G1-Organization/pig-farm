@@ -14,50 +14,42 @@
           <label class="form-label">Ngày <span class="text-danger">*</span> </label>
           <input type="date" class="form-control" formControlName="date">
           <div class="form-text">
-            <p *ngIf="creatTreatmentForm.controls.date.hasError('required') && creatTreatmentForm.controls.date.dirty">Không được để trống.</p>
+            <p *ngIf="creatTreatmentForm.controls.date.hasError('required') && (creatTreatmentForm.controls.date.touched || check)">Vui lòng nhập đúng ngày khám chữa bệnh.</p>
             <p *ngIf="creatTreatmentForm.controls.date.hasError('dateNotExist') && creatTreatmentForm.controls.date.dirty"> {{ creatTreatmentForm.controls['date'].errors.message }}</p>
           </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Chuồng <span class="text-danger">*</span></label>
-          <select  class="form-control" formControlName="pigstyCode">
-            <option selected [value]="null" disabled>---Chọn---</option>
-            <option>C01</option>
-            <option>C02</option>
-            <option>C03</option>
-            <option>C04</option>
-            <option>C05</option>
+          <select  class="form-control" formControlName="pigstyCode" (change)="getPigByPigstyId(creatTreatmentForm.value.pigstyCode.id)">
+            <option selected value="" disabled>---Chọn---</option>
+            <option *ngFor=" let item of listPigsty" [ngValue]="item">{{ item.code }}</option>
           </select>
           <div class="form-text">
-            <p *ngIf="creatTreatmentForm.controls.pigstyCode.hasError('required') && creatTreatmentForm.controls.dirty">Không được để trống.</p>
+            <p *ngIf="creatTreatmentForm.controls.pigstyCode.hasError('required') && (creatTreatmentForm.controls.pigstyCode.touched || check )">Vui lòng chọn chuồng lợn.</p>
           </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Mã lợn <span class="text-danger">*</span></label>
-          <select   class="form-control" formControlName="pig">
-            <option selected [value]="null" disabled >---Chọn---</option>
-            <option value= 1>L-001</option>
-            <option value= 2>L-002</option>
-            <option value="3">L-003</option>
-            <option value="4">L-004</option>
-            <option value="5">L-005</option>
+          <select   class="form-control" formControlName="pig" >
+            <option selected value="" disabled>---Chọn---</option>
+            <option *ngFor=" let item of listPig" [ngValue]="item">{{ item.code }}</option>
           </select>
           <div class="form-text">
-            <p *ngIf="creatTreatmentForm.controls.pig.hasError('required') && creatTreatmentForm.controls.pig.touched">Không được để trống.</p>
+            <p *ngIf="creatTreatmentForm.controls.pig.hasError('required') && ( creatTreatmentForm.controls.pig.touched  || check)">Vui lòng chọn mã lợn.</p>
           </div>
         </div>
         <div class="mb-3">
-          <label class="form-label">Người/ TT khám:</label>
+          <label class="form-label">Người/ TT khám  <span class="text-danger">*</span></label>
           <input type="text" class="form-control" formControlName="doctor" placeholder="Nhập tên người khám bệnh">
           <div class="form-text">
-            <p *ngIf="creatTreatmentForm.controls.doctor.hasError('required') && creatTreatmentForm.controls.doctor.touched">Không được để trống.</p>
+            <p *ngIf="creatTreatmentForm.controls.doctor.hasError('required') && (creatTreatmentForm.controls.doctor.touched || check)">Vui lòng nhập ngày khám chữa trị.</p>
           </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Loại bệnh <span class="text-danger">*</span></label>
           <input type="text" class="form-control" formControlName="diseases" placeholder="Nhập tên bệnh" required>
           <div class="form-text">
-            <p *ngIf="creatTreatmentForm.controls.diseases.hasError('required') && creatTreatmentForm.controls.diseases.touched">Không được để trống.</p>
+            <p *ngIf="creatTreatmentForm.controls.diseases.hasError('required') && (creatTreatmentForm.controls.diseases.touched || check)">Không được để trống.</p>
           </div>
         </div>
         <div class="mb-3">
@@ -66,13 +58,14 @@
               <label class="form-label">Thuốc <span class="text-danger">*</span></label>
               <input type="text" class="form-control" formControlName="medicine" placeholder="Nhập tên thuốc" required>
               <div class="form-text">
-                <p *ngIf="creatTreatmentForm.controls.medicine.hasError('required')&& creatTreatmentForm.controls.medicine.touched">Không được để trống.</p>
+                <p *ngIf="creatTreatmentForm.controls.medicine.hasError('required')&& (creatTreatmentForm.controls.medicine.touched || check)">Không được để trống.</p>
               </div>                            </div>
             <div class="col-6">
               <label class="form-label">Số lượng <span class="text-danger">*</span></label>
               <input type="number" class="form-control" formControlName="amount" required>
               <div class="form-text">
-                <p *ngIf="creatTreatmentForm.controls.amount.hasError('required') && creatTreatmentForm.controls.amount.touched">Không được để trống.</p>
+                <p *ngIf="creatTreatmentForm.controls.amount.hasError('required') && (creatTreatmentForm.controls.amount.touched || check)">Không được để trống.</p>
+                <p *ngIf="creatTreatmentForm.controls.amount.hasError('min') && (creatTreatmentForm.controls.amount.touched || check)">Không được nhập giá trị âm và 0.</p>
               </div>                            </div>
             <input type="number" class="form-control" formControlName="isDelete" hidden>
           </div>
@@ -83,9 +76,9 @@
 
         </div>
         <div class="button">
-          <button class="btn btn-outline-danger" style="margin-right: 5%"><i class="bi bi-backspace"></i> Xoá </button>
-          <button class="btn btn-outline-success" type="submit"><i class="bi bi-plus-circle" ></i> Cập nhật </button>
-          <button class="btn btn-outline-warning" style="margin-left: 5%" routerLink="/treatment"><i class="bi bi-x-octagon"></i> Huỷ</button>
+          <button class="btn btn-outline-danger me-4" routerLink="/treatment"><i class="bi bi-x-octagon"></i> Quay Lại</button>
+          <button class="btn btn-outline-success me-4" type="submit"><i class="bi bi-plus-circle" ></i> Cập Nhật </button>
+          <button class="btn btn-outline-secondary"  type="reset"><i class="bi bi-backspace"></i> Nhập Lại </button>
         </div>
       </div>
     </form>

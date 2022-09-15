@@ -85,9 +85,7 @@ export class PigCreateComponent implements OnInit {
 
   checkDateEnd(abstractControl: AbstractControl): any {
     const start = new Date(abstractControl.value.dateIn);
-    console.log(start);
     const now = new Date(abstractControl.value.dateOut);
-    console.log(now);
     if (now.getFullYear() > start.getFullYear()) {
       return null;
     } else if (now.getFullYear() < start.getFullYear()) {
@@ -102,10 +100,10 @@ export class PigCreateComponent implements OnInit {
     }
   }
 
-  checkCode($event: EventTarget) {
+  checkCode($event) {
     this.pigService.checkCode(String($event)).subscribe(
-      value => {
-        if (value) {
+      (check: any) => {
+        if (check.value) {
           this.isExitsCode = true;
         } else {
           this.isExitsCode = false;
