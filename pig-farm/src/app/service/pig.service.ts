@@ -13,20 +13,16 @@ export class PigService {
   constructor(private httpClient: HttpClient) {
   }
 
-  findAllPig(page: number): Observable<Pig[]> {
-    return this.httpClient.get<Pig[]>(API_URL + '/page?page=' + page);
-  }
-
   createPig(pig: Pig): Observable<Pig> {
-    return this.httpClient.post<Pig>(API_URL + '/api/pig/create', pig);
+    return this.httpClient.post<Pig>(API_URL + '/create', pig);
   }
 
   findById(id: number): Observable<Pig> {
-    return this.httpClient.get<Pig>(API_URL + '/api/pig/list/' + id);
+    return this.httpClient.get<Pig>(API_URL + '/list/' + id);
   }
 
   updatePig(pig: Pig): Observable<any> {
-    return this.httpClient.put<any>(API_URL + '/api/pig/update/' + pig.id, pig);
+    return this.httpClient.put<any>(API_URL + '/update/' + pig.id, pig);
   }
 
   deletePig(ids: number[]): Observable<any> {
@@ -43,7 +39,11 @@ export class PigService {
     return this.httpClient.post<any>(url, data, options);
   }
 
-  getAllPig(page: number, code: string, dateIn: string, status: string) {
+  getAllPig(page: number, code: string, dateIn: string, status: string ) {
     return this.httpClient.get<Pig[]>(API_URL + '/page?page=' + page + '&codeSearch=' + code + '&dateInSearch=' + dateIn + '&statusSearch=' + status);
+  }
+
+  checkCode(code: string): Observable<string> {
+    return this.httpClient.get<string>(API_URL + '/check/' + code);
   }
 }

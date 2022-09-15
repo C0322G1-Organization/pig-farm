@@ -5,7 +5,7 @@ import {TreatmentCreateComponent} from './treatment-create/treatment-create.comp
 
 const routes: Routes = [
   {
-    path: 'treatment',
+    path: 'treatment/list',
     component: TreatmentListComponent
   }, {
     path: 'treatment/create',

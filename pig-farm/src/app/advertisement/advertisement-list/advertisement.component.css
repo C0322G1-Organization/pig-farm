@@ -23,7 +23,6 @@
 }
 
 body {
-  /*background-image:url("src/assets/Tong-hop-hinh-anh-con-heo-dep-nhat-45.jpg");*/
   margin: 0 auto;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -47,6 +46,7 @@ hr {
   text-align: center;
   border-radius: 20px
 }
-th{
+
+th {
   color: white !important;
 }

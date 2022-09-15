@@ -15,10 +15,11 @@ import {PigService} from '../../service/pig.service';
 export class PigCreateComponent implements OnInit {
   pigsty: Pigsty[];
   pig: Pig;
+  isExitsCode: boolean;
   formPig = new FormGroup({
     id: new FormControl(),
     code: new FormControl('', [Validators.required,
-      Validators.pattern('^(ML)[0-9]{2,4}$')]),
+      Validators.pattern('^(L-)[0-9]{3}$')]),
     dateIn: new FormControl('', Validators.required),
     dateOut: new FormControl('', Validators.required),
     status: new FormControl(0, Validators.required),
@@ -28,6 +29,7 @@ export class PigCreateComponent implements OnInit {
     pigsty: new FormControl('', Validators.required),
   }, this.checkDateEnd);
 
+
   constructor(private pigService: PigService,
               private pigstyService: PigstyService,
               private toast: ToastrService,
@@ -35,8 +37,7 @@ export class PigCreateComponent implements OnInit {
   }
 
   getAllPigsty() {
-    // @ts-ignore
-    this.pigstyService.getAll().subscribe(value => {
+    this.pigstyService.getAllPigsty().subscribe(value => {
       this.pigsty = value;
     });
   }
@@ -57,7 +58,7 @@ export class PigCreateComponent implements OnInit {
 
   cancel() {
     this.toast.error('Thêm thất bại');
-    this.router.navigateByUrl('/page');
+    this.router.navigateByUrl('/pig').then(r => console.log(r));
   }
 
   submitCreate() {
@@ -66,7 +67,7 @@ export class PigCreateComponent implements OnInit {
     console.log(this.formPig.value.pigsty);
     this.pigService.createPig(this.formPig.value).subscribe(value => {
       this.toast.success('Thêm mới thành công!');
-      // this.router.navigateByUrl('/page');
+      this.router.navigateByUrl('/pig').then(r => console.log(r));
     });
   }
 
@@ -99,5 +100,17 @@ export class PigCreateComponent implements OnInit {
     } else {
       return null;
     }
+  }
+
+  checkCode($event: EventTarget) {
+    this.pigService.checkCode(String($event)).subscribe(
+      value => {
+        if (value) {
+          this.isExitsCode = true;
+        } else {
+          this.isExitsCode = false;
+        }
+      }
+    );
   }
 }

@@ -9,7 +9,7 @@ const routes: Routes = [
     component: VaccinationListComponent
   },
   {
-    path: 'api/vaccination/create',
+    path: 'vaccination/create',
     component: VaccinationCreateComponent
   }
 ];

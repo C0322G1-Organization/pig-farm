@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>ĐĂNG THÔNG BÁO</title>
-</head>
-<body>
 <div class="vc_empty_space" style="height: 64px"><span class="vc_empty_space_inner"></span></div>
 <div class="container">
   <div class="row formRow">
@@ -15,11 +8,20 @@
       <form [formGroup]="notificationForm" (ngSubmit)="submit()">
         <hr>
         <div class="formRow_create_content">
-          <div class="mb-3">
-            <label class="form-label">Ảnh </label><label class="form-text"> * </label>
-            <input type="file" class="form-control-file" (change)="showImg($event)">
+          <div class="mb-3" style="text-align: left ;margin-bottom: 10px">
+            <label class="form-label">Hình ảnh:</label><label class="form-text"> *</label>
+            <input type="file" class="form-control-file" multiple (change)="selectFile($event)"
+                   (change)="onFileSelected($event)">
+          </div>
+          <div class="col-md-8" style="height: 200px" *ngIf="editImageState">
+            <img *ngIf="!editImageState" [src]="notificationForm.get('image').value" width="300" height="200">
+            <img class="preview-img rounded" [src]="url" *ngIf="editImageState" width="300" height="200">
           </div>
 
+          <!--          <div style="color:red;"-->
+          <!--               *ngIf="!notificationForm.controls.image?.valid && (notificationForm.controls.image?.dirty||notificationForm.controls.image?.touched)">-->
+          <!--            Ảnh không được để trống-->
+          <!--          </div>-->
           <p style="color:red" *ngIf="notificationForm.controls.image.hasError('required') &&
          notificationForm.controls.image.dirty">Ảnh không để trống</p>
 
@@ -45,7 +47,8 @@
         </div>
 
         <div class="button">
-          <button class="btn btn-outline-danger back" routerLink="/notification"><i class="bi bi-backspace"></i> Hủy bỏ</button>
+          <button class="btn btn-outline-danger back" routerLink="/notification/list"><i class="bi bi-backspace"></i> Hủy bỏ
+          </button>
           <button class="btn btn-outline-success" type="submit"><i class="bi bi-plus-circle"></i> Đăng</button>
         </div>
       </form>
@@ -53,8 +56,3 @@
   </div>
 </div>
 <div class="vc_empty_space" style="height: 64px"><span class="vc_empty_space_inner"></span></div>
-</body>
-</html>
-
-
-

@@ -17,26 +17,26 @@
         <form [ngStyle]="{'display': success?'none':'block' }" [formGroup]="contactForm" (ngSubmit)="save()">
           <div class="row">
             <div class="col-6"><input type="text" formControlName="name" class="form-control" placeholder="Tên bạn">
-              <span style="color: red"
+              <span style="color: #ce2414"
                     *ngIf="contactForm.get('name').hasError('required') && (contactForm.get('name').touched || submit)">Không được để trống</span>
             </div>
             <div class="col-6"><input type="text" formControlName="email" class="form-control" placeholder="Email">
-              <span style="color: red"
+              <span style="color: #ce2414"
                     *ngIf="contactForm.get('email').hasError('required') && (contactForm.get('email').touched || submit)">Không được để trống</span>
-              <span style="color: red"
+              <span style="color: #ce2414"
                     *ngIf="contactForm.get('email').hasError('pattern') && (contactForm.get('email').touched || submit)">Email không hợp lệ</span>
             </div>
           </div>
           <div class="row">
             <div class="col-6 "><input type="text" formControlName="phone" class="form-control"
                                        placeholder="Số điện thoại">
-              <span style="color: red"
+              <span style="color: #ce2414"
                     *ngIf="contactForm.get('phone').hasError('required') && (contactForm.get('phone').touched || submit)">Không được để trống</span>
-              <span style="color: red"
-                    *ngIf="contactForm.get('phone').hasError('pattern') && (contactForm.get('phone').touched || submit)">Email không hợp lệ</span>
+              <span style="color: #ce2414"
+                    *ngIf="contactForm.get('phone').hasError('pattern') && (contactForm.get('phone').touched || submit)">Số điện thoại không hợp lệ</span>
             </div>
             <div class="col-6 "><input type="text" formControlName="address" class="form-control" placeholder="Địa chỉ">
-              <span style="color: red"
+              <span class="text-danger"
                     *ngIf="contactForm.get('address').hasError('required') && (contactForm.get('address').touched || submit)">Không được để trống</span>
             </div>
           </div>
@@ -44,7 +44,7 @@
             <div class="col-12"><textarea type="text" formControlName="content" class="form-control"
                                           contenteditable="true"
                                           placeholder="Nội dung tin nhắn"></textarea>
-              <span style="color: red"
+              <span style="color: #ce2414"
                     *ngIf="contactForm.get('content').hasError('required') && (contactForm.get('content').touched || submit)">Không được để trống</span>
             </div>
           </div>

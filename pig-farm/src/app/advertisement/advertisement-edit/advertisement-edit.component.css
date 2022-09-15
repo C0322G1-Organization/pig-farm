@@ -13,14 +13,6 @@ label{
   opacity: 85%
 }
 
-/*.body {*/
-/*  margin: 0 auto;*/
-/*  background-image: url("~assets/image/8.jpg");*/
-/*  background-repeat: no-repeat;*/
-/*  background-attachment: fixed;*/
-/*  background-size: 100% 100%*/
-/*}*/
-
 hr {
   border: none;
   width: 90%;
@@ -40,7 +32,7 @@ hr {
 }
 h5 {
   font-size: 2vw;
-  padding: 1% 0%;
+  padding: 1% 0;
 }
 .formRow_create_title {
   text-align: center;

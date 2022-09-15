@@ -1,4 +1,3 @@
-<body>
 <div class="container-fluid">
 </div>
 <div class="vc_empty_space" style="height: 64px"><span class="vc_empty_space_inner"></span></div>
@@ -12,13 +11,13 @@
       <div class="formRow_create_content">
         <div class="mb-3">
           <label class="form-label">Mã Lợn <span class="text-danger">*</span> </label>
-          <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="VD: ML001"
+          <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="VD: L-001"
                  formControlName="code">
           <div>
             <div><span style="color:red" *ngIf="formPig.get('code').dirty
-          &&formPig.hasError('required','code')">Mã Lợn Không Được Để Trống</span></div>
+          &&formPig.hasError('required','code')">Mã lợn không được để trống</span></div>
             <div><span style="color:red" *ngIf="formPig.get('code').dirty
-          &&formPig.hasError('pattern','code')">Mã Lợn Phải Đúng Định Dạng MLXXXX (VD:ML0001)</span></div>
+          &&formPig.hasError('pattern','code')">Mã lợn phải đúng định dạng L-XXX (VD:L-001)</span></div>
           </div>
         </div>
 
@@ -46,7 +45,7 @@
               <p style="color: red; font-size: 0.8rem" *ngIf="formPig.get('dateOut').touched
                 && formPig.hasError('required', 'dateOut')">Ngày không được để trống.</p>
               <p style="color: red; font-size: 0.8rem" *ngIf="formPig.get('dateOut').dirty
-                && formPig.hasError('checkDate')">Ngày đưa vào hoạt dộng phải bé hơn ngày hiện tại.</p>
+                && formPig.hasError('checkDate')">Ngày xuất chuồng phải lớn hơn ngày nhập chuồng.</p>
             </div>
           </div>
         </div>
@@ -66,11 +65,11 @@
           <input type="number" class="form-control" placeholder="VD: 80Kg" formControlName="weight">
           <div>
             <span style="color:red" *ngIf="formPig.get('weight').dirty
-          &&formPig.hasError('required','weight')">Cân Nặng Không Được Để Trống</span>
+          &&formPig.hasError('required','weight')">Cân nặng không được để trống</span>
             <span style="color: red" *ngIf="formPig.get('weight').dirty
-                  && formPig.hasError('min', 'weight')">Cân Nặng tối thiếu 1 ký tự. &nbsp;&nbsp;</span>
+                  && formPig.hasError('min', 'weight')">Cân nặng phải là số dương. &nbsp;&nbsp;</span>
             <span style="color: red" *ngIf="formPig.get('weight').dirty
-                && formPig.hasError('max', 'weight')">Cân Nặng tối đa 200 ký tự.</span>
+                && formPig.hasError('max', 'weight')">Cân nặng tối đa 200 kg.</span>
           </div>
         </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-around">
@@ -82,4 +81,3 @@
   </div>
 </div>
 <div class="vc_empty_space" style="height: 64px"><span class="vc_empty_space_inner"></span></div>
-</body>
