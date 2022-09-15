@@ -42,21 +42,6 @@ export class BodyComponent implements OnInit {
     this.number++;
     this.getAll(this.number, this.keyword);
   }
-  // previousPage() {
-  //   let numberPage: number = this.number;
-  //   if (numberPage > 0) {
-  //     numberPage--;
-  //     this.getAll(numberPage, this.keyword);
-  //   }
-  // }
-  //
-  // nextPage() {
-  //   let numberPage: number = this.number;
-  //   if (numberPage < this.totalPages - 1) {
-  //     numberPage++;
-  //     this.getAll(numberPage, this.keyword);
-  //   }
-  // }
 
   search() {
     this.getAll(0, this.keyword);
