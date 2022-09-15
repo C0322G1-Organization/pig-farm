@@ -47,7 +47,7 @@
           <td>{{(item.content.length > 70) ? (item.content| slice:0:70) + '...' : (item.content)}}</td>
           <td><img src="{{item.image}}" height="30px"/></td>
           <td>{{item.submittedDate | date: 'dd/MM/yyyy' }}</td>
-          <td><input type="checkbox" (change)="checkButton(item.id)" ngModel [name]="''+item.id">
+          <td><input type="checkbox" (change)="checkButton(item.id)" ngModel  [name]="''+item.id" >
           </td>
         </tr>
         </tbody>
@@ -121,9 +121,7 @@
           </form>
           <div style="color: red;" class="col-12">
             <h1>Không có thông báo !!!</h1>
-            <button class="col-3 btn btn-outline-primary" style="width: auto; margin-right: 5%"
-                    routerLink="/notification/create">Thêm mới
-            </button>
+            <button class="col-3 btn btn-outline-primary" style="width: auto; margin-right: 5%" routerLink="/notification/create">Thêm mới</button>
           </div>
         </div>
       </div>

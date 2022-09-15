@@ -5,7 +5,7 @@
     <div><h2 style="text-align: center; " class="mt-3">Danh Sách Cá Thể</h2></div>
     <div class="row pb-3 mt-5">
       <div class="col-sm-12 col-lg-2">
-        <button class="btn btn-outline-success background-btn-add mt-4" [routerLink]="['/']">Thêm mới
+        <button class="btn btn-outline-success background-btn-add mt-4" routerLink="/pig/create">Thêm mới
           <i class="fa-solid fa-plus"></i></button>
       </div>
       <div class="col-sm-12 col-lg-10 d-flex justify-content-end">
@@ -34,7 +34,6 @@
         </form>
       </div>
     </div>
-
     <!--  <form #deleteForm="ngForm" (ngSubmit)="checkDelete(deleteForm.value) "-->
     <!--        *ngIf="pigs && pigs.length > 0; else elseBlock">-->
     <div *ngIf="pigs && pigs.length > 0; else elseBlock">
@@ -56,9 +55,9 @@
         <tr *ngFor="let item of pigs, let i=index ">
           <td> {{ (i + 1) + number * 5}}</td>
           <td>{{item.code}}</td>
-          <td>{{item.pigsty.code}}</td>
-          <td>{{item.dateIn}}</td>
-          <td>{{item.dateOut}}</td>
+          <td>{{item.pigstyCode}}</td>
+          <td>{{item.dateIn | date: "dd/MM/yyyy"}}</td>
+          <td>{{item.dateOut | date: "dd/MM/yyyy"}}</td>
           <td>{{item.status}}</td>
           <td>{{item.weight}}</td>
           <!--        <td><input *ngIf="item" type="checkbox" ngModel [name]="''+item.id" (ngModelChange)="checkButton(item.id)"></td>-->
@@ -70,9 +69,13 @@
       </table>
       <div style="text-align: center; display: flex; justify-content: center">
         <button class="col-3 btn btn-outline-warning" style="width: auto; margin-right: 5%; margin-top: 2%;"
-                type="button" [routerLink]="['pig/update',editId]"
-                [disabled]="check.length!=1">Sửa
+                type="button" [routerLink]="['update',ids[0]]"
+                [disabled]="ids.length>1"  [disabled]="ids.length<1"> Sửa
         </button>
+        <!--        <button [disabled]="showEdit()" type="submit" href="edit.html"-->
+        <!--                class="col-lg-3 btn btn-warning"-->
+        <!--                style="width: auto; margin-right: 5%" (click)="edit()">Sửa-->
+        <!--        </button>-->
         <button class="col-3 btn btn-outline-danger" style="width: auto; margin-top: 2%" data-bs-toggle="modal"
                 data-bs-target="#exampleModal">
           Xoá
@@ -80,7 +83,6 @@
       </div>
     </div>
     <!--  </form>-->
-
     <div class="py-3">
       <nav aria-label="Page navigation example d-flex flex-row-reverse">
         <ul class="pagination justify-content-end">
@@ -101,19 +103,19 @@
           </div>
           <div *ngIf="number != 0">
             <li class="page-item">
-              <button class="page-link" (click)="goPrevious()">Privious</button>
+              <button class="page-link" (click)="goPrevious()"> <</button>
             </li>
           </div>
           <!--        <div class="number-pages">{{number + 1}} | {{totalPages}}</div>-->
           <div class="number-pages">{{number + 1}} | {{totalPages}}</div>
           <div *ngIf="number == totalPages - 1">
             <li class="page-item disabled">
-              <button class="page-link" (click)="goNext()" hidden>></button>
+              <button class="page-link" (click)="goNext()" hidden> ></button>
             </li>
           </div>
           <div *ngIf="number != totalPages - 1">
             <li class="page-item">
-              <button class="page-link" (click)="goNext()">Next</button>
+              <button class="page-link" (click)="goNext()">></button>
             </li>
           </div>
           <div *ngIf="number == totalPages - 1">
@@ -161,5 +163,3 @@
     </div>
   </ng-template>
 </div>
-
-

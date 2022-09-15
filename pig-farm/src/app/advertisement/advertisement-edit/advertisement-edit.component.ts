@@ -14,7 +14,6 @@ import {formatDate} from '@angular/common';
   styleUrls: ['./advertisement-edit.component.css']
 })
 export class AdvertisementEditComponent implements OnInit {
-
   placementList: Placement[];
   checkImgSize = false;
   formAdvertisement: FormGroup;
@@ -42,6 +41,7 @@ export class AdvertisementEditComponent implements OnInit {
       return this.placementList = next;
     });
     this.formAdvertisement = new FormGroup({
+      // tslint:disable-next-line:max-line-length
       title: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z _ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễếệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+')]),
       image: new FormControl('', Validators.required),
       timeExistence: new FormControl('', [Validators.required, Validators.pattern('^[0-9]+$')]),
@@ -125,6 +125,7 @@ export class AdvertisementEditComponent implements OnInit {
   }
   compare(value, option): boolean {
     return value.id === option.id;
+    console.log(value);
+    console.log(option);
   }
-
 }

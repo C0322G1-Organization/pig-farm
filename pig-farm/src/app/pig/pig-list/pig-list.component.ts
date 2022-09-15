@@ -3,6 +3,7 @@ import {Pig} from '../../model/pig';
 import {FormControl, FormGroup} from '@angular/forms';
 import {PigService} from '../../service/pig.service';
 import {ToastrService} from 'ngx-toastr';
+import {Router} from '@angular/router';
 const URL_PIG = 'http://localhost:8080/pig';
 @Component({
   selector: 'app-pig-list',
@@ -37,9 +38,11 @@ export class PigListComponent implements OnInit {
   check: string[] = [];
   editId: string;
   informationDelete: Pig[];
+  deleteList: number[] = [];
 
   constructor(private pigService: PigService,
-              private toastrService: ToastrService) {
+              private toastrService: ToastrService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -54,18 +57,12 @@ export class PigListComponent implements OnInit {
   }
 
   getPigPage(page: number, codeSearch: string, dateInSearch: string, statusSearch: string) {
-    this.pigService.getAllPig(page, codeSearch, dateInSearch, statusSearch).subscribe((data: Pig[]) => {
+    this.pigService.getAllPig(page, codeSearch, dateInSearch, statusSearch).subscribe((data: any) => {
       if (data !== null) {
-        // @ts-ignore
         this.totalPages = data.totalPages;
-        // @ts-ignore
         this.countTotalPages = new Array(data.totalPages);
-        // @ts-ignore
         this.number = data.number;
-        // @ts-ignore
         this.pigs = data.content;
-        // @ts-ignore
-        this.size = data.size;
       } else {
         this.pigs = [];
       }
@@ -190,7 +187,6 @@ export class PigListComponent implements OnInit {
       this.informationDelete.push(item.title);
     }
   }
-
   checkbox(pigDelete: Pig) {
     for (const item of this.nameDelete) {
       if (item.id === pigDelete.id) {
@@ -200,4 +196,13 @@ export class PigListComponent implements OnInit {
     return false;
   }
 
+  showEdit() {
+    return (this.deleteList.length === 1);
+  }
+
+  edit() {
+    if (this.deleteList.length === 1) {
+      this.router.navigateByUrl('pig/update/' + this.deleteList[0]).then(r => console.log(r));
+    }
+  }
 }

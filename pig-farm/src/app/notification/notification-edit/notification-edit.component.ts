@@ -22,6 +22,8 @@ export class NotificationEditComponent implements OnInit {
   url: any;
   msg = '';
   checkImgSize: boolean;
+  check = true;
+  isExits = false;
 
   constructor(private notificationService: NotificationService,
               private activatedRoute: ActivatedRoute,
@@ -33,7 +35,6 @@ export class NotificationEditComponent implements OnInit {
       this.getNotification(this.id);
     });
   }
-
 
   ngOnInit(): void {
   }
@@ -50,6 +51,12 @@ export class NotificationEditComponent implements OnInit {
   }
 
   updateNotification() {
+    this.check = false;
+    if (this.notificationForm.invalid) {
+      this.toast.error('Nhập đầy đủ thông tin!');
+      this.check = true;
+      return;
+    }
     const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
     const filePath = `news/${nameImg}`;
     const fileRef = this.storage.ref(filePath);
@@ -61,9 +68,12 @@ export class NotificationEditComponent implements OnInit {
           console.log(this.notificationForm.value);
           this.notificationService.update(this.id, this.notificationForm.value).subscribe(
             () => {
-              this.toast.success('Huyền đã sửa thành công', 'MỪNG QUÁ');
-              this.router.navigateByUrl('/notification');
+              this.toast.success('Cập nhật thành công', 'Thông báo');
+              this.router.navigateByUrl('/notification/list');
             },
+            error => {
+              this.toast.error('Cập nhật thất bại, xin hãy thử lại', 'Thông báo');
+            }
           );
         });
       })
@@ -116,4 +126,3 @@ export class NotificationEditComponent implements OnInit {
     };
   }
 }
-
