@@ -25,7 +25,6 @@ export class VaccinationCreateComponent implements OnInit {
   CSF: string;
   FMD: string;
   APP: string;
-// @ts-ignore
   date2: any;
   createPigsty: any;
   vaccinationForm: FormGroup = new FormGroup({

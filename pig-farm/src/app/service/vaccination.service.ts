@@ -23,7 +23,6 @@ export class VaccinationService {
   findAll(page: number, name: string): Observable<Vaccination[]> {
     return this.http.get<Vaccination[]>(API_URL + '/api/vaccination/list?page=' + page + '&name=' + name);
   }
-
   deleteVaccination(ids: number[]): Observable<any> {
     const data = {id: ids};
     console.log(data);
