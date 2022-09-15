@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {EmployeeService} from "../employee.service";
-import {FormControl} from "@angular/forms";
+import {FormControl, Validators} from "@angular/forms";
 import {EmployeeDto} from "../../model/employeeDto";
 import {ToastrService} from "ngx-toastr";
+import {EmployeeService} from "../employee.service";
 
 @Component({
   selector: 'app-employee-list',
@@ -45,6 +45,7 @@ export class EmployeeListComponent implements OnInit {
       if (data === null) {
         this.pages = new Array(0);
         this.employeeList = [];
+        this.toast.warning("Không có dữ liệu.","Thông báo")
       } else {
         this.employeeList = data.content;
         this.pages = new Array(data.totalPages);
@@ -75,16 +76,16 @@ export class EmployeeListComponent implements OnInit {
   }
 
   //kiem tra hien thi nut tiep theo va truoc
-  checkPreviousAndNext(){
+  checkPreviousAndNext() {
     if (this.indexPagination == 0) {
       this.previousPageClass = 'none';
-    }else if (this.indexPagination != 0) {
+    } else if (this.indexPagination != 0) {
       this.previousPageClass = 'inline-block';
     }
 
     if (this.indexPagination < (this.pages.length - 1)) {
       this.nextPageClass = 'inline-block';
-    }else if (this.indexPagination == (this.pages.length - 1) || this.indexPagination > (this.pages.length - 1)) {
+    } else if (this.indexPagination == (this.pages.length - 1) || this.indexPagination > (this.pages.length - 1)) {
       this.nextPageClass = 'none';
     }
 
@@ -115,6 +116,7 @@ export class EmployeeListComponent implements OnInit {
     }, error => {
       console.log(error);
     }, () => {
+      this.toast.success("Xóa thành công", "Thông báo")
       this.ngOnInit();
     });
   }

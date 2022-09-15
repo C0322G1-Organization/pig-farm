@@ -9,24 +9,24 @@
       <div class="formRow_create_content mx-4">
         <div class="mb-3">
           <div class="row">
-            <div class="col-lg-6">
-              <label class="form-label">Mã Nhân Viên <span>*</span></label>
+            <div class="col-lg-4">
+              <label class="form-label">Mã Nhân Viên <span><i>(*)</i></span></label>
               <input type="text" class="form-control" disabled formControlName="code">
             </div>
-            <div class="col-lg-6">
-              <label class="form-label">Họ Và Tên <span>*</span></label>
+            <div class="col-lg-8">
+              <label class="form-label">Họ Và Tên <span><i>(*)</i></span></label>
               <input type="text" class="form-control" formControlName="name">
               <div class="form-text"
-                   *ngIf="employeeForm.controls.name.hasError('required') && employeeForm.controls.name.touched">Tên
-                Nhân Viên KHÔNG được để trống !!
+                   *ngIf="employeeForm.controls.name.hasError('required') && employeeForm.controls.name.touched">
+                Tên Nhân Viên KHÔNG được để trống !!
               </div>
               <div class="form-text"
-                   *ngIf="employeeForm.controls.name.hasError('pattern') && employeeForm.controls.name.touched">Tên Nhân
-                Viên PHẢI viết hoa chữ cái đầu !!
+                   *ngIf="employeeForm.controls.name.hasError('pattern') && employeeForm.controls.name.touched">
+                Tên Nhân Viên PHẢI viết hoa chữ cái đầu !!
               </div>
               <div class="form-text"
-                   *ngIf="employeeForm.controls.name.hasError('maxLength') && employeeForm.controls.name.touched">Tên
-                Nhân Viên KHÔNG quá 30 kí tự !!
+                   *ngIf="employeeForm.controls.name.hasError('maxLength') && employeeForm.controls.name.touched">
+                Tên Nhân Viên KHÔNG quá 30 kí tự !!
               </div>
             </div>
           </div>
@@ -35,7 +35,20 @@
         <div class="mb-3">
           <div class="row">
             <div class="col-lg-6">
-              <label class="form-label">Ngày Sinh <span>*</span></label>
+              <label class="form-label">Số CMND <span><i>(*)</i></span></label>
+              <input type="text" class="form-control" formControlName="idCard">
+              <div class="form-text"
+                   *ngIf="employeeForm.controls.idCard.hasError('required') && employeeForm.controls.idCard.touched">
+                Số CMND KHÔNG được để trống !!
+              </div>
+              <div class="form-text"
+                   *ngIf="employeeForm.controls.idCard.hasError('pattern') && employeeForm.controls.idCard.touched">
+                Số CMND PHẢI đúng định dạng: 9 hoặc 12 chữ số !!
+              </div>
+
+            </div>
+            <div class="col-lg-6">
+              <label class="form-label">Ngày Sinh <span><i>(*)</i></span></label>
               <input type="date" class="form-control" formControlName="birthDay">
               <div class="form-text"
                    *ngIf="employeeForm.controls.birthDay.hasError('required') && employeeForm.controls.birthDay.touched">
@@ -50,53 +63,46 @@
                 Ngày Sinh KHÔNG được lớn hơn ngày Hiện tại !!
               </div>
             </div>
-            <div class="col-lg-6">
-              <label class="form-label">Giới Tính <span>*</span></label><br>
-              <div class="form-check form-check-inline mt-2">
-                <input class="form-check-input" type="radio" formControlName="gender" id="male" value="Nam">
-                <label class="form-check-label" for="male">Nam</label>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <div class="row">
+            <div class="col-lg-12">
+              <label class="form-label">Giới Tính <span><i>(*)</i></span></label>
+              <div class="form-check form-check-inline mx-5">
+                <input class="form-check-input" type="radio" value="Nam" formControlName="gender"> Nam
               </div>
-              <div class="form-check form-check-inline mt-2">
-                <input class="form-check-input" type="radio" formControlName="gender" id="female" value="Nữ">
-                <label class="form-check-label" for="female">Nữ</label>
+              <div class="form-check form-check-inline mx-5">
+                <input class="form-check-input" type="radio" value="Nữ" formControlName="gender"> Nữ
               </div>
-              <div class="form-check form-check-inline mt-2">
-                <input class="form-check-input" type="radio" formControlName="gender" id="other" value="Khác">
-                <label class="form-check-label" for="other">Khác</label>
+              <div class="form-check form-check-inline mx-5">
+                <input class="form-check-input" type="radio" value="Khác" formControlName="gender"> Khác
               </div>
               <div class="form-text"
                    *ngIf="employeeForm.controls.gender.hasError('required') && employeeForm.controls.gender.touched">
                 Giới Tính KHÔNG được để trống !!
               </div>
             </div>
-          </div>
-        </div>
-
-        <div class="mb-3">
-          <div class="row">
-            <div class="col-lg-6">
-              <label class="form-label">Số CMND <span>*</span></label>
-              <input type="text" class="form-control" formControlName="idCard">
-              <div class="form-text"
-                   *ngIf="employeeForm.controls.idCard.hasError('required') && employeeForm.controls.idCard.touched">Số
-                CMND KHÔNG được để trống !!
-              </div>
-              <div class="form-text"
-                   *ngIf="employeeForm.controls.idCard.hasError('pattern') && employeeForm.controls.idCard.touched">Số
-                CMND PHẢI đúng định dạng: 9 hoặc 12 chữ số !!
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <label class="form-label">Chọn Ảnh <span>*</span></label>
-              <input type="file" class="form-control" formControlName="image">
+            <div class="col-lg-12">
+              <label class="form-label">Chọn Ảnh <span><i>(*)</i></span></label>
+              <input type="file" class="form-control" (change)="selectFile($event); onFileSelected($event)">
+              <img class="mt-2" *ngIf="!editImageState" [src]="employeeForm.get('image').value" width="100%"
+                   height="auto">
+              <img class="form-control mt-2" [src]="url" *ngIf="editImageState" width="100%" height="auto">
               <!--              <div class="form-text" *ngIf="employeeForm.controls.image.hasError('required') && employeeForm.controls.image.touched">Ảnh KHÔNG được để trống !!</div>-->
             </div>
           </div>
         </div>
 
         <div class="d-md-flex justify-content-lg-around">
-          <a routerLink="/employee/list" class="btn btn-danger"> Quay Lại </a>
-          <button class="btn btn-success" (click)="editEmployee(id)" [disabled]="!employeeForm.valid"> Chỉnh Sửa
+          <a routerLink="/employee/list" class="btn btn-outline-danger"> Quay Lại </a>
+          <button type="submit" class="btn btn-outline-success" *ngIf="loader" (click)="editEmployee()"
+                  [disabled]="!employeeForm.valid"> Chỉnh Sửa
+          </button>
+          <button *ngIf="!loader" class="btn btn-outline-success disabled">
+            <div class="spinner-border spinner-border-sm me-1"></div>
+            Đang tải ...
           </button>
         </div>
       </div>

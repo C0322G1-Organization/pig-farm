@@ -1,5 +1,4 @@
-import {AbstractControl, ValidationErrors, ValidatorFn} from '@angular/forms';
-import {Employee} from '../model/employee';
+import {AbstractControl} from '@angular/forms';
 
 function dateDiff(first, second) {
   return Math.round((second - first) / (1000 * 60 * 60 * 24));
@@ -28,24 +27,3 @@ export function checkDay(control: AbstractControl) {
   }
   return null;
 }
-
-export function checkDuplicateIdCard(list: Employee[], employee?: Employee): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-    const value = control.value;
-    if (list) {
-      for (const item of list) {
-        if (employee === undefined) {
-          if (item.idCard === value) {
-            return {duplicateIdCard : true};
-          }
-        } else {
-          if (item.idCard === value && value !== employee.idCard) {
-            return {duplicateIdCard : true};
-          }
-        }
-      }
-    }
-    return null;
-  };
-}
-

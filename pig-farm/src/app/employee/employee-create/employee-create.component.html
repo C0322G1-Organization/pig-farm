@@ -9,32 +9,33 @@
       <div class="formRow_create_content mx-4">
         <div class="mb-3">
           <div class="row">
-            <div class="col-lg-4">
-              <label class="form-label">Mã Nhân Viên <span>*</span></label>
-              <input type="text" class="form-control" formControlName="code" placeholder="Nhập Mã Nhân Viên">
+            <div class="col-lg-5">
+              <label class="form-label">Mã Nhân Viên <span><i>(*)</i></span></label>
+              <input type="text" class="form-control" formControlName="code" placeholder="Nhập Mã Nhân Viên" (change)="checkCode($event.target.value)">
               <div class="form-text"
-                   *ngIf="employeeForm.controls.code.hasError('required') && employeeForm.controls.code.touched">Mã Nhân
-                Viên KHÔNG được để trống !!
+                   *ngIf="employeeForm.controls.code.hasError('required') && employeeForm.controls.code.touched">
+                Vui lòng nhập Mã Nhân Viên.
               </div>
               <div class="form-text"
-                   *ngIf="employeeForm.controls.code.hasError('pattern') && employeeForm.controls.code.touched">Mã Nhân
-                Viên PHẢI đúng định dạng: NV-xxx !!
+                   *ngIf="employeeForm.controls.code.hasError('pattern') && employeeForm.controls.code.touched">
+                Mã Nhân Viên PHẢI đúng định dạng: NV-xxx !!
               </div>
+              <div class="form-text" *ngIf="isExitsCode == true">Mã Nhân Viên đã tồn tại.</div>
             </div>
-            <div class="col-lg-8">
-              <label class="form-label">Họ Và Tên <span>*</span></label>
+            <div class="col-lg-7">
+              <label class="form-label">Họ Và Tên <span><i>(*)</i></span></label>
               <input type="text" class="form-control" formControlName="name" placeholder="Nhập Họ Tên Nhân Viên">
               <div class="form-text"
-                   *ngIf="employeeForm.controls.name.hasError('required') && employeeForm.controls.name.touched">Tên
-                Nhân Viên KHÔNG được để trống !!
+                   *ngIf="employeeForm.controls.name.hasError('required') && employeeForm.controls.name.touched">
+                Vui lòng nhập Tên Nhân Viên.
               </div>
               <div class="form-text"
-                   *ngIf="employeeForm.controls.name.hasError('pattern') && employeeForm.controls.name.touched">Tên Nhân
-                Viên PHẢI viết hoa chữ cái đầu !!
+                   *ngIf="employeeForm.controls.name.hasError('pattern') && employeeForm.controls.name.touched">
+                Tên Nhân Viên PHẢI viết hoa chữ cái đầu.
               </div>
               <div class="form-text"
-                   *ngIf="employeeForm.controls.name.hasError('maxLength') && employeeForm.controls.name.touched">Tên
-                Nhân Viên KHÔNG quá 30 kí tự !!
+                   *ngIf="employeeForm.controls.name.hasError('maxLength') && employeeForm.controls.name.touched">
+                Tên Nhân Viên KHÔNG quá 30 kí tự.
               </div>
             </div>
           </div>
@@ -43,19 +44,20 @@
         <div class="mb-3">
           <div class="row">
             <div class="col-lg-6">
-              <label class="form-label">Tên Tài Khoản <span>*</span></label>
+              <label class="form-label">Tên Tài Khoản <span><i>(*)</i></span></label>
               <input type="text" class="form-control" formControlName="username" placeholder="Nhập Tên Tài Khoản">
               <div class="form-text"
                    *ngIf="employeeForm.controls.username.hasError('required') && employeeForm.controls.username.touched">
-                Username KHÔNG được để trống !!
+                Vui lòng nhập Tên Tài Khoản.
               </div>
+              <!--              <div class="form-text" *ngIf="isExitsCode == true">Tên Tài Khoản đã tồn tại.</div>-->
             </div>
             <div class="col-lg-6">
-              <label class="form-label">Mật Khẩu <span>*</span></label>
+              <label class="form-label">Mật Khẩu <span><i>(*)</i></span></label>
               <input type="password" class="form-control" formControlName="password" placeholder="Nhập Mật Khẩu">
               <div class="form-text"
                    *ngIf="employeeForm.controls.password.hasError('required') && employeeForm.controls.password.touched">
-                Mật Khẩu KHÔNG được để trống !!
+                Vui lòng nhập Mật Khẩu.
               </div>
               <div class="form-text"
                    *ngIf="employeeForm.controls.password.hasError('minlength') && employeeForm.controls.password.touched">
@@ -67,28 +69,29 @@
 
         <div class="mb-3">
           <div class="row">
-            <div class="col-lg-8">
-              <label class="form-label">Email <span>*</span></label>
+            <div class="col-lg-7">
+              <label class="form-label">Email <span><i>(*)</i></span></label>
               <input type="text" class="form-control" formControlName="email" placeholder="Nhập Email">
               <div class="form-text"
-                   *ngIf="employeeForm.controls.email.hasError('required') && employeeForm.controls.email.touched">Email
-                KHÔNG được để trống !!
+                   *ngIf="employeeForm.controls.email.hasError('required') && employeeForm.controls.email.touched">
+                Vui lòng nhập Email.
               </div>
               <div class="form-text"
-                   *ngIf="employeeForm.controls.email.hasError('email') && employeeForm.controls.email.touched">Email
-                KHÔNG đúng định dạng !!
+                   *ngIf="employeeForm.controls.email.hasError('email') && employeeForm.controls.email.touched">
+                Email KHÔNG đúng định dạng !!
               </div>
+              <!--              <div class="form-text" *ngIf="isExitsCode == true">Email đã tồn tại.</div>-->
             </div>
-            <div class="col-lg-4">
-              <label class="form-label">Ngày Sinh <span>*</span></label>
+            <div class="col-lg-5">
+              <label class="form-label">Ngày Sinh <span><i>(*)</i></span></label>
               <input type="date" class="form-control" formControlName="birthDay">
               <div class="form-text"
                    *ngIf="employeeForm.controls.birthDay.hasError('required') && employeeForm.controls.birthDay.touched">
-                Ngày Sinh KHÔNG được để trống !!
+                Vui lòng nhập Ngày Sinh.
               </div>
               <div class="form-text"
                    *ngIf="employeeForm.controls.birthDay.hasError('checkAge') && employeeForm.controls.birthDay.touched">
-                Tuổi PHẢI trên 18 !!
+                Tuổi PHẢI trên 18 và dưới 100 tuổi!!
               </div>
               <div class="form-text"
                    *ngIf="employeeForm.controls.birthDay.hasError('checkDay') && employeeForm.controls.birthDay.touched">
@@ -98,70 +101,60 @@
           </div>
         </div>
 
-<!--        <div class="mb-3">-->
-<!--          <label class="form-label">Giới Tính <span>*</span></label>-->
-<!--          <div class="form-check form-check-inline ms-5">-->
-<!--            <input class="form-check-input" type="radio" value="Nam" formControlName="gender"> Nam-->
-<!--          </div>-->
-<!--          <div class="form-check form-check-inline ms-5">-->
-<!--            <input class="form-check-input" type="radio" value="Nữ" formControlName="gender"> Nữ-->
-<!--          </div>-->
-<!--          <div class="form-check form-check-inline ms-5">-->
-<!--            <input class="form-check-input" type="radio" value="Khác" formControlName="gender"> Khác-->
-<!--          </div>-->
-<!--          <div class="form-text"-->
-<!--               *ngIf="employeeForm.controls.gender.hasError('required') && employeeForm.controls.gender.touched">Giới-->
-<!--            Tính KHÔNG được để trống !!-->
-<!--          </div>-->
-<!--        </div>-->
-
         <div class="mb-3">
           <div class="row">
             <div class="col-lg-5">
               <div>
-                <label class="form-label">Số CMND <span>*</span></label>
+                <label class="form-label">Số CMND <span><i>(*)</i></span></label>
                 <input type="text" class="form-control" formControlName="idCard" placeholder="Nhập Số CMND">
                 <div class="form-text"
                      *ngIf="employeeForm.controls.idCard.hasError('required') && employeeForm.controls.idCard.touched">
-                  Số CMND KHÔNG được để trống !!
+                  Vui lòng nhập Số CMND.
                 </div>
                 <div class="form-text"
-                     *ngIf="employeeForm.controls.idCard.hasError('pattern') && employeeForm.controls.idCard.touched">Số
-                  CMND PHẢI đúng định dạng: 9 hoặc 12 chữ số !!
+                     *ngIf="employeeForm.controls.idCard.hasError('pattern') && employeeForm.controls.idCard.touched">
+                  Số CMND PHẢI đúng định dạng: 9 hoặc 12 chữ số !!
                 </div>
-              </div>
-
-              <div class="mt-3">
-                <label class="form-label">Giới Tính <span>*</span></label><br>
-                <div class="form-check form-check-inline ms-5">
-                  <input class="form-check-input" type="radio" value="Nam" formControlName="gender"> Nam
-                </div>
-                <div class="form-check form-check-inline ms-5">
-                  <input class="form-check-input" type="radio" value="Nữ" formControlName="gender"> Nữ
-                </div>
-                <div class="form-check form-check-inline ms-5">
-                  <input class="form-check-input" type="radio" value="Khác" formControlName="gender"> Khác
-                </div>
-                <div class="form-text"
-                     *ngIf="employeeForm.controls.gender.hasError('required') && employeeForm.controls.gender.touched">Giới
-                  Tính KHÔNG được để trống !!
-                </div>
+                <!--                <div class="form-text" *ngIf="isExitsCode == true">Số CMND đã tồn tại.</div>-->
               </div>
             </div>
             <div class="col-lg-7">
-              <label class="form-label">Chọn Ảnh <span>*</span></label>
-              <input type="file" class="form-control" multiple (change)="selectFile($event); onFileSelected($event)">
-              <img *ngIf="!editImageState" [src]="employeeForm.get('image').value" width="100%" height="200">
-              <img class="form-control" [src]="url" *ngIf="editImageState" width="100%" height="200">
-              <!--                            <div class="form-text" *ngIf="employeeForm.controls.image.hasError('required') && employeeForm.controls.image.touched">Ảnh KHÔNG được để trống !!</div>-->
+              <label class="form-label">Giới Tính <span><i>(*)</i></span></label><br>
+              <div class="form-check form-check-inline ms-5 mt-2">
+                <input class="form-check-input" type="radio" value="Nam" formControlName="gender"> Nam
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="Nữ" formControlName="gender"> Nữ
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="Khác" formControlName="gender"> Khác
+              </div>
+              <div class="form-text"
+                   *ngIf="employeeForm.controls.gender.hasError('required') && employeeForm.controls.gender.touched">
+                Vui lòng nhập Giới Tính.
+              </div>
+            </div>
+            <div class="col-lg-12 mt-3">
+              <label class="form-label">Chọn Ảnh <span><i>(*)</i></span></label>
+              <input type="file" class="form-control" (change)="selectFile($event); onFileSelected($event)">
+              <img *ngIf="!editImageState" [src]="employeeForm.get('image').value" width="100%" height="auto">
+              <img class="form-control mt-2" [src]="url" *ngIf="editImageState" width="100%" height="auto">
+              <div class="form-text" *ngIf="checkImgSize == true">Kích thước ảnh quá lớn !!</div>
+              <div class="form-text" *ngIf="checkImg == true && checkImgSize == false && regexImageUrl == false">Vui lòng chọn Ảnh.</div>
+              <div class="form-text" *ngIf="regexImageUrl == true && checkImgSize == false">Chỉ chấp nhận ảnh có định dạng .jpg, .png !!</div>
             </div>
           </div>
         </div>
-
-        <div class="d-grid gap-2 d-md-flex justify-content-md-around mb-3">
-          <a routerLink="/employee/list" class="btn btn-danger"> Quay Lại </a>
-          <button class="btn btn-success" (click)="submitImage()" [disabled]="!employeeForm.valid"> Thêm mới
+        <div class="d-grid gap-2 d-md-flex justify-content-md-around">
+          <a routerLink="/employee/list" class="btn btn-outline-danger"> Quay Lại </a>
+          <button type="submit" *ngIf="loader" class="btn btn-outline-success" (click)="submitImage()"
+                  [disabled]="!employeeForm.valid"> Thêm mới
           </button>
+          <button *ngIf="!loader" class="btn btn-outline-success disabled">
+            <div class="spinner-border spinner-border-sm me-1"></div>
+            Đang tải ...
+          </button>
+          <button type="reset" class="btn btn-outline-secondary" (click)="reset()"> Nhập Lại</button>
         </div>
       </div>
     </form>
