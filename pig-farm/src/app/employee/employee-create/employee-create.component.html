@@ -88,7 +88,7 @@
               </div>
               <div class="form-text"
                    *ngIf="employeeForm.controls.birthDay.hasError('checkAge') && employeeForm.controls.birthDay.touched">
-                Tuổi PHẢI trên 18 !!
+                Tuổi PHẢI trên 18 và dưới 100 tuổi!!
               </div>
               <div class="form-text"
                    *ngIf="employeeForm.controls.birthDay.hasError('checkDay') && employeeForm.controls.birthDay.touched">
@@ -135,13 +135,21 @@
               <input type="file" class="form-control" (change)="selectFile($event); onFileSelected($event)">
               <img *ngIf="!editImageState" [src]="employeeForm.get('image').value" width="100%" height="auto">
               <img class="form-control mt-2" [src]="url" *ngIf="editImageState" width="100%" height="auto">
-              <!--                                        <div class="form-text" *ngIf="employeeForm.controls.image.hasError('required') && employeeForm.controls.image.touched">Ảnh KHÔNG được để trống !!</div>&ndash;&gt;-->
+              <div class="form-text" *ngIf="checkImgSize == true">Kích thước ảnh quá lớn !!</div>
+              <div class="form-text" *ngIf="checkImg == true && checkImgSize == false && regexImageUrl == false">Ảnh không được để trống !!</div>
+              <div class="form-text" *ngIf="regexImageUrl == true && checkImgSize == false">Chỉ chấp nhận ảnh có đuôi .jpg !!</div>
             </div>
           </div>
         </div>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-around mb-3">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-around">
           <a routerLink="/employee/list" class="btn btn-danger"> Quay Lại </a>
-          <button class="btn btn-success" (click)="submitImage()" [disabled]="!employeeForm.valid"> Thêm mới</button>
+          <button type="submit" *ngIf="loader" class="btn btn-success" (click)="submitImage()"
+                  [disabled]="!employeeForm.valid"> Thêm mới
+          </button>
+          <button *ngIf="!loader" class="btn btn-success disabled">
+            <div class="spinner-border spinner-border-sm me-1"></div>
+            Đang tải ...
+          </button>
         </div>
       </div>
     </form>

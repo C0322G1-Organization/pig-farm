@@ -97,7 +97,12 @@
 
         <div class="d-md-flex justify-content-lg-around">
           <a routerLink="/employee/list" class="btn btn-danger"> Quay Lại </a>
-          <button class="btn btn-success" (click)="editEmployee()" [disabled]="!employeeForm.valid"> Chỉnh Sửa
+          <button type="submit" class="btn btn-success" *ngIf="loader" (click)="editEmployee()"
+                  [disabled]="!employeeForm.valid"> Chỉnh Sửa
+          </button>
+          <button *ngIf="!loader" class="btn btn-success disabled">
+            <div class="spinner-border spinner-border-sm me-1"></div>
+            Đang tải ...
           </button>
         </div>
       </div>

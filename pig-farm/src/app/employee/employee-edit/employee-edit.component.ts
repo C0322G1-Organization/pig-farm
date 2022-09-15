@@ -33,6 +33,7 @@ export class EmployeeEditComponent implements OnInit {
   checkImg: boolean;
   url: any;
   msg = '';
+  loader = true;
 
   constructor(private employeeService: EmployeeService,
               private toast: ToastrService,
@@ -63,6 +64,7 @@ export class EmployeeEditComponent implements OnInit {
   }
 
   editEmployee() {
+    this.loader = false;
     const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
     const filePath = `employee/${nameImg}`;
     const fileRef = this.storage.ref(filePath);

@@ -23,6 +23,7 @@ export class EmployeeCreateComponent implements OnInit {
   checkImg: boolean;
   url: any;
   msg = '';
+  loader = true;
 
   employeeForm: FormGroup = new FormGroup({
     id: new FormControl(''),
@@ -52,6 +53,7 @@ export class EmployeeCreateComponent implements OnInit {
   }
 
   submitImage() {
+    this.loader = false;
     const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
     const filePath = `employee/${nameImg}`;
     const fileRef = this.storage.ref(filePath);
@@ -71,12 +73,11 @@ export class EmployeeCreateComponent implements OnInit {
             birthDay: this.employeeForm.value.birthDay,
             gender: this.employeeForm.value.gender,
             idCard: this.employeeForm.value.idCard,
-            image: url
+            image: this.employeeForm.value.image
           };
           console.log(employee);
           this.employeeService.saveEmployee(employee).subscribe(() => {
-            console.log(1);
-            this.router.navigate(['/employee/list']);
+            this.router.navigate(['/']);
             this.toast.success('Thêm Mới Nhân Viên Thành Công !!');
           }, error => {
             this.toast.error('Thêm Mới Nhân Viên Thất Bại !!');
