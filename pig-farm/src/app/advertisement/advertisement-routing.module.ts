@@ -1,4 +1,4 @@
-import {AdvertisementComponent} from './advertisement-list/advertisement.component';
+
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {AdvertisementPostComponent} from './advertisement-post/advertisement-post.component';

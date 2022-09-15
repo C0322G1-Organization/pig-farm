@@ -15,18 +15,19 @@
   color: red;
 }
 
+.body {
+  margin: 0 auto;
+  background-image: url('../../../assets/img/advertisement-background.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  padding: 20px;
+}
 .container {
   background-color: white;
   border-radius: 5px;
   padding: 20px;
   opacity: 85%;
-}
-
-body {
-  margin: 0 auto;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: 100% 100%;
 }
 
 hr {

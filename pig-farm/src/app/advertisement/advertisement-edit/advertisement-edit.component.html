@@ -29,6 +29,7 @@
         <div class="mb-3">
           <label class="form-label">Vị trí <span style="color: red">(*)</span></label>
           <select class="form-control" formControlName="placement" [compareWith]="compare">
+            <option value="">Chọn</option>
             <option *ngFor="let temp of placementList" [ngValue]="temp">{{temp.name}}</option>
           </select>
           <div style="color:red;"
@@ -50,21 +51,27 @@
                 <img *ngIf="!editImageState" [src]="formAdvertisement.get('image').value" width="300" height="200" >
                 <img class="preview-img rounded" [src]="url" *ngIf="editImageState" width="300" height="200">
               </div>
-              <div style="color:red;"
-                   *ngIf="!formAdvertisement.controls.image?.valid && (formAdvertisement.controls.image?.dirty||formAdvertisement.controls.image?.touched)">
-                Ảnh không được để trống
+                <div style="color: red" *ngIf="checkImgSize == true" class="form-text text-danger mt-1 px-2">Kích thước ảnh quá lớn.</div>
+              <div  style="color: red" *ngIf="checkImg == true && checkImgSize == false && regexImageUrl == false"
+                    class="form-text text-danger mt-1 px-2">Chọn ảnh.
               </div>
-              <div *ngIf="checkImgSize == true" class="form-text text-danger mt-1 px-2">Kích thước ảnh quá lớn.</div>
+              <div  style="color: red" *ngIf="regexImageUrl == true && checkImgSize == false" class="form-text text-danger mt-1 px-2">Sai định dạng
+                ảnh.
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       <div class="button d-grid gap-2 d-md-flex justify-content-md-around" style="margin-top: 20px">
-        <button class="btn btn-outline-danger back" [routerLink]="['/advertisement/page']"> Quay lại</button>
-        <button class="btn btn-outline-success" > Sửa</button>
+        <button style="height: 38px" class="btn btn-outline-danger back" [routerLink]="['/advertisement/page']"> Quay lại</button>
+        <button type="submit" *ngIf="buttonAdvertisementStatus" style="height: 38px;width: 121px" class="btn btn-outline-success" [disabled]="!formAdvertisement.valid" > Cập nhật </button>
+        <button *ngIf="!buttonAdvertisementStatus" style="height: 38px;width: 121px" class="btn btn-outline-success disabled" >
+          <div class="spinner-border spinner-border-sm "></div>
+          Đang tải ...
+        </button>
+        <button  style="height: 38px" class="btn btn-outline-secondary" (click)="reset(advertisementId)">Nhập lại</button>
       </div>
-
     </form>
   </div>
 </div>

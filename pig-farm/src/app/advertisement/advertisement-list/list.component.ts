@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 // @ts-ignore
-import {Advertisement} from '../model/advertisement';
+
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {AdvertisementService} from '../../service/advertisement.service';
+import {Advertisement} from '../../model/advertisement';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class ListComponent implements OnInit {
   advertisementList: Advertisement[] = [];
   totalPages: number;
   number: number;
+  totalElements: number;
   // xoa
   ids: number[] = [];
   deleteList: Advertisement[] = [];
@@ -40,6 +42,8 @@ export class ListComponent implements OnInit {
         this.pages = new Array(0);
         this.advertisementList = [];
       } else {
+        this.totalElements = data?.totalElements;
+        console.log(this.totalElements + ' Tổng số phần tử');
         this.number = data?.number;
         this.advertisementList = data?.content;
         this.pages = new Array(data?.totalPages);
@@ -51,21 +55,18 @@ export class ListComponent implements OnInit {
   previousPage(event: any) {
     event.preventDefault();
     this.indexPagination--;
-    this.checkPreviousAndNext();
     this.ngOnInit();
   }
 
   setPage(i: number, event: any) {
     event.preventDefault();
     this.indexPagination = i;
-    this.checkPreviousAndNext();
-    this.getListAnhSearch();
+    this.ngOnInit();
   }
 
   nextPage(event: any) {
     event.preventDefault();
     this.indexPagination++;
-    this.checkPreviousAndNext();
     this.ngOnInit();
   }
 
@@ -96,11 +97,9 @@ export class ListComponent implements OnInit {
         this.ids = [];
       }, err => {
         console.log(err);
+        this.toastrService.error('Không tồn tại');
       });
-    } else {
-      this.toastrService.error('Chưa chọn mục để xóa !!!', 'Thông báo');
     }
-    console.log(this.ids);
     if (this.advertisementList.length === 1 && this.indexPagination !== 0) {
       this.indexPagination = this.indexPagination - 1;
     }
@@ -113,27 +112,6 @@ export class ListComponent implements OnInit {
   }
 
   getListDelete(advertisement: Advertisement) {
-    // for (let i = 0; i < this.deleteList.length; i++) {
-    //   if (this.deleteList[i].id === advertisement.id) {
-    //     this.deleteList.splice(i, 1);
-    //     return;
-    //   }
-    // }
-    // this.deleteList.push(advertisement);
-    // this.ids = [];
-    // for (let i = 0; i < this.deleteList.length; i++) {
-    //   this.ids.push(this.deleteList[i].id);
-    //   console.log(this.ids + ' id xoa');
-    // }
-    // console.log('ID : '+this.ids.length);
-    // console.log('Delete lít : '+this.deleteList.length);
-    // for (let i = 0; i < this.deleteList.length; i++) {
-    //   if (this.deleteList[i].id === this.ids[i]) {
-    //     this.ids.slice(i, 1);
-    //     this.ids.push(this.deleteList[i].id);
-    //     return;
-    //   }
-    // }
     for (let i = 0; i < this.deleteList.length; i++) {
       if (this.deleteList[i].id === advertisement.id) {
         this.deleteList.splice(i, 1);
@@ -142,15 +120,14 @@ export class ListComponent implements OnInit {
     }
     this.deleteList.push(advertisement);
     this.ids = [];
-    for (const item of this.deleteList) {
-      this.ids.push(item.id);
-    }
     for (let i = 0; i < this.deleteList.length; i++) {
       if (this.deleteList[i].id === this.ids[i]) {
         this.ids.splice(i, 1);
-        this.ids.push(this.deleteList[i].id);
         return;
       }
+    }
+    for (const item of this.deleteList) {
+      this.ids.push(item.id);
     }
   }
 
