@@ -1,13 +1,14 @@
 .body {
   margin: 0 auto;
-  background-image: url('../../../assets/img/img-food/listFood.jpg');
+  background-image: url('../../../assets/img/notification-backgroup-list.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;
-  height: 100%;}
-.container {
+  }
+
+.container-list {
   background-color: white;
-  border-radius: 5px;
+  border-radius:10px 10px 0 0;
   padding: 20px;
   opacity: 94%;
 }

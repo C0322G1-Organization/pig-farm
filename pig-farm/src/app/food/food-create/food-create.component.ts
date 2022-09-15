@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
-import {FoodServiceService} from '../service/food-service.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Pigsty} from '../../model/pigsty';
 import {StorageService} from '../../service/storage.service';
 import {PigstyService} from '../../service/pigsty.service';
 import {Storage} from '../../model/storage';
+import {FoodService} from '../../service/food.service';
+
 @Component({
   selector: 'app-food-create',
   templateUrl: './food-create.component.html',
@@ -17,7 +18,7 @@ export class FoodCreateComponent implements OnInit {
   storages: Storage[] = [];
 
   foodForm: FormGroup = new FormGroup({
-    amount: new FormControl('', [Validators.required]),
+    amount: new FormControl('', [Validators.required, Validators.min(1)]),
     unit: new FormControl('', [Validators.required]),
     storage: new FormControl('', [Validators.required]),
     pigsty: new FormControl('', [Validators.required]),
@@ -25,28 +26,35 @@ export class FoodCreateComponent implements OnInit {
 
   constructor(private pigstyService: PigstyService,
               private storageService: StorageService,
-              private foodService: FoodServiceService,
+              private foodService: FoodService,
               private router: Router,
               private toast: ToastrService) {
   }
 
   ngOnInit(): void {
-    // this.getPigsties();
+    this.getPigsties();
     this.getStorages();
-    console.log(this.getStorages());
+  }
+
+  reset(): void {
+    this.foodForm = new FormGroup({
+      amount: new FormControl('', [Validators.required]),
+      unit: new FormControl('', [Validators.required]),
+      storage: new FormControl('', [Validators.required]),
+      pigsty: new FormControl('', [Validators.required]),
+    });
   }
 
   getPigsties(): void {
     this.pigstyService.getAll().subscribe((pigstyService?: any) => {
-      this.pigsties = pigstyService.content;
+      this.pigsties = pigstyService;
     });
   }
 
   getStorages(): void {
-    // @ts-ignore
-    this.storageService.getAll().subscribe((storageService?: any) => {
-      console.log(storageService.content);
-      this.storages = storageService.content;
+    this.storageService.getAllS().subscribe((storageService?: any) => {
+      console.log(storageService);
+      this.storages = storageService;
     });
   }
 
@@ -64,7 +72,7 @@ export class FoodCreateComponent implements OnInit {
       console.log(error);
     }, () => {
       this.foodForm.reset();
-      this.router.navigate(['/food/create']);
+      this.router.navigate(['/food']);
       this.toast.success('Thêm mới thành công', 'Thông báo');
     });
   }
