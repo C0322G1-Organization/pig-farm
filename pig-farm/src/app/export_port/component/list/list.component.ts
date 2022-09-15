@@ -26,6 +26,7 @@ export class ListComponent implements OnInit {
   mess: string;
   check: string[] = [];
   editId: string;
+  codeExport: string;
 
   constructor(private exportService: ExportService,
               private toast: ToastrService) {
@@ -55,13 +56,15 @@ export class ListComponent implements OnInit {
       companySearch: this.searchForm.value.company,
       nameSearch: this.searchForm.value.nameEmployee,
     };
-    console.log(this.searchForm.value.titleSearch);
-    this.exportService.searchAdvertisement(obj).subscribe((value?: any) => {
-      // @ts-ignore
+    this.exportService.searchExport(obj).subscribe((value?: any) => {
+      this.totalPages = value?.totalPages;
+      this.countTotalPages = new Array(value?.totalPages);
+      this.number = value?.number;
       this.listExport = value?.content;
-      console.log(this.listExport);
     }, error => {
-      console.log(error);
+      this.toast.error('Thông tin không tìm thấy!!!', 'Chú ý!', {
+        timeOut: 2500, progressBar: false
+      });
     });
   }
 
@@ -97,7 +100,7 @@ export class ListComponent implements OnInit {
         this.nameDelete.push(this.listExport[i].codeExport);
       }
     }
-    this.exportService.getAll(0).subscribe((listAds: any) => {
+    this.exportService.getAll(0).subscribe(() => {
     });
   }
 
@@ -106,6 +109,9 @@ export class ListComponent implements OnInit {
     this.ids = [];
     this.ngOnInit();
     this.check = [];
+    this.toast.error('Đã hủy yêu cầu xóa!!!', 'Chú ý!', {
+      timeOut: 2500, progressBar: false
+    });
   }
 
   deleteId() {
@@ -113,15 +119,19 @@ export class ListComponent implements OnInit {
     if (this.ids.length > 0) {
       this.exportService.deleteExport(this.ids).subscribe(value1 => {
         this.getListExport(0);
-        this.toast.success('Xóa thành công !!!', 'Thông báo');
+        this.toast.success('Xóa thành công !!!', 'Thông báo', {
+          timeOut: 2500, progressBar: false
+        });
         this.ids = [];
       }, err => {
-        this.error = 'rd';
-        this.mess = 'Có sự cố khi xóa thông báo';
+        this.toast.error('Đã xảy ra lỗi!!!', 'Chú ý!', {
+          timeOut: 2500, progressBar: false
+        });
       });
     } else {
-      this.error = 'rd';
-      this.mess = 'Bạn phải chọn mới có thể tiến hành xoá';
+      this.toast.error('Đã hủy yêu cầu xóa!!!', 'Chú ý!', {
+        timeOut: 2500, progressBar: false
+      });
     }
     this.nameDelete = [];
   }

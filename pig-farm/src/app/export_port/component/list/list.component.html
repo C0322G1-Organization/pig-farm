@@ -5,9 +5,10 @@
     <h2>Quản Lý Xuất Chuồng</h2>
   </div>
 
+
   <div class="row mt-4">
     <div class=" col-sm-2 d-grid gap-2 d-md-flex justify-content-md-around ">
-      <a class=" btn btn-outline-success" style="width: auto;" href="create.html">
+      <a class=" btn btn-outline-success" style="width: auto;" [routerLink]="['/export/create']">
         Thêm mới
       </a>
     </div>
@@ -17,7 +18,8 @@
         <div class="col-sm-3 position-relative mx-auto d-grid gap-2 d-md-flex justify-content-md-around"
              style="max-width: 300px;">
           <input class="form-control bg-transparent py-2 w-100" type="search"
-                 name="codeExport" formControlName="codeExport" placeholder="Tìm kiếm mã chuồng">
+                 name="codeExport" [(ngModel)]="codeExport" formControlName="codeExport"
+                 placeholder="Tìm kiếm mã chuồng">
         </div>
         <div class="col-sm-3 position-relative mx-auto d-grid gap-2 d-md-flex justify-content-md-around"
              style="max-width: 300px;">
@@ -84,9 +86,12 @@
         </tbody>
       </table>
     </div>
+
     <div style="text-align: center; display: flex; justify-content: center">
 
-      <button class="col-3 btn btn-outline-warning" style="width: auto; margin-right: 5%" [disabled]="check.length != 1">
+      <button class="col-3 btn btn-outline-warning" style="width: auto; margin-right: 5%"
+              [routerLink]="['/export/update', editId]"
+              [disabled]="check.length != 1">
         Sửa
       </button>
 

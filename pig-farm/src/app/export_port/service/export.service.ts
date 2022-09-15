@@ -17,7 +17,7 @@ export class ExportService {
     return this.http.get<Export[]>(API_URL + '/export/page?page=' + page);
   }
 
-  searchAdvertisement(objSearch: any): Observable<Export[]> {
+  searchExport(objSearch: any): Observable<Export[]> {
     const codeExport: string = objSearch.codeExportSearch;
     const company: string = objSearch.companySearch;
     const name: string = objSearch.nameSearch;
