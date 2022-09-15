@@ -1,3 +1,12 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('../../../assets/img/statisticBackground.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-attachment: fixed;
+}
+
 .header-panel {
   background-color: green;
   height: 80px;

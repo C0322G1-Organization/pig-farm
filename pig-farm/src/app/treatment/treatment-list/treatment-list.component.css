@@ -24,7 +24,7 @@
 
 body {
   margin: 0 auto;
-  background-image: url("../../../assets/img/little-piggy-987544824-5c8ba8b7c9e77c00014a9d22 (1).jpg");
+  background-image: url("../../../assets/img/pig-backgroup.jpeg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;
@@ -32,10 +32,8 @@ body {
 }
 hr {
   border:none;
-  height: 20px;
   width: 90%;
   height: 50px;
-  margin-top: 0;
   border-bottom: 2px solid #1f1209;
   box-shadow: 0 20px 20px -20px #242323;
   margin: -50px auto 10px;

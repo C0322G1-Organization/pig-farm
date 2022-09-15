@@ -1,7 +1,7 @@
+import {Employee} from './employee';
 import {UserRole} from './user-role';
-import {Employee} from '../model/employee';
 
-export interface UserDto {
+export interface AppUser {
   id?: number;
   username?: string;
   password?: string;
