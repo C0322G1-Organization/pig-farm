@@ -1,5 +1,5 @@
-import {Employee} from '../employee/employee';
 import {UserRole} from './user-role';
+import {Employee} from '../model/employee';
 
 export interface UserDto {
   id?: number;

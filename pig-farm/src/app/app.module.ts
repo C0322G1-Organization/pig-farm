@@ -5,15 +5,24 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
-import {StorageModule} from './storage/storage.module';
+
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
-import {HttpClientModule} from '@angular/common/http';
 import {BodyModule} from './body/body.module';
-import {environment} from '../environments/environment';
+import {VaccinationModule} from './vaccination/vaccination.module';
 import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {StorageModule} from './storage/storage.module';
+import {StatisticModule} from './statistic/statistic.module';
+import {TreatmentModule} from './treatment/treatment.module';
+import {NotificationModule} from './notification/notification.module';
 import {EmployeeModule} from './employee/employee.module';
+import {ContactModule} from './contact/contact.module';
+import {PigModule} from './pig/pig.module';
+
 
 @NgModule({
   declarations: [
@@ -26,12 +35,24 @@ import {EmployeeModule} from './employee/employee.module';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     ToastrModule.forRoot(),
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    VaccinationModule,
     StorageModule,
     BodyModule,
-    EmployeeModule,
+    TreatmentModule,
+    StatisticModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    TreatmentModule,
+    NotificationModule,
+    EmployeeModule,
+    ContactModule,
+    PigModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
+import {EmployeeDto} from '../../model/employeeDto';
 import {ToastrService} from 'ngx-toastr';
 import {EmployeeService} from '../employee.service';
 

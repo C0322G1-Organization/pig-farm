@@ -6,8 +6,9 @@ import {Router} from '@angular/router';
 import {formatDate} from '@angular/common';
 import {finalize} from 'rxjs/operators';
 import {AngularFireStorage} from '@angular/fire/storage';
-import {checkBirthDay, checkDay} from '../../validate/check-birth-day';
-import {Employee} from '../employee';
+import {checkBirthDay, checkDay} from '../../validated/check-birth-day';
+import {Employee} from '../../model/employee';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-employee-create',
@@ -39,14 +40,16 @@ export class EmployeeCreateComponent implements OnInit {
     creationDate: new FormControl(''),
     birthDay: new FormControl('', [Validators.required, checkBirthDay, checkDay]),
     gender: new FormControl('', [Validators.required]),
-    idCard: new FormControl('', [Validators.required, Validators.pattern('^\\d{9}|\\d{12}$')]),
+    idCard: new FormControl('', [Validators.required, Validators.pattern('^\\d{12}$')]),
     image: new FormControl('')
   });
 
   constructor(private employeeService: EmployeeService,
               private toast: ToastrService,
               private router: Router,
-              private storage: AngularFireStorage) {
+              private storage: AngularFireStorage,
+              private title: Title) {
+    this.title.setTitle('Thêm mới nhân viên');
   }
 
   ngOnInit(): void {
