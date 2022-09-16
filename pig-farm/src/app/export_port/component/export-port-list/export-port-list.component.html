@@ -1,8 +1,9 @@
 <div class="body">
   <div class="vc_empty_space" style="height: 64px"><span class="vc_empty_space_inner"></span></div>
+
   <div class="container container-list mt-5 pb-2">
     <div style="text-align: center; font-size: 30px;" class="mt-3">
-      <h2>Quản Lý Chuồng Xuất</h2>
+      <h2>QUẢN LÝ CHUỒNG XUẤT</h2>
     </div>
 
     <div class="row">
@@ -12,17 +13,17 @@
       </div>
       <div class="col-sm-12 mt-3 col-lg-10 d-flex justify-content-end">
         <form class="d-flex justify-content-end" [formGroup]="searchForm" (ngSubmit)="searchAds()">
-          <div class="col-sm-3 pe-2">
+          <div class="col-sm-3 pe-2" style="width: 30%">
             <input class="form-control bg-transparent py-2 w-100" type="search"
                    name="codeExport" formControlName="codeExport"
                    placeholder="Tìm kiếm mã chuồng">
           </div>
-          <div class="col-sm-3 pe-2">
+          <div class="col-sm-3 pe-2" style="width: 30%">
             <input class="form-control bg-transparent py-2 w-100" type="search"
                    name="companySearch" formControlName="companySearch"
                    placeholder="Tìm kiếm công ty">
           </div>
-          <div class="col-sm-3 pe-2">
+          <div class="col-sm-3 pe-2" style="width: 30%">
             <input class="form-control bg-transparent py-2 w-100" type="search"
                    name="employeeSearch" formControlName="employeeSearch"
                    placeholder="Tìm kiếm nhân viên">
@@ -69,7 +70,7 @@
               <span *ngIf="item.typePigs == 1 ">Lợn giống</span>
             </td>
             <td>{{item.price | currency :' ' :true: '1.0-3'}}</td>
-            <td>{{item.price | currency :' ' :true: '1.0-3'}}</td>
+            <td>{{item.totalMoney | currency :' ' :true: '1.0-3'}}</td>
             <td>
               <input *ngIf="item" type="checkbox" class="form-check-input" ngModel [name]="''+ item.id"
                      (ngModelChange)="checkButton(item.id)">
@@ -78,7 +79,6 @@
           </tbody>
         </table>
       </div>
-
       <div style="background: white;opacity: 90%;height: 50px;position: relative;border-radius: 0 0 10px 10px"
            class="container">
         <div style="text-align: center; display: flex; justify-content: center">
@@ -100,7 +100,7 @@
         <nav style="position: absolute;top:0px;right:20px" aria-label="..." *ngIf="listExport.length!=0">
           <ul class="pagination justify-content-end">
             <li class="page-item" *ngIf="checkPreview">
-              <a class="page-link" (click)="goPrevious()" tabindex="-1">Trước</a>
+              <a class="page-link" (click)="goPrevious()" tabindex="-1">Trang trước</a>
             </li>
             <li class="page-item" *ngIf="checkPreview"><a class="page-link" (click)="goPrevious()">{{number}}</a></li>
             <li class="page-item active">
@@ -108,7 +108,7 @@
             </li>
             <li class="page-item" *ngIf="checkNext"><a class="page-link" (click)="goNext()">{{number + 2}}</a></li>
             <li class="page-item" *ngIf="checkNext">
-              <a class="page-link" (click)="goNext()">Tiếp theo </a>
+              <a class="page-link" (click)="goNext()">Trang sau </a>
             </li>
           </ul>
         </nav>
@@ -145,7 +145,7 @@
   <div style="text-align: center; display: flex; justify-content: center">
     <ng-template #elseBlock>
       <div style="color: red;" class="col-12 mt-4">
-        <h2 style="text-align: center">Không có dữ liệu !!!</h2>
+        <h2 style="text-align: center">Không có dữ liệu để hiển thị.</h2>
       </div>
     </ng-template>
   </div>
