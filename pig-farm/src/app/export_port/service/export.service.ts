@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
-import {Export} from '../model/export';
 import {Observable} from 'rxjs';
 
 const API_URL = `${environment.apiUrl}`;
@@ -13,15 +12,8 @@ export class ExportService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(page: number): Observable<Export[]> {
-    return this.http.get<Export[]>(API_URL + '/export/page?page=' + page);
-  }
-
-  searchExport(objSearch: any): Observable<Export[]> {
-    const codeExport: string = objSearch.codeExportSearch;
-    const company: string = objSearch.companySearch;
-    const name: string = objSearch.nameSearch;
-    return this.http.get<Export[]>(`${API_URL}/export/page?codeExport=` + codeExport + '&company=' + company + '&nameEmployee=' + name);
+  getAll(page: number, codeExport: string, company: string, nameEmployee: string): Observable<any> {
+    return this.http.get<any>(API_URL + '/export/page?page=' + page + '&codeExport=' + codeExport + '&company=' + company + '&nameEmployee=' + nameEmployee);
   }
 
   deleteExport(ids: number[]): Observable<any> {
