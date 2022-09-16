@@ -26,7 +26,7 @@
   <div class="row mt-5">
     <div class="col-lg-6">
       <h4 class="text-success">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-fill"
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-circle-fill"
              viewBox="0 0 16 16">
           <circle cx="8" cy="8" r="8"/>
         </svg>
@@ -42,20 +42,30 @@
     </div>
 
   </div>
-  <div class="row">
-    <div class="col-lg-10 mt-5" *ngIf="news && news.length > 0; else elseBlock">
+
+  <div class="row" *ngIf="news && news.length > 0; else elseBlock">
+    <div class="col-lg-10 mt-5">
       <div class="row mt-3" *ngFor="let i of news">
         <div class="col-lg-2">
           <div>
             <a [routerLink]="['/info-news', i.id]">
-              <img [src]="i.image" class="img-fluid rounded mx-auto d-block"
+              <img [src]="i.image" class="img-fluid rounded mx-auto d-block mx-md-auto"
                    alt="..."></a>
           </div>
         </div>
         <div class="col-lg-10">
           <a [routerLink]="['/info-news', i.id]"><h6>&#8226; {{i.title}}</h6></a>
-          <p>{{i.submittedDate}}</p>
-          <p>{{i.content}}</p>
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor"
+               class="text-danger bi bi-calendar3"
+               viewBox="0 0 16 16">
+            <path
+              d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+            <path
+              d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+          </svg>
+          <span> {{i.submittedDate | date: 'dd/MM/yyyy'}}</span>
+
+          <p class="tooLongContent">{{i.content}}</p>
         </div>
       </div>
       <div class="row mt-5" align="center">
@@ -77,37 +87,52 @@
       </div>
     </div>
 
-    <div class="col-lg-10 mt-5">
-      <!-- Khi không có dữ liệu thì hiện  -->
-      <div style="text-align: center; display: flex; justify-content: center">
-        <ng-template #elseBlock>
-          <div class="body">
-            <div style="color: red;" class="col-12">
-              <h1>Không tìm thấy dữ liệu.</h1>
-            </div>
-          </div>
-        </ng-template>
-      </div>
-    </div>
-
     <div class="col-lg-2">
       <div class="row mt-5">
-        <img src="assets/img/body/body-pigfood.png" alt="">
+        <img class="ads-body" src="assets/img/body/body-pigfood.png" alt="">
       </div>
       <div class="row mt-5">
-        <img src="assets/img/body/body-chicken.png" alt="">
+        <img class="ads-body" src="assets/img/body/body-chicken.png" alt="">
       </div>
       <div class="row mt-5">
-        <img src="assets/img/body/body-chickenfood.jpg" alt="">
+        <img class="ads-body" src="assets/img/body/body-chickenfood.jpg" alt="">
       </div>
       <div class="row mt-5">
-        <img src="assets/img/body/body-pharma1.jpg" alt="">
+        <img class="ads-body" src="assets/img/body/body-pharma1.jpg" alt="">
       </div>
       <div class="row mt-5">
-        <img src="assets/img/body/body-food.jpg" alt="">
+        <img class="ads-body" src="assets/img/body/body-food.jpg" alt="">
       </div>
     </div>
   </div>
-</div>
 
-<app-contact-create></app-contact-create>
+
+  <ng-template #elseBlock>
+    <div class="row">
+      <div class="col-lg-10 mt-5">
+        <div style="color: red;" class="col-12">
+          <h1>Không tìm thấy dữ liệu.</h1>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <div class="row mt-5">
+          <img class="ads-body" src="assets/img/body/body-pigfood.png" alt="">
+        </div>
+        <div class="row mt-5">
+          <img class="ads-body" src="assets/img/body/body-chicken.png" alt="">
+        </div>
+        <div class="row mt-5">
+          <img class="ads-body" src="assets/img/body/body-chickenfood.jpg" alt="">
+        </div>
+        <div class="row mt-5">
+          <img class="ads-body" src="assets/img/body/body-pharma1.jpg" alt="">
+        </div>
+        <div class="row mt-5">
+          <img class="ads-body" src="assets/img/body/body-food.jpg" alt="">
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+
+  <app-contact-create></app-contact-create>

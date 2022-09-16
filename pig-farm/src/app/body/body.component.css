@@ -26,4 +26,17 @@ a:hover {
   margin-left: 5px;
 }
 
+.tooLongContent {
+  height: 24px;
+  overflow: hidden;
+  display: block;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
 
+@media (max-width: 992px) {
+  .ads-body {
+    display: none;
+  }
+}
