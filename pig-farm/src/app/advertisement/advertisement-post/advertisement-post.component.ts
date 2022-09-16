@@ -15,7 +15,6 @@ import {formatDate} from '@angular/common';
   styleUrls: ['./advertisement-post.component.css']
 })
 export class AdvertisementPostComponent implements OnInit {
-
   formAdvertisement: FormGroup;
   selectedImage: File = null;
   placementList: Placement[];
@@ -39,14 +38,15 @@ export class AdvertisementPostComponent implements OnInit {
       this.placementList = next;
     });
     this.formAdvertisement = new FormGroup({
+      // tslint:disable-next-line:max-line-length
       title: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z _ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễếệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+')]),
       image: new FormControl('', Validators.required),
+      // tslint:disable-next-line:max-line-length
       submittedDate: new FormControl('', [Validators.required]),
       timeExistence: new FormControl('', [Validators.required, Validators.pattern('^[0-9]+$')]),
       placement: new FormControl('', Validators.required)
     });
   }
-
   checkDate(form: FormControl): any {
     for (const e of this.advertisement) {
       if (form.value.submittedDate === e.submittedDate) {
@@ -55,7 +55,6 @@ export class AdvertisementPostComponent implements OnInit {
     }
     return null;
   }
-
   submit() {
     const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
     const filePath = `advertisement/${nameImg}`;
@@ -64,8 +63,6 @@ export class AdvertisementPostComponent implements OnInit {
       finalize(() => {
         fileRef.getDownloadURL().subscribe((url) => {
           this.formAdvertisement.patchValue({image: url});
-          console.log(url);
-          console.log(this.formAdvertisement.value);
           this.placementService.save(this.formAdvertisement.value).subscribe(
             () => {
               this.route.navigateByUrl('/advertisement/page');
@@ -125,5 +122,4 @@ export class AdvertisementPostComponent implements OnInit {
   getCurrentDateTime(): string {
     return formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss', 'en-US');
   }
-
 }

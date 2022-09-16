@@ -51,7 +51,6 @@ export class ContactListComponent implements OnInit {
         this.checkPrevious = !value.first;
         this.msg = '';
         this.checkContent = false;
-        console.log(this.contact);
       }, (error) => {
         this.contact = [];
         this.checkContent = true;

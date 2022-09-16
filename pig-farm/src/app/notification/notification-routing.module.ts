@@ -6,7 +6,7 @@ import {NotificationEditComponent} from './notification-edit/notification-edit.c
 
 const routes: Routes = [
   {
-    path: 'notification',
+    path: 'notification/list',
     component: NotificationListComponent
   }, {
     path: 'notification/create',

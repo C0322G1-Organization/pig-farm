@@ -23,6 +23,15 @@ export class TreatmentService {
   }
 
   save(saving: Treatment): Observable<Treatment> {
-    return this.http.post<Treatment>(API_URL + '/api/treatment/v1/create', saving);
+    return this.http.post<Treatment>(API_URL + `/api/treatment/v1/create`, saving);
+  }
+
+  getListPig(id: number): Observable<any> {
+    // @ts-ignore
+    return this.http.put<any>(API_URL + `/api/treatment/v1/getListPig/` + id);
+  }
+
+  getListPigsty(): Observable<any> {
+    return this.http.get<any>(API_URL + `/api/treatment/v1/getListPigsty`);
   }
 }

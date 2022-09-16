@@ -5,7 +5,6 @@ import {Pigsty} from '../model/pigsty';
 import {environment} from '../../environments/environment';
 
 const API_URL = `${environment.apiUrl}`;
-
 @Injectable({
   providedIn: 'root'
 })
@@ -28,10 +27,14 @@ export class PigstyService {
   }
 
   getAll(page: number, search: string): Observable<any> {
-    return this.http.get<any>(this.URL_PIGSTY + 'list?search=' + search + '&page=' + page);
+    return this.http.get<any>(this.URL_PIGSTY + '/list?search=' + search + '&page=' + page);
   }
 
   getAllList(): Observable<any> {
-    return this.http.get<any>(this.URL_PIGSTY + 'list');
+    return this.http.get<any>(this.URL_PIGSTY + '/list');
+  }
+
+  getAllPigsty(): Observable<Pigsty[]> {
+    return this.http.get<Pigsty[]>(API_URL + '/list/pigsty');
   }
 }

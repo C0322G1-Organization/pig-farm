@@ -5,7 +5,7 @@ import {PigstyService} from '../../service/pigsty.service';
 import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Pig} from '../../model/pig';
-import {PigService} from "../../service/pig.service";
+import {PigService} from '../../service/pig.service';
 
 @Component({
   selector: 'app-pig-update',
@@ -19,7 +19,7 @@ export class PigUpdateComponent implements OnInit {
   formPig = new FormGroup({
     id: new FormControl(),
     code: new FormControl('', [Validators.required,
-      Validators.pattern('^(ML)[0-9]{2,4}$')]),
+      Validators.pattern('^(L-)[0-9]{3}$')]),
     dateIn: new FormControl('', Validators.required),
     dateOut: new FormControl('', Validators.required),
     status: new FormControl('', Validators.required),
@@ -37,8 +37,7 @@ export class PigUpdateComponent implements OnInit {
   }
 
   getAllPigsty() {
-    // @ts-ignore
-    this.pigstyService.getAll().subscribe(value => {
+    this.pigstyService.getAllPigsty().subscribe(value => {
       this.pigsty = value;
     });
   }
@@ -61,13 +60,13 @@ export class PigUpdateComponent implements OnInit {
 
   cancel() {
     this.toast.error('Sửa thất bại');
-    this.router.navigateByUrl('/pig');
+    this.router.navigateByUrl('/pig').then(r => console.log(r));
   }
 
   submit() {
     this.pigService.updatePig(this.formPig.value).subscribe(value => {
         this.toast.success('Sửa thành công');
-        // this.router.navigateByUrl('/pig');
+        this.router.navigateByUrl('/pig').then(r => console.log(r));
         console.log(value + 'value');
       },
       error => {

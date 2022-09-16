@@ -1,5 +1,5 @@
 .nav-link, .navbar-brand {
-  color: white;
+  color: seagreen;
 }
 
 .navbar-brand:hover {
@@ -13,13 +13,11 @@
 
 .navbar-brand:focus {
   background-color: #FFE421;
-  font-weight: bold;
   color: green;
 }
 
 .nav-link:hover {
   background-color: #FFE421;
-  font-weight: bold;
   color: green;
 }
 

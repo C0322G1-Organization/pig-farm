@@ -16,16 +16,14 @@ export class NotificationListComponent implements OnInit {
   content = '';
   number: number;
   notifications: Notifications[] = [];
-  nameDelete: any = [];
   ids: number[] = [];
-  check: string[] = [];
-  editId: string;
   title: any;
   checkNext: boolean;
   checkPrevious: boolean;
   searchForm = new FormGroup({
     content: new FormControl('')
   });
+  deleteList: Notifications[] = [];
 
   constructor(private notificationService: NotificationService,
               private router: Router,
@@ -38,7 +36,7 @@ export class NotificationListComponent implements OnInit {
 
   getNotifications(page: number, content: string) {
     this.notificationService.getAllNotifications(page, content).subscribe((value: any) => {
-      this.number = value?.number;
+      this.number = page;
       this.notifications = value?.content;
       this.msg = '';
       this.checkNext = !value.last;
@@ -49,7 +47,6 @@ export class NotificationListComponent implements OnInit {
   }
 
   deleteId() {
-    this.check = [];
     if (this.ids.length > 0) {
       this.notificationService.deleteNotifications(this.ids).subscribe(value1 => {
         this.getNotifications(0, '');
@@ -64,58 +61,51 @@ export class NotificationListComponent implements OnInit {
       this.msg = 'Bạn phải chọn thông báo mới thực hiện được chức năng này';
       this.toast.error('Bạn phải chọn mục để xóa !!!', 'Thông báo');
     }
-    this.nameDelete = [];
+    this.deleteList = [];
   }
 
-  checkDelete(value: any) {
+  getListDelete(notificationDelete: Notifications) {
+    for (let i = 0; i < this.deleteList.length; i++) {
+      if (this.deleteList[i].id === notificationDelete.id) {
+        this.deleteList.splice(i, 1);
+        return;
+      }
+    }
+    this.deleteList.push(notificationDelete);
     this.ids = [];
-    this.msg = '';
-    this.nameDelete = [];
-    this.notifications.forEach(item => {
-      if (value[item.id] === true) {
-        this.ids.push(item.id);
-        this.nameDelete.push(item.title);
+    for (let i = 0; i < this.deleteList.length; i++) {
+      if (this.deleteList[i].id === this.ids[i]) {
+        this.ids.splice(i, 1);
+        return;
       }
-    });
-    this.notificationService.getAllNotifications(0, '').subscribe(() => {
-    });
+    }
+    for (const item of this.deleteList) {
+      this.ids.push(item.id);
+    }
   }
 
-  checkButton(value: any) {
-    console.log('vlaue' + value);
-    this.msg = '';
-    if (this.check.includes(value)) {
-      this.check.filter(item => item !== value);
-      for (let i = 0; i < this.check.length; i++) {
-        if (this.check[i] === value) {
-          this.check.splice(i, 1);
-        }
+  checkbox(notificationDelete: Notifications) {
+    for (const item of this.deleteList) {
+      if (item.id === notificationDelete.id) {
+        return true;
       }
-    } else {
-      this.check.push(value);
     }
-    if (this.check.length > 1) {
-      this.editId = null;
-    } else {
-      this.editId = this.check[0];
-    }
+    return false;
   }
 
   resetDelete() {
-    this.nameDelete = [];
     this.ids = [];
   }
 
   goPrevious() {
     this.number--;
     this.getNotifications(this.number, this.content);
-    this.check = [];
   }
 
   goNext() {
+    console.log(11111);
     this.number++;
     this.getNotifications(this.number, this.content);
-    this.check = [];
   }
 
   search() {

@@ -8,7 +8,13 @@ a {
 }
 
 a:hover {
+  color: blue;
   font-weight: bold;
+}
+
+.page-link:hover {
+  font-weight: normal;
+  cursor: pointer;
 }
 
 .ads {
@@ -19,3 +25,5 @@ a:hover {
 .login {
   margin-left: 5px;
 }
+
+

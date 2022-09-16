@@ -44,8 +44,8 @@ export class ContactCreateComponent implements OnInit {
   changSuccess() {
     if (this.success === true) {
       document.getElementById('closeModal').click();
-      this.initContactForm();
       this.success = false;
+      this.initContactForm();
     }
   }
 

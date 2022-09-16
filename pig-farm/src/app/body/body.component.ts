@@ -12,6 +12,8 @@ export class BodyComponent implements OnInit {
   totalPages: number;
   number: number;
   keyword = '';
+  checkNext: boolean;
+  checkPrevious: boolean;
 
   constructor(private newsService: BodyService) {
   }
@@ -22,33 +24,26 @@ export class BodyComponent implements OnInit {
 
   getAll(page: number, keyword): void {
     this.newsService.findAll(page, keyword).subscribe((result: any) => {
-      this.totalPages = result.totalPages;
-      this.number = result.number;
-      this.news = result.content;
+      this.totalPages = result?.totalPages;
+      this.number = result?.number;
+      this.news = result?.content;
+      this.checkNext = !result.last;
+      this.checkPrevious = !result.first;
     });
   }
 
-  previousPage() {
-    let numberPage: number = this.number;
-    if (numberPage > 0) {
-      numberPage--;
-      this.getAll(numberPage, this.keyword);
-    }
+
+  goPrevious() {
+    this.number--;
+    this.getAll(this.number, this.keyword);
   }
 
-  nextPage() {
-    let numberPage: number = this.number;
-    if (numberPage < this.totalPages - 1) {
-      numberPage++;
-      this.getAll(numberPage, this.keyword);
-    }
+  goNext() {
+    this.number++;
+    this.getAll(this.number, this.keyword);
   }
 
   search() {
-    this.newsService.findAll(this.number, this.keyword).subscribe((result: any) => {
-      this.totalPages = result.totalPages;
-      this.number = result.number;
-      this.news = result.content;
-    });
+    this.getAll(0, this.keyword);
   }
 }

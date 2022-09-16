@@ -54,6 +54,7 @@ export class TreatmentListComponent implements OnInit {
 
   delete() {
     this.getAll(0);
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.deleteList.length; i++) {
       console.log('delete', this.deleteList[i]);
       this.treatmentService.deleteTreatment(this.deleteList[i].id).subscribe(() => {
@@ -97,6 +98,7 @@ export class TreatmentListComponent implements OnInit {
 
 
   checkbox(treatment: Treatment) {
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.deleteList.length; i++) {
       if (this.deleteList[i].id === treatment.id) {
         return true;

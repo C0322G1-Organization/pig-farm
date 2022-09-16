@@ -14,6 +14,13 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class NotificationCreateComponent implements OnInit {
   selectedImage: File = null;
+  regexImageUrl = false;
+  editImageState = false;
+  checkImg: boolean;
+  url: any;
+  msg = '';
+  checkImgSize: boolean;
+  check = true;
   notificationForm: FormGroup = new FormGroup({
     image: new FormControl('', [Validators.required]),
     title: new FormControl('', [Validators.required]),
@@ -30,6 +37,49 @@ export class NotificationCreateComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onFileSelected(event) {
+    this.regexImageUrl = false;
+    if (event.target.files[0].size > 9000000) {
+      return;
+    }
+    this.selectedImage = event.target.files[0];
+    if (!event.target.files[0].name.match('^.*\\.(jpg|JPG)$')) {
+      this.regexImageUrl = true;
+      return;
+    }
+    this.notificationForm.patchValue({imageUrl: this.selectedImage.name});
+  }
+
+  selectFile(event: any) {
+    if (!event.target.files[0] || event.target.files[0].length === 0) {
+      return;
+    }
+    if (event.target.files[0].size > 9000000) {
+      return;
+    }
+    if (!event.target.files[0].name.match('^.*\\.(jpg|JPG)$')) {
+      return;
+    }
+    this.checkImgSize = false;
+    this.checkImg = false;
+    this.editImageState = true;
+
+    const mimeType = event.target.files[0].type;
+
+    if (mimeType.match(/image\/*/) == null) {
+      this.msg = 'Chỉ có file ảnh được hỗ trợ';
+      return;
+    }
+    const reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+    // tslint:disable-next-line:variable-name
+    reader.onload = (_event) => {
+      this.msg = '';
+      this.url = reader.result;
+    };
+  }
+
+
   submit() {
     console.log(this.notificationForm);
     const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
@@ -43,9 +93,12 @@ export class NotificationCreateComponent implements OnInit {
           console.log(this.notificationForm.value);
           this.notificationService.save(this.notificationForm.value).subscribe(
             () => {
-              this.toast.success('Huyền đã thêm mới thành công', 'MỪNG QUÁ');
-              this.router.navigateByUrl('/notification');
+              this.toast.success('Tạo mới thành công', 'Thông báo');
+              this.router.navigateByUrl('/notification/list');
             },
+            error => {
+              this.toast.error('Tạo mới thất bại, xin hãy thử lại.');
+            }
           );
         });
       })
@@ -61,5 +114,3 @@ export class NotificationCreateComponent implements OnInit {
     return formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss', 'en-US');
   }
 }
-
-

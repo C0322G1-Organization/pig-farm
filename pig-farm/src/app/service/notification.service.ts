@@ -22,7 +22,7 @@ export class NotificationService {
   }
 
   getAllNotifications(page: number, contentSearch: string): Observable<Notifications[]> {
-    return this.http.get<Notifications[]>(URL_NOTIFICATION);
+    return this.http.get<Notifications[]>(URL_NOTIFICATION + '/page?page=' + page + '&content=' + contentSearch);
   }
 
   deleteNotifications(ids: number[]): Observable<any> {

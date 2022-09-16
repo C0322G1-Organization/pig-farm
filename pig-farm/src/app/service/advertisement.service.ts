@@ -12,9 +12,7 @@ const API_URL = `${environment.apiUrl}`;
 })
 export class AdvertisementService {
 
-  constructor(private http: HttpClient) {
-  }
-
+  constructor(private http: HttpClient) { }
   save(advertisement): Observable<Advertisement> {
     return this.http.post<Advertisement>(`${API_URL}/advertisement/post`, advertisement);
   }
@@ -24,20 +22,18 @@ export class AdvertisementService {
   }
 
   update(id: number, advertisement: Advertisement): Observable<Advertisement> {
-    return this.http.put<Advertisement>(`${API_URL}/advertisement/${id}`, advertisement);
+    return this.http.put<Advertisement>(`${API_URL}/advertisement/edit/${id}`, advertisement);
   }
-
   getListPlacement(): Observable<Placement[]> {
     return this.http.get<Placement[]>(`${API_URL}/advertisement/list/placement`);
   }
-
   getListAndSearch(indexPagination: number, keySearch: string): Observable<any> {
     return this.http.get<any>(API_URL + '/advertisement/page?page=' + indexPagination + '&keySearch=' + keySearch);
   }
 
   deleteAdvertisement(ids: number[]): Observable<any> {
     const data = {id: ids};
-    const url = API_URL + '/delete';
+    const url = API_URL + '/advertisement/delete';
     return this.http.post<any>(url, data);
   }
 
