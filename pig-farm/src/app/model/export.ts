@@ -1,4 +1,19 @@
+import {Pigsty} from './pigsty';
+import {Employee} from './employee';
+
 export interface Export {
   id?: number;
-  name?: string;
+  codeExport?: string;
+  company?: string;
+  saleDate?: string;
+  amount?: number;
+  kilogram?: number;
+  totalMoney?: number;
+  price?: number;
+  typePigs?: number;
+  isDeleted?: boolean;
+  pigstyDto?: Pigsty;
+  employeeDto?: Employee;
+  codeEmployee?: string;
+  nameEmployee?: string;
 }

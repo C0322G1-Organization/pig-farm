@@ -17,6 +17,7 @@ import {AppUserService} from '../../service/app-user.service';
 })
 export class EmployeeCreateComponent implements OnInit {
 
+
   selectedImage: File = null;
   checkImgSize = false;
   regexImageUrl = false;
@@ -24,14 +25,18 @@ export class EmployeeCreateComponent implements OnInit {
   checkImg: boolean;
   url: any;
   msg = '';
+  loader = true;
+  isExitsCode = false;
+  isExitsIdCard = false;
 
   employeeForm: FormGroup = new FormGroup({
     id: new FormControl(''),
-    code: new FormControl('', [Validators.required, Validators.pattern('^(NV-)+([0-9]{3})$')]),
-    name: new FormControl('', [Validators.required, Validators.pattern('^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*(?:[ ][A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*)*$'), Validators.maxLength(30)]),
-    username: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    email: new FormControl('', [Validators.required, Validators.email]),
+    code: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.pattern('^(NV-)+([0-9]{3})$')]),
+    name: new FormControl('', [Validators.required, Validators.maxLength(30), Validators.pattern('^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*(?:[ ][A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*)*$')]),
+    username: new FormControl('', [Validators.required, Validators.maxLength(20)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
+    email: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(50)]),
+    creationDate: new FormControl(''),
     birthDay: new FormControl('', [Validators.required, checkBirthDay, checkDay]),
     gender: new FormControl('', [Validators.required]),
     idCard: new FormControl('', [Validators.required, Validators.pattern('^\\d{9}|\\d{12}$')]),
@@ -39,7 +44,6 @@ export class EmployeeCreateComponent implements OnInit {
   });
 
   constructor(private employeeService: EmployeeService,
-              private userService: AppUserService,
               private toast: ToastrService,
               private router: Router,
               private storage: AngularFireStorage) {
@@ -52,7 +56,17 @@ export class EmployeeCreateComponent implements OnInit {
     return formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss', 'en-US');
   }
 
+  reset() {
+    this.employeeForm.reset();
+    this.selectedImage = null;
+    this.checkImgSize = false;
+    this.regexImageUrl = false;
+    this.editImageState = false;
+    this.checkImg = false;
+  }
+
   submitImage() {
+    this.loader = false;
     const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
     const filePath = `employee/${nameImg}`;
     const fileRef = this.storage.ref(filePath);
@@ -67,7 +81,7 @@ export class EmployeeCreateComponent implements OnInit {
             userDto: {
               username: this.employeeForm.value.username,
               password: this.employeeForm.value.password,
-              email: this.employeeForm.value.email
+              email: this.employeeForm.value.email,
             },
             birthDay: this.employeeForm.value.birthDay,
             gender: this.employeeForm.value.gender,
@@ -75,17 +89,38 @@ export class EmployeeCreateComponent implements OnInit {
             image: this.employeeForm.value.image
           };
           console.log(employee);
-          this.employeeService.saveEmployee(this.employeeForm.value).subscribe(() => {
-            console.log(1);
+          this.employeeService.saveEmployee(employee).subscribe(() => {
             this.router.navigate(['/employee/list']);
-            this.toast.success('Thêm Mới Nhân Viên Thành Công !!');
+            this.toast.success('Thêm Mới Nhân Viên Thành Công.', 'Thông báo');
           }, error => {
-            this.toast.error('Thêm Mới Nhân Viên Thất Bại !!');
+            this.toast.error('Thêm Mới Nhân Viên Thất Bại.', 'Thông báo');
             console.log(error);
           });
         });
       })
     ).subscribe();
+  }
+
+  checkCode($event: Event) {
+    this.employeeService.checkCode(String($event)).subscribe(value => {
+        if (value) {
+          this.isExitsCode = true;
+        } else {
+          this.isExitsCode = false;
+        }
+      }
+    );
+  }
+
+  checkIdCard($event: Event) {
+    this.employeeService.checkIdCard(String($event)).subscribe(value => {
+        if (value) {
+          this.isExitsIdCard = true;
+        } else {
+          this.isExitsIdCard = false;
+        }
+      }
+    );
   }
 
   onFileSelected(event) {

@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8080',
+  apiUrl: 'http://localhost:8080/api/public',
   firebaseConfig : {
     apiKey: 'AIzaSyCdZCDM62DHR9Wxk-C-HTAgYgHh3eAGB9E',
     authDomain: 'notification-a799c.firebaseapp.com',

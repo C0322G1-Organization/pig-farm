@@ -13,38 +13,37 @@
             <div class="mb-3">
               <label for="pigstyCode">Mã chuồng nuôi</label>
               <input formControlName="code" type="text" id="pigstyCode" class="form-control"
-                     placeholder="Nhập mã chuồng heo" >
-              <p style="color: red" *ngIf="formPigstyEdit.controls.code.hasError('required') && formPigstyEdit.controls.code.touched">Vui lòng nhập thông tin</p>
-              <p style="color: red" *ngIf="formPigstyEdit.controls.code.hasError('pattern')">Nhập sai định dạng CXXX</p>
+                     placeholder="Nhập mã chuồng heo" readonly>
+              <p style="color: red" *ngIf="formPigstyEdit.controls.code.hasError('required') && formPigstyEdit.controls.code.touched">Vui lòng nhập thông tin.</p>
+              <p style="color: red" *ngIf="formPigstyEdit.controls.code.hasError('pattern')">Nhập sai định dạng CXXX.</p>
 
             </div>
 
             <div class="mb-3">
               <label for="employeeCode">Mã nhân viên</label>
-              <input formControlName="employee" type="text" id="employeeCode" class="form-control" >
+              <input formControlName="employee" type="text" id="employeeCode" class="form-control" readonly >
             </div>
 
             <div class="mb-3">
               <div class="row">
                 <div class="col-6">
-                  <label for="numberOfIndividuals">Số lượng cá thể </label>
+                  <label for="numberOfIndividuals">Số lượng cá thể. </label>
                   <input formControlName="maxNumber" type="number" id="numberOfIndividuals" class="form-control"
 
                          placeholder="Nhập số lượng cá thể">
                   <p style="color: red" *ngIf="formPigstyEdit.controls.maxNumber.hasError('required') && formPigstyEdit.controls.maxNumber.touched">Vui lòng nhập thông tin</p>
-                  <p style="color: red" *ngIf="formPigstyEdit.controls.maxNumber.hasError('min')">Vui lòng nhập lớn hơn 1</p>
-                  <p style="color: red" *ngIf="formPigstyEdit.controls.maxNumber.hasError('max')">Vui lòng nhập nhỏ hơn 20</p>
+                  <p style="color: red" *ngIf="formPigstyEdit.controls.maxNumber.hasError('min')">Vui lòng nhập lớn hơn 1.</p>
+                  <p style="color: red" *ngIf="formPigstyEdit.controls.maxNumber.hasError('max')">Vui lòng nhập nhỏ hơn 20.</p>
 
                 </div>
                 <div class="col-6">
                   <label for="typePigs">Loại lợn</label>
-                  <select formControlName="typePigs" class="form-control" id="typePigs" ngModel="">
+                  <select formControlName="typePigs" class="form-control" id="typePigs">
                     <option value="">--Vui lòng chọn--</option>
                     <option value="0">Lợn thịt</option>
                     <option value="1">Lợn giống</option>
                   </select>
-                  <p style="color: red" *ngIf="formPigstyEdit.controls.typePigs.hasError('required') && formPigstyEdit.controls.typePigs.touched">Vui lòng nhập thông tin</p>
-
+                  <p style="color: red" *ngIf="formPigstyEdit.controls.typePigs.hasError('required') && formPigstyEdit.controls.typePigs.touched">Vui lòng nhập thông tin.</p>
                 </div>
               </div>
             </div>
@@ -54,7 +53,7 @@
                 <div class="col-6">
                   <label for="creationDate">Ngày tạo chuồng</label>
                   <input formControlName="creationDate" type="date" class="form-control" id="creationDate" required>
-                  <p style="color: red" *ngIf="formPigstyEdit.controls.creationDate.hasError('required') && formPigstyEdit.controls.creationDate.touched">Vui lòng nhập thông tin</p>
+                  <p style="color: red" *ngIf="formPigstyEdit.controls.creationDate.hasError('required') && formPigstyEdit.controls.creationDate.touched">Vui lòng nhập thông tin.</p>
 
                 </div>
                 <div class="col-6">
@@ -64,7 +63,7 @@
               </div>
             </div>
             <div class="d-grid gap-2 d-md-flex justify-content-md-around">
-              <button class="btn btn-outline-danger button "  [routerLink]="['/pigsty-list']">Quay Lại</button>
+              <button class="btn btn-outline-danger button "  [routerLink]="['/pigsty/list']">Quay Lại</button>
               <button class="btn btn-outline-success button"> Sửa chuồng</button>
               <button class="btn btn-outline-secondary button ">Nhập lại</button>
             </div>

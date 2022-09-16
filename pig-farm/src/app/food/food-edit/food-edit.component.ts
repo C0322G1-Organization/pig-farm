@@ -3,9 +3,9 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {FoodService} from '../../service/food.service';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
-import {Pigsty} from '../../model/pigsty';
 import {PigstyService} from '../../service/pigsty.service';
 import {StorageService} from '../../service/storage.service';
+import {Pig} from '../../model/pig';
 
 @Component({
   selector: 'app-food-edit',
@@ -19,7 +19,7 @@ export class FoodEditComponent implements OnInit {
     storage: new FormControl(''),
     pigsty: new FormControl(''),
   });
-  pigsties: Pigsty[] = [];
+  pigsties: Pig[] = [];
   id: number;
   storages: Storage[] = [];
 
@@ -35,36 +35,32 @@ export class FoodEditComponent implements OnInit {
     });
   }
 
-  compareWithId(item1, item2) {
-    return item1 && item2 && item1.id === item2.id;
-  }
-
   ngOnInit(): void {
     this.getStorages();
+    this.getPigsties();
   }
 
   getPigsties(): void {
-    // @ts-ignore
-    this.pigstyService.getAll().subscribe((pigstyService?: any) => {
-      this.pigsties = pigstyService.content;
+    this.pigstyService.getAllList().subscribe((pigstyService?: any) => {
+      this.pigsties = pigstyService;
     });
   }
 
   getStorages(): void {
-    // @ts-ignore
-    this.storageService.getAll().subscribe((storageService?: any) => {
-      this.storages = storageService.content;
+    this.storageService.getAllS().subscribe((storageService?: any) => {
+      this.storages = storageService;
     });
   }
 
   getFood(id: number) {
     return this.foodService.findById(id).subscribe(food => {
       this.foodForm = new FormGroup({
-        amount: new FormControl(food.amount, [Validators.required, Validators.pattern('\\d')]),
+        amount: new FormControl(food.amount, [Validators.required, Validators.min(1)]),
         unit: new FormControl(food.unit, [Validators.required]),
         storage: new FormControl(food.storage.id, [Validators.required]),
         pigsty: new FormControl(food.pigsty.id, [Validators.required]),
       });
+      console.log(this.foodForm);
     });
 
   }
@@ -82,7 +78,7 @@ export class FoodEditComponent implements OnInit {
       console.log(error);
     }, () => {
       this.foodForm.reset();
-      this.router.navigate(['/food/create']);
+      this.router.navigate(['/food']);
       this.toast.success('Cập nhập thành công', 'Thông báo');
     });
   }

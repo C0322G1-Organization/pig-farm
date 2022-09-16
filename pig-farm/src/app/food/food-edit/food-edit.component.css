@@ -1,6 +1,6 @@
 .formRow {
   display: flex;
-  justify-content: center;;
+  justify-content: center;
 }
 
 .formRow_create {
@@ -13,7 +13,7 @@
 
 body {
   margin: 0 auto;
-  /*background-image: url('../../../assets/img/food-create.jpg');*/
+  background-image: url('../../../assets/img/notification-backgroup.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%

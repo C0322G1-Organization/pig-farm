@@ -24,12 +24,17 @@ import {PigModule} from './pig/pig.module';
 import {PigstyModule} from './pigsty/pigsty.module';
 import {AdvertisementModule} from './advertisement/advertisement.module';
 import {FoodModule} from './food/food.module';
+import { ExportCreateComponent } from './exprot/export-create/export-create.component';
+import { ExportUpdateComponent } from './exprot/export-update/export-update.component';
+import {SecurityModule} from './security/security.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ExportCreateComponent,
+    ExportUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +59,8 @@ import {FoodModule} from './food/food.module';
     PigModule,
     PigstyModule,
     AdvertisementModule,
-    FoodModule
+    FoodModule,
+    SecurityModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

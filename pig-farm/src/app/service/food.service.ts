@@ -10,17 +10,22 @@ const API_URL = `${environment.apiUrl}`;
 })
 export class FoodService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+  }
 
+  getAll(pageable: number, searchType: string, sort: string): Observable<any> {
+    return this.httpClient.get<any>(API_URL + '/api/food/list?page=' +
+      pageable + '&foodType=' + searchType + '&sort=' + sort );
+  }
   saveFood(food: Food): Observable<Food> {
-    return this.http.post<Food>(API_URL + '/api/food/create', food);
+    return this.httpClient.post<Food>(API_URL + '/api/food/create', food);
   }
 
   findById(id: number): Observable<Food> {
-    return this.http.get<Food>(API_URL + `/api/food/show/${id}`);
+    return this.httpClient.get<Food>(API_URL + `/api/food/show/${id}`);
   }
 
   editFood(id: number, food: Food): Observable<Food> {
-    return this.http.put<Food>(API_URL + `/api/food/${id}`, food);
+    return this.httpClient.put<Food>(API_URL + `/api/food/${id}`, food);
   }
 }
