@@ -3,11 +3,11 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {EmployeeService} from '../employee.service';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
-import {Employee} from '../employee';
-import {checkBirthDay, checkDay} from '../../validate/check-birth-day';
 import {formatDate} from '@angular/common';
 import {finalize} from 'rxjs/operators';
 import {AngularFireStorage} from '@angular/fire/storage';
+import {checkBirthDay, checkDay} from '../../validate/check-birth-day';
+import {Employee} from '../employee';
 
 @Component({
   selector: 'app-employee-create',
@@ -24,14 +24,18 @@ export class EmployeeCreateComponent implements OnInit {
   url: any;
   msg = '';
   loader = true;
+  isExitsCode = false;
+  isExitsIdCard = false;
+  isExitsUsername = false;
+  isExitsEmail = false;
 
   employeeForm: FormGroup = new FormGroup({
     id: new FormControl(''),
-    code: new FormControl('', [Validators.required, Validators.pattern('^(NV-)+([0-9]{3})$')]),
-    name: new FormControl('', [Validators.required, Validators.pattern('^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*(?:[ ][A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*)*$'), Validators.maxLength(30)]),
-    username: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    email: new FormControl('', [Validators.required, Validators.email]),
+    code: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.pattern('^(NV-)+([0-9]{3})$')]),
+    name: new FormControl('', [Validators.required, Validators.maxLength(30), Validators.pattern('^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*(?:[ ][A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*)*$')]),
+    username: new FormControl('', [Validators.required, Validators.maxLength(20)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
+    email: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(50)]),
     creationDate: new FormControl(''),
     birthDay: new FormControl('', [Validators.required, checkBirthDay, checkDay]),
     gender: new FormControl('', [Validators.required]),
@@ -50,6 +54,15 @@ export class EmployeeCreateComponent implements OnInit {
 
   getCurrentDateTime(): string {
     return formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss', 'en-US');
+  }
+
+  reset() {
+    this.employeeForm.reset();
+    this.selectedImage = null;
+    this.checkImgSize = false;
+    this.regexImageUrl = false;
+    this.editImageState = false;
+    this.checkImg = false;
   }
 
   submitImage() {
@@ -77,15 +90,59 @@ export class EmployeeCreateComponent implements OnInit {
           };
           console.log(employee);
           this.employeeService.saveEmployee(employee).subscribe(() => {
-            this.router.navigate(['/']);
-            this.toast.success('Thêm Mới Nhân Viên Thành Công !!');
+            this.router.navigate(['/employee/list']);
+            this.toast.success('Thêm Mới Nhân Viên Thành Công.', 'Thông báo');
           }, error => {
-            this.toast.error('Thêm Mới Nhân Viên Thất Bại !!');
+            this.toast.error('Thêm Mới Nhân Viên Thất Bại.', 'Thông báo');
             console.log(error);
           });
         });
       })
     ).subscribe();
+  }
+
+  checkCode($event: Event) {
+    this.employeeService.checkCode(String($event)).subscribe(value => {
+        if (value) {
+          this.isExitsCode = true;
+        } else {
+          this.isExitsCode = false;
+        }
+      }
+    );
+  }
+
+  checkIdCard($event: Event) {
+    this.employeeService.checkIdCard(String($event)).subscribe(idCard => {
+        if (idCard) {
+          this.isExitsIdCard = true;
+        } else {
+          this.isExitsIdCard = false;
+        }
+      }
+    );
+  }
+
+  checkUsername($event: Event) {
+    this.employeeService.checkUsername(String($event)).subscribe(value => {
+        if (value) {
+          this.isExitsUsername = true;
+        } else {
+          this.isExitsUsername = false;
+        }
+      }
+    );
+  }
+
+  checkEmail($event: Event) {
+    this.employeeService.checkEmail(String($event)).subscribe(value => {
+        if (value) {
+          this.isExitsEmail = true;
+        } else {
+          this.isExitsEmail = false;
+        }
+      }
+    );
   }
 
   onFileSelected(event) {
