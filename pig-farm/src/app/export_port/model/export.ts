@@ -10,8 +10,8 @@ export interface Export {
   kilogram?: number;
   totalMoney?: number;
   price?: number;
-  typePigs?: string;
+  typePigs?: number;
   isDeleted?: boolean;
-  pigsty?: Pigsty;
-  employee?: Employee;
+  pigstyDto?: Pigsty;
+  employDto?: Employee;
 }

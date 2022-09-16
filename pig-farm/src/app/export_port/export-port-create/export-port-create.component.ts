@@ -6,6 +6,8 @@ import {Employee} from '../model/employee';
 import {EmployeeService} from '../service/employee.service';
 import {PigstyService} from '../service/pigsty.service';
 import {Toast, ToastrService} from 'ngx-toastr';
+import {Export} from '../model/export';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-create',
@@ -13,6 +15,15 @@ import {Toast, ToastrService} from 'ngx-toastr';
   styleUrls: ['./export-port-create.component.css']
 })
 export class ExportPortCreateComponent implements OnInit {
+
+
+  constructor(private exportService: ExportService,
+              private employeeService: EmployeeService,
+              private pigstyService: PigstyService,
+              private toast: ToastrService,
+              private router: Router) {
+  }
+
   exportForm: FormGroup = new FormGroup({
     codeExport: new FormControl(),
     company: new FormControl(),
@@ -26,42 +37,28 @@ export class ExportPortCreateComponent implements OnInit {
     pigsty: new FormControl(),
     employee: new FormControl()
   });
-  amounts: number;
-  kilograms: number;
   pigstyList: Pigsty[];
   employeeList: Employee[];
   total: number;
-  employeeName: string;
-
-  constructor(private exportService: ExportService,
-              private employeeService: EmployeeService,
-              private pigstyService: PigstyService,
-              private toast: ToastrService) {
-  }
+  isExitsCode = false;
+  type = '';
 
   ngOnInit(): void {
     this.employeeService.getAllEmployee().subscribe(value => {
-      // console.log(value);
-      this.employeeList = value.content;
-      // tslint:disable-next-line:prefer-for-of
-      for (let i = 0; i < this.employeeList.length; i++) {
-        if (this.exportForm.value.employee === this.employeeList[i].id) {
-          this.employeeName = this.employeeList[i].name;
-        }
-      }
+      this.employeeList = value;
     });
     this.pigstyService.getAllPigsty().subscribe(value => {
       this.pigstyList = value;
-      // console.log(value);
     });
     this.exportForm = new FormGroup({
-      codeExport: new FormControl('', [Validators.required]),
-      company: new FormControl('', [Validators.required]),
+      codeExport: new FormControl('', [Validators.required, Validators.pattern('^(MC-)+([0-9]{2})$')]),
+      company: new FormControl('', [Validators.required, Validators.maxLength(50)]),
       amount: new FormControl('', [Validators.required]),
-      kilogram: new FormControl('', [Validators.required]),
+      employeeName: new FormControl('', [Validators.required]),
+      kilogram: new FormControl('', [Validators.required, Validators.min(0)]),
       saleDate: new FormControl('', [Validators.required]),
-      price: new FormControl('', [Validators.required]),
-      totalMoney: new FormControl(),
+      price: new FormControl('', [Validators.required, Validators.min(0)]),
+      total: new FormControl('', [Validators.required, Validators.min(0)]),
       typePigs: new FormControl('', [Validators.required]),
       pigsty: new FormControl('', [Validators.required]),
       employee: new FormControl('', [Validators.required])
@@ -70,23 +67,9 @@ export class ExportPortCreateComponent implements OnInit {
 
   getPigsty(value) {
     this.exportService.getTotalWeightCount(value).subscribe(next => {
-      console.log(next);
-      this.exportForm = new FormGroup({
-        codeExport: new FormControl(this.exportForm.value.codeExport),
-        company: new FormControl(),
-        amount: new FormControl(next[0]),
-        kilograms: new FormControl(next[1]),
-      });
-    });
-  }
-
-  createExport() {
-    const exports = this.exportForm.value;
-    this.exportService.createExport(exports).subscribe(value => {
-      this.toast.success('them moi thanh cong', 'thong bao');
-      this.exportForm.reset();
-    }, error => {
-      this.toast.success('xay ra loi roi', 'thong bao');
+      this.exportForm.patchValue(this.exportForm.value);
+      this.exportForm.patchValue({amount: next[0]});
+      this.exportForm.patchValue({kilogram: next[1]});
     });
   }
 
@@ -94,9 +77,81 @@ export class ExportPortCreateComponent implements OnInit {
     this.total = this.exportService.getTotal(this.exportForm.value.kilogram, this.exportForm.value.price);
   }
 
-  chang(value) {
-    console.log(value);
-    // this.employeeName = value.name;
+  changEmployeeName(value) {
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < this.employeeList.length; i++) {
+      if (this.exportForm.value.employee === '' + this.employeeList[i].id) {
+        this.exportForm.patchValue({employeeName: this.employeeList[i].name});
+        console.log(this.exportForm.value);
+      }
+    }
   }
 
+  changTypePigs(value: any) {
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < this.pigstyList.length; i++) {
+      if (this.exportForm.value.pigsty === '' + this.pigstyList[i].id) {
+        if (this.pigstyList[i].typePigs === 0) {
+          this.exportForm.patchValue({typePigs: 'Lợn thịt'});
+        } else {
+          this.exportForm.patchValue({typePigs: 'Lợn giống'});
+        }
+      }
+    }
+  }
+
+  getTotal() {
+    this.exportForm.patchValue({total: (+this.exportForm.value.price) * (+this.exportForm.value.kilogram)});
+  }
+
+  createExport() {
+    const exports: Export = this.exportForm.value;
+    console.log(this.exportForm.value);
+    if (this.exportForm.value.typePigs === 'Lợn thit') {
+      exports.typePigs = 0;
+    } else {
+      exports.typePigs = 1;
+    }
+    exports.pigstyDto = {
+      id: +this.exportForm.value.pigsty
+    };
+    exports.employDto = {
+      id: +this.exportForm.value.employee
+    };
+    this.exportService.createExport(exports).subscribe(value => {
+      console.log(exports);
+      this.toast.success('them moi thanh cong', 'thong bao');
+      this.exportForm.reset();
+      this.router.navigateByUrl('/export/page');
+    }, error => {
+      this.toast.error('xay ra loi', 'thong bao');
+    });
+  }
+  checkCode($event: Event) {
+    this.exportService.checkCode(String($event)).subscribe(
+      value => {
+        if (value) {
+          this.isExitsCode = true;
+        } else {
+          this.isExitsCode = false;
+        }
+      }
+    );
+  }
+
+  reset() {
+    this.exportForm = new FormGroup({
+      codeExport: new FormControl('', [Validators.required, Validators.pattern('^(MC-)+([0-9]{2})$')]),
+      company: new FormControl('', [Validators.required]),
+      amount: new FormControl('', [Validators.required]),
+      employeeName: new FormControl('', [Validators.required]),
+      kilogram: new FormControl('', [Validators.required, Validators.min(0)]),
+      saleDate: new FormControl('', [Validators.required]),
+      price: new FormControl('', [Validators.required, Validators.min(0)]),
+      total: new FormControl('', [Validators.required, Validators.min(0)]),
+      typePigs: new FormControl('', [Validators.required]),
+      pigsty: new FormControl('', [Validators.required]),
+      employee: new FormControl('', [Validators.required])
+    });
+  }
 }

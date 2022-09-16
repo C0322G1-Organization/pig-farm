@@ -10,6 +10,7 @@ import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {HttpClientModule} from '@angular/common/http';
 import {BodyModule} from './body/body.module';
+import {ExportModule} from './export_port/export.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {BodyModule} from './body/body.module';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     StorageModule,
-    BodyModule
+    BodyModule,
+    ExportModule
   ],
   providers: [],
   bootstrap: [AppComponent]

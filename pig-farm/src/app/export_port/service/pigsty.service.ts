@@ -8,10 +8,16 @@ import {Pigsty} from '../model/pigsty';
   providedIn: 'root'
 })
 export class PigstyService {
-  API_URL = `${environment.apiUrl}` ;
+  API_URL = `${environment.apiUrl}`;
 
-  constructor(private http: HttpClient) { }
-  getAllPigsty(): Observable<Pigsty[]> {
-    return this.http.get<Pigsty[]>(this.API_URL + '/pigsty/getList' );
+  constructor(private http: HttpClient) {
+  }
+
+  getAllPigsty(): Observable<any> {
+    return this.http.get<any>(this.API_URL + '/pigsty/getList');
+  }
+
+  findById(id: number): Observable<Pigsty> {
+    return this.http.get<Pigsty>(this.API_URL + '/pigsty/' + id);
   }
 }

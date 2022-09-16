@@ -4,5 +4,6 @@ export interface Pigsty {
   id?: number;
   code?: string;
   creationDate?: string;
-  pigs?: Pig;
+  typePigs?: number;
+  pig?: Pig;
 }

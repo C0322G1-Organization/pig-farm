@@ -6,7 +6,7 @@ import {ExportPortUpdateComponent} from './export-port-update/export-port-update
 
 const routes: Routes = [
   {path: 'export/create', component: ExportPortCreateComponent},
-  {path: 'export-port-update/:id', component: ExportPortUpdateComponent},
+  {path: 'export/update/:id', component: ExportPortUpdateComponent},
 ];
 
 @NgModule({
