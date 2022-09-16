@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {News} from "./news";
 import {BodyService} from "./body.service";
+import {AngularFireStorage} from "@angular/fire/storage";
+import firebase from "firebase";
 
 @Component({
   selector: 'app-body',
@@ -13,7 +15,8 @@ export class BodyComponent implements OnInit {
   number: number;
   keyword = "";
 
-  constructor(private newsService: BodyService) {
+  constructor(private newsService: BodyService,
+              private afStorage : AngularFireStorage) {
   }
 
   ngOnInit(): void {
@@ -51,4 +54,6 @@ export class BodyComponent implements OnInit {
       this.news = content;
     });
   }
+
+
 }

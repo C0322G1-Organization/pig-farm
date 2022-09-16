@@ -24,6 +24,7 @@ import {EmployeeModule} from './employee/employee.module';
 import {ContactModule} from './contact/contact.module';
 import {PigModule} from './pig/pig.module';
 import {PigstyModule} from './pigsty/pigsty.module';
+import {AdvertisementModule} from "./advertisement/advertisement.module";
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import {PigstyModule} from './pigsty/pigsty.module';
     EmployeeModule,
     ContactModule,
     PigModule,
-    PigstyModule
+    PigstyModule,
+    AdvertisementModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

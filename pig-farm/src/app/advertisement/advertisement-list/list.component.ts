@@ -17,91 +17,57 @@ export class ListComponent implements OnInit {
     titleSearch: new FormControl('')
   });
   advertisementList: Advertisement[] = [];
-  totalPages: number;
-  number: number;
-  totalElements: number;
   // xoa
   ids: number[] = [];
   deleteList: Advertisement[] = [];
 // phan trang
-  indexPagination = 0;
-  pages: Array<number>;
-  previousPageClass = 'inline-block';
-  nextPageClass = 'inline-block';
+  number: number;
+  checkNext: boolean;
+  checkPreview: boolean;
+  titleSearchs = '';
+
 
   constructor(private adsService: AdvertisementService, private toastrService: ToastrService) {
   }
 
   ngOnInit(): void {
-    this.getListAnhSearch();
+    this.getListAnhSearch(0, '');
   }
 
-  getListAnhSearch() {
-    this.adsService.getListAndSearch(this.indexPagination, this.searchForm.value.titleSearch).subscribe((data?: any) => {
-      if (data === null) {
-        this.pages = new Array(0);
-        this.advertisementList = [];
-      } else {
-        this.totalElements = data?.totalElements;
-        console.log(this.totalElements + ' Tổng số phần tử');
-        this.number = data?.number;
-        this.advertisementList = data?.content;
-        this.pages = new Array(data?.totalPages);
-      }
-      this.checkPreviousAndNext();
+  getListAnhSearch(page: number, titleSearch: string) {
+    this.adsService.getListAndSearch(page, titleSearch).subscribe((value?: any) => {
+      this.number = value?.number;
+      this.advertisementList = value?.content;
+      this.checkNext = !value.last;
+      this.checkPreview = !value.first;
     });
   }
 
-  previousPage(event: any) {
-    event.preventDefault();
-    this.indexPagination--;
-    this.ngOnInit();
+  goPrevious() {
+    this.number--;
+    this.getListAnhSearch(this.number, this.titleSearchs);
   }
 
-  setPage(i: number, event: any) {
-    event.preventDefault();
-    this.indexPagination = i;
-    this.ngOnInit();
-  }
-
-  nextPage(event: any) {
-    event.preventDefault();
-    this.indexPagination++;
-    this.ngOnInit();
-  }
-
-// kiem tra hien thi nut tiep theo va truoc
-  checkPreviousAndNext() {
-    if (this.indexPagination === 0) {
-      this.previousPageClass = 'none';
-    } else if (this.indexPagination !== 0) {
-      this.previousPageClass = 'inline-block';
-    }
-    if (this.indexPagination < (this.pages.length - 1)) {
-      this.nextPageClass = 'inline-block';
-    } else if (this.indexPagination === (this.pages.length - 1) || this.indexPagination > (this.pages.length - 1)) {
-      this.nextPageClass = 'none';
-    }
+  goNext() {
+    this.number++;
+    this.getListAnhSearch(this.number, this.titleSearchs);
   }
 
   searchAds() {
-    this.indexPagination = 0;
-    this.getListAnhSearch();
+    this.titleSearchs = this.searchForm.value.titleSearch;
+    this.getListAnhSearch(0, this.titleSearchs);
   }
 
   deleteId() {
     if (this.ids.length > 0) {
       this.adsService.deleteAdvertisement(this.ids).subscribe(next => {
-        this.getListAnhSearch();
+        this.getListAnhSearch(0, this.titleSearchs);
         this.toastrService.success('Đã xóa quảng cáo thành công', 'Thông báo');
         this.ids = [];
       }, err => {
         console.log(err);
         this.toastrService.error('Không tồn tại');
       });
-    }
-    if (this.advertisementList.length === 1 && this.indexPagination !== 0) {
-      this.indexPagination = this.indexPagination - 1;
     }
     this.deleteList = [];
   }

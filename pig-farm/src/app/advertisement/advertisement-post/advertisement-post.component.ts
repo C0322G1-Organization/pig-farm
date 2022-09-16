@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Placement} from '../../model/placement';
 import {Advertisement} from '../../model/advertisement';
@@ -6,8 +6,10 @@ import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {AdvertisementService} from '../../service/advertisement.service';
 import {AngularFireStorage} from '@angular/fire/storage';
-import {finalize} from 'rxjs/operators';
+import {finalize, takeUntil} from 'rxjs/operators';
 import {formatDate} from '@angular/common';
+import firebase from "firebase";
+
 
 @Component({
   selector: 'app-advertisement-post',
@@ -27,12 +29,12 @@ export class AdvertisementPostComponent implements OnInit {
   url: any;
   msg = '';
   buttonAdvertisementStatus = true;
-
   constructor(private route: Router,
               private toast: ToastrService,
               private placementService: AdvertisementService,
               private storage: AngularFireStorage,
-              private ads: AdvertisementService) {
+              private ads: AdvertisementService,
+             ) {
   }
 
   ngOnInit(): void {
@@ -63,24 +65,15 @@ export class AdvertisementPostComponent implements OnInit {
     return null;
   }
 
-  reset() {
-    this.formAdvertisement = new FormGroup({
-      title: new FormControl(''),
-      image: new FormControl(''),
-      // tslint:disable-next-line:max-line-length
-      submittedDate: new FormControl(''),
-      timeExistence: new FormControl(''),
-      placement: new FormControl('')
-    });
-  }
+
 
   submit() {
     const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
-    this.buttonAdvertisementStatus = false;
     const filePath = `advertisement/${nameImg}`;
     const fileRef = this.storage.ref(filePath);
     this.storage.upload(filePath, this.selectedImage).snapshotChanges().pipe(
       finalize(() => {
+        this.buttonAdvertisementStatus = false;
         fileRef.getDownloadURL().subscribe((url) => {
           this.formAdvertisement.patchValue({image: url});
           this.placementService.save(this.formAdvertisement.value).subscribe(

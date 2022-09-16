@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
 import {Placement} from '../../model/placement';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
@@ -7,6 +7,7 @@ import {AdvertisementService} from '../../service/advertisement.service';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {finalize} from 'rxjs/operators';
 import {formatDate} from '@angular/common';
+import { ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-advertisement-edit',
@@ -138,7 +139,6 @@ export class AdvertisementEditComponent implements OnInit {
       this.formAdvertisement = new FormGroup({
         // tslint:disable-next-line:max-line-length
         title: new FormControl(next.title),
-        image: new FormControl(next.image),
         submittedDate: new FormControl(next.submittedDate),
         timeExistence: new FormControl(next.timeExistence),
         placement: new FormControl(next.placement)
