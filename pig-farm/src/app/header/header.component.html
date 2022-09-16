@@ -31,74 +31,96 @@
       <div class="offcanvas-body">
         <ul class="navbar-nav flex-grow-1 pe-3">
           <li class="nav-item" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">
-            <a class="nav-link" routerLink="advertisement/page">Quảng cáo</a>
+            <a class="nav-link" routerLink="advertisement/page">Quảng Cáo</a>
           </li>
           <li class="nav-item" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">
-            <a class="nav-link" routerLink="pigsty/list">Chuồng nuôi</a>
+            <a class="nav-link" routerLink="pigsty/list">Chuồng Nuôi</a>
           </li>
           <li class="nav-item" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">
-            <a class="nav-link" routerLink="pigsty/list">Chuồng xuất</a>
+            <a class="nav-link" routerLink="pigsty/list">Chuồng Xuất</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="pig">Cá thể</a>
+          <li class="nav-item" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">
+            <a class="nav-link" routerLink="pig">Cá Thể</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="food">Thức ăn</a>
+          <li class="nav-item" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">
+            <a class="nav-link" routerLink="food">Thức Ăn</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">
             <a class="nav-link" routerLink="storage/page">Kho</a>
           </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Bệnh lý và sinh sản
             </a>
             <ul class="dropdown-menu">
               <li class="nav-item">
-                <a class="nav-link" routerLink="treatment">Điều trị</a>
+                <a class="nav-link" routerLink="treatment">Điều Trị</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" routerLink="vaccination">Tiêm phòng</a>
+                <a class="nav-link" routerLink="vaccination">Tiêm Phòng</a>
               </li>
             </ul>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="statistic">Thống kê</a>
+          <li class="nav-item" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">
+            <a class="nav-link" routerLink="statistic">Thống Kê</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="contact/list">Liên hệ</a>
+            <a class="nav-link" routerLink="contact/list">Liên Hệ</a>
           </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Hệ thống
             </a>
             <ul class="dropdown-menu">
               <li class="nav-item">
-                <a class="nav-link" routerLink="employee">Nhân viên</a>
+                <a class="nav-link" routerLink="employee">Nhân Viên</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" routerLink="notification/list">Thông báo</a>
+                <a class="nav-link" routerLink="notification/list">Tin Tức</a>
               </li>
             </ul>
           </li>
         </ul>
         <div>
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <span class="nav-item me-2 text-success nav-link" [hidden]="!isLoggedIn">
-                Tài khoản: <span style="color: blue">{{username}}</span>
-              </span>
-              <span class="nav-item me-2 nav-link" [hidden]="isLoggedIn">Chưa đăng nhập</span>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link d-inline-block" routerLink="../login">
+
+            <li class="nav-item dropdown" [hidden]="isLoggedIn">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                      class="bi bi-person-circle d-inline-block" viewBox="0 0 16 16">
                   <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                   <path fill-rule="evenodd"
                         d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
                 </svg>
-                Đăng nhập
               </a>
+              <ul class="dropdown-menu">
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="../login">Đăng nhập</a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item dropdown" [hidden]="!isLoggedIn">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-person-circle d-inline-block" viewBox="0 0 16 16">
+                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                  <path fill-rule="evenodd"
+                        d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                </svg>
+              </a>
+              <ul class="dropdown-menu">
+                <li class="nav-item">
+                  <a href="" class="dropdown-item" (click)="logOut()">Đăng xuất</a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item" style="padding: 8px">
+              <span class="nav-item me-2 text-success" [hidden]="!isLoggedIn">
+                Tài khoản: <span style="color: deepskyblue">{{username}}</span>
+              </span>
+              <span class="nav-item me-2 text-secondary" [hidden]="isLoggedIn">Chưa Đăng Nhập</span>
             </li>
           </ul>
         </div>

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {Advertisement} from '../../model/advertisement';
 import {AdvertisementService} from '../../service/advertisement.service';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-advertisement',
@@ -14,33 +15,42 @@ export class AdvertisementComponent implements OnInit {
     titleSearch: new FormControl('')
   });
   advertisementList: Advertisement[] = [];
-  totalPages: number;
-  number: number;
-  // xoa
   ids: number[] = [];
   deleteList: Advertisement[] = [];
-// phan trang
+// pagination
+  number: number;
   indexPagination = 0;
-  pages: Array<number>;
-  previousPageClass = 'inline-block';
-  nextPageClass = 'inline-block';
+  totalPage: Array<number>;
+  previousPageStyle = 'inline-block';
+  nextPageStyle = 'inline-block';
+  totalElements = 0;
+  pageSize: number;
+  displayPagination = 'inline-block';
+  numberOfElement = 0;
+  titleSearch = '';
 
-  constructor(private adsService: AdvertisementService, private toastrService: ToastrService) {
+  constructor(private adsService: AdvertisementService, private toastrService: ToastrService, private title: Title) {
+    this.title.setTitle('Danh sách quảng cáo');
   }
 
   ngOnInit(): void {
-    this.getListAnhSearch();
+    this.getList();
   }
 
-  getListAnhSearch() {
-    this.adsService.getListAndSearch(this.indexPagination, this.searchForm.value.titleSearch).subscribe((data?: any) => {
+  getList() {
+    this.adsService.getListAndSearch(this.indexPagination, this.titleSearch, this.pageSize).subscribe((data?: any) => {
       if (data === null) {
-        this.pages = new Array(0);
+        this.totalPage = new Array(0);
         this.advertisementList = [];
+        this.displayPagination = 'none';
+        this.toastrService.warning('Không có dữ liệu.', 'Chú ý');
       } else {
         this.number = data?.number;
-        this.advertisementList = data?.content;
-        this.pages = new Array(data?.totalPages);
+        this.pageSize = data?.size;
+        this.numberOfElement = data?.numberOfElements;
+        this.advertisementList = data.content;
+        this.totalElements = data?.totalElements;
+        this.totalPage = new Array(data?.totalPages);
       }
       this.checkPreviousAndNext();
     });
@@ -49,58 +59,83 @@ export class AdvertisementComponent implements OnInit {
   previousPage(event: any) {
     event.preventDefault();
     this.indexPagination--;
-    this.checkPreviousAndNext();
     this.ngOnInit();
-  }
-
-  setPage(i: number, event: any) {
-    event.preventDefault();
-    this.indexPagination = i;
-    this.checkPreviousAndNext();
-    this.getListAnhSearch();
   }
 
   nextPage(event: any) {
     event.preventDefault();
     this.indexPagination++;
-    this.checkPreviousAndNext();
     this.ngOnInit();
   }
 
-// kiem tra hien thi nut tiep theo va truoc
   checkPreviousAndNext() {
     if (this.indexPagination === 0) {
-      this.previousPageClass = 'none';
+      this.previousPageStyle = 'none';
     } else if (this.indexPagination !== 0) {
-      this.previousPageClass = 'inline-block';
+      this.previousPageStyle = 'inline-block';
     }
-    if (this.indexPagination < (this.pages.length - 1)) {
-      this.nextPageClass = 'inline-block';
-    } else if (this.indexPagination === (this.pages.length - 1) || this.indexPagination > (this.pages.length - 1)) {
-      this.nextPageClass = 'none';
+    if (this.indexPagination < (this.totalPage.length - 1)) {
+      this.nextPageStyle = 'inline-block';
+    } else if (this.indexPagination === (this.totalPage.length - 1) || this.indexPagination > (this.totalPage.length - 1)) {
+      this.nextPageStyle = 'none';
     }
   }
 
+  checkRegex(titileSearch: string): boolean {
+    const format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+    return format.test(titileSearch);
+  }
+
   searchAds() {
-    this.indexPagination = 0;
-    this.getListAnhSearch();
+    this.titleSearch = this.searchForm.value.titleSearch;
+    if (this.checkRegex(this.searchForm.value.titleSearch)) {
+      this.indexPagination = 0;
+      this.totalPage = new Array(0);
+      this.advertisementList = [];
+      this.displayPagination = 'none';
+      this.checkPreviousAndNext();
+      this.toastrService.warning('Không được nhập kí tự đặc biệt.', 'Chú ý');
+    } else {
+      this.indexPagination = 0;
+      this.displayPagination = 'inline-block';
+      this.getList();
+    }
+  }
+
+  totalElement($event: any) {
+    switch ($event.target.value) {
+      case '5':
+        this.pageSize = 5;
+        this.indexPagination = 0;
+        this.ngOnInit();
+        break;
+      case '10':
+        this.pageSize = 10;
+        this.indexPagination = 0;
+        this.ngOnInit();
+        break;
+      case '15':
+        this.pageSize = 15;
+        this.indexPagination = 0;
+        this.ngOnInit();
+        break;
+      case 'full':
+        this.pageSize = this.totalElements;
+        this.indexPagination = 0;
+        this.ngOnInit();
+        break;
+    }
   }
 
   deleteId() {
     if (this.ids.length > 0) {
       this.adsService.deleteAdvertisement(this.ids).subscribe(next => {
-        this.getListAnhSearch();
+        this.getList();
         this.toastrService.success('Đã xóa quảng cáo thành công', 'Thông báo');
         this.ids = [];
-      }, err => {
-        console.log(err);
       });
-    } else {
-      this.toastrService.error('Chưa chọn mục để xóa !!!', 'Thông báo');
     }
-    if (this.advertisementList.length === 1 && this.indexPagination !== 0) {
-      this.indexPagination = this.indexPagination - 1;
-    }
+    this.indexPagination = 0;
     this.deleteList = [];
   }
 
@@ -137,5 +172,14 @@ export class AdvertisementComponent implements OnInit {
       }
     }
     return false;
+  }
+
+  checkBoxChecked() {
+    for (const item of this.advertisementList) {
+      if (!this.ids.includes(item.id)) {
+        this.deleteList.push(item);
+        this.ids.push(item.id);
+      }
+    }
   }
 }

@@ -8,11 +8,12 @@ import {Title} from '@angular/platform-browser';
 import {Toast, ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
 import {Chart, registerables} from 'chart.js';
-
-// Chart.register(...registerables);
+import * as html2pdf from 'html2pdf.js';
+// import * as chartJs from 'chart.js';
+Chart.register(...registerables);
 
 @Component({
-  selector: 'app-statistic',
+  selector: 'app-statictis',
   templateUrl: './statistic.component.html',
   styleUrls: ['./statistic.component.css']
 })
@@ -25,7 +26,7 @@ export class StatisticComponent implements OnInit {
   valuePricePieChart: number[] = [];
   namePieChart: string[] = [];
 
-  pastDay = this.datePipe.transform(new Date().setDate(new Date().getDate() - 900), 'yyyy-MM-dd');
+  pastDay = this.datePipe.transform(new Date().setDate(new Date().getDate() - 1000), 'yyyy-MM-dd');
   today = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
 
   myChart: Chart;
@@ -49,6 +50,7 @@ export class StatisticComponent implements OnInit {
     this.statisticService.getListCompany().subscribe((value) => {
       this.listCompany = value;
     });
+
     this.statisticForm = new FormGroup({
       startDate: new FormControl(this.pastDay, this.dateNotExist),
       endDate: new FormControl(this.today, this.dateInFuture),
@@ -57,6 +59,18 @@ export class StatisticComponent implements OnInit {
       styleTime: new FormControl('month', Validators.required),
       chartStyle: new FormControl('bar', Validators.required)
     }, this.invalidDate);
+
+    this.hiddenChart = false;
+    this.hiddenPieChart = true;
+    this.statisticService.getStatisticByMonth(
+      this.statisticForm.value.startDate,
+      this.statisticForm.value.endDate,
+      this.statisticForm.value.type).subscribe((value) => {
+      this.listStatistic = value;
+      this.toast.success('Thống kê thành công !');
+      this.destroyChart();
+      this.createChartMonth();
+    });
   }
 
   invalidDate(abstractControl: AbstractControl) {
@@ -86,6 +100,7 @@ export class StatisticComponent implements OnInit {
     const v = abstractControl.value;
     const end = new Date(v);
     const check = new Date();
+    // @ts-ignore
     if (end > check) {
       return {futureDate: true, message: 'Ngày kết thúc không lớn hơn ngày hiện tại'};
     }
@@ -111,54 +126,57 @@ export class StatisticComponent implements OnInit {
     this.createPieChart2();
   }
 
-
   onSubmit() {
     if (this.statisticForm.value.styleTime === 'month') {
       if (this.statisticForm.value.company === 'all') {
         if (this.statisticForm.value.chartStyle === 'bar') {
-          this.hiddenChart = false; this.hiddenPieChart = true;
+          this.hiddenChart = false;
+          this.hiddenPieChart = true;
           this.statisticService.getStatisticByMonth(
             this.statisticForm.value.startDate,
             this.statisticForm.value.endDate,
             this.statisticForm.value.type).subscribe((value) => {
             this.listStatistic = value;
-            this.toast.success('Get Value success !');
+            this.toast.success('Thống kê thành công !');
             this.destroyChart();
             this.createChartMonth();
           });
         } else {
-          this.hiddenChart = true; this.hiddenPieChart = false;
+          this.hiddenChart = true;
+          this.hiddenPieChart = false;
           this.statisticService.getStatisticByMonth(
             this.statisticForm.value.startDate,
             this.statisticForm.value.endDate,
             this.statisticForm.value.type).subscribe((value) => {
             this.listStatistic = value;
-            this.toast.success('Get Value success !');
+            this.toast.success('Thống kê thành công !');
             this.resetValueAndDrawPieChart();
           });
         }
       } else {
         if (this.statisticForm.value.chartStyle === 'bar') {
-          this.hiddenChart = false; this.hiddenPieChart = true;
+          this.hiddenChart = false;
+          this.hiddenPieChart = true;
           this.statisticService.getStatisticByMonthCompany(
             this.statisticForm.value.startDate,
             this.statisticForm.value.endDate,
             this.statisticForm.value.type,
             this.statisticForm.value.company).subscribe((value) => {
             this.listStatistic = value;
-            this.toast.success('Get Value success !');
+            this.toast.success('Thống kê thành công !');
             this.destroyChart();
             this.createChartMonth();
           });
         } else {
-          this.hiddenChart = true; this.hiddenPieChart = false;
+          this.hiddenChart = true;
+          this.hiddenPieChart = false;
           this.statisticService.getStatisticByMonthCompany(
             this.statisticForm.value.startDate,
             this.statisticForm.value.endDate,
             this.statisticForm.value.type,
             this.statisticForm.value.company).subscribe((value) => {
             this.listStatistic = value;
-            this.toast.success('Get Value success !');
+            this.toast.success('Thống kê thành công !');
             this.resetValueAndDrawPieChart();
           });
         }
@@ -167,18 +185,20 @@ export class StatisticComponent implements OnInit {
     if (this.statisticForm.value.styleTime === 'year') {
       if (this.statisticForm.value.company === 'all') {
         if (this.statisticForm.value.chartStyle === 'bar') {
-          this.hiddenChart = false; this.hiddenPieChart = true;
+          this.hiddenChart = false;
+          this.hiddenPieChart = true;
           this.statisticService.getStatisticByYear(
             this.statisticForm.value.startDate,
             this.statisticForm.value.endDate,
             this.statisticForm.value.type).subscribe((value) => {
             this.listStatistic = value;
-            this.toast.success('Get Value success !');
+            this.toast.success('Thống kê thành công !');
             this.destroyChart();
             this.createChartYear();
           });
         } else {
-          this.hiddenChart = true; this.hiddenPieChart = false;
+          this.hiddenChart = true;
+          this.hiddenPieChart = false;
           this.statisticService.getStatisticByYear(
             this.statisticForm.value.startDate,
             this.statisticForm.value.endDate,
@@ -191,26 +211,28 @@ export class StatisticComponent implements OnInit {
         }
       } else {
         if (this.statisticForm.value.chartStyle === 'bar') {
-          this.hiddenChart = false; this.hiddenPieChart = true;
+          this.hiddenChart = false;
+          this.hiddenPieChart = true;
           this.statisticService.getStatisticByYearCompany(
             this.statisticForm.value.startDate,
             this.statisticForm.value.endDate,
             this.statisticForm.value.type,
             this.statisticForm.value.company).subscribe((value) => {
             this.listStatistic = value;
-            this.toast.success('Get Value success !');
+            this.toast.success('Thống kê thành công !');
             this.destroyChart();
             this.createChartYear();
           });
         } else {
-          this.hiddenChart = true; this.hiddenPieChart = false;
+          this.hiddenChart = true;
+          this.hiddenPieChart = false;
           this.statisticService.getStatisticByYearCompany(
             this.statisticForm.value.startDate,
             this.statisticForm.value.endDate,
             this.statisticForm.value.type,
             this.statisticForm.value.company).subscribe((value) => {
             this.listStatistic = value;
-            this.toast.success('Get Value success !');
+            this.toast.success('Thống kê thành công !');
             this.destroyChart();
             this.resetValueAndDrawPieChart();
           });
@@ -259,7 +281,7 @@ export class StatisticComponent implements OnInit {
               text: 'Số Lượng Heo ( Con )',
               color: '#3EB595',
               font: {
-                family: 'roboto',
+                family: 'arial',
                 size: 15,
                 style: 'normal',
                 lineHeight: 1.0
@@ -275,7 +297,7 @@ export class StatisticComponent implements OnInit {
               text: 'Thời Gian ( Tháng )',
               color: '#3EB595',
               font: {
-                family: 'roboto',
+                family: 'arial',
                 size: 15,
                 style: 'normal',
                 lineHeight: 1.0
@@ -296,7 +318,7 @@ export class StatisticComponent implements OnInit {
               text: 'Doanh Thu (VND)',
               color: '#3EB595',
               font: {
-                family: 'roboto',
+                family: 'arial',
                 size: 15,
                 style: 'normal',
                 lineHeight: 1.0
@@ -314,7 +336,7 @@ export class StatisticComponent implements OnInit {
             position: 'top',
             color: '#3EB595',
             font: {
-              family: 'roboto',
+              family: 'arial',
               size: 30,
               style: 'normal',
               lineHeight: 1.0
@@ -366,7 +388,7 @@ export class StatisticComponent implements OnInit {
               text: 'Số Lượng Heo ( Con )',
               color: '#3EB595',
               font: {
-                family: 'roboto',
+                family: 'arial',
                 size: 15,
                 style: 'normal',
                 lineHeight: 1.0
@@ -382,7 +404,7 @@ export class StatisticComponent implements OnInit {
               text: 'Thời Gian ( Năm )',
               color: '#3EB595',
               font: {
-                family: 'roboto',
+                family: 'arial',
                 size: 15,
                 style: 'normal',
                 lineHeight: 1.0
@@ -403,7 +425,7 @@ export class StatisticComponent implements OnInit {
               text: 'Doanh Thu (VND)',
               color: '#3EB595',
               font: {
-                family: 'roboto',
+                family: 'arial',
                 size: 15,
                 style: 'normal',
                 lineHeight: 1.0
@@ -421,7 +443,7 @@ export class StatisticComponent implements OnInit {
             position: 'top',
             color: '#3EB595',
             font: {
-              family: 'roboto',
+              family: 'arial',
               size: 30,
               style: 'normal',
               lineHeight: 1.0
@@ -456,7 +478,7 @@ export class StatisticComponent implements OnInit {
             position: 'top',
             color: '#3EB595',
             font: {
-              family: 'roboto',
+              family: 'arial',
               size: 30,
               style: 'normal',
               lineHeight: 1.0
@@ -492,7 +514,7 @@ export class StatisticComponent implements OnInit {
             position: 'top',
             color: '#3EB595',
             font: {
-              family: 'roboto',
+              family: 'arial',
               size: 30,
               style: 'normal',
               lineHeight: 1.0
@@ -515,5 +537,16 @@ export class StatisticComponent implements OnInit {
       this.myPieChart2.destroy();
     }
   }
-}
 
+  exportPdf() {
+    const options = {
+      margin:       1,
+      filename: 'Chart_PDF_Export',
+      image: {type: 'jpeg', quality: 1},
+      html2canvas: {scale: 2},
+      jsPDF: {unit: 'mm', format: 'a2', orientation: 'landscape'}
+    };
+    const content: Element = document.getElementById('pdf');
+    html2pdf().from(content).set(options).save();
+  }
+}

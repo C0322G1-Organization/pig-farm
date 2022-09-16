@@ -6,6 +6,9 @@ import {finalize} from 'rxjs/operators';
 import {formatDate} from '@angular/common';
 import {NotificationService} from '../../service/notification.service';
 import {ToastrService} from 'ngx-toastr';
+import {Title} from '@angular/platform-browser';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
 
 @Component({
   selector: 'app-notification-create',
@@ -13,6 +16,7 @@ import {ToastrService} from 'ngx-toastr';
   styleUrls: ['./notification-create.component.css']
 })
 export class NotificationCreateComponent implements OnInit {
+  public editor = ClassicEditor;
   selectedImage: File = null;
   regexImageUrl = false;
   editImageState = false;
@@ -21,17 +25,20 @@ export class NotificationCreateComponent implements OnInit {
   msg = '';
   checkImgSize: boolean;
   check = true;
+  buttonNotification = true;
   notificationForm: FormGroup = new FormGroup({
-    image: new FormControl('', [Validators.required]),
-    title: new FormControl('', [Validators.required]),
-    content: new FormControl('', [Validators.required, Validators.maxLength(1000)]),
+    image: new FormControl(''),
+    title: new FormControl('', [Validators.required, Validators.maxLength(255)]),
+    content: new FormControl('', Validators.required),
     dateSubmitted: new FormControl(Date())
   });
 
   constructor(private notificationService: NotificationService,
               private router: Router,
               private storage: AngularFireStorage,
-              private toast: ToastrService) {
+              private toast: ToastrService,
+              private title: Title) {
+    this.title.setTitle('Đăng thông báo');
   }
 
   ngOnInit(): void {
@@ -79,38 +86,51 @@ export class NotificationCreateComponent implements OnInit {
     };
   }
 
-
   submit() {
     console.log(this.notificationForm);
-    const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
-    const filePath = `news/${nameImg}`;
-    const fileRef = this.storage.ref(filePath);
-    this.storage.upload(`news/${nameImg}`, this.selectedImage).snapshotChanges().pipe(
-      finalize(() => {
-        fileRef.getDownloadURL().subscribe((url) => {
-          this.notificationForm.patchValue({image: url});
-          console.log(url);
-          console.log(this.notificationForm.value);
-          this.notificationService.save(this.notificationForm.value).subscribe(
-            () => {
-              this.toast.success('Tạo mới thành công', 'Thông báo');
-              this.router.navigateByUrl('/notification/list');
-            },
-            error => {
-              this.toast.error('Tạo mới thất bại, xin hãy thử lại.');
-            }
-          );
-        });
-      })
-    ).subscribe();
-  }
-
-  showImg(event: any) {
-    console.log(event);
-    this.selectedImage = event.target.files[0];
+    if (this.selectedImage.name == null || this.notificationForm.invalid) {
+      this.buttonNotification = true;
+    } else {
+      this.buttonNotification = false;
+      const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
+      const filePath = `news/${nameImg}`;
+      const fileRef = this.storage.ref(filePath);
+      this.storage.upload(`news/${nameImg}`, this.selectedImage).snapshotChanges().pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe((url) => {
+            this.notificationForm.patchValue({image: url});
+            console.log(url);
+            console.log(this.notificationForm.value);
+            this.notificationService.save(this.notificationForm.value).subscribe(
+              () => {
+                this.toast.success('Tạo mới thành công');
+                this.router.navigateByUrl('/notification/list');
+              },
+              error => {
+                this.toast.error('Tạo mới thất bại, xin hãy thử lại.');
+              }
+            );
+          });
+        })
+      ).subscribe();
+    }
   }
 
   getCurrentDateTime(): string {
     return formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss', 'en-US');
+  }
+
+  reset() {
+    this.notificationForm = new FormGroup({
+      image: new FormControl(''),
+      title: new FormControl(''),
+      content: new FormControl(''),
+      dateSubmitted: new FormControl(Date())
+    });
+    this.selectedImage = null;
+    this.regexImageUrl = false;
+    this.editImageState = false;
+    this.checkImg = false;
+    this.checkImgSize = false;
   }
 }

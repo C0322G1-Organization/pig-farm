@@ -21,8 +21,8 @@ export class NotificationService {
   constructor(private http: HttpClient) {
   }
 
-  getAllNotifications(page: number, contentSearch: string): Observable<Notifications[]> {
-    return this.http.get<Notifications[]>(URL_NOTIFICATION + '/page?page=' + page + '&content=' + contentSearch);
+  getAllNotifications(page: number, contentSearch: string, size: number): Observable<Notifications[]> {
+    return this.http.get<Notifications[]>(URL_NOTIFICATION + '/page?page=' + page + '&content=' + contentSearch + '&size=' + size);
   }
 
   deleteNotifications(ids: number[]): Observable<any> {

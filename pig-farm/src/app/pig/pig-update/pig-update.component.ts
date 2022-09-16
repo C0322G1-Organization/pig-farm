@@ -16,6 +16,7 @@ export class PigUpdateComponent implements OnInit {
   pigsty: Pigsty[];
   pig: Pig;
   id: number;
+  isExitsCode = false;
   formPig = new FormGroup({
     id: new FormControl(),
     code: new FormControl('', [Validators.required,
@@ -46,11 +47,11 @@ export class PigUpdateComponent implements OnInit {
     this.getAllPigsty();
     this.activeRouter.paramMap.subscribe(param => {
       this.findById(param.get('id'));
+      this.id = +param.get('id');
     });
   }
 
   findById(id) {
-    console.log(id);
     this.pigService.findById(id).subscribe(value => {
       this.formPig.setValue(value);
     }, error => {
@@ -67,7 +68,6 @@ export class PigUpdateComponent implements OnInit {
     this.pigService.updatePig(this.formPig.value).subscribe(value => {
         this.toast.success('Sửa thành công');
         this.router.navigateByUrl('/pig').then(r => console.log(r));
-        console.log(value + 'value');
       },
       error => {
         this.toast.error('Sửa thất bại');
@@ -81,9 +81,7 @@ export class PigUpdateComponent implements OnInit {
 
   checkDateEnd(abstractControl: AbstractControl): any {
     const start = new Date(abstractControl.value.dateIn);
-    console.log(start);
     const now = new Date(abstractControl.value.dateOut);
-    console.log(now);
     if (now.getFullYear() > start.getFullYear()) {
       return null;
     } else if (now.getFullYear() < start.getFullYear()) {
@@ -96,5 +94,23 @@ export class PigUpdateComponent implements OnInit {
     } else {
       return null;
     }
+  }
+
+  reset(id: number) {
+    console.log(id);
+    this.pigService.findById(id).subscribe(next => {
+      this.formPig.setValue(next);
+    });
+  }
+  checkCode($event: EventTarget) {
+    this.pigService.checkCode(String($event)).subscribe(
+      value => {
+        if (value) {
+          this.isExitsCode = true;
+        } else {
+          this.isExitsCode = false;
+        }
+      }
+    );
   }
 }

@@ -15,7 +15,7 @@ import {PigService} from '../../service/pig.service';
 export class PigCreateComponent implements OnInit {
   pigsty: Pigsty[];
   pig: Pig;
-  isExitsCode: boolean;
+  isExitsCode = false;
   formPig = new FormGroup({
     id: new FormControl(),
     code: new FormControl('', [Validators.required,
@@ -47,7 +47,7 @@ export class PigCreateComponent implements OnInit {
       code: new FormControl(''),
       dateIn: new FormControl(''),
       dateOut: new FormControl(''),
-      status: new FormControl(1),
+      status: new FormControl(0),
       weight: new FormControl(''),
     });
   }
@@ -85,7 +85,9 @@ export class PigCreateComponent implements OnInit {
 
   checkDateEnd(abstractControl: AbstractControl): any {
     const start = new Date(abstractControl.value.dateIn);
+    console.log(start);
     const now = new Date(abstractControl.value.dateOut);
+    console.log(now);
     if (now.getFullYear() > start.getFullYear()) {
       return null;
     } else if (now.getFullYear() < start.getFullYear()) {
@@ -100,10 +102,10 @@ export class PigCreateComponent implements OnInit {
     }
   }
 
-  checkCode($event) {
+  checkCode($event: EventTarget) {
     this.pigService.checkCode(String($event)).subscribe(
-      (check: any) => {
-        if (check.value) {
+      value => {
+        if (value) {
           this.isExitsCode = true;
         } else {
           this.isExitsCode = false;

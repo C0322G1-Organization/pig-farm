@@ -4,6 +4,7 @@ import {Pigsty} from '../../model/pigsty';
 import {PigstyService} from '../../service/pigsty.service';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
+import {Title} from '@angular/platform-browser';
 
 
 @Component({
@@ -18,7 +19,9 @@ export class PigstyEditComponent implements OnInit {
   constructor(private pigstyService: PigstyService,
               private router: Router,
               private toastrService: ToastrService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private title: Title) {
+    this.title.setTitle('Sửa chuồng nuôi');
   }
 
   getParamId() {
@@ -28,7 +31,7 @@ export class PigstyEditComponent implements OnInit {
       this.pigstyService.getPigsty(+id).subscribe(data => {
         this.pigsty = data;
         if (data == null) {
-          this.toastrService.error('Thao tác của bạn không đúng.', 'Thông Báo');
+          this.toastrService.error('Thao tác của bạn không đúng nên đã quay lại danh sách chuồng.', 'Thông Báo');
           this.router.navigateByUrl('/pigsty/list').then();
         }
         this.getFormEdit();
@@ -61,5 +64,18 @@ export class PigstyEditComponent implements OnInit {
       () => {
         this.router.navigateByUrl('/pigsty/list').then(next => this.toastrService.success('Chỉnh sửa thành công'));
       });
+  }
+
+  resetPigsty() {
+    this.formPigstyEdit = new FormGroup({
+      id: new FormControl(),
+      buildDate: new FormControl(),
+      code: new FormControl('', [Validators.required, Validators.pattern('^C\\d{3}$')]),
+      creationDate: new FormControl('', [Validators.required]),
+      isDeleted: new FormControl(),
+      maxNumber: new FormControl('', [Validators.required, Validators.min(1), Validators.max(20)]),
+      typePigs: new FormControl('', [Validators.required]),
+      employee: new FormControl(),
+    });
   }
 }

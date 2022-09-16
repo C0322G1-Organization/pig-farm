@@ -14,8 +14,8 @@ export class ContactService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getAllContact(page: number, nameSearch: string): Observable<Contact[]> {
-    return this.httpClient.get<Contact[]>(URL_CONTACT + '/page?page=' + page + '&nameSearch=' + nameSearch);
+  getAllContact(page: number, nameSearch: string, pageSize: number): Observable<any> {
+    return this.httpClient.get<any>(URL_CONTACT + '/page?page=' + page + '&nameSearch=' + nameSearch + '&size=' + pageSize);
   }
 
   getContactById(id: number): Observable<Contact> {

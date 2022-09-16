@@ -19,15 +19,9 @@ export class VaccinationService {
     return this.http.post<Vaccination>(API_URL + '/api/vaccination/create', vaccination);
   }
 
-  findAll(page: number, name: string): Observable<Vaccination[]> {
-    return this.http.get<Vaccination[]>(API_URL + '/api/vaccination/list?page=' + page + '&name=' + name);
+  findAll(page: number, name: string, pageSize: number): Observable<any> {
+    return this.http.get<any>(API_URL + '/api/vaccination/list?page=' + page + '&name=' + name + '&size=' + pageSize);
   }
-
-  searchVaccination(objSearch: any): Observable<Vaccination[]> {
-    const keySearch: string = objSearch.vaccinPersonSearch;
-    return this.http.get<Vaccination[]>(`${API_URL}/api/vaccination/list?name=` + keySearch);
-  }
-
   deleteVaccination(ids: number[]): Observable<any> {
     const data = {id: ids};
     console.log(data);
@@ -47,6 +41,6 @@ export class VaccinationService {
   }
 
   findById(id: number): Observable<Pigsty> {
-    return this.http.get<Pigsty>(`${API_URL}/pigsty/by/${id}`);
+    return this.http.get<Pigsty>(`${API_URL}/pigsty/${id}`);
   }
 }

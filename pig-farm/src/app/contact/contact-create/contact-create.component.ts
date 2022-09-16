@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ContactService} from '../../service/contact.service';
 import {Contact} from '../../model/contact';
@@ -32,21 +32,28 @@ export class ContactCreateComponent implements OnInit {
 
   save() {
     this.submit = true;
+    this.contactForm = this.fb.group({
+      name: [this.contactForm.value.name.trim(), Validators.required],
+      email: [this.contactForm.value.email, [Validators.required, Validators.pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)]],
+      phone: [this.contactForm.value.phone, [Validators.required, Validators.pattern(/((09|03|07|08|05)+([0-9]{8})\b)/g)]],
+      address: [this.contactForm.value.address.trim(), Validators.required],
+      content: [this.contactForm.value.content.trim(), Validators.required]
+    });
     if (this.contactForm.valid) {
       const contact: Contact = this.contactForm.value;
       this.contactService.save(contact).subscribe(next => {
         this.submit = false;
-        this.success = true;
+        document.getElementById('button-modal-success').click();
+        this.initContactForm();
       });
     }
   }
 
   changSuccess() {
+    console.log(1);
     if (this.success === true) {
-      document.getElementById('closeModal').click();
-      this.success = false;
       this.initContactForm();
+      this.success = false;
     }
   }
-
 }

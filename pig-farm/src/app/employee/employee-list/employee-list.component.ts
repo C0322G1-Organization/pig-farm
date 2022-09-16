@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import {EmployeeService} from '../../service/employee.service';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, Validators} from '@angular/forms';
+
 import {ToastrService} from 'ngx-toastr';
+
+import {Title} from '@angular/platform-browser';
 import {EmployeeDto} from '../../model/employee-dto';
-import {FormControl} from '@angular/forms';
+import {EmployeeService} from '../../service/employee.service';
 
 @Component({
   selector: 'app-employee-list',
@@ -10,7 +13,6 @@ import {FormControl} from '@angular/forms';
   styleUrls: ['./employee-list.component.css']
 })
 export class EmployeeListComponent implements OnInit {
-
 
   employeeList: EmployeeDto[] = [];
 
@@ -20,20 +22,30 @@ export class EmployeeListComponent implements OnInit {
   idModal: number;
 
   // search
-  nameSearch = new FormControl('');
-  idCardSearch = new FormControl('');
+  nameSearchForm = new FormControl('');
+  idCardSearchForm = new FormControl('');
+  nameSearch = '';
+  idCardSearch = '';
+
 
   // pagination
   indexPagination = 0;
   pages: Array<number>;
-  previousPageClass = 'inline-block';
-  nextPageClass = 'inline-block';
+  previousPageStyle = 'inline-block';
+  nextPageStyle = 'inline-block';
+  totalElements = 0;
+  pageSize = 6;
+  displayPagination = 'inline-block';
+  numberOfElement = 0;
+
 
   // Modal detail
   employeeDetail: EmployeeDto = {};
 
   constructor(private employeeService: EmployeeService,
-              private toast: ToastrService) {
+              private toast: ToastrService,
+              private title: Title) {
+    this.title.setTitle('Danh sách nhân viên');
   }
 
   ngOnInit(): void {
@@ -41,14 +53,17 @@ export class EmployeeListComponent implements OnInit {
   }
 
   getListBySearchAndPagination() {
-    this.employeeService.getListEmployeeBySearchAndPagination(this.nameSearch.value, this.idCardSearch.value,
-      this.indexPagination).subscribe(data => {
+    this.employeeService.getListEmployeeBySearchAndPagination(this.nameSearch, this.idCardSearch,
+      this.indexPagination, this.pageSize).subscribe(data => {
       if (data === null) {
         this.pages = new Array(0);
         this.employeeList = [];
-        this.toast.warning('Không có dữ liệu.', 'Thông báo');
+        this.displayPagination = 'none';
+        this.toast.warning('Không có dữ liệu.', 'Chú ý');
       } else {
+        this.numberOfElement = data.numberOfElements;
         this.employeeList = data.content;
+        this.totalElements = data.totalElements;
         this.pages = new Array(data.totalPages);
       }
       this.checkPreviousAndNext();
@@ -58,38 +73,33 @@ export class EmployeeListComponent implements OnInit {
   previousPage(event: any) {
     event.preventDefault();
     this.indexPagination--;
-    this.checkPreviousAndNext();
     this.ngOnInit();
   }
 
   setPage(i: number, event: any) {
     event.preventDefault();
     this.indexPagination = i;
-    this.checkPreviousAndNext();
     this.getListBySearchAndPagination();
   }
 
   nextPage(event: any) {
     event.preventDefault();
     this.indexPagination++;
-    this.checkPreviousAndNext();
     this.ngOnInit();
   }
 
   // kiem tra hien thi nut tiep theo va truoc
   checkPreviousAndNext() {
     if (this.indexPagination === 0) {
-      this.previousPageClass = 'none';
+      this.previousPageStyle = 'none';
     } else if (this.indexPagination !== 0) {
-      this.previousPageClass = 'inline-block';
+      this.previousPageStyle = 'inline-block';
     }
-
     if (this.indexPagination < (this.pages.length - 1)) {
-      this.nextPageClass = 'inline-block';
+      this.nextPageStyle = 'inline-block';
     } else if (this.indexPagination === (this.pages.length - 1) || this.indexPagination > (this.pages.length - 1)) {
-      this.nextPageClass = 'none';
+      this.nextPageStyle = 'none';
     }
-
   }
 
   getEmployeeById(id: number) {
@@ -99,8 +109,20 @@ export class EmployeeListComponent implements OnInit {
   }
 
   searchEmployee() {
-    this.indexPagination = 0;
-    this.getListBySearchAndPagination();
+    this.nameSearch = this.nameSearchForm.value.trim();
+    this.idCardSearch = this.idCardSearchForm.value.trim();
+    if (this.checkRegex(this.nameSearch, this.idCardSearch)) {
+      this.indexPagination = 0;
+      this.pages = new Array(0);
+      this.employeeList = [];
+      this.displayPagination = 'none';
+      this.checkPreviousAndNext();
+      this.toast.warning('Không được nhập kí tự đặc biệt.', 'Chú ý');
+    } else {
+      this.indexPagination = 0;
+      this.displayPagination = 'inline-block';
+      this.getListBySearchAndPagination();
+    }
   }
 
   getModal(id: number, code: string, name: string) {
@@ -120,6 +142,33 @@ export class EmployeeListComponent implements OnInit {
       this.toast.success('Xóa thành công', 'Thông báo');
       this.ngOnInit();
     });
+  }
+
+  // kiểm tra nhập kí tự đặc biệt trên ô tìm kiếm.
+  checkRegex(name: string, idCard: string): boolean {
+    const format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+    return format.test(name) || format.test(idCard);
+  }
+
+  changePageSize(event: any) {
+    switch (event.target.value) {
+      case '6' :
+        this.pageSize = 6;
+        this.indexPagination = 0;
+        this.ngOnInit();
+        break;
+      case '9' :
+        this.pageSize = 9;
+        this.indexPagination = 0;
+        this.ngOnInit();
+        break;
+      case '12':
+        this.pageSize = 12;
+        this.indexPagination = 0;
+        this.ngOnInit();
+        break;
+
+    }
   }
 
 }

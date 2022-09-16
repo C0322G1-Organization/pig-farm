@@ -11,9 +11,9 @@
   opacity: 85%
 }
 
-body {
+.body {
   margin: 0 auto;
-  background-image: url('../../../assets/img/pig-backgroup.jpeg');
+  background-image: url("../../../assets/img/notification-backgroup-list.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%
@@ -21,11 +21,11 @@ body {
 
 hr {
   border: none;
-  height: 50px;
+  height: 20px;
   width: 90%;
   border-bottom: 2px solid #1f1209;
   box-shadow: 0 20px 20px -20px #242323;
-  margin: -50px auto 10px;
+  margin: -20px auto 10px;
 }
 
 .button {

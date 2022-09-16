@@ -17,7 +17,7 @@
 }
 .modal-content {
   margin-top: 15%;
-  background-color: #38761d;
+  background-color: #6ea262;
   color: white;
   padding: 0 25px;
   min-width: 600px;
@@ -46,13 +46,19 @@
   font-weight: 700;
   font-size: 16px;
 }
+.erorr{
+  color: #B80000;
+}
 
 @media (max-width: 576px) {
   .modal-content {
     min-width: 100%;
   }
 }
+.success-content{
+  background-color: #93b95e;
 
+}
 @media (max-width: 768px) {
   .col-6,.col-12 {
     width: 100%;
@@ -65,4 +71,3 @@
     margin: 0;
   }
 }
-

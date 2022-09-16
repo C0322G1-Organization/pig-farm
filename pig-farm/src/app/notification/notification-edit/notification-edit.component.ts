@@ -6,6 +6,8 @@ import {finalize} from 'rxjs/operators';
 import {formatDate} from '@angular/common';
 import {NotificationService} from '../../service/notification.service';
 import {ToastrService} from 'ngx-toastr';
+import {Title} from '@angular/platform-browser';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-notification-edit',
@@ -13,6 +15,7 @@ import {ToastrService} from 'ngx-toastr';
   styleUrls: ['./notification-edit.component.css']
 })
 export class NotificationEditComponent implements OnInit {
+  public editor = ClassicEditor;
   id: number;
   notificationForm: FormGroup;
   selectedImage: File = null;
@@ -23,13 +26,15 @@ export class NotificationEditComponent implements OnInit {
   msg = '';
   checkImgSize: boolean;
   check = true;
-  isExits = false;
+  buttonNotification = true;
 
   constructor(private notificationService: NotificationService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private storage: AngularFireStorage,
-              private  toast: ToastrService) {
+              private  toast: ToastrService,
+              private title: Title) {
+    this.title.setTitle('Chỉnh sửa thông báo');
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = +paramMap.get('id');
       this.getNotification(this.id);
@@ -37,42 +42,39 @@ export class NotificationEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.notificationForm = new FormGroup({
+      id: new FormControl(''),
+      title: new FormControl('', [Validators.required, Validators.maxLength(255)]),
+      content: new FormControl('', [Validators.required]),
+      image: new FormControl(''),
+    });
   }
 
   getNotification(id: number) {
     return this.notificationService.findById(id).subscribe(notification => {
-      this.notificationForm = new FormGroup({
-        id: new FormControl(notification.id),
-        title: new FormControl(notification.title, [Validators.required]),
-        content: new FormControl(notification.content, [Validators.required, Validators.maxLength(1000)]),
-        image: new FormControl(notification.image, [Validators.required]),
-      });
+      this.notificationForm.patchValue(notification);
     });
   }
 
   updateNotification() {
     this.check = false;
-    if (this.notificationForm.invalid) {
-      this.toast.error('Nhập đầy đủ thông tin!');
-      this.check = true;
-      return;
-    }
     const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
     const filePath = `news/${nameImg}`;
     const fileRef = this.storage.ref(filePath);
     this.storage.upload(`news/${nameImg}`, this.selectedImage).snapshotChanges().pipe(
       finalize(() => {
+        this.buttonNotification = false;
         fileRef.getDownloadURL().subscribe((url) => {
           this.notificationForm.patchValue({image: url});
           console.log(url);
           console.log(this.notificationForm.value);
           this.notificationService.update(this.id, this.notificationForm.value).subscribe(
             () => {
-              this.toast.success('Cập nhật thành công', 'Thông báo');
+              this.toast.success('Cập nhật thành công');
               this.router.navigateByUrl('/notification/list');
             },
             error => {
-              this.toast.error('Cập nhật thất bại, xin hãy thử lại', 'Thông báo');
+              this.toast.error('Cập nhật thất bại, xin hãy thử lại');
             }
           );
         });
@@ -124,5 +126,16 @@ export class NotificationEditComponent implements OnInit {
       this.msg = '';
       this.url = reader.result;
     };
+  }
+
+  reset(id: number) {
+    this.notificationService.findById(id).subscribe(next => {
+      this.notificationForm = new FormGroup({
+        // tslint:disable-next-line:max-line-length
+        title: new FormControl(next.title),
+        image: new FormControl(next.image),
+        content: new FormControl(next.content),
+      });
+    });
   }
 }

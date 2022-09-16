@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
-import {environment} from '../../environments/environment';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {Food} from '../model/food';
 
-const API_URL = `${environment.apiUrl}`;
+import {Observable} from 'rxjs';
+import {environment} from '../../environments/environment';
+import {Food} from "../model/food";
+
+const URL_API = `${environment.apiUrl}`;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,18 +16,19 @@ export class FoodService {
   }
 
   getAll(pageable: number, searchType: string, sort: string): Observable<any> {
-    return this.httpClient.get<any>(API_URL + '/api/food/list?page=' +
-      pageable + '&foodType=' + searchType + '&sort=' + sort );
+    return this.httpClient.get<any>(URL_API + '/api/food/list?page=' +
+      pageable + '&foodType=' + searchType + '&sort=' + sort + '&size=' );
   }
+
   saveFood(food: Food): Observable<Food> {
-    return this.httpClient.post<Food>(API_URL + '/api/food/create', food);
+    return this.httpClient.post<Food>(URL_API + '/api/food/create', food);
   }
 
   findById(id: number): Observable<Food> {
-    return this.httpClient.get<Food>(API_URL + `/api/food/show/${id}`);
+    return this.httpClient.get<Food>(URL_API + `/api/food/show/${id}`);
   }
 
   editFood(id: number, food: Food): Observable<Food> {
-    return this.httpClient.put<Food>(API_URL + `/api/food/${id}`, food);
+    return this.httpClient.put<Food>(URL_API + `/api/food/${id}`, food);
   }
 }

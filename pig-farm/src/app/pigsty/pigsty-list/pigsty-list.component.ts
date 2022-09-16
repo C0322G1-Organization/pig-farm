@@ -4,6 +4,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Pigsty} from '../../model/pigsty';
 import {PigstyService} from '../../service/pigsty.service';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-pigsty-list',
@@ -11,18 +12,18 @@ import {PigstyService} from '../../service/pigsty.service';
   styleUrls: ['./pigsty-list.component.css']
 })
 export class PigstyListComponent implements OnInit {
-  pigstys: Pigsty[];
+  pigstys: Pigsty[] = [];
   page = 0;
   next: boolean;
   previous: boolean;
   search = '';
   formSearch: FormGroup;
-  deleteList: number[] = [];
 
-  constructor(private pigstyService: PigstyService, private router: Router) {
+  constructor(private pigstyService: PigstyService, private router: Router, private title: Title) {
   }
 
   ngOnInit(): void {
+    this.title.setTitle('Danh sách chuồng');
     this.getPage();
     this.formSearch = new FormGroup({
       search: new FormControl('')
@@ -49,38 +50,10 @@ export class PigstyListComponent implements OnInit {
   }
 
   getSearch() {
-    this.search = this.formSearch.value.search;
+    this.search = this.formSearch.value.search.trim();
+    this.search = '' + this.search;
+    console.log(this.search);
     this.page = 0;
     this.getPage();
-  }
-
-  edit() {
-    if (this.deleteList.length === 1) {
-      this.router.navigateByUrl('pigsty/edit/' + this.deleteList[0]);
-    }
-  }
-
-  checkbox(pigsty: Pigsty) {
-    for (const item of this.deleteList) {
-      if (item === pigsty.id) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  checkList(id: number) {
-    for (let i = 0; i < this.deleteList.length; i++) {
-      if (this.deleteList[i] === id) {
-        this.deleteList.splice(i, 1);
-        console.log(this.deleteList);
-        return;
-      }
-    }
-    this.deleteList.push(id);
-  }
-
-  showEdit() {
-    return (this.deleteList.length === 1);
   }
 }

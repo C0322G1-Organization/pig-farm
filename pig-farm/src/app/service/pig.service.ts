@@ -39,8 +39,9 @@ export class PigService {
     return this.httpClient.post<any>(url, data, options);
   }
 
-  getAllPig(page: number, code: string, dateIn: string, status: string ) {
-    return this.httpClient.get<Pig[]>(API_URL + '/page?page=' + page + '&codeSearch=' + code + '&dateInSearch=' + dateIn + '&statusSearch=' + status);
+  getAllPig(page: number, code: string, dateIn: string, status: string, size: number ) {
+    // tslint:disable-next-line:max-line-length
+    return this.httpClient.get<any>(API_URL + '/page?page=' + page + '&codeSearch=' + code + '&dateInSearch=' + dateIn + '&statusSearch=' + status + '&size=' + size);
   }
 
   checkCode(code: string): Observable<string> {

@@ -36,9 +36,9 @@ export class EmployeeService {
     return this.http.patch<any>(this.URL_EMPLOYEE_SPRING + '/employee/delete/' + id);
   }
 
-  getListEmployeeBySearchAndPagination(name: string, idCard: string, indexPagination: number): Observable<any> {
+  getListEmployeeBySearchAndPagination(name: string, idCard: string, indexPagination: number, size: number): Observable<any> {
     return this.http.get<any>(API_URL + '/employee/searchList?name=' + name + '&idCard=' + idCard +
-      '&page=' + indexPagination);
+      '&page=' + indexPagination + '&size=' + size);
   }
 
   getEmployeeById(id: number): Observable<any> {
@@ -46,10 +46,18 @@ export class EmployeeService {
   }
 
   checkCode(code: string): Observable<string> {
-    return this.http.get<string>(API_URL + '/employee/check/' + code);
+    return this.http.get<string>(API_URL + '/employee/checkCode/' + code);
   }
 
   checkIdCard(idCard: string): Observable<string> {
-    return this.http.get<string>(API_URL + '/employee/check/' + idCard);
+    return this.http.get<string>(API_URL + '/employee/checkIdCard/' + idCard);
+  }
+
+  checkUsername(username: string): Observable<string> {
+    return this.http.get<string>(API_URL + '/employee/checkUsername/' + username);
+  }
+
+  checkEmail(email: string): Observable<string> {
+    return this.http.get<string>(API_URL + '/employee/checkEmail/' + email);
   }
 }

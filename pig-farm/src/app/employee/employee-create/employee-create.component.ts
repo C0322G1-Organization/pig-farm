@@ -6,9 +6,9 @@ import {formatDate} from '@angular/common';
 import {finalize} from 'rxjs/operators';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {checkBirthDay, checkDay} from '../../validated/check-birth-day';
-import {EmployeeService} from '../../service/employee.service';
 import {Employee} from '../../model/employee';
-import {AppUserService} from '../../service/app-user.service';
+import {Title} from '@angular/platform-browser';
+import {EmployeeService} from '../../service/employee.service';
 
 @Component({
   selector: 'app-employee-create',
@@ -16,7 +16,6 @@ import {AppUserService} from '../../service/app-user.service';
   styleUrls: ['./employee-create.component.css']
 })
 export class EmployeeCreateComponent implements OnInit {
-
 
   selectedImage: File = null;
   checkImgSize = false;
@@ -28,6 +27,8 @@ export class EmployeeCreateComponent implements OnInit {
   loader = true;
   isExitsCode = false;
   isExitsIdCard = false;
+  isExitsUsername = false;
+  isExitsEmail = false;
 
   employeeForm: FormGroup = new FormGroup({
     id: new FormControl(''),
@@ -39,14 +40,16 @@ export class EmployeeCreateComponent implements OnInit {
     creationDate: new FormControl(''),
     birthDay: new FormControl('', [Validators.required, checkBirthDay, checkDay]),
     gender: new FormControl('', [Validators.required]),
-    idCard: new FormControl('', [Validators.required, Validators.pattern('^\\d{9}|\\d{12}$')]),
+    idCard: new FormControl('', [Validators.required, Validators.pattern('^\\d{12}$')]),
     image: new FormControl('')
   });
 
   constructor(private employeeService: EmployeeService,
               private toast: ToastrService,
               private router: Router,
-              private storage: AngularFireStorage) {
+              private storage: AngularFireStorage,
+              private title: Title) {
+    this.title.setTitle('Thêm mới nhân viên');
   }
 
   ngOnInit(): void {
@@ -113,11 +116,33 @@ export class EmployeeCreateComponent implements OnInit {
   }
 
   checkIdCard($event: Event) {
-    this.employeeService.checkIdCard(String($event)).subscribe(value => {
-        if (value) {
+    this.employeeService.checkIdCard(String($event)).subscribe(idCard => {
+        if (idCard) {
           this.isExitsIdCard = true;
         } else {
           this.isExitsIdCard = false;
+        }
+      }
+    );
+  }
+
+  checkUsername($event: Event) {
+    this.employeeService.checkUsername(String($event)).subscribe(value => {
+        if (value) {
+          this.isExitsUsername = true;
+        } else {
+          this.isExitsUsername = false;
+        }
+      }
+    );
+  }
+
+  checkEmail($event: Event) {
+    this.employeeService.checkEmail(String($event)).subscribe(value => {
+        if (value) {
+          this.isExitsEmail = true;
+        } else {
+          this.isExitsEmail = false;
         }
       }
     );

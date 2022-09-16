@@ -2,32 +2,32 @@
   color: seagreen;
 }
 
-.navbar-brand:hover {
-  background-color: #FFE421;
-  color: green;
-}
+/*.navbar-brand:hover {*/
+/*  background-color: #FFE421;*/
+/*  color: green;*/
+/*}*/
 
 .bi-search:hover {
   cursor: pointer;
 }
 
 .navbar-brand:focus {
-  background-color: #FFE421;
-  color: green;
+  background-color: seagreen;
+  color: white;
 }
 
 .nav-link:hover {
-  background-color: #FFE421;
-  color: green;
+  background-color: seagreen;
+  color: white;
 }
 
 .nav-link:focus {
-  background-color: #FFE421;
-  color: green;
+  background-color: seagreen;
+  color: white;
 }
 
 .navbar {
-  background-color: #017428;
+  background-color: seagreen;
   padding: 0;
 }
 

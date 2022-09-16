@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {FoodService} from '../../service/food.service';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {PigstyService} from '../../service/pigsty.service';
 import {StorageService} from '../../service/storage.service';
 import {Pig} from '../../model/pig';
+import {Storage} from '../../model/storage';
+import {FoodService} from '../../service/food.service';
 
 @Component({
   selector: 'app-food-edit',
@@ -75,11 +76,11 @@ export class FoodEditComponent implements OnInit {
     };
     this.foodService.editFood(id, food).subscribe(() => {
     }, error => {
-      console.log(error);
+      this.toast.error('Chỉ nhập số và không dc nhập quá số lượng trong kho', 'Thông báo');
     }, () => {
       this.foodForm.reset();
       this.router.navigate(['/food']);
-      this.toast.success('Cập nhập thành công', 'Thông báo');
+      this.toast.success('Cập nhập thức ăn thành công', 'Thông báo');
     });
   }
 }

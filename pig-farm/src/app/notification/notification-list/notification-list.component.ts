@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {NotificationService} from '../../service/notification.service';
 import {Notifications} from '../../model/notification';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-notification-list',
@@ -13,44 +14,136 @@ import {Notifications} from '../../model/notification';
 export class NotificationListComponent implements OnInit {
   msg: string;
   clss: string;
-  content = '';
-  number: number;
   notifications: Notifications[] = [];
   ids: number[] = [];
   title: any;
-  checkNext: boolean;
-  checkPrevious: boolean;
   searchForm = new FormGroup({
     content: new FormControl('')
   });
   deleteList: Notifications[] = [];
+// pagination
+  number: number;
+  indexPagination = 0;
+  totalPage: Array<number>;
+  previousPageStyle = 'inline-block';
+  nextPageStyle = 'inline-block';
+  totalElements = 0;
+  pageSize: number;
+  displayPagination = 'inline-block';
+  numberOfElement = 0;
+  contentSearch = '';
+
 
   constructor(private notificationService: NotificationService,
               private router: Router,
-              private toast: ToastrService) {
+              private toast: ToastrService,
+              private title1: Title) {
+    this.title1.setTitle('Đăng thông báo');
   }
 
   ngOnInit(): void {
-    this.getNotifications(0, '');
+    this.getList();
   }
 
-  getNotifications(page: number, content: string) {
-    this.notificationService.getAllNotifications(page, content).subscribe((value: any) => {
-      this.number = page;
-      this.notifications = value?.content;
-      this.msg = '';
-      this.checkNext = !value.last;
-      this.checkPrevious = !value.first;
-    }, error => {
-      console.log(error);
+  getList() {
+    this.notificationService.getAllNotifications(this.indexPagination, this.contentSearch, this.pageSize).subscribe((data?: any) => {
+      if (data === null) {
+        this.totalPage = new Array(0);
+        this.notifications = [];
+        this.displayPagination = 'none';
+        this.toast.warning('Không có dữ liệu.', 'Chú ý');
+      } else {
+        this.number = data?.number;
+        this.pageSize = data?.size;
+        this.numberOfElement = data?.numberOfElements;
+        this.notifications = data.content;
+        console.log(this.notifications);
+        this.totalElements = data?.totalElements;
+        this.totalPage = new Array(data?.totalPages);
+      }
+      this.checkPreviousAndNext();
     });
   }
+
+  previousPage(event: any) {
+    event.preventDefault();
+    this.indexPagination--;
+    this.ngOnInit();
+  }
+
+  nextPage(event: any) {
+    event.preventDefault();
+    this.indexPagination++;
+    this.ngOnInit();
+  }
+
+  checkPreviousAndNext() {
+    if (this.indexPagination === 0) {
+      this.previousPageStyle = 'none';
+    } else if (this.indexPagination !== 0) {
+      this.previousPageStyle = 'inline-block';
+    }
+    if (this.indexPagination < (this.totalPage.length - 1)) {
+      this.nextPageStyle = 'inline-block';
+    } else if (this.indexPagination === (this.totalPage.length - 1) || this.indexPagination > (this.totalPage.length - 1)) {
+      this.nextPageStyle = 'none';
+    }
+  }
+
+  checkRegex(content: string): boolean {
+    const format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+    return format.test(content);
+  }
+
+  search() {
+    this.contentSearch = this.searchForm.value.content;
+
+    if (this.checkRegex(this.contentSearch)) {
+      this.indexPagination = 0;
+      this.totalPage = new Array(0);
+      this.notifications = [];
+      this.displayPagination = 'none';
+      this.checkPreviousAndNext();
+      this.toast.warning('Không được nhập kí tự đặc biệt.', 'Chú ý');
+    } else {
+      this.indexPagination = 0;
+      this.displayPagination = 'inline-block';
+      this.ngOnInit();
+      console.log('vao');
+    }
+  }
+
+  totalElement($event: any) {
+    switch ($event.target.value) {
+      case '5':
+        this.pageSize = 5;
+        this.indexPagination = 0;
+        this.ngOnInit();
+        break;
+      case '10':
+        this.pageSize = 10;
+        this.indexPagination = 0;
+        this.ngOnInit();
+        break;
+      case '15':
+        this.pageSize = 15;
+        this.indexPagination = 0;
+        this.ngOnInit();
+        break;
+      case 'full':
+        this.pageSize = this.totalElements;
+        this.indexPagination = 0;
+        this.ngOnInit();
+        break;
+    }
+  }
+
 
   deleteId() {
     if (this.ids.length > 0) {
       this.notificationService.deleteNotifications(this.ids).subscribe(value1 => {
-        this.getNotifications(0, '');
-        this.toast.error('Xóa thành công !!!', 'Thông báo');
+        this.getList();
+        this.toast.success('Xóa thành công ', 'Thông báo');
         this.ids = [];
       }, err => {
         this.clss = 'rd';
@@ -62,27 +155,32 @@ export class NotificationListComponent implements OnInit {
       this.toast.error('Bạn phải chọn mục để xóa !!!', 'Thông báo');
     }
     this.deleteList = [];
+    this.ids = [];
+
   }
+
 
   getListDelete(notificationDelete: Notifications) {
     for (let i = 0; i < this.deleteList.length; i++) {
-      if (this.deleteList[i].id === notificationDelete.id) {
+      if (this.deleteList[i].id === notificationDelete.id && this.ids.length > 0) {
         this.deleteList.splice(i, 1);
+        this.ids.splice(i, 1);
         return;
       }
     }
     this.deleteList.push(notificationDelete);
-    this.ids = [];
+    for (const item of this.deleteList) {
+      this.ids.push(item.id);
+    }
     for (let i = 0; i < this.deleteList.length; i++) {
       if (this.deleteList[i].id === this.ids[i]) {
         this.ids.splice(i, 1);
         return;
       }
     }
-    for (const item of this.deleteList) {
-      this.ids.push(item.id);
-    }
+
   }
+
 
   checkbox(notificationDelete: Notifications) {
     for (const item of this.deleteList) {
@@ -93,23 +191,16 @@ export class NotificationListComponent implements OnInit {
     return false;
   }
 
+  isAllCheckBoxChecked() {
+    for (const item of this.notifications) {
+      if (!this.ids.includes(item.id)) {
+        this.deleteList.push(item);
+        this.ids.push(item.id);
+      }
+    }
+  }
+
   resetDelete() {
     this.ids = [];
-  }
-
-  goPrevious() {
-    this.number--;
-    this.getNotifications(this.number, this.content);
-  }
-
-  goNext() {
-    console.log(11111);
-    this.number++;
-    this.getNotifications(this.number, this.content);
-  }
-
-  search() {
-    this.content = this.searchForm.value.content;
-    this.getNotifications(0, this.content);
   }
 }

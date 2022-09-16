@@ -27,6 +27,7 @@ import {FoodModule} from './food/food.module';
 import { ExportCreateComponent } from './exprot/export-create/export-create.component';
 import { ExportUpdateComponent } from './exprot/export-update/export-update.component';
 import {SecurityModule} from './security/security.module';
+import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import {SecurityModule} from './security/security.module';
     PigstyModule,
     AdvertisementModule,
     FoodModule,
-    SecurityModule
+    SecurityModule,
+    CKEditorModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

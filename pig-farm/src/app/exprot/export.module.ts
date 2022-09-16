@@ -1,10 +1,11 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { ExportRoutingModule } from './export-routing.module';
+import {ExportRoutingModule} from './export-routing.module';
 import {ExportCreateComponent} from './export-create/export-create.component';
 import {ExportUpdateComponent} from './export-update/export-update.component';
-import { ExportListComponent } from './export-list/export-list.component';
+import {ExportListComponent} from './export-list/export-list.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +16,10 @@ import { ExportListComponent } from './export-list/export-list.component';
   ],
   imports: [
     CommonModule,
-    ExportRoutingModule
+    ExportRoutingModule,
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
-export class ExportModule { }
+export class ExportModule {
+}

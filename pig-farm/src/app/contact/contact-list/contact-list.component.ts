@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {Contact} from '../../model/contact';
 import {ContactService} from '../../service/contact.service';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-contact-list',
@@ -13,49 +14,81 @@ import {ContactService} from '../../service/contact.service';
 export class ContactListComponent implements OnInit {
   msg: string;
   clss: string;
-  name = '';
   totalPages: number;
   number = 0;
-  countTotalPages: number[];
-  contact: Contact[] = [];
+  contactList: Contact[] = [];
   searchForm = new FormGroup({
     name: new FormControl('')
   });
+
   contacts: Contact;
   nameDelete: any = [];
   ids: number[] = [];
   content = '';
-  checkNext: boolean;
-  checkPrevious: boolean;
+
   check: any[] = [];
   contactDetail: Contact = {};
   informationDelete: Contact[] = [];
   checkContent = false;
 
+  // Search
+  name = '';
+
+  // Pagination
+  displayPagination = 'inline-block';
+  pageSize = 5;
+  indexPagination = 0;
+  numberOfElement = 0;
+  totalElements = 0;
+  previousPageStyle = 'inline-block';
+  nextPageStyle = 'inline-block';
+
+  countTotalPages: number[];
+  pages: Array<number>;
+
   constructor(private contactService: ContactService,
               private router: Router,
-              private toast: ToastrService) {
+              private toast: ToastrService,
+              private title: Title) {
+    this.title.setTitle('Danh Sách Liên Hệ');
   }
 
   ngOnInit(): void {
-    this.getContact(0, '');
+    this.getContact();
+
   }
 
-  getContact(page: number, name: string) {
-    this.contactService.getAllContact(page, name).subscribe((value: any) => {
-        this.totalPages = value?.totalPages;
-        this.countTotalPages = new Array(value?.totalPages);
-        this.number = value?.number;
-        this.contact = value?.content;
-        this.checkNext = !value.last;
-        this.checkPrevious = !value.first;
-        this.msg = '';
-        this.checkContent = false;
-      }, (error) => {
-        this.contact = [];
-        this.checkContent = true;
+  getContact() {
+    this.contactService.getAllContact(this.indexPagination, this.name, this.pageSize).subscribe(value => {
+        if (value == null) {
+          this.contactList = [];
+          this.displayPagination = 'none';
+          this.pages = new Array(0);
+          this.toast.warning('Không có dữ liệu.', 'Chú ý');
+        } else {
+          this.numberOfElement = value.numberOfElements;
+          this.contactList = value.content;
+          this.totalElements = value.totalElements;
+          this.pages = new Array(value.totalPages);
+        }
+        this.checkPreviousAndNext();
+      } , error => {
+        this.contactList = null;
       }
     );
+  }
+  // kiem tra hien thi nut tiep theo va truoc
+  checkPreviousAndNext() {
+    if (this.indexPagination === 0) {
+      this.previousPageStyle = 'none';
+    } else if (this.indexPagination !== 0) {
+      this.previousPageStyle = 'inline-block';
+    }
+    if (this.indexPagination < (this.pages.length - 1)) {
+      this.nextPageStyle = 'inline-block';
+    } else if (this.indexPagination === (this.pages.length - 1) || this.indexPagination > (this.pages.length - 1)) {
+      this.nextPageStyle = 'none';
+    }
   }
 
   deleteId() {
@@ -65,8 +98,10 @@ export class ContactListComponent implements OnInit {
     }
     if (id.length > 0) {
       this.contactService.deleteContact(id).subscribe(value1 => {
-        this.getContact(0, '');
-        this.toast.error('Xóa thành công !!!', 'Liên hệ');
+        this.indexPagination = 0;
+        this.name = '';
+        this.getContact();
+        this.toast.success('Xóa thành công', 'Liên hệ');
         this.informationDelete = [];
       }, err => {
         this.clss = 'rd';
@@ -74,8 +109,8 @@ export class ContactListComponent implements OnInit {
       });
     } else {
       this.clss = 'rd';
-      this.msg = 'Bạn phải chọn liên hệ mới thực hiện được chức năng này';
-      this.toast.error('Bạn phải chọn mục để xóa !!!', 'Liên hệ');
+      this.msg = 'Bạn phải chọn liên hệ mới thực hiện được chức năng này.';
+      this.toast.error('Bạn phải chọn mục để xóa', 'Liên hệ');
     }
     this.nameDelete = [];
   }
@@ -85,19 +120,25 @@ export class ContactListComponent implements OnInit {
     this.ids = [];
   }
 
-  goPrevious() {
-    this.number--;
-    this.getContact(this.number, this.name);
-  }
-
-  goNext() {
-    this.number++;
-    this.getContact(this.number, this.name);
-  }
-
   search() {
-    this.name = this.searchForm.value.name;
-    this.getContact(0, this.name);
+    this.name = this.searchForm.value.name.trim();
+    if (this.checkRegex(this.name)) {
+      this.indexPagination = 0;
+      this.pages = new Array(0);
+      this.contactList = [];
+      this.displayPagination = 'none';
+      this.checkPreviousAndNext();
+      this.toast.warning('Không được nhập kí tự đặc biệt.', 'Chú ý');
+    } else {
+      this.indexPagination = 0;
+      this.displayPagination = 'inline-block';
+      this.getContact();
+    }
+  }
+
+  checkRegex(name: string): boolean {
+    const format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+    return format.test(name);
   }
 
   getDetails() {
@@ -127,4 +168,31 @@ export class ContactListComponent implements OnInit {
     return !(this.informationDelete.length === 1);
   }
 
+
+  changePageSize(event: any) {
+    switch (event.target.value) {
+      case '5' :
+        this.pageSize = 5;
+        this.indexPagination = 0;
+        this.ngOnInit();
+        break;
+      case '10' :
+        this.pageSize = 10;
+        this.indexPagination = 0;
+        this.ngOnInit();
+        break;
+    }
+  }
+
+  previousPage(event: any) {
+    event.preventDefault();
+    this.indexPagination--;
+    this.ngOnInit();
+  }
+
+  nextPage(event: any) {
+    event.preventDefault();
+    this.indexPagination++;
+    this.ngOnInit();
+  }
 }

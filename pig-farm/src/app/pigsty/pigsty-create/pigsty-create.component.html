@@ -5,14 +5,15 @@
       <div class="row formRow">
         <form [formGroup]="formPigsty" (ngSubmit)="createPigsty()" class="col-lg-6 formRow_create">
           <div class="mb-3 formRow_create_title">
-            <h5 class="hgu"><b>Khởi tạo chuồng nuôi</b></h5>
+            <h5 class="hgu"><b>KHỞI TẠO CHUỒNG NUÔI</b></h5>
           </div>
           <hr class="hrLine">
           <div class="formRow_create_content">
             <div class="mb-3">
-              <label for="pigstyCode">Mã chuồng nuôi</label>
+              <label for="pigstyCode">Mã chuồng nuôi <span style="color: red">*</span></label>
               <input formControlName="code" type="text" id="pigstyCode" class="form-control"
-                     placeholder="Nhập mã chuồng heo">
+                     placeholder="Nhập mã chuồng heo" (change)="checkCode($event.target.value)">
+              <p style="color: red" *ngIf="isExitsCode == true">Mã chuồng heo đã tồn tại.</p>
               <p style="color: red" *ngIf="formPigsty.controls.code.hasError('required') && formPigsty.controls.code.touched">Vui lòng nhập thông tin.</p>
               <p style="color: red" *ngIf="formPigsty.controls.code.hasError('pattern')">Nhập sai định dạng CXXX.</p>
 
@@ -26,9 +27,10 @@
             <div class="mb-3">
               <div class="row">
                 <div class="col-6">
-                  <label for="numberOfIndividuals">Số lượng cá thể </label>
-                  <input formControlName="maxNumber" type="number" id="numberOfIndividuals" class="form-control"
-
+                  <label for="numberOfIndividuals">Số lượng cá thể <span style="color: red">*</span></label>
+                  <input id="numberOfIndividuals" type="number"
+                         onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'"
+                         class="form-control" name="maxNumber" formControlName="maxNumber"
                          placeholder="Nhập số lượng cá thể">
                   <p style="color: red" *ngIf="formPigsty.controls.maxNumber.hasError('required') && formPigsty.controls.maxNumber.touched">Vui lòng nhập thông tin.</p>
                   <p style="color: red" *ngIf="formPigsty.controls.maxNumber.hasError('min')">Vui lòng nhập lớn hơn 1.</p>
@@ -36,7 +38,7 @@
 
                 </div>
                 <div class="col-6">
-                  <label for="typePigs">Loại lợn</label>
+                  <label for="typePigs">Loại lợn <span style="color: red">*</span></label>
                   <select formControlName="typePigs" class="form-control" id="typePigs" ngModel="">
                     <option value="">--Vui lòng chọn--</option>
                     <option value="0">Lợn thịt</option>
@@ -51,8 +53,8 @@
             <div class="mb-3">
               <div class="row">
                 <div class="col-6">
-                  <label>Ngày tạo chuồng</label>
-                  <input formControlName="creationDate" type="date" id="myText" class="form-control" required>
+                  <label>Ngày tạo chuồng <span style="color: red">*</span></label>
+                  <input formControlName="creationDate" type="date" class="form-control" required >
                   <p style="color: red" *ngIf="formPigsty.controls.creationDate.hasError('required') && formPigsty.controls.creationDate.touched">Vui lòng nhập thông tin.</p>
 
                 </div>
@@ -64,8 +66,8 @@
             </div>
             <div class="d-grid gap-2 d-md-flex justify-content-md-around">
               <button class="btn btn-outline-danger button " [routerLink]="['/pigsty/list']">Quay Lại</button>
-              <button class="btn btn-outline-success button">Thêm mới</button>
-              <button class="btn btn-outline-secondary button ">Nhập lại</button>
+              <button class="btn btn-outline-success button" [disabled]="formPigsty.invalid" type="submit">Thêm mới</button>
+              <button class="btn btn-outline-secondary button " (click)="resetPigsty()" type="button">Nhập lại</button>
             </div>
           </div>
         </form>
@@ -74,17 +76,3 @@
     <div class="vc_empty_space" style="height: 64px"><span class="vc_empty_space_inner"></span></div>
   </div>
 </div>
-<script>
-  function myFunction() {
-    date = new Date();
-    year = date.getFullYear();
-    month = date.getMonth() + 1;
-    day = date.getDate();
-    if (day < 10) day = '0' + day;
-    if (month < 10) month = '0' + month;
-    document.getElementById("myText").value = year + "-" + month + "-" + day;
-  }
-
-  myFunction()
-</script>
-

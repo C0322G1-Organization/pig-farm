@@ -11,84 +11,68 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class ExportListComponent implements OnInit {
   listExport: Export[] = [];
-  totalPages: number;
-  page = 1;
-  number: number;
-  countTotalPages: number[];
   searchForm: FormGroup = new FormGroup({
     codeExport: new FormControl(''),
-    company: new FormControl(''),
-    nameEmployee: new FormControl('')
+    companySearch: new FormControl(''),
+    employeeSearch: new FormControl('')
   });
   ids: number[];
   nameDelete: any = [];
   error: string;
-  mess: string;
   check: string[] = [];
   editId: string;
-  codeExport: string;
+  number: number;
+  checkNext: boolean;
+  checkPreview: boolean;
+  codeExport = '';
+  companySearch = '';
+  employeeSearch = '';
 
   constructor(private exportService: ExportService,
               private toast: ToastrService) {
   }
 
   ngOnInit(): void {
-    this.getListExport(this.page - 1);
+    this.getListExport(0, '', '', '');
   }
 
-  getListExport(page: number) {
-    // @ts-ignore
-    this.exportService.getAll(page).subscribe((value?: any) => {
-      this.totalPages = value?.totalPages;
-      this.countTotalPages = new Array(value?.totalPages);
-      this.number = value?.number;
-      this.listExport = value?.content;
-      console.log(value?.content);
-    }, error => {
-      console.log(error);
-    });
-  }
-
-  searchExport() {
-    // tao const ojb de hung gia tri tu form
-    const obj = {
-      codeExportSearch: this.searchForm.value.codeExport,
-      companySearch: this.searchForm.value.company,
-      nameSearch: this.searchForm.value.nameEmployee,
-    };
-    this.exportService.searchExport(obj).subscribe((value?: any) => {
-      this.totalPages = value?.totalPages;
-      this.countTotalPages = new Array(value?.totalPages);
-      this.number = value?.number;
-      this.listExport = value?.content;
-    }, error => {
-      this.toast.error('Thông tin không tìm thấy!!!', 'Chú ý!', {
+  getListExport(page: number, codeExport: string, company: string, nameEmployee: string) {
+    this.exportService.getAll(page, codeExport.trim(), company.trim(), nameEmployee.trim()).subscribe(value => {
+      if (value == null) {
+        this.listExport = [];
+      } else {
+        this.number = value?.number;
+        this.listExport = value?.content;
+        this.checkNext = !value.last;
+        this.checkPreview = !value.first;
+      }
+    }, error1 => {
+      this.toast.error('Dữ liệu không tìm thấy.', 'Chú ý', {
         timeOut: 2500, progressBar: false
       });
     });
   }
 
   goPrevious() {
-    this.check = [];
-    let numberPage: number = this.number;
-    if (numberPage > 0) {
-      numberPage--;
-      this.getListExport(numberPage);
-    }
+    this.number--;
+    this.getListExport(this.number, this.codeExport, this.companySearch, this.employeeSearch);
   }
 
   goNext() {
-    this.check = [];
-    let numberPage: number = this.number;
-    if (numberPage < this.totalPages - 1) {
-      numberPage++;
-      this.getListExport(numberPage);
-    }
+    this.number++;
+    this.getListExport(this.number, this.codeExport, this.companySearch, this.employeeSearch);
   }
 
-  goItem(i: number) {
-    this.check = [];
-    this.getListExport(i);
+  searchExport() {
+    this.codeExport = this.searchForm.value.codeExport;
+    this.companySearch = this.searchForm.value.companySearch;
+    this.employeeSearch = this.searchForm.value.employeeSearch;
+    if (this.checkRegex(this.codeExport, this.companySearch, this.employeeSearch)) {
+      this.number = 0;
+      this.listExport = [];
+    } else {
+      this.getListExport(0, this.codeExport, this.companySearch, this.employeeSearch);
+    }
   }
 
   checkDelete(value: any) {
@@ -101,7 +85,7 @@ export class ExportListComponent implements OnInit {
         this.nameDelete.push(this.listExport[i].codeExport);
       }
     }
-    this.exportService.getAll(0).subscribe(() => {
+    this.exportService.getAll(0, '', '', '').subscribe(() => {
     });
   }
 
@@ -110,7 +94,7 @@ export class ExportListComponent implements OnInit {
     this.ids = [];
     this.ngOnInit();
     this.check = [];
-    this.toast.error('Đã hủy yêu cầu xóa!!!', 'Chú ý!', {
+    this.toast.error('Đã hủy yêu cầu xóa.', 'Chú ý', {
       timeOut: 2500, progressBar: false
     });
   }
@@ -119,18 +103,18 @@ export class ExportListComponent implements OnInit {
     this.check = [];
     if (this.ids.length > 0) {
       this.exportService.deleteExport(this.ids).subscribe(value1 => {
-        this.getListExport(0);
-        this.toast.success('Xóa thành công !!!', 'Thông báo', {
+        this.getListExport(0, '', '', '');
+        this.toast.success('Xóa thành công.', 'Thông báo', {
           timeOut: 2500, progressBar: false
         });
         this.ids = [];
       }, err => {
-        this.toast.error('Đã xảy ra lỗi!!!', 'Chú ý!', {
+        this.toast.error('Đã xảy ra lỗi.', 'Chú ý', {
           timeOut: 2500, progressBar: false
         });
       });
     } else {
-      this.toast.error('Đã hủy yêu cầu xóa!!!', 'Chú ý!', {
+      this.toast.error('Đã hủy yêu cầu xóa.', 'Chú ý', {
         timeOut: 2500, progressBar: false
       });
     }
@@ -155,5 +139,11 @@ export class ExportListComponent implements OnInit {
     } else {
       this.editId = this.check[0];
     }
+  }
+
+  // kiểm tra nhập kí tự đặc biệt trên ô tìm kiếm.
+  checkRegex(codeExport: string, company: string, nameEmployee: string): boolean {
+    const format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+    return format.test(codeExport) || format.test(company) || format.test(nameEmployee);
   }
 }

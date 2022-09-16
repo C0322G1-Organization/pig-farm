@@ -4,6 +4,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {PigService} from '../../service/pig.service';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
+import {Title} from '@angular/platform-browser';
 const URL_PIG = 'http://localhost:8080/pig';
 @Component({
   selector: 'app-pig-list',
@@ -12,11 +13,11 @@ const URL_PIG = 'http://localhost:8080/pig';
 })
 export class PigListComponent implements OnInit {
 
+
   pigs: Pig[] = [];
   code: string;
   dateIn: string;
   status: string;
-  codeSearch: string;
   page = 0;
   searchForm: FormGroup;
   totalPages: number;
@@ -29,24 +30,36 @@ export class PigListComponent implements OnInit {
   msg: string;
   clss: string;
   content: string;
-  checkNext: boolean;
   previousPageClass: any;
-  pages: any;
   nextPageClass: any;
-  dateInSearch: string;
-  statusSearch: string;
+  dateInSearch = '';
+  statusSearch = '';
+  codeSearch = '';
   check: string[] = [];
   editId: string;
   informationDelete: Pig[];
   deleteList: number[] = [];
+  checkNext: boolean;
+  checkPrevious: boolean;
+  totalPage: Array<number>;
+  indexPagination = 0;
+  pages: Array<number>;
+  previousPageStyle = 'inline-block';
+  nextPageStyle = 'inline-block';
+  totalElements = 0;
+  pageSize = 5;
+  displayPagination = 'inline-block';
+  numberOfElement = 0;
 
   constructor(private pigService: PigService,
               private toastrService: ToastrService,
-              private router: Router) {
+              private router: Router,
+              private title: Title) {
+    this.title.setTitle('Cá thể');
   }
 
   ngOnInit(): void {
-    this.getPigPage(0, '', '', '');
+    this.getList();
     console.log(this.ids.length);
     // this.getAll(0);
     this.searchForm = new FormGroup({
@@ -54,65 +67,98 @@ export class PigListComponent implements OnInit {
       dateInSearch: new FormControl(''),
       statusSearch: new FormControl(''),
     });
+    // this.getListBySearchAndPagination();
   }
 
-  getPigPage(page: number, codeSearch: string, dateInSearch: string, statusSearch: string) {
-    this.pigService.getAllPig(page, codeSearch, dateInSearch, statusSearch).subscribe((data: any) => {
-      if (data !== null) {
-        this.totalPages = data.totalPages;
-        this.countTotalPages = new Array(data.totalPages);
-        this.number = data.number;
-        this.pigs = data.content;
-      } else {
+  getList() {
+    this.pigService.getAllPig(this.indexPagination, this.codeSearch, this.dateInSearch, this.statusSearch, this.pageSize).subscribe((data?: any) => {
+      if (data === null) {
+        this.totalPage = new Array(0);
         this.pigs = [];
+        this.displayPagination = 'none';
+        this.toastrService.warning('Không có dữ liệu.', 'Chú ý');
+      } else {
+        this.number = data?.number;
+        this.pageSize = data?.size;
+        this.numberOfElement = data?.numberOfElements;
+        this.pigs = data.content;
+        this.totalElements = data?.totalElements;
+        this.totalPage = new Array(data?.totalPages);
       }
-    }, error => {
-      console.log(error);
+      this.checkPreviousAndNext();
     });
   }
 
+  previousPage(event: any) {
+    event.preventDefault();
+    this.indexPagination--;
+    this.ngOnInit();
+  }
+
+  nextPage(event: any) {
+    event.preventDefault();
+    this.indexPagination++;
+    this.ngOnInit();
+  }
+
+  checkPreviousAndNext() {
+    if (this.indexPagination === 0) {
+      this.previousPageStyle = 'none';
+    } else if (this.indexPagination !== 0) {
+      this.previousPageStyle = 'inline-block';
+    }
+    if (this.indexPagination < (this.totalPage.length - 1)) {
+      this.nextPageStyle = 'inline-block';
+    } else if (this.indexPagination === (this.totalPage.length - 1) || this.indexPagination > (this.totalPage.length - 1)) {
+      this.nextPageStyle = 'none';
+    }
+  }
+
+  checkRegex(codeSearch: string, statusSearch: string): boolean {
+    const format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+    return format.test(codeSearch) || format.test(statusSearch);
+  }
+
   searchPig() {
-    this.getPigPage(0,
-      this.searchForm.value.codeSearch,
-      this.searchForm.value.dateInSearch,
-      this.searchForm.value.statusSearch);
-  }
-
-  goPrevious() {
-    let numberPage: number = this.number;
-    if (numberPage > 0) {
-      numberPage--;
-      this.getPigPage(numberPage, this.searchForm.value.codeSearch,
-        this.searchForm.value.dateInSearch,
-        this.searchForm.value.statusSearch);
+    this.codeSearch = this.searchForm.value.codeSearch;
+    this.statusSearch = this.searchForm.value.statusSearch;
+    if (this.checkRegex(this.searchForm.value.codeSearch, this.searchForm.value.statusSearch)) {
+      this.indexPagination = 0;
+      this.totalPage = new Array(0);
+      this.pigs = [];
+      this.displayPagination = 'none';
+      this.checkPreviousAndNext();
+      this.toastrService.warning('Không được nhập kí tự đặc biệt.', 'Chú ý');
+    } else {
+      this.indexPagination = 0;
+      this.displayPagination = 'inline-block';
+      this.getList();
     }
   }
 
-  goNext() {
-    let numberPage: number = this.number;
-    if (numberPage < this.totalPages - 1) {
-      numberPage++;
-      this.getPigPage(numberPage, this.searchForm.value.codeSearch,
-        this.searchForm.value.dateInSearch,
-        this.searchForm.value.statusSearch);
+  totalElement($event: any) {
+    switch ($event.target.value) {
+      case '5':
+        this.pageSize = 5;
+        this.indexPagination = 0;
+        this.ngOnInit();
+        break;
+      case '10':
+        this.pageSize = 10;
+        this.indexPagination = 0;
+        this.ngOnInit();
+        break;
+      case '15':
+        this.pageSize = 15;
+        this.indexPagination = 0;
+        this.ngOnInit();
+        break;
+      case 'full':
+        this.pageSize = this.totalElements;
+        this.indexPagination = 0;
+        this.ngOnInit();
+        break;
     }
-  }
-
-  goItem(i: number) {
-    this.getPigPage(i, this.searchForm.value.codeSearch,
-      this.searchForm.value.dateInSearch,
-      this.searchForm.value.statusSearch);
-  }
-
-  goStart() {
-    this.getPigPage(0, this.searchForm.value.codeSearch,
-      this.searchForm.value.dateInSearch,
-      this.searchForm.value.statusSearch);
-  }
-  goEnd() {
-    this.getPigPage(this.totalPages - 1, this.searchForm.value.codeSearch,
-      this.searchForm.value.dateInSearch,
-      this.searchForm.value.statusSearch);
   }
 
   resetDelete() {
@@ -123,8 +169,8 @@ export class PigListComponent implements OnInit {
   deleteId() {
     if (this.ids.length > 0) {
       this.pigService.deletePig(this.ids).subscribe(value1 => {
-        this.getPigPage(0, '', '', '');
-        this.toastrService.error('Xóa thành công !!!', 'Thông báo');
+        this.getList();
+        this.toastrService.success('Xóa thành công !!!', 'Thông báo');
         this.ids = [];
       }, err => {
         this.clss = 'rd';
@@ -149,7 +195,7 @@ export class PigListComponent implements OnInit {
         this.nameDelete.push(this.pigs[i].code);
       }
     }
-    this.pigService.getAllPig(0, '', '', '').subscribe(() => {
+    this.pigService.getAllPig(0, '', '', '', 0).subscribe(() => {
     });
   }
 
@@ -187,6 +233,7 @@ export class PigListComponent implements OnInit {
       this.informationDelete.push(item.title);
     }
   }
+
   checkbox(pigDelete: Pig) {
     for (const item of this.nameDelete) {
       if (item.id === pigDelete.id) {
@@ -204,5 +251,11 @@ export class PigListComponent implements OnInit {
     if (this.deleteList.length === 1) {
       this.router.navigateByUrl('pig/update/' + this.deleteList[0]).then(r => console.log(r));
     }
+  }
+
+  omit_special_char(event) {
+    let k;
+    k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k === 8 || k === 32 || (k >= 48 && k <= 57));
   }
 }

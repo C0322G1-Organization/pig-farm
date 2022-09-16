@@ -7,6 +7,7 @@ import {NotificationEditComponent} from './notification-edit/notification-edit.c
 import {NotificationListComponent} from './notification-list/notification-list.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
   declarations: [
@@ -14,13 +15,14 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     NotificationEditComponent,
     NotificationListComponent
   ],
-  imports: [
-    CommonModule,
-    NotificationRoutingModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    FormsModule,
-  ]
+    imports: [
+        CommonModule,
+        NotificationRoutingModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        FormsModule,
+        CKEditorModule,
+    ]
 })
 export class NotificationModule {
 }

@@ -13,8 +13,8 @@ export class StorageService {
   constructor(private http: HttpClient) {
   }
 
-  getAll(page: number, foodTypeSearch: string): Observable<Storage[]> {
-    return this.http.get<Storage[]>(API_URL + '/storage/page?page=' + page + '&keyWord=' + foodTypeSearch);
+  getAll(page: number, foodTypeSearch: string, size: number): Observable<Storage[]> {
+    return this.http.get<Storage[]>(API_URL + '/storage/page?page=' + page + '&keyWord=' + foodTypeSearch + '&size=' + size);
   }
 
   getAllS(): Observable<Storage[]> {

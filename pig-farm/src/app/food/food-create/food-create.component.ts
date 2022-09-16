@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
-import {FoodService} from '../../service/food.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Pigsty} from '../../model/pigsty';
-import {PigstyService} from '../../service/pigsty.service';
 import {StorageService} from '../../service/storage.service';
+import {PigstyService} from '../../service/pigsty.service';
+import {Storage} from '../../model/storage';
+import {FoodService} from '../../service/food.service';
 
 @Component({
   selector: 'app-food-create',
@@ -17,7 +18,7 @@ export class FoodCreateComponent implements OnInit {
   storages: Storage[] = [];
 
   foodForm: FormGroup = new FormGroup({
-    amount: new FormControl('', [Validators.required,Validators.min(1)]),
+    amount: new FormControl('', [Validators.required, Validators.min(1)]),
     unit: new FormControl('', [Validators.required]),
     storage: new FormControl('', [Validators.required]),
     pigsty: new FormControl('', [Validators.required]),
@@ -68,11 +69,11 @@ export class FoodCreateComponent implements OnInit {
     console.log(food);
     this.foodService.saveFood(food).subscribe(() => {
     }, error => {
-      console.log(error);
+      this.toast.error('Chỉ nhập số và không dc nhập quá số lượng trong kho', 'Thông báo');
     }, () => {
       this.foodForm.reset();
       this.router.navigate(['/food']);
-      this.toast.success('Thêm mới thành công', 'Thông báo');
+      this.toast.success('Thêm mới thức ăn thành công', 'Thông báo');
     });
   }
 }

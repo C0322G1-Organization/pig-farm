@@ -27,14 +27,17 @@ export class AdvertisementService {
   getListPlacement(): Observable<Placement[]> {
     return this.http.get<Placement[]>(`${API_URL}/advertisement/list/placement`);
   }
-  getListAndSearch(indexPagination: number, keySearch: string): Observable<any> {
-    return this.http.get<any>(API_URL + '/advertisement/page?page=' + indexPagination + '&keySearch=' + keySearch);
+  getListAndSearch(page: number, keySearch: string, size: number): Observable<any> {
+    return this.http.get<any>(API_URL + '/advertisement/page?page=' + page + '&keySearch=' + keySearch + '&size=' + size);
   }
 
   deleteAdvertisement(ids: number[]): Observable<any> {
     const data = {id: ids};
     const url = API_URL + '/advertisement/delete';
     return this.http.post<any>(url, data);
+  }
+  checkDate(date: string): Observable<string> {
+    return this.http.get<string>(API_URL + '/advertisement/date/' + date);
   }
 
 }

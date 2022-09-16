@@ -3,18 +3,31 @@ import {Routes, RouterModule} from '@angular/router';
 import {FoodCreateComponent} from './food-create/food-create.component';
 import {FoodEditComponent} from './food-edit/food-edit.component';
 import {FoodListComponent} from './food-list/food-list.component';
+import {AuthGuard} from '../security/auth.guard.';
 
 const routes: Routes = [
   {
     path: 'food',
-    component: FoodListComponent
+    component: FoodListComponent,
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['ROLE_ADMIN', 'ROLE_USER']
+    }
   },
   {
     path: 'food/create',
-    component: FoodCreateComponent
+    component: FoodCreateComponent,
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['ROLE_ADMIN', 'ROLE_USER']
+    }
   }, {
     path: 'food/edit/:id',
-    component: FoodEditComponent
+    component: FoodEditComponent,
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['ROLE_ADMIN', 'ROLE_USER']
+    }
   }
 ];
 
