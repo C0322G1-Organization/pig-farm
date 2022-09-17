@@ -2,10 +2,9 @@
   color: seagreen;
 }
 
-/*.navbar-brand:hover {*/
-/*  background-color: #FFE421;*/
-/*  color: green;*/
-/*}*/
+.dropdown-menu {
+  border-color: seagreen;
+}
 
 .bi-search:hover {
   cursor: pointer;
@@ -40,10 +39,6 @@ svg {
   height: 100%;
 }
 
-body {
-  padding: 0;
-}
-
 .find {
   display: inline-block;
   align-items: center;
@@ -57,4 +52,22 @@ body {
 
 .bi-search:hover {
   font-weight: bold;
+}
+
+@media (max-width: 1133px) {
+  .in-responsive {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 1033px) {
+  .in-responsive {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 992px) {
+  .in-responsive {
+    font-size: 16px;
+  }
 }

@@ -25,7 +25,7 @@
 <div class="container">
   <div class="row mt-5">
     <div class="col-lg-6">
-      <h4 class="text-success">
+      <h4 class="text-success news-title">
         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-circle-fill"
              viewBox="0 0 16 16">
           <circle cx="8" cy="8" r="8"/>
@@ -38,7 +38,7 @@
              placeholder="Nhập nội dung tìm kiếm" (keydown.enter)="search()" aria-label="Search">
     </div>
     <div class="col-lg-2 d-flex justify-content-center">
-      <button class="btn btn-outline-success" (click)="search()">Tìm kiếm</button>
+      <button class="btn btn-outline-success btn-search" (click)="search()">Tìm kiếm</button>
     </div>
 
   </div>
@@ -47,15 +47,17 @@
     <div class="col-lg-10 mt-5">
       <div class="row mt-3" *ngFor="let i of news">
         <div class="col-lg-2">
-          <div>
-            <a [routerLink]="['/info-news', i.id]">
+          <a [routerLink]="['/info-news', i.id]">
+            <figure>
               <img [src]="i.image" class="img-fluid rounded mx-auto d-block mx-md-auto"
-                   alt="..."></a>
-          </div>
+                   alt="...">
+            </figure>
+          </a>
         </div>
         <div class="col-lg-10">
-          <a [routerLink]="['/info-news', i.id]"><h6>&#8226; {{i.title | uppercase |slice : 0:1 }}{{i.title |slice : 1:i.title.length}}</h6></a>
-          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor"
+          <a [routerLink]="['/info-news', i.id]"><h6>
+            &#8226; {{i.title | uppercase |slice : 0:1 }}{{i.title |slice : 1:i.title.length}}</h6></a>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" fill="currentColor"
                class="text-danger bi bi-calendar3"
                viewBox="0 0 16 16">
             <path
@@ -68,23 +70,35 @@
           <p class="tooLongContent" [innerHTML]="i.content"></p>
         </div>
       </div>
-      <div class="row mt-5" align="center">
-        <nav aria-label="...">
-          <ul class="pagination justify-content-center" style="display: flex ; justify-content: flex-end">
-            <li class="page-item " *ngIf="checkPrevious">
-              <a class="page-link" (click)="goPrevious()" tabindex="-1">Trang trước</a>
-            </li>
-            <li class="page-item" *ngIf="checkPrevious"><a class="page-link" (click)="goPrevious()">{{number}}</a></li>
-            <li class="page-item active">
-              <a class="page-link"> <span class="sr-only">{{number + 1}}</span></a>
-            </li>
-            <li class="page-item" *ngIf="checkNext"><a class="page-link" (click)="goNext()">{{number + 2}}</a></li>
-            <li class="page-item" *ngIf="checkNext">
-              <a class="page-link" (click)="goNext()">Trang sau</a>
-            </li>
-          </ul>
-        </nav>
+
+      <div style="height: 50px;position: relative" class="container pagination-advertisement mb-3">
+        <ul class="pagination justify-content-end" style="text-align: right">
+          <li>
+            <select class="form-select selectOnMollibe" (change)="totalElement($event)">
+              <option class="nav-link" value="5">5</option>
+              <option class="nav-link" value="10">10</option>
+              <option class="nav-link" value="15">15</option>
+              <option class="nav-link" value="full">Tất cả</option>
+            </select>
+          </li>
+          <li class="page-item">
+            <span style="margin: 0 20px 0 40px" class="pageText">
+             {{pageSize * indexPagination + 1}} - {{pageSize * indexPagination + numberOfElement}}
+              trên {{totalElements}}
+   </span>
+            <button (click)="previousPage($event)" [ngStyle]="{'display':previousPageStyle}" type="button"
+                    class="btn btn-outline-primary arrow-left">
+              <i class="bi bi-chevron-left"></i>
+            </button>
+            <button (click)="nextPage($event)" [ngStyle]="{'display':nextPageStyle}" style="margin-left: 10px"
+                    type="button"
+                    class="btn btn-outline-primary arrow-right">
+              <i class="bi bi-chevron-right"></i>
+            </button>
+          </li>
+        </ul>
       </div>
+
     </div>
 
     <div class="col-lg-2">
