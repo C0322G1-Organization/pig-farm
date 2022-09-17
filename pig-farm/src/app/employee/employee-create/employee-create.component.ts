@@ -93,10 +93,10 @@ export class EmployeeCreateComponent implements OnInit {
           };
           console.log(employee);
           this.employeeService.saveEmployee(employee).subscribe(() => {
-            this.router.navigate(['/employee/list']);
-            this.toast.success('Thêm Mới Nhân Viên Thành Công.', 'Thông báo');
+            this.router.navigate(['/employee']);
+            this.toast.success('Thêm mới nhân viên thành công.', 'Thông báo');
           }, error => {
-            this.toast.error('Thêm Mới Nhân Viên Thất Bại.', 'Thông báo');
+            this.toast.error('Thêm mới nhân viên thất bại.', 'Thông báo');
             console.log(error);
           });
         });

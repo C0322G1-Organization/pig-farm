@@ -77,7 +77,7 @@ export class EmployeeEditComponent implements OnInit {
           this.employeeForm.patchValue({image: url});
           console.log(url);
           this.employeeService.editEmployee(this.id, this.employeeForm.value).subscribe(() => {
-            this.router.navigate(['/employee/list']);
+            this.router.navigate(['/employee']);
             this.toast.success('Sửa thông tin nhân viên thành công.', 'Thông báo');
           }, error => {
             this.toast.error('Sửa thông tin nhân viên thất bại.', 'Thông báo');

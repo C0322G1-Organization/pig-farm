@@ -41,7 +41,6 @@ export class PigstyCreateComponent implements OnInit {
       typePigs: new FormControl('', [Validators.required]),
       employee: new FormControl(),
     });
-    console.log(this.now);
   }
 
   createPigsty() {

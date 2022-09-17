@@ -84,7 +84,7 @@ export class VaccinationCreateComponent implements OnInit {
   checkDate() {
     // @ts-ignore
     let day1: string[];
-    day1 = this.createPigsty.split('-');
+    day1 = this.createPigsty.split('/');
     const newDay = day1[1] + '-' + day1[0] + '-' + day1[2];
     // console.log(newDay);
     const day = new Date(newDay);

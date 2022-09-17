@@ -25,7 +25,7 @@
               <span class="erorr"
                     *ngIf="contactForm.get('email').hasError('required') && (contactForm.get('email').touched || submit)">Vui lòng nhập.</span>
               <span class="erorr"
-                    *ngIf="contactForm.get('email').hasError('pattern') && (contactForm.get('email').touched || submit)">Vui lòng nhập.</span>
+                    *ngIf="contactForm.get('email').hasError('pattern') && (contactForm.get('email').touched || submit)">Vui lòng nhập email hợp lệ (VD:a@gmail.com).</span>
             </div>
           </div>
           <div class="row">
@@ -34,7 +34,7 @@
               <span class="erorr"
                     *ngIf="contactForm.get('phone').hasError('required') && (contactForm.get('phone').touched || submit)">Vui lòng nhập.</span>
               <span class="erorr"
-                    *ngIf="contactForm.get('phone').hasError('pattern') && (contactForm.get('phone').touched || submit)">Số điện thoại không hợp lệ</span>
+                    *ngIf="contactForm.get('phone').hasError('pattern') && (contactForm.get('phone').touched || submit)">Vui lòng nhập Số điện thoại không (VD:09XXXXXXXX).</span>
             </div>
             <div class="col-6 "><input type="text" formControlName="address" class="form-control" placeholder="Địa chỉ">
               <span class="erorr"
@@ -83,5 +83,5 @@
     </div>
   </div>
 </div>
-<button type="button" id="button-modal-success" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-success">
+<button type="button" id="button-modal-success" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-success" style="display: none">
 </button>

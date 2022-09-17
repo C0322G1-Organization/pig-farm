@@ -57,7 +57,6 @@ export class NotificationListComponent implements OnInit {
         this.pageSize = data?.size;
         this.numberOfElement = data?.numberOfElements;
         this.notifications = data.content;
-        console.log(this.notifications);
         this.totalElements = data?.totalElements;
         this.totalPage = new Array(data?.totalPages);
       }

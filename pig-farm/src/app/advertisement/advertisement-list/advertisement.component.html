@@ -52,7 +52,7 @@
       <div style="text-align: center; display: flex; justify-content: center" *ngIf="deleteList.length!==0">
         <button class="col-3 btn btn-outline-warning" style="width: auto; margin-right: 5%"
                 type="button" [routerLink]="['/advertisement/edit',deleteList[0].id]"
-                [disabled]="deleteList.length>1">Sửa
+                [disabled]="deleteList.length>1">Chỉnh Sửa
         </button>
         <button class="col-3 btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"
                 style="width: auto;" type="submit" [disabled]="deleteList.length<1">Xoá
@@ -61,7 +61,7 @@
       <div style="text-align: center; display: flex; justify-content: center" *ngIf="deleteList.length===0">
         <button class="col-3 btn btn-outline-warning" style="width: auto; margin-right: 5%"
                 type="button" [routerLink]="['/advertisement/edit',ids[0]]"
-                [disabled]="deleteList.length<1">Sửa
+                [disabled]="deleteList.length<1">Chỉnh Sửa
         </button>
         <button class="col-3 btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"
                 style="width: auto;" type="submit" [disabled]="deleteList.length<1">Xoá
@@ -75,7 +75,7 @@
               <option value="5">5</option>
               <option value="10">10</option>
               <option value="15">15</option>
-              <option value="full">Full list</option>
+              <option value="full">Tất Cả</option>
             </select>
           </li>
           <li class="page-item">

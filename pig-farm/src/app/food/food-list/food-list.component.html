@@ -1,98 +1,127 @@
 <div class="body">
   <div class="vc_empty_space" style="height: 64px"><span class="vc_empty_space_inner"></span></div>
 
-  <div class="container pb-2">
-    <div style="text-align: center; font-size: 30px;" class="mt-3">Danh Sách Thức Ăn</div>
+  <div style="min-height: 455px" class="container container-list  pb-2">
+    <div>
+      <div style="text-align: center; font-size: 30px;" class="mt-3">DANH SÁCH THỨC ĂN</div>
+      <div class="row mt-5">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-3">
+              <a class="btn btn-outline-success" style=" width: 130px;" href="" routerLink='/food/create'>
+                Thêm mới
+              </a>
+            </div>
 
-    <div class="row mt-5">
-      <div class="col-4">
-        <a class=" btn btn-success" style="width: auto;" href="" routerLink='/food/create'>
-          Thêm mới
-        </a>
-      </div>
-      <div class="col-8">
-        <form [formGroup]="formSearch" (ngSubmit)="searchByType()" *ngIf="formSearch">
-          <div class="col-3 mx-auto me-0" style="display: flex; width: 300px">
-            <input class="form-control me-1" type="text" placeholder="Loại thức ăn..."
-                   formControlName="type">
-            <button type="submit" class="btn btn-success" style="width: auto;">Tìm</button>
+            <div class="col-9">
+              <form [formGroup]="formSearch" (ngSubmit)="searchByType()" *ngIf="formSearch">
+                <div class="col-4 mx-auto me-1" style="display: flex; width: 300px ;height: 40px">
+                  <input class="form-control me-1" type="text" placeholder="Loại thức ăn..."
+                         formControlName="typeSearch" name="typeSearch">
+                  <button type="submit" class="btn btn-outline-success" style="width: 150px;">Tìm kiếm</button>
+                </div>
+              </form>
+            </div>
           </div>
-        </form>
+        </div>
+      </div>
+      <h2 *ngIf="foodList.length === 0" style="color: red;text-align: center">Dữ liệu bạn nhập không có ,vui lòng nhập
+        lại.
+      </h2>
+      <div style="border-radius: 20px;" class="table mt-3 mb-3 " *ngIf="foodList.length > 0">
+        <table class="table table-striped ">
+          <thead>
+          <tr style="background-color: #017428">
+            <th class="text-light">Stt</th>
+            <th class="text-light">Mã Đàn Lợn</th>
+            <th class="text-light">
+              Số Lượng
+              <button (click)="sortAmount(amountValue)" style="background-color:  #017428;border:none">
+                <i class="fa fa-sort-numeric-desc" aria-hidden="true"></i>
+              </button>
+            </th>
+            <th class="text-light">
+              Loại Thức Ăn
+              <button (click)="sortFoodType(foodTypeValue)" style="background-color:  #017428;border:none">
+                <i class="fa fa-sort-numeric-desc" aria-hidden="true"></i>
+              </button>
+            </th>
+            <th class="text-light">
+              Đơn Vị
+              <button (click)="sortUnit(unitValue)" style="background-color:  #017428;border:none">
+                <i class="fa fa-sort-numeric-desc" aria-hidden="true"></i>
+              </button>
+            </th>
+            <th class="text-light"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of foodList; let i=index">
+            <td>{{1 + i + page * 5}}</td>
+            <td>{{item.pigsty.code}}</td>
+            <td>{{item.amount}}</td>
+            <td>{{item.storage.foodType}}</td>
+            <td>{{item.unit}}</td>
+            <td class=" mb-2">
+              <div class="col button-sua">
+                <a [routerLink]="['/food/edit/',item.id]" class="btn btn-outline-warning">
+                  Chỉnh Sửa
+                </a>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <h2 *ngIf="foodList.length === 0" style="color: red;text-align: center"> Không Có Kết Quả
+          <div><img style="width: auto;height: 300px" src="assets/img/notification-backgroup-list.jpg"></div>
+        </h2>
+
       </div>
     </div>
-    <div style="border-radius: 20px;" class="table mt-3 mb-3 ">
-      <table class="table table-striped ">
-        <thead>
-        <tr style="background-color: #017428">
-          <th class="text-light">STT</th>
-          <th class="text-light">MÃ ĐÀN LỢN</th>
-          <th class="text-light">
-            SỐ LƯỢNG
-            <button (click)="sortAmount(amountValue)" style="background-color:  #017428;border:none">
-              <i class="fa fa-sort-numeric-desc" aria-hidden="true"></i>
-            </button>
-          </th>
-          <th class="text-light">
-            LOẠI THỨC ĂN
-            <button (click)="sortFoodType(foodTypeValue)" style="background-color:  #017428;border:none">
-              <i class="fa fa-sort-numeric-desc" aria-hidden="true"></i>
-            </button>
-          </th>
-          <th class="text-light">
-            ĐƠN VỊ
-            <button (click)="sortUnit(unitValue)" style="background-color:  #017428;border:none">
-              <i class="fa fa-sort-numeric-desc" aria-hidden="true"></i>
-            </button>
-          </th>
-          <th class="text-light">CHỌN</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let item of foodList; let i=index">
-          <td>{{i + 1}}</td>
-          <td>{{item.pigsty.code}}</td>
-          <td>{{item.amount}}</td>
-          <td>{{item.storage.foodType}}</td>
-          <td>{{item.unit}}</td>
-          <td>
-            <input class="form-check-input" type="radio" name="edit" (click)="getValue(item.id)" value="idEdit">
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
 
-    <div class="d-grid gap-2 d-md-flex justify-content-md-center mb-2">
-      <button [routerLink]="['/food/edit',this.idEdit]" [disabled]="!idEdit" value="" class=" btn btn-warning mx-4">Sửa
-      </button>
-    </div>
-    <div class="paging">
-      <ul class="pagination justify-content-end">
-        <li class="page-item disabled" *ngIf="page <= 0 ">
-          <a class="page-link" [routerLink]="" tabindex="-1">Trang trước</a>
-        </li>
-        <li class="page-item" *ngIf="page > 0">
-          <a class="page-link" [routerLink]="" (click)="goPrevious()">
-            Trang trước
-          </a>
-        </li>
-        <li class="page-item disabled">
-          <a class="page-link" [routerLink]="">
-            {{number + 1}}/{{totalPages}}
-          </a>
-        </li>
-        <li class="page-item disabled" *ngIf="page >= totalPages -1">
-          <a class="page-link" [routerLink]="">Trang kế
-          </a>
-        </li>
-        <li class="page-item" *ngIf="page < totalPages - 1">
-          <a class="page-link" [routerLink]="" (click)="goNext()">
-            Trang kế
-          </a>
-        </li>
-      </ul>
+  </div>
+  <div style="background: white;opacity: 90%;height:50px;position: relative;border-radius: 0 0 10px 10px"
+       class="container">
+    <div style="height: 50px;" class="row col-12 col-xl-6 container pagination-storage float-end">
+      <!--Phan trang-->
+      <div class="row">
+        <div class="col-xl-3 col-4">
+          <select (change)="sizeTotal(select.value)" #select class="form-select"
+                  aria-label="Default select example">
+            <option value="" selected disabled>Tải thêm</option>
+            <option value="5">5 dòng</option>
+            <option value="10">10 dòng</option>
+            <option value="15">15 dòng</option>
+            <option [value]="totalElements">Tất cả record</option>
+          </select>
+        </div>
+        <div class="col-xl-3 col-4">
+          <div style="text-align: center">
+            <a class="page-link">{{number + 1}}-{{totalPages}}</a>
+          </div>
+        </div>
+        <div class="col-xl-3 col-4">
+          <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-end">
+              <li class="page-item" *ngIf="checkPreview">
+                <a class="page-link" [routerLink]="" (click)="goPrevious()"><<<</a>
+              </li>
+              <li class="page-item disabled" *ngIf="!checkPreview">
+                <a class="page-link" [routerLink]=""><<<</a>
+              </li>
+              <li class="page-item" *ngIf="checkNext">
+                <a class="page-link" [routerLink]="" (click)="goNext()">>>></a>
+              </li>
+              <li class="page-item disabled" *ngIf="!checkNext">
+                <a class="page-link" [routerLink]="">>>></a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
     </div>
   </div>
   <div class="vc_empty_space" style="height: 64px"><span class="vc_empty_space_inner"></span></div>
-
 </div>
+
+

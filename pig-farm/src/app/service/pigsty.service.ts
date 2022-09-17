@@ -26,8 +26,8 @@ export class PigstyService {
     return this.http.get<Pigsty>(this.URL_PIGSTY + '/getPigstyById' + `/${id}`);
   }
 
-  getAll(page: number, search: string): Observable<any> {
-    return this.http.get<any>(this.URL_PIGSTY + '/list?search=' + search + '&page=' + page);
+  getAll(page: number, search: string, pageSize: number): Observable<any> {
+    return this.http.get<any>(this.URL_PIGSTY + '/list?search=' + search + '&page=' + page + '&size=' + pageSize);
   }
 
   getAllList(): Observable<any> {

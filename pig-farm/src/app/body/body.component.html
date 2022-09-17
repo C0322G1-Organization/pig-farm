@@ -65,7 +65,7 @@
           </svg>
           <span> {{i.submittedDate | date: 'dd/MM/yyyy'}}</span>
 
-          <p class="tooLongContent">{{i.content}}</p>
+          <p class="tooLongContent" [innerHTML]="i.content"></p>
         </div>
       </div>
       <div class="row mt-5" align="center">

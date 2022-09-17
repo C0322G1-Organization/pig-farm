@@ -59,9 +59,9 @@
               Ngày nhập không tồn tại.</p>
           </div>
           <div class="d-grid gap-2 d-md-flex justify-content-md-around">
-            <button class="btn btn-outline-danger" routerLink="/storage/page" ><i class="bi bi-backspace"></i> Quay Lại</button>
-            <button class="btn btn-outline-success" type="submit" ><i class="bi bi-plus-circle"></i> Thêm Mới</button>
-            <button class="btn btn-outline-secondary" type="button" (click)="reset()" ><i class="bi bi-x-octagon"></i> Nhập Lại</button>
+            <button class="btn btn-outline-danger" routerLink="/storage/page" > Quay Lại</button>
+            <button class="btn btn-outline-success" type="submit" [disabled]="!storageForm.valid" > Thêm Mới</button>
+            <button class="btn btn-outline-secondary" type="button" (click)="reset()" > Nhập Lại</button>
           </div>
         </div>
       </form>

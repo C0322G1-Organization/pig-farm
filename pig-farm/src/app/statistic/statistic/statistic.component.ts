@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
 import {Chart, registerables} from 'chart.js';
 import * as html2pdf from 'html2pdf.js';
 // import * as chartJs from 'chart.js';
-// Chart.register(...registerables);
+Chart.register(...registerables);
 
 @Component({
   selector: 'app-statictis',

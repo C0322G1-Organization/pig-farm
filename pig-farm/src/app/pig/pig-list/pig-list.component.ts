@@ -60,7 +60,6 @@ export class PigListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getList();
-    console.log(this.ids.length);
     // this.getAll(0);
     this.searchForm = new FormGroup({
       codeSearch: new FormControl(''),

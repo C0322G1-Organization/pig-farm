@@ -62,9 +62,6 @@ export class PigCreateComponent implements OnInit {
   }
 
   submitCreate() {
-    console.log(this.formPig.value);
-
-    console.log(this.formPig.value.pigsty);
     this.pigService.createPig(this.formPig.value).subscribe(value => {
       this.toast.success('Thêm mới thành công!');
       this.router.navigateByUrl('/pig').then(r => console.log(r));
@@ -85,9 +82,7 @@ export class PigCreateComponent implements OnInit {
 
   checkDateEnd(abstractControl: AbstractControl): any {
     const start = new Date(abstractControl.value.dateIn);
-    console.log(start);
     const now = new Date(abstractControl.value.dateOut);
-    console.log(now);
     if (now.getFullYear() > start.getFullYear()) {
       return null;
     } else if (now.getFullYear() < start.getFullYear()) {

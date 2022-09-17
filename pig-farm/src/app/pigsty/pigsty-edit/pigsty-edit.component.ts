@@ -27,7 +27,6 @@ export class PigstyEditComponent implements OnInit {
   getParamId() {
     this.activatedRoute.paramMap.subscribe((paraMap: ParamMap) => {
       const id = paraMap.get('id');
-      console.log(id);
       this.pigstyService.getPigsty(+id).subscribe(data => {
         this.pigsty = data;
         if (data == null) {

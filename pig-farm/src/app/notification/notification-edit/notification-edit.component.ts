@@ -32,7 +32,7 @@ export class NotificationEditComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private storage: AngularFireStorage,
-              private  toast: ToastrService,
+              private toast: ToastrService,
               private title: Title) {
     this.title.setTitle('Chỉnh sửa thông báo');
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
@@ -58,28 +58,45 @@ export class NotificationEditComponent implements OnInit {
 
   updateNotification() {
     this.check = false;
-    const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
-    const filePath = `news/${nameImg}`;
-    const fileRef = this.storage.ref(filePath);
-    this.storage.upload(`news/${nameImg}`, this.selectedImage).snapshotChanges().pipe(
-      finalize(() => {
-        this.buttonNotification = false;
-        fileRef.getDownloadURL().subscribe((url) => {
-          this.notificationForm.patchValue({image: url});
-          console.log(url);
-          console.log(this.notificationForm.value);
-          this.notificationService.update(this.id, this.notificationForm.value).subscribe(
-            () => {
-              this.toast.success('Cập nhật thành công');
-              this.router.navigateByUrl('/notification/list');
-            },
-            error => {
-              this.toast.error('Cập nhật thất bại, xin hãy thử lại');
-            }
-          );
-        });
-      })
-    ).subscribe();
+    if (this.notificationForm.invalid) {
+      this.toast.error('Nhập đầy đủ thông tin.');
+      this.check = true;
+      return;
+    }
+    if (this.selectedImage !== null) {
+      const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
+      const filePath = `news/${nameImg}`;
+      const fileRef = this.storage.ref(filePath);
+      this.storage.upload(`news/${nameImg}`, this.selectedImage).snapshotChanges().pipe(
+        finalize(() => {
+          this.buttonNotification = false;
+          fileRef.getDownloadURL().subscribe((url) => {
+            this.notificationForm.patchValue({image: url});
+            console.log(url);
+            console.log(this.notificationForm.value);
+            this.notificationService.update(this.id, this.notificationForm.value).subscribe(
+              () => {
+                this.toast.success('Cập nhật thành công');
+                this.router.navigateByUrl('/notification/list');
+              },
+              error => {
+                this.toast.error('Cập nhật thất bại, xin hãy thử lại.');
+              }
+            );
+          });
+        })
+      ).subscribe();
+    } else {
+      this.notificationService.update(this.id, this.notificationForm.value).subscribe(
+        () => {
+          this.router.navigateByUrl('/notification/list');
+          this.toast.success('Cập nhật thàng công.');
+        },
+        error => {
+          this.toast.error('Cập nhật thất bại, hãy thử lại.');
+        }
+      );
+    }
   }
 
   getCurrentDateTime(): string {
@@ -129,9 +146,13 @@ export class NotificationEditComponent implements OnInit {
   }
 
   reset(id: number) {
+    this.selectedImage = null;
+    this.checkImgSize = false;
+    this.regexImageUrl = false;
+    this.editImageState = false;
+    this.checkImg = false;
     this.notificationService.findById(id).subscribe(next => {
       this.notificationForm = new FormGroup({
-        // tslint:disable-next-line:max-line-length
         title: new FormControl(next.title),
         image: new FormControl(next.image),
         content: new FormControl(next.content),
