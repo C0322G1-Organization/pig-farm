@@ -72,10 +72,6 @@
           </tr>
           </tbody>
         </table>
-        <h2 *ngIf="foodList.length === 0" style="color: red;text-align: center"> Không Có Kết Quả
-          <div><img style="width: auto;height: 300px" src="assets/img/notification-backgroup-list.jpg"></div>
-        </h2>
-
       </div>
     </div>
 
@@ -84,38 +80,41 @@
        class="container">
     <div style="height: 50px;" class="row col-12 col-xl-6 container pagination-storage float-end">
       <!--Phan trang-->
-      <div class="row">
-        <div class="col-xl-3 col-4">
+      <div class="row" *ngIf="foodList.length > 0">
+        <div class="col-xl-3 col-4" style="width: 17%">
           <select (change)="sizeTotal(select.value)" #select class="form-select"
                   aria-label="Default select example">
-            <option value="" selected disabled>Tải thêm</option>
-            <option value="5">5 dòng</option>
-            <option value="10">10 dòng</option>
-            <option value="15">15 dòng</option>
-            <option [value]="totalElements">Tất cả record</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option [value]="totalElements">full list</option>
           </select>
         </div>
         <div class="col-xl-3 col-4">
           <div style="text-align: center">
-            <a class="page-link">{{number + 1}}-{{totalPages}}</a>
+            <a class="page-link"><p>{{number + 1}} - {{totalPages}} trên {{totalElements}}</p></a>
           </div>
         </div>
         <div class="col-xl-3 col-4">
           <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-end">
-              <li class="page-item" *ngIf="checkPreview">
-                <a class="page-link" [routerLink]="" (click)="goPrevious()"><<<</a>
-              </li>
-              <li class="page-item disabled" *ngIf="!checkPreview">
-                <a class="page-link" [routerLink]=""><<<</a>
-              </li>
-              <li class="page-item" *ngIf="checkNext">
-                <a class="page-link" [routerLink]="" (click)="goNext()">>>></a>
-              </li>
-              <li class="page-item disabled" *ngIf="!checkNext">
-                <a class="page-link" [routerLink]="">>>></a>
-              </li>
-            </ul>
+            <div class="pagination justify-content-end">
+              <button *ngIf="checkPreview" [routerLink]="" (click)="goPrevious()" type="button"
+                      class="btn btn-outline-primary">
+                <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                </svg>
+              </button>
+              <button  *ngIf="checkNext" [routerLink]="" (click)="goNext()"style="margin-left: 10px"
+                       type="button"
+                       class="btn btn-outline-primary">
+                <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+              </button>
+              <!--              <li class="page-item disabled" *ngIf="!checkNext">-->
+              <!--                <a class="page-link" [routerLink]=""></a>-->
+              <!--              </li>-->
+            </div>
           </nav>
         </div>
       </div>
@@ -123,5 +122,3 @@
   </div>
   <div class="vc_empty_space" style="height: 64px"><span class="vc_empty_space_inner"></span></div>
 </div>
-
-

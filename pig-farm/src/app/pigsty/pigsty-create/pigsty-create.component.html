@@ -12,7 +12,7 @@
             <div class="mb-3">
               <label for="pigstyCode">Mã chuồng nuôi <span style="color: red">*</span></label>
               <input formControlName="code" type="text" id="pigstyCode" class="form-control"
-                     placeholder="Nhập mã chuồng heo" (change)="checkCode($event.target.value)">
+                     placeholder="VD: C001" (change)="checkCode($event.target.value)">
               <p style="color: red" *ngIf="isExitsCode == true">Mã chuồng heo đã tồn tại.</p>
               <p style="color: red" *ngIf="formPigsty.controls.code.hasError('required') && formPigsty.controls.code.touched">Vui lòng nhập thông tin.</p>
               <p style="color: red" *ngIf="formPigsty.controls.code.hasError('pattern')">Nhập sai định dạng CXXX.</p>

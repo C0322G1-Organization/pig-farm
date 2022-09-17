@@ -18,7 +18,6 @@ export class ExportService {
     return this.http.post<Export>(API_URL + '/export/create', exports);
   }
 
-  // @ts-ignore
   updateExport(id: number, exports: Export): Observable<Export> {
     return this.http.put<Export>(API_URL + '/export/update/' + id, exports);
   }
@@ -39,8 +38,8 @@ export class ExportService {
     return this.http.get<string>(API_URL + '/export/check/' + codeExport);
   }
 
-  getAll(page: number, codeExport: string, company: string, nameEmployee: string): Observable<any> {
-    return this.http.get<any>(API_URL + '/export/page?page=' + page + '&codeExport=' + codeExport + '&company=' + company + '&nameEmployee=' + nameEmployee);
+  getAll(page: number, codeExport: string, company: string, nameEmployee: string, size: number): Observable<any> {
+    return this.http.get<any>(API_URL + '/export/page?page=' + page + '&codeExport=' + codeExport + '&company=' + company + '&nameEmployee=' + nameEmployee + '&size=' + size);
   }
 
   deleteExport(ids: number[]): Observable<any> {

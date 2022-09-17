@@ -169,7 +169,7 @@ export class PigListComponent implements OnInit {
     if (this.ids.length > 0) {
       this.pigService.deletePig(this.ids).subscribe(value1 => {
         this.getList();
-        this.toastrService.success('Xóa thành công !!!', 'Thông báo');
+        this.toastrService.success('Xóa thành công!', 'Thông báo');
         this.ids = [];
       }, err => {
         this.clss = 'rd';

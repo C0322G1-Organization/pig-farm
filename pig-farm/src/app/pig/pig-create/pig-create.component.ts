@@ -64,7 +64,7 @@ export class PigCreateComponent implements OnInit {
   submitCreate() {
     this.pigService.createPig(this.formPig.value).subscribe(value => {
       this.toast.success('Thêm mới thành công!');
-      this.router.navigateByUrl('/pig').then(r => console.log(r));
+      this.router.navigateByUrl('/pig');
     });
   }
 

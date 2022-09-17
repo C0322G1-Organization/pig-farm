@@ -101,12 +101,13 @@ export class ExportCreateComponent implements OnInit {
 
   getTotal() {
     this.exportForm.patchValue({total: (+this.exportForm.value.price) * (+this.exportForm.value.kilogram)});
+    this.total = (+this.exportForm.value.price) * (+this.exportForm.value.kilogram);
   }
 
   createExport() {
     const exports: Export = this.exportForm.value;
     console.log(this.exportForm.value);
-    if (this.exportForm.value.typePigs === 'Lợn thit') {
+    if (this.exportForm.value.typePigs === 'Lợn thịt') {
       exports.typePigs = 0;
     } else {
       exports.typePigs = 1;
@@ -114,17 +115,18 @@ export class ExportCreateComponent implements OnInit {
     exports.pigstyDto = {
       id: +this.exportForm.value.pigsty
     };
-    exports.employeeDto = {
+    exports.employDto = {
       id: +this.exportForm.value.employee
     };
     this.exportService.createExport(exports).subscribe(value => {
-      this.toast.success('them moi thanh cong', 'thong bao');
+      this.toast.success('Thêm mới thành công', 'Thông báo');
       this.exportForm.reset();
       this.router.navigateByUrl('/export/page');
     }, error => {
-      this.toast.error('xay ra loi', 'thong bao');
+      this.toast.error('Xảy ra lỗi', 'Thông báo');
     });
   }
+
   checkCode($event: Event) {
     this.exportService.checkCode(String($event)).subscribe(
       value => {
@@ -152,5 +154,6 @@ export class ExportCreateComponent implements OnInit {
       employee: new FormControl('', [Validators.required])
     });
   }
+
 
 }

@@ -5,7 +5,7 @@
         <div class="mb-3 formRow_create_title">
           <h2 class="hgu"><b>CHỈNH SỬA THÔNG BÁO</b></h2>
         </div>
-        <form [formGroup]="notificationForm" (ngSubmit)=updateNotification()>
+        <form [formGroup]="notificationForm">
           <hr>
           <div class="formRow_create_content">
             <div class="mb-3" style="text-align: left ;margin-bottom: 10px">
@@ -46,7 +46,7 @@
 
             <div class="d-grid gap-2 d-md-flex justify-content-md-around">
               <button class="btn btn-outline-danger button " [routerLink]="['/notification/list']">Quay Lại</button>
-              <button type="submit" *ngIf="buttonNotification" style="height: 38px;width: 121px"
+              <button type="submit" *ngIf="buttonNotification" style="height: 38px;width: 121px" (click)="updateNotification()"
                       class="btn btn-outline-success" [disabled]="!notificationForm.valid"> Cập nhật
               </button>
               <button *ngIf="!buttonNotification" style="height: 38px;width: 121px"
@@ -54,7 +54,7 @@
                 <div class="spinner-border spinner-border-sm "></div>
                 Đang tải ...
               </button>
-              <button class="btn btn-outline-secondary button" (click)="reset(id)">Nhập lại</button>
+              <button class="btn btn-outline-secondary" (click)="reset(id)">Nhập lại</button>
             </div>
           </div>
         </form>

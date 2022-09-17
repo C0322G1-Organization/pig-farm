@@ -47,6 +47,7 @@ export class VaccinationCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllPigsty();
+    console.log(this.vaccinationForm);
   }
 
   submit() {
@@ -57,7 +58,6 @@ export class VaccinationCreateComponent implements OnInit {
         code: pigstys.code
       };
       this.vaccinationService.saveVaccination(vaccination).subscribe(() => {
-        // alert('Thêm mới thành công');
         this.vaccinationForm.reset();
         this.router.navigateByUrl('/vaccination');
         this.toastrService.success('Thêm mới thành công', ' Thông báo!!');
@@ -67,8 +67,6 @@ export class VaccinationCreateComponent implements OnInit {
 
   getData(type) {
     this.type = type;
-    console.log(type);
-    // tslint:disable-next-line:radix
     this.pigstyService.getPigsty((type)).subscribe(item => {
         this.createPigsty = this.datePipe.transform(new Date(item.creationDate), 'dd/MM/yyyy');
       }
@@ -84,7 +82,7 @@ export class VaccinationCreateComponent implements OnInit {
   checkDate() {
     // @ts-ignore
     let day1: string[];
-    day1 = this.createPigsty.split('/');
+    day1 = this.createPigsty?.split('/');
     const newDay = day1[1] + '-' + day1[0] + '-' + day1[2];
     // console.log(newDay);
     const day = new Date(newDay);
@@ -109,6 +107,5 @@ export class VaccinationCreateComponent implements OnInit {
       const d2 = this.datePipe.transform(new Date(day.setDate(day.getDate() + 77)), 'dd/MM/yyyy');
       this.date2 = d2;
     }
-
   }
 }

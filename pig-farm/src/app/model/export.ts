@@ -13,7 +13,7 @@ export interface Export {
   typePigs?: number;
   isDeleted?: boolean;
   pigstyDto?: Pigsty;
-  employeeDto?: Employee;
+  employDto?: Employee;
   codeEmployee?: string;
   nameEmployee?: string;
 }

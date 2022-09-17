@@ -13,8 +13,8 @@ export class TreatmentService {
   constructor(private http: HttpClient) {
   }
 
-  getAll(page: number, name: string): Observable<Treatment[]> {
-    return this.http.get<Treatment[]>(API_URL + `/api/treatment/v1/?keySearch=` + name + `&page=` + page);
+  getAll(page: number, name: string, pageSize: number): Observable<Treatment[]> {
+    return this.http.get<Treatment[]>(API_URL + `/api/treatment/v1/?keySearch=` + name + `&page=` + page + `&size=` + pageSize);
   }
 
   deleteTreatment(id: number): Observable<Treatment> {

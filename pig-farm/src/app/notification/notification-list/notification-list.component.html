@@ -40,9 +40,8 @@
         <tr *ngFor="let item of notifications; let i=index">
           <td> {{ (i + 1) + number * 5}}</td>
           <td><img src="{{item.image}}" style="height: 75px;width: 100px"/></td>
-          <td>{{item.title | uppercase |slice : 0:1 }}{{item.title |slice : 1:item.title.length }}</td>
-          <td>{{(item.content.length > 220) ? (item.content| slice:0:220) + '...' : (item.content)}}</td>
-          <!--          <td [innerHTML]="item.content"></td>-->
+          <td>{{item.title | uppercase |slice : 0:1 }}{{item.title |slice : 1:90 }}</td>
+          <td class="tooLongContent" [innerHTML]="item.content"></td>
           <td>{{item.submittedDate | date: 'dd/MM/yyyy' }}</td>
           <td><input class="form-check-input" type="checkbox" [checked]="checkbox(item)" (change)="getListDelete(item)">
           </td>
@@ -59,17 +58,17 @@
                 [disabled]="deleteList.length!=1">Chỉnh Sửa
         </button>
         <button class="col-3 btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                style="width: auto;" type="submit" [disabled]="deleteList.length<1">Xoá
+                style="width: auto;" type="submit" [disabled]="deleteList.length===0">Xoá
         </button>
       </div>
       <div style="text-align: center; display: flex; justify-content: center" *ngIf="deleteList.length===0">
 
         <button class="col-3 btn btn-warning" style="width: auto; margin-right: 5%"
-                type="button" [routerLink]="['/notification/edit',ids[0]]"
+                type="button"
                 disabled>Chỉnh Sửa
         </button>
         <button class="col-3 btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                style="width: auto;" type="submit" [disabled]="deleteList.length<1">Xoá
+                style="width: auto;" type="submit" disabled>Xoá
         </button>
       </div>
 
@@ -80,14 +79,12 @@
               <option value="5">5</option>
               <option value="10">10</option>
               <option value="15">15</option>
-              <option value="full">Full list</option>
+              <option value="full">Tất Cả</option>
             </select>
           </li>
-          <li class="page-item">
-<span style="margin: 0 20px 0 40px">
+          <li class="page-item"><span style="margin: 0 20px 0 40px">
              {{pageSize * indexPagination + 1}} - {{pageSize * indexPagination + numberOfElement}}
-  trên {{totalElements}}
-   </span>
+            trên {{totalElements}} </span>
             <button (click)="previousPage($event)" [ngStyle]="{'display':previousPageStyle}" type="button"
                     class="btn btn-outline-primary">
               <i class="bi bi-chevron-left"></i>
@@ -100,8 +97,6 @@
           </li>
         </ul>
       </div>
-
-
     </div>
   </div>
   <!-- Modal -->
@@ -115,7 +110,7 @@
         <div class="modal-body">
           <table>
             <tr *ngFor="let item of deleteList;let i = index ">
-              <td>{{i + 1}}. {{item.title}}</td>
+              <td>{{i + 1}} . {{item.title}}</td>
             </tr>
           </table>
         </div>

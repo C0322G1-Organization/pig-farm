@@ -98,6 +98,7 @@ export class ExportUpdateComponent implements OnInit {
   }
 
   changTypePigs() {
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.pigstyList.length; i++) {
       if (+this.exportForm.value.pigsty === this.pigstyList[i].id) {
         if (this.pigstyList[i].typePigs === 0) {
@@ -120,10 +121,11 @@ export class ExportUpdateComponent implements OnInit {
     } else {
       exports.typePigs = 1;
     }
+
     exports.pigstyDto = {
       id: +this.exportForm.value.pigsty
     };
-    exports.employeeDto = {
+    exports.employDto = {
       id: +this.exportForm.value.employee
     };
     this.exportService.updateExport(this.id, exports).subscribe(value => {

@@ -68,22 +68,6 @@
     </ng-template>
   </div>
 
-  <!--  <div class="pagination-employee container">-->
-  <!--    <div style="position: absolute;bottom: 0px;right: 45px" class="paging mt-3">-->
-  <!--      <ul class="pagination justify-content-end">-->
-  <!--        <li [ngStyle]="{'display':previousPageClass}" (click)="previousPage($event)" class="page-item"><a-->
-  <!--          class="page-link" href="#" tabindex="-1" aria-disabled="true">-->
-  <!--          Trước</a></li>-->
-  <!--        <li class="page-item" [ngClass]="{'active':i==indexPagination}" *ngFor="let temp of pages;let i =index">-->
-  <!--          <a class="page-link" href="#" (click)="setPage(i,$event)">{{i + 1}}</a>-->
-  <!--        </li>-->
-  <!--        <li [ngStyle]="{'display':nextPageClass}" (click)="nextPage($event)" class="page-item"><a class="page-link"-->
-  <!--                                                                                                  href="#">Tiếp-->
-  <!--          theo </a></li>-->
-  <!--      </ul>-->
-  <!--    </div>-->
-  <!--  </div>-->
-
   <div class="pagination-employee container">
     <div [ngStyle]="{'display':displayPagination}">
       <div style="position: absolute;bottom: 26px;right: 49px">

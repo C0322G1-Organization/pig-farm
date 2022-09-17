@@ -69,13 +69,12 @@ export class EmployeeEditComponent implements OnInit {
 
   editEmployee() {
     this.loader = false;
-    const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
+    const nameImg = this.getCurrentDateTime() + this.selectedImage?.name;
     const filePath = `employee/${nameImg}`;
     const fileRef = this.storage.ref(filePath);
     this.storage.upload(filePath, this.selectedImage).snapshotChanges().pipe(finalize(() => {
         fileRef.getDownloadURL().subscribe((url) => {
           this.employeeForm.patchValue({image: url});
-          console.log(url);
           this.employeeService.editEmployee(this.id, this.employeeForm.value).subscribe(() => {
             this.router.navigate(['/employee']);
             this.toast.success('Sửa thông tin nhân viên thành công.', 'Thông báo');

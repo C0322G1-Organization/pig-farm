@@ -101,7 +101,7 @@ export class ContactListComponent implements OnInit {
         this.indexPagination = 0;
         this.name = '';
         this.getContact();
-        this.toast.success('Xóa thành công', 'Liên hệ');
+        this.toast.success('Xóa thành công!', 'Thông báo');
         this.informationDelete = [];
       }, err => {
         this.clss = 'rd';

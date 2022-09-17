@@ -91,7 +91,6 @@ export class EmployeeCreateComponent implements OnInit {
             idCard: this.employeeForm.value.idCard,
             image: this.employeeForm.value.image
           };
-          console.log(employee);
           this.employeeService.saveEmployee(employee).subscribe(() => {
             this.router.navigate(['/employee']);
             this.toast.success('Thêm mới nhân viên thành công.', 'Thông báo');

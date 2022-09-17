@@ -33,7 +33,7 @@ export class EmployeeService {
 
   deleteEmployee(id: number): Observable<any> {
     // @ts-ignore
-    return this.http.patch<any>(this.URL_EMPLOYEE_SPRING + '/employee/delete/' + id);
+    return this.http.patch<any>(API_URL + '/employee/delete/' + id);
   }
 
   getListEmployeeBySearchAndPagination(name: string, idCard: string, indexPagination: number, size: number): Observable<any> {

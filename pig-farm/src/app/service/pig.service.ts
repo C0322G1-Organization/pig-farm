@@ -27,7 +27,6 @@ export class PigService {
 
   deletePig(ids: number[]): Observable<any> {
     const data = {id: ids};
-    console.log(data);
     const url = API_URL + '/id';
     const options = {
       headers: new HttpHeaders({
@@ -40,7 +39,6 @@ export class PigService {
   }
 
   getAllPig(page: number, code: string, dateIn: string, status: string, size: number ) {
-    // tslint:disable-next-line:max-line-length
     return this.httpClient.get<any>(API_URL + '/page?page=' + page + '&codeSearch=' + code + '&dateInSearch=' + dateIn + '&statusSearch=' + status + '&size=' + size);
   }
 

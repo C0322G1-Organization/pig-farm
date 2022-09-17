@@ -24,7 +24,7 @@
             <input type="text" readonly class="form-control" value="{{createPigsty}}"  >
           </div>
 
-          <div class="mb-3">
+          <div class="mb-3" *ngIf="vaccinationForm.controls.pigstyCode.dirty">
             <label class="form-label">Loại vaccine <span>*</span></label>
             <select class="form-select" id="inlineFormSelectPref1" formControlName="vaccineType" (change)="checkDate()">
               <option value="" [selected]="vaccineType" selected disabled>{{vaccineType}}</option>
@@ -38,7 +38,7 @@
               *ngIf="vaccinationForm.controls.vaccineType.hasError('required') && vaccinationForm.controls.vaccineType.touched">
                   Không được để trống</p></span></div>
           </div>
-          <div class="mb-3">
+          <div class="mb-3" *ngIf="vaccinationForm.controls.pigstyCode.dirty">
             <label class="form-label">Ngày tiêm phòng</label>
             <input type="text" readonly class="form-control" formControlName="date" [(ngModel)]="date2">
             <div class="form-text"><span><p
@@ -58,7 +58,7 @@
           </div>
           <div class="mb-3">
             <label class="form-label">Số lượng lợn được tiêm <span>*</span></label>
-            <input type="text" class="form-control" placeholder="Nhập số lợn được tiêm" formControlName="amount">
+            <input type="number" class="form-control" placeholder="Nhập số lợn được tiêm" formControlName="amount">
             <div class="form-text">
             <span><p
               *ngIf="vaccinationForm.controls.amount.hasError('required') && vaccinationForm.controls.amount.touched">Không
@@ -80,7 +80,7 @@
           </div>
           <div  class="d-grid gap-2 d-md-flex justify-content-md-around">
             <a class="btn btn-outline-danger" [routerLink]="['/vaccination']"> Quay Lại</a>
-            <button class="btn btn-outline-success" type="submit"> Thêm mới</button>
+            <button class="btn btn-outline-success" type="submit" [disabled]="vaccinationForm.invalid"> Thêm mới</button>
             <button class="btn btn-outline-secondary" type="reset"> Nhập lại</button>
           </div>
         </div>

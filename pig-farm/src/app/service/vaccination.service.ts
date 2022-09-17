@@ -24,7 +24,6 @@ export class VaccinationService {
   }
   deleteVaccination(ids: number[]): Observable<any> {
     const data = {id: ids};
-    console.log(data);
     const url = API_URL + '/api/vaccination/delete';
     const options = {
       headers: new HttpHeaders({
@@ -37,7 +36,7 @@ export class VaccinationService {
   }
 
   getAll(): Observable<Pigsty[]> {
-    return this.http.get<Pigsty[]>(API_URL + '/pigsty/list');
+    return this.http.get<Pigsty[]>(API_URL + '/pigsty/getList');
   }
 
   findById(id: number): Observable<Pigsty> {
