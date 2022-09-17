@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-10 mt-5">
-      <h4 align="center">{{titleNew}}</h4>
+      <h4 align="center">{{titleNew | uppercase |slice : 0:1 }}{{titleNew |slice : 1:titleNew.length}}</h4>
       <div  class="d-flex float-end">
         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="text-danger bi bi-calendar3"
              viewBox="0 0 16 16">

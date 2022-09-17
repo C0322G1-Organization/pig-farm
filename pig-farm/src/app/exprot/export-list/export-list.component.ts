@@ -47,7 +47,7 @@ export class ExportListComponent implements OnInit {
         this.checkPreview = !value.first;
       }
     }, error1 => {
-      this.toast.error('Dữ liệu không tìm thấy.', 'Chú ý', {
+      this.toast.warning('Dữ liệu không tìm thấy.', 'Chú ý', {
         timeOut: 2500, progressBar: false
       });
     });

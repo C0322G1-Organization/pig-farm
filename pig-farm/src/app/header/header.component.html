@@ -33,11 +33,18 @@
           <li class="nav-item" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">
             <a class="nav-link" routerLink="advertisement/page">Quảng Cáo</a>
           </li>
-          <li class="nav-item" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">
-            <a class="nav-link" routerLink="pigsty/list">Chuồng Nuôi</a>
-          </li>
-          <li class="nav-item" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">
-            <a class="nav-link" routerLink="pigsty/list">Chuồng Xuất</a>
+          <li class="nav-item dropdown" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Chuồng
+            </a>
+            <ul class="dropdown-menu">
+              <li class="nav-item">
+                <a class="nav-link" routerLink="pigsty/list">Chuồng Nuôi</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="export/page">Chuồng Xuất</a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">
             <a class="nav-link" routerLink="pig">Cá Thể</a>

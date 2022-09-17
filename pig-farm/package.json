@@ -23,7 +23,7 @@
     "@ckeditor/ckeditor5-angular": "^4.0.0",
     "@ckeditor/ckeditor5-build-classic": "^35.1.0",
     "bootstrap": "^5.2.0",
-    "chart.js": "^3.8.0",
+    "chart.js": "^2.7.3",
     "firebase": "^8.0.1",
     "html2pdf.js": "^0.10.1",
     "ngx-toastr": "^12.1.0",

@@ -54,7 +54,7 @@
           </div>
         </div>
         <div class="col-lg-10">
-          <a [routerLink]="['/info-news', i.id]"><h6>&#8226; {{i.title}}</h6></a>
+          <a [routerLink]="['/info-news', i.id]"><h6>&#8226; {{i.title | uppercase |slice : 0:1 }}{{i.title |slice : 1:i.title.length}}</h6></a>
           <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor"
                class="text-danger bi bi-calendar3"
                viewBox="0 0 16 16">

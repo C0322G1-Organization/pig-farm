@@ -28,7 +28,6 @@ export class FoodListComponent implements OnInit {
   ngOnInit(): void {
     this.createForm();
     this.getAllFood(this.page, this.searchName, this.sort);
-    this.toast.success('Chào mừng bạn đến với trại heo của chúng tôi', 'Quản lí thức ăn');
   }
 
   getAllFood(pageable: number, searchName: string, sort: string) {
@@ -39,7 +38,9 @@ export class FoodListComponent implements OnInit {
         this.totalPages = value.totalPages;
       } else {
         this.foodList = [];
-        this.toast.success('không tìm thấy vui lòng tìm lại');
+        this.toast.warning('Dữ liệu không tìm thấy.', 'Chú ý', {
+          timeOut: 2500, progressBar: false
+        });
       }
     });
   }

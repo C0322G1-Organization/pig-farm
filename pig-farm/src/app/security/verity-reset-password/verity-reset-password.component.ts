@@ -25,6 +25,14 @@ export class VerityResetPasswordComponent implements OnInit {
   isSendMail: boolean;
   isSubmited: false;
 
+  validationMessages = {
+    password: [
+      {type: 'required', message: 'Trường này không được để trống!'},
+      {type: 'minlength', message: 'Mật khẩu cần nhiều hơn 8 ký tự'},
+      {type: 'maxlength', message: 'Mật khẩu chỉ được ít hơn 32 ký tự'},
+    ]
+  };
+
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
       newPassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(32)]],
@@ -49,7 +57,7 @@ export class VerityResetPasswordComponent implements OnInit {
         });
         this.authService.doResetPassword(this.formGroup.value.newPassword, this.name).subscribe(data => {
           this.toastr.success('Mật khẩu đã được thay đổi!', 'Thành công');
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl('/login');
         });
       } else {
         this.toastr.error('Trường nhập lại mật khẩu và mật khẩu không giống nhau!', 'Lỗi: ', {
@@ -60,12 +68,4 @@ export class VerityResetPasswordComponent implements OnInit {
       }
     }
   }
-
-  validationMessages = {
-    password: [
-      {type: 'required', message: 'Trường này không được để trống!'},
-      {type: 'minlength', message: 'Mật khẩu cần nhiều hơn 8 ký tự'},
-      {type: 'maxlength', message: 'Mật khẩu chỉ được ít hơn 32 ký tự'},
-    ]
-  };
 }
