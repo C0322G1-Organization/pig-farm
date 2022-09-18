@@ -1,23 +1,23 @@
 <section id="employees">
   <div class="employees container">
-    <div class="employees-title">DANH SÁCH NHÂN VIÊN</div>
+    <div style="color: #212529" class="employees-title">DANH SÁCH NHÂN VIÊN</div>
     <div class="container mt-5" style="display: flex;justify-content: space-between">
-      <button routerLink="/employee/create" style="margin-left: 10px" type="button" class="btn btn-outline-success">Thêm
+      <button routerLink="/employee/create" style="margin-left: 10px;height: 44.2px" type="button" class="btn btn-outline-success">Thêm
         mới
       </button>
       <div style="display: flex;width: 55% ">
         <div class="col-lg position-relative mx-auto me-2 ">
-          <input style="height: 44.2px" [formControl]="nameSearchForm" class="form-control bg-transparent py-2 w-100"
+          <input (keydown.enter)="searchEmployee()" style="height: 44.2px" [formControl]="nameSearchForm" class="form-control bg-transparent py-2 w-100"
                  type="text"
                  placeholder="Tìm kiếm theo tên">
         </div>
 
         <div style="margin-right: 10px" class="col-lg">
-          <input style="height: 44.2px" [formControl]="idCardSearchForm" class="form-control bg-transparent py-2 w-100"
+          <input (keydown.enter)="searchEmployee()" style="height: 44.2px" [formControl]="idCardSearchForm" class="form-control bg-transparent py-2 w-100"
                  type="text"
                  placeholder="Tìm kiếm theo CMND ">
         </div>
-        <button (click)="searchEmployee()" class="btn btn-outline-success"
+        <button style="height: 44.2px" (click)="searchEmployee()" class="btn btn-outline-success"
                 type="button">
           Tìm kiếm
         </button>
@@ -41,7 +41,7 @@
           </div>
           <div class="member-info">
             <h4>{{employee.nameEmployee}}</h4>
-            <span>{{employee.roleName}}</span>
+            <span>{{employee.roleName| slice:5}}</span>
             <div class="member-infor-footer me-3 mt-2">
               <div style="display: flex;" class="mb-2">
                 <i class="bi bi-person-circle">&nbsp;</i><label>{{employee.code}}</label>
@@ -70,7 +70,7 @@
 
   <div class="pagination-employee container">
     <div [ngStyle]="{'display':displayPagination}">
-      <div style="position: absolute;bottom: 26px;right: 49px">
+      <div style="position: absolute;bottom: 18px;right: 49px">
         <div style="display: flex;align-items: center;justify-content: flex-end">
 
           <span style="margin: 0 10px 0 0">Số phần tử của trang:</span>
@@ -124,7 +124,7 @@
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 style="font-weight: bolder;font-size: 24px;text-align: center" class="modal-title" id="staticBackdropLabel1">Thông tin nhân
+          <h5 style="font-weight: bolder;font-size: 24px;text-align: center;color:  #212529" class="modal-title" id="staticBackdropLabel1">Thông tin nhân
             viên </h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
@@ -161,9 +161,6 @@
                       <li><i class="bi bi-rounded-right"></i> <strong>Tài khoản: </strong>
                         {{employeeDetail.userName}}
                       </li>
-                      <li><i class="bi bi-rounded-right"></i> <strong>Mật khẩu: </strong>
-                        {{employeeDetail.passWord}}
-                      </li>
                     </ul>
                   </div>
                 </div>
@@ -172,7 +169,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button  type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
         </div>
       </div>
     </div>

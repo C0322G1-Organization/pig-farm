@@ -3,6 +3,13 @@
   justify-content: center;;
 }
 
+.ads-title{
+  font-weight: bolder;
+  text-align: center;
+  font-size: 32px;
+  font-family: "Raleway", sans-serif;
+}
+
 .formRow_create {
   border-radius: 15px;
   padding: 15px 15px 15px 15px;

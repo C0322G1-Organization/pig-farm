@@ -32,6 +32,9 @@ export class NotificationListComponent implements OnInit {
   displayPagination = 'inline-block';
   numberOfElement = 0;
   contentSearch = '';
+  notificationDeleted: Notifications;
+
+  checkedAll = false;
 
 
   constructor(private notificationService: NotificationService,
@@ -47,21 +50,24 @@ export class NotificationListComponent implements OnInit {
 
   getList() {
     this.notificationService.getAllNotifications(this.indexPagination, this.contentSearch, this.pageSize).subscribe((data?: any) => {
-      if (data === null) {
-        this.totalPage = new Array(0);
-        this.notifications = [];
-        this.displayPagination = 'none';
-        this.toast.warning('Không có dữ liệu.', 'Chú ý');
-      } else {
-        this.number = data?.number;
-        this.pageSize = data?.size;
-        this.numberOfElement = data?.numberOfElements;
-        this.notifications = data.content;
-        this.totalElements = data?.totalElements;
-        this.totalPage = new Array(data?.totalPages);
+        if (data === null) {
+          this.totalPage = new Array(0);
+          this.notifications = [];
+          this.displayPagination = 'none';
+        } else {
+          this.number = data?.number;
+          this.pageSize = data?.size;
+          this.numberOfElement = data?.numberOfElements;
+          this.notifications = data.content;
+          this.totalElements = data?.totalElements;
+          this.totalPage = new Array(data?.totalPages);
+        }
+        this.checkPreviousAndNext();
+        this.isCheckedAll();
+      }, error => {
+        this.notifications = null;
       }
-      this.checkPreviousAndNext();
-    });
+    );
   }
 
   previousPage(event: any) {
@@ -108,11 +114,12 @@ export class NotificationListComponent implements OnInit {
       this.indexPagination = 0;
       this.displayPagination = 'inline-block';
       this.ngOnInit();
-      console.log('vao');
     }
   }
 
   totalElement($event: any) {
+    this.deleteList = [];
+    this.isCheckedAll();
     switch ($event.target.value) {
       case '5':
         this.pageSize = 5;
@@ -137,13 +144,12 @@ export class NotificationListComponent implements OnInit {
     }
   }
 
-
   deleteId() {
     if (this.ids.length > 0) {
       this.notificationService.deleteNotifications(this.ids).subscribe(value1 => {
+        this.contentSearch = '';
         this.getList();
         this.toast.success('Xóa thành công ', 'Thông báo');
-        this.ids = [];
       }, err => {
         this.clss = 'rd';
         this.msg = 'Có sự cố khi xóa thông báo';
@@ -155,48 +161,63 @@ export class NotificationListComponent implements OnInit {
     }
     this.deleteList = [];
     this.ids = [];
-
   }
 
-
-  getListDelete(notificationDelete: Notifications) {
-    for (let i = 0; i < this.deleteList.length; i++) {
-      if (this.deleteList[i].id === notificationDelete.id && this.ids.length > 0) {
-        this.deleteList.splice(i, 1);
-        this.ids.splice(i, 1);
-        return;
-      }
-    }
-    this.deleteList.push(notificationDelete);
-    for (const item of this.deleteList) {
-      this.ids.push(item.id);
+  getListDelete(notification: Notifications) {
+    this.notificationDeleted = this.deleteList.find(value => value.id === notification.id);
+    if (this.notificationDeleted) {
+      this.deleteList = this.deleteList.filter(value => value.id !== this.notificationDeleted.id);
+    } else {
+      this.deleteList.push(notification);
     }
     for (let i = 0; i < this.deleteList.length; i++) {
-      if (this.deleteList[i].id === this.ids[i]) {
+      if (!this.ids.includes(this.deleteList[i].id)) {
+        this.ids.push(this.deleteList[i].id);
+      } else {
         this.ids.splice(i, 1);
-        return;
+        this.ids.push(this.deleteList[i].id);
       }
     }
-
+    this.isCheckedAll();
   }
 
+  isCheckedAll() {
+    const listDeleted = this.deleteList.filter((item) => this.notifications.some(item2 => item.id === item2.id));
+    const lengthDeleted = listDeleted.filter(
+      (notification, index) => index === listDeleted.findIndex(
+        other => notification.id === other.id
+      )).length;
+    this.checkedAll = lengthDeleted === this.notifications.length;
+  }
 
-  checkbox(notificationDelete: Notifications) {
+  checkAll(event: any) {
+    this.checkedAll = event.target.checked;
+    if (this.checkedAll) {
+      this.notifications.forEach(item => {
+        if (!this.deleteList.includes(item)) {
+          this.deleteList.push(item);
+        }
+      });
+      for (let i = 0; i <= this.deleteList.length; i++) {
+        if (!this.ids.includes(this.deleteList[i].id)) {
+          this.ids.push(this.deleteList[i].id);
+        } else {
+          this.ids.splice(i, 1);
+          this.ids.push(this.deleteList[i].id);
+        }
+      }
+    } else {
+      this.deleteList = this.deleteList.filter(item => !this.deleteList.some(item2 => item.id === item2.id));
+    }
+  }
+
+  checkbox(notification: Notifications) {
     for (const item of this.deleteList) {
-      if (item.id === notificationDelete.id) {
+      if (item.id === notification.id) {
         return true;
       }
     }
     return false;
-  }
-
-  isAllCheckBoxChecked() {
-    for (const item of this.notifications) {
-      if (!this.ids.includes(item.id)) {
-        this.deleteList.push(item);
-        this.ids.push(item.id);
-      }
-    }
   }
 
   resetDelete() {

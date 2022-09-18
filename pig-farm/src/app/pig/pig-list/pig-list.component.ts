@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Pig} from '../../model/pig';
 import {FormControl, FormGroup} from '@angular/forms';
 import {PigService} from '../../service/pig.service';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
 import {Title} from '@angular/platform-browser';
+
 const URL_PIG = 'http://localhost:8080/pig';
+
 @Component({
   selector: 'app-pig-list',
   templateUrl: './pig-list.component.html',

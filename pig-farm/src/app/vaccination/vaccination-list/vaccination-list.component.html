@@ -1,7 +1,8 @@
 <div class="bg">
   <div class="vc_empty_space" style="height: 50px"><span class="vc_empty_space_inner"></span></div>
   <div class="container container-list pb-1">
-    <div style="text-align: center; font-size: 30px;" class="mt-3">THÔNG TIN TIÊM PHÒNG</div>
+    <div style="font-family: 'Raleway', sans-serif;font-size: 32px;font-weight: bolder;text-align: center" class="employees-title">THÔNG TIN TIÊM PHÒNG</div>
+
 
     <form [formGroup]="searchForm" novalidate (ngSubmit)="searchVaccin()">
       <div class="row mt-5">
@@ -53,7 +54,7 @@
     <div style="text-align: center; display: flex; justify-content: center">
       <ng-template #elseBlock>
         <div style="color: red;" class="col-12">
-          <h3 style="text-align: center">Không có dữ liệu.</h3>
+          <h3 style="text-align: center;font-size: 20px;color: red">Không có dữ liệu.</h3>
         </div>
       </ng-template>
     </div>

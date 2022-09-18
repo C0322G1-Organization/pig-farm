@@ -15,36 +15,28 @@ export class ContactListComponent implements OnInit {
   msg: string;
   clss: string;
   totalPages: number;
-  number = 0;
-  contactList: Contact[] = [];
   searchForm = new FormGroup({
     name: new FormControl('')
   });
-
-  contacts: Contact;
+  contactList: Contact[] = [];
   nameDelete: any = [];
   ids: number[] = [];
-  content = '';
-
   check: any[] = [];
-  contactDetail: Contact = {};
   informationDelete: Contact[] = [];
-  checkContent = false;
-
-  // Search
+  content = '';
+  contactDeleted: Contact;
+  contactDetail: Contact = {};
+  checkedAll = false;
+  pages: Array<number>;
   name = '';
-
-  // Pagination
-  displayPagination = 'inline-block';
+  number = 0;
   pageSize = 5;
   indexPagination = 0;
   numberOfElement = 0;
   totalElements = 0;
+  displayPagination = 'inline-block';
   previousPageStyle = 'inline-block';
   nextPageStyle = 'inline-block';
-
-  countTotalPages: number[];
-  pages: Array<number>;
 
   constructor(private contactService: ContactService,
               private router: Router,
@@ -70,14 +62,16 @@ export class ContactListComponent implements OnInit {
           this.contactList = value.content;
           this.totalElements = value.totalElements;
           this.pages = new Array(value.totalPages);
+          this.number = value?.number;
         }
         this.checkPreviousAndNext();
-      } , error => {
+        this.isCheckedAll();
+      }, error => {
         this.contactList = null;
       }
     );
   }
-  // kiem tra hien thi nut tiep theo va truoc
+
   checkPreviousAndNext() {
     if (this.indexPagination === 0) {
       this.previousPageStyle = 'none';
@@ -101,7 +95,7 @@ export class ContactListComponent implements OnInit {
         this.indexPagination = 0;
         this.name = '';
         this.getContact();
-        this.toast.success('Xóa thành công!', 'Thông báo');
+        this.toast.success('Xóa thành công', 'Liên hệ');
         this.informationDelete = [];
       }, err => {
         this.clss = 'rd';
@@ -118,6 +112,7 @@ export class ContactListComponent implements OnInit {
   resetDelete() {
     this.nameDelete = [];
     this.ids = [];
+    this.informationDelete = [];
   }
 
   search() {
@@ -155,29 +150,62 @@ export class ContactListComponent implements OnInit {
   }
 
   checkList(contact: Contact) {
-    for (let i = 0; i < this.informationDelete.length; i++) {
-      if (this.informationDelete[i].id === contact.id) {
-        this.informationDelete.splice(i, 1);
-        return;
-      }
+    this.contactDeleted = this.informationDelete.find(deleteObject => deleteObject.id === contact.id);
+    if (this.contactDeleted) {
+      this.informationDelete = this.informationDelete.filter(contactDelete => contactDelete.id !== this.contactDeleted.id);
+    } else {
+      this.informationDelete.push(contact);
     }
-    this.informationDelete.push(contact);
+
+    this.isCheckedAll();
+  }
+
+  checkAll(event: any) {
+    this.checkedAll = event.target.checked;
+    if (this.checkedAll) {
+      this.contactList.forEach(item => {
+        if (!this.informationDelete.includes(item)) {
+          this.informationDelete.push(item);
+        }
+      });
+    } else {
+      this.informationDelete = this.informationDelete.filter(item => !this.contactList.some(item2 => item.id === item2.id));
+    }
+  }
+
+  isCheckedAll() {
+    const listDeleted = this.informationDelete.filter((item) => this.contactList.some(item2 => item.id === item2.id));
+    const lengthDeleted = listDeleted.filter(
+      (contact, index) => index === listDeleted.findIndex(
+        other => contact.id === other.id
+      )).length;
+    this.checkedAll = lengthDeleted === this.contactList.length;
   }
 
   showDetail() {
     return !(this.informationDelete.length === 1);
   }
 
-
   changePageSize(event: any) {
+
     switch (event.target.value) {
-      case '5' :
+      case '5':
         this.pageSize = 5;
         this.indexPagination = 0;
         this.ngOnInit();
         break;
-      case '10' :
+      case '10':
         this.pageSize = 10;
+        this.indexPagination = 0;
+        this.ngOnInit();
+        break;
+      case '15':
+        this.pageSize = 15;
+        this.indexPagination = 0;
+        this.ngOnInit();
+        break;
+      case 'full':
+        this.pageSize = this.totalElements;
         this.indexPagination = 0;
         this.ngOnInit();
         break;

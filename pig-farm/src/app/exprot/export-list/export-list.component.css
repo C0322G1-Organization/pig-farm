@@ -2,6 +2,12 @@
   display: flex;
   justify-content: center;;
 }
+export-title{
+  font-weight: bolder;
+  text-align: center;
+  font-size: 32px;
+  font-family: "Raleway", sans-serif;
+}
 
 .formRow_create {
   border-radius: 15px;

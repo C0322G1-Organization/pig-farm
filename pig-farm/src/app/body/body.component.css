@@ -78,7 +78,10 @@ svg {
   }
 
   .news-title {
+    font-weight: bolder;
     text-align: center;
+    font-size: 32px;
+    font-family: "Raleway", sans-serif;
   }
 
   .pagination {

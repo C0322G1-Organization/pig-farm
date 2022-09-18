@@ -12,3 +12,11 @@
   padding: 20px;
   opacity: 94%;
 }
+.tooLongContent {
+  height: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  }
