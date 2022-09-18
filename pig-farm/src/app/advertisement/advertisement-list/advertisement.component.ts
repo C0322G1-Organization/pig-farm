@@ -17,7 +17,7 @@ export class AdvertisementComponent implements OnInit {
   advertisementList: Advertisement[] = [];
   ids: number[] = [];
   deleteList: Advertisement[] = [];
-// pagination
+  check = false;
   number: number;
   indexPagination = 0;
   totalPage: Array<number>;
@@ -39,21 +39,24 @@ export class AdvertisementComponent implements OnInit {
 
   getList() {
     this.adsService.getListAndSearch(this.indexPagination, this.titleSearch, this.pageSize).subscribe((data?: any) => {
-      if (data === null) {
-        this.totalPage = new Array(0);
-        this.advertisementList = [];
-        this.displayPagination = 'none';
-        this.toastrService.warning('Không có dữ liệu.', 'Chú ý');
-      } else {
-        this.number = data?.number;
-        this.pageSize = data?.size;
-        this.numberOfElement = data?.numberOfElements;
-        this.advertisementList = data.content;
-        this.totalElements = data?.totalElements;
-        this.totalPage = new Array(data?.totalPages);
+        if (data === null) {
+          this.totalPage = new Array(0);
+          this.advertisementList = [];
+          this.displayPagination = 'none';
+        } else {
+          this.number = data?.number;
+          this.pageSize = data?.size;
+          this.numberOfElement = data?.numberOfElements;
+          this.advertisementList = data.content;
+          this.totalElements = data?.totalElements;
+          this.totalPage = new Array(data?.totalPages);
+        }
+        this.checkPreviousAndNext();
+        this.isCheckedAll();
+      }, error => {
+        this.advertisementList = null;
       }
-      this.checkPreviousAndNext();
-    });
+    );
   }
 
   previousPage(event: any) {
@@ -94,7 +97,6 @@ export class AdvertisementComponent implements OnInit {
       this.advertisementList = [];
       this.displayPagination = 'none';
       this.checkPreviousAndNext();
-      this.toastrService.warning('Không được nhập kí tự đặc biệt.', 'Chú ý');
     } else {
       this.indexPagination = 0;
       this.displayPagination = 'inline-block';
@@ -174,12 +176,28 @@ export class AdvertisementComponent implements OnInit {
     return false;
   }
 
-  checkBoxChecked() {
-    for (const item of this.advertisementList) {
-      if (!this.ids.includes(item.id)) {
-        this.deleteList.push(item);
+  checkAll(event: any) {
+    this.check = event.target.checked;
+    if (this.check) {
+      this.advertisementList.forEach(item => {
+        if (!this.checkbox(item)) {
+          this.deleteList.push(item);
+        }
+      });
+      for (const item of this.deleteList) {
         this.ids.push(item.id);
       }
+    } else {
+      this.deleteList = this.deleteList.filter(item => !this.advertisementList.some(item2 => item.id === item2.id));
     }
+  }
+
+  isCheckedAll() {
+    const listDeleted = this.deleteList.filter((item) => this.advertisementList.some(item2 => item.id === item2.id));
+    const lengthDeleted = listDeleted.filter(
+      (vaccination, index) => index === listDeleted.findIndex(
+        other => vaccination.id === other.id
+      )).length;
+    this.check = lengthDeleted === this.advertisementList.length;
   }
 }

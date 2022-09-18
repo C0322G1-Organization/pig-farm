@@ -12,7 +12,7 @@
             <div class="row">
               <div class="col-lg-6">
                 <label class="form-label">Mã Nhân Viên <span><i>*</i></span></label>
-                <input type="text" class="form-control" formControlName="code" placeholder="Nhập Mã Nhân Viên"
+                <input type="text" class="form-control" formControlName="code" placeholder="VD: NV-xxx"
                        (change)="checkCode($event.target.value)">
                 <div class="form-text"
                      *ngIf="employeeForm.controls.code.hasError('required') && employeeForm.controls.code.touched">

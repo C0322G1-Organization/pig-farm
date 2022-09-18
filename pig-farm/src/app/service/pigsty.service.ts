@@ -32,7 +32,7 @@ export class PigstyService {
   }
 
   getAllList(): Observable<any> {
-    return this.http.get<any>(this.URL_PIGSTY + '/list');
+    return this.http.get<any>(this.URL_PIGSTY + '/getList');
   }
 
   getAllPigsty(): Observable<Pigsty[]> {

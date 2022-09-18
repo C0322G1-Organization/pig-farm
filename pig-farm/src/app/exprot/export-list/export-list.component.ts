@@ -17,6 +17,7 @@ export class ExportListComponent implements OnInit {
     companySearch: new FormControl(''),
     employeeSearch: new FormControl('')
   });
+  checkAll = false;
   ids: number[];
   error: string;
   check: string[] = [];
@@ -60,6 +61,9 @@ export class ExportListComponent implements OnInit {
         this.totalPage = new Array(data?.totalPages);
       }
       this.checkPreviousAndNext();
+      this.isCheckedAll();
+    }, error1 => {
+      this.listExport = null;
     });
   }
 
@@ -185,6 +189,31 @@ export class ExportListComponent implements OnInit {
       }
     }
     return false;
+  }
+  checkALl(event: any) {
+    this.checkAll = event.target.checked;
+    if (this.checkAll) {
+      this.listExport.forEach(item => {
+        if (!this.checkbox(item)) {
+          this.deleteList.push(item);
+        }
+      });
+      for (const item of this.deleteList) {
+        this.ids.push(item.id);
+        console.log(this.ids + ' ids delete');
+      }
+    } else {
+      this.deleteList = this.deleteList.filter(item => !this.listExport.some(item2 => item.id === item2.id));
+    }
+  }
+
+  isCheckedAll() {
+    const listDeleted = this.deleteList.filter((item) => this.listExport.some(item2 => item.id === item2.id));
+    const lengthDeleted = listDeleted.filter(
+      (vaccination, index) => index === listDeleted.findIndex(
+        other => vaccination.id === other.id
+      )).length;
+    this.checkAll = lengthDeleted === this.listExport.length;
   }
 
   // kiểm tra nhập kí tự đặc biệt trên ô tìm kiếm.

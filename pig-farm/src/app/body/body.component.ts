@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {News} from './news';
 import {BodyService} from './body.service';
 import {Title} from '@angular/platform-browser';
+import {Advertisement} from '../model/advertisement';
+import {AdvertisementService} from '../service/advertisement.service';
 
 @Component({
   selector: 'app-body',
@@ -9,6 +11,7 @@ import {Title} from '@angular/platform-browser';
   styleUrls: ['./body.component.css']
 })
 export class BodyComponent implements OnInit {
+  advertisement: Advertisement[] = [];
   news: News[] = [];
   number: number;
   indexPagination = 0;
@@ -22,12 +25,20 @@ export class BodyComponent implements OnInit {
   keyword = '';
 
   constructor(private newsService: BodyService,
-              private title: Title) {
+              private title: Title,
+              private advertisementList: AdvertisementService) {
     this.title.setTitle('Trang trại lợn');
   }
 
   ngOnInit(): void {
     this.getAll();
+    this.getAllAdvertisement();
+  }
+
+  getAllAdvertisement(): void {
+    this.advertisementList.getListAdvertisement().subscribe(next => {
+      this.advertisement = next;
+    });
   }
 
   getAll(): void {

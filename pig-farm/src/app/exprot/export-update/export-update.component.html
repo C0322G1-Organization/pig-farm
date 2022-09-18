@@ -15,7 +15,7 @@
             <div class="row">
               <div class="col-12">
                 <label class="form-label">Mã chuồng xuất <span style="color: red">*</span> </label>
-                <input type="text" class="form-control" formControlName="codeExport">
+                <input type="text" class="form-control" formControlName="codeExport" disabled>
                 <div class="validate"
                      *ngIf="exportForm.controls.codeExport.hasError('required') && exportForm.controls.codeExport.touched">
                   Mã phải bắt buộc nhập.
@@ -145,7 +145,8 @@
               <div class="col-6">
 
                 <label class="form-label">Tổng tiền (VNĐ) <span style="color: red">*</span></label>
-                <input formControlName="total" type="number" disabled class="form-control">
+                <input formControlName="total" style="display: none" type="number" disabled class="form-control">
+                <p style="background-color: #e9ecef; opacity: 1" class="form-control" >{{total  | currency :' ' :true: '1.0-3'}}</p>
                 <div class="validate"
                      *ngIf="exportForm.controls.total.hasError('required') && exportForm.controls.total.touched">
                   Tiền phải bắt buộc nhập.

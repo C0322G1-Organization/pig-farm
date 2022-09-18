@@ -38,7 +38,7 @@ export class ExportCreateComponent implements OnInit {
   });
   pigstyList: Pigsty[];
   employeeList: Employee[];
-  total: number;
+  total = 0;
   isExitsCode = false;
   type = '';
 
@@ -69,6 +69,7 @@ export class ExportCreateComponent implements OnInit {
       this.exportForm.patchValue(this.exportForm.value);
       this.exportForm.patchValue({amount: next[0]});
       this.exportForm.patchValue({kilogram: next[1]});
+      this.getTotal();
     });
   }
 

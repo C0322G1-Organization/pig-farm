@@ -58,7 +58,7 @@ export class PigCreateComponent implements OnInit {
 
   cancel() {
     this.toast.error('Thêm thất bại');
-    this.router.navigateByUrl('/pig').then(r => console.log(r));
+    this.router.navigateByUrl('/pig');
   }
 
   submitCreate() {

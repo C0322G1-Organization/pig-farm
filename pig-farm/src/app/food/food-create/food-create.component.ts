@@ -53,7 +53,6 @@ export class FoodCreateComponent implements OnInit {
 
   getStorages(): void {
     this.storageService.getAllS().subscribe((storageService?: any) => {
-      console.log(storageService);
       this.storages = storageService;
     });
   }
@@ -66,7 +65,6 @@ export class FoodCreateComponent implements OnInit {
     food.pigsty = {
       id: +food.pigsty
     };
-    console.log(food);
     this.foodService.saveFood(food).subscribe(() => {
     }, error => {
       this.toast.error('Chỉ nhập số và không dc nhập quá số lượng trong kho', 'Thông báo');

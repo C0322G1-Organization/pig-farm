@@ -39,5 +39,8 @@ export class AdvertisementService {
   checkDate(date: string): Observable<string> {
     return this.http.get<string>(API_URL + '/advertisement/date/' + date);
   }
+  getListAdvertisement(): Observable<Advertisement[]> {
+    return this.http.get<Advertisement[]>(`${API_URL}/advertisement/list`);
+  }
 
 }

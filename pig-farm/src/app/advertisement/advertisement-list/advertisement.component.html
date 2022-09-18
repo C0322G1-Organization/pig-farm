@@ -2,7 +2,7 @@
   <div class="container mt-5 pb-2 ">
     <div class="ads-title">DANH SÁCH QUẢNG CÁO</div>
     <div class="row mt-1">
-      <!-- tim kiem-->
+
       <form [formGroup]="searchForm" novalidate (ngSubmit)="searchAds()">
         <div class="row mt-5">
           <div class="col-12">
@@ -31,7 +31,7 @@
           <th style="width: 30%">Ngày Đăng</th>
           <th style="width: 30%">Hình Ảnh</th>
           <th style="width: 10%" style="text-align: right" scope="col">
-            <input type="checkbox" (click)="checkBoxChecked()">
+            <input class="form-check-input" type="checkbox" [checked]="check" (change)="checkAll($event)">
           </th>
         </tr>
         </thead>
@@ -48,26 +48,30 @@
         </tr>
         </tbody>
       </table>
-      <!--  Sửa-Xóa-->
+
       <div style="text-align: center; display: flex; justify-content: center" *ngIf="deleteList.length!==0">
         <button class="col-3 btn btn-outline-warning" style="width: auto; margin-right: 5%"
                 type="button" [routerLink]="['/advertisement/edit',deleteList[0].id]"
-                [disabled]="deleteList.length>1">Chỉnh Sửa
+                [disabled]="deleteList.length>1" [hidden]="deleteList.length==1">Chỉnh Sửa
         </button>
-        <button class="col-3 btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"
+        <button class="col-3 btn btn-warning" style="width: auto; margin-right: 5%"
+                type="button" [routerLink]="['/advertisement/edit',deleteList[0].id]"
+                [disabled]="deleteList.length>1" [hidden]="deleteList.length!=1">Chỉnh Sửa
+        </button>
+        <button class="col-3 btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"
                 style="width: auto;" type="submit" [disabled]="deleteList.length<1">Xoá
         </button>
       </div>
       <div style="text-align: center; display: flex; justify-content: center" *ngIf="deleteList.length===0">
         <button class="col-3 btn btn-outline-warning" style="width: auto; margin-right: 5%"
-                type="button" [routerLink]="['/advertisement/edit',ids[0]]"
+                type="button"
                 [disabled]="deleteList.length<1">Chỉnh Sửa
         </button>
         <button class="col-3 btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"
                 style="width: auto;" type="submit" [disabled]="deleteList.length<1">Xoá
         </button>
       </div>
-      <!--      phân trang-->
+
       <div style="height: 50px;position: relative" class="container pagination-advertisement mb-3">
         <ul class="pagination justify-content-end" style="text-align: right">
           <li>
@@ -80,18 +84,22 @@
           </li>
           <li class="page-item">
             <span style="margin: 0 20px 0 20px">{{pageSize * indexPagination + 1}}
-              - {{pageSize * indexPagination + numberOfElement}}/{{totalElements}}</span>
+              - {{pageSize * indexPagination + numberOfElement}} trên {{totalElements}}</span>
             <button (click)="previousPage($event)" [ngStyle]="{'display':previousPageStyle}" type="button"
                     class="btn btn-outline-primary">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                   class="bi bi-chevron-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                      d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
               </svg>
             </button>
             <button (click)="nextPage($event)" [ngStyle]="{'display':nextPageStyle}" style="margin-left: 10px"
                     type="button"
                     class="btn btn-outline-primary">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                   class="bi bi-chevron-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                      d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
               </svg>
             </button>
           </li>
@@ -108,7 +116,6 @@
     </div>
   </div>
 
-  <!-- Modal Xóa -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">

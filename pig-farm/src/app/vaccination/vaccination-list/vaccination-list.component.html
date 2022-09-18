@@ -31,15 +31,16 @@
           <th class="text-light" style="width: 20%">Ngày</th>
           <th class="text-light" style="width: 15%">Chuồng</th>
           <th class="text-light" style="text-align: left ;width: 20%">Người Tiêm</th>
-          <th class="text-light" style="text-align: left ; width: 30%">Loại Vaccine</th>
+          <th class="text-light" style="text-align: left ; width: 27%">Loại Vaccine</th>
           <th class="text-light" style="text-align: left">Số Lượng</th>
-          <th></th>
+          <th><input class="form-check-input" type="checkbox" [checked]="checkAll"
+                     (change)="checkALl($event)"></th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let vaccinList of vaccins; index as i">
           <td style="text-align: center">{{(i + 1) + 5 * indexPagination}}</td>
-          <td style="text-align: center">{{vaccinList.date}}</td>
+          <td style="text-align: center">{{vaccinList.date |date: 'dd/MM/yyyy'}}</td>
           <td style="text-align: center">{{vaccinList.pigstyCode}}</td>
           <td>{{vaccinList.vaccinatedPerson}}</td>
           <td>{{vaccinList.vaccineType}}</td>
@@ -63,8 +64,11 @@
   <div style="background: white;opacity: 90%;height: 100px;position: relative;border-radius: 0 0 10px 10px"
        class="container">
     <div style="text-align: center; display: flex; justify-content: center" class="mb-2">
+      <button class="col-3 btn btn-outline-danger" style="width: auto" data-bs-toggle="modal"
+              data-bs-target="#exampleModal" [disabled]="informationDelete.length<1" [hidden]="informationDelete.length>0">Xoá
+      </button>
       <button class="col-3 btn btn-danger" style="width: auto" data-bs-toggle="modal"
-              data-bs-target="#exampleModal" [disabled]="informationDelete.length<1" *ngIf="nameContent.length==0">Xoá
+              data-bs-target="#exampleModal" [hidden]="informationDelete.length<1">Xoá
       </button>
     </div>
 
@@ -73,10 +77,11 @@
         <div style="display: flex;align-items: center;justify-content: flex-end">
 
           <span style="margin: 0 10px 0 0">Số phần tử của trang:</span>
-          <select (change)="changePageSize($event)" style="width: 80px" class="form-select">
+          <select (change)="changePageSize($event)" style="width: 95px" class="form-select">
             <option value="5">5</option>
             <option value="10">10</option>
-            <option value="full list">Full List</option>
+            <option value="15">15</option>
+            <option value="full list">Tất cả</option>
           </select>
           <span style="margin: 0 20px 0 40px">
             {{pageSize * indexPagination + 1}} - {{pageSize * indexPagination + numberOfElement}}

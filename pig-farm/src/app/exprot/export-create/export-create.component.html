@@ -8,14 +8,14 @@
     <div class="row formRow">
       <form class="col-lg-8 formRow_create" [formGroup]="exportForm" (ngSubmit)="createExport()">
         <div class="mb-3 text-center formRow_create_title">
-          <h2>Thêm Mới Bản Ghi</h2>
+          <h2>THÊM MỚI BẢN GHI</h2>
         </div>
         <div class="formRow_create_content">
           <div class="mb-4">
             <div class="row">
               <div class="col-12">
                 <label class="form-label">Mã chuồng xuất <span style="color: red">*</span> </label>
-                <input type="text" class="form-control" name="codeExport" formControlName="codeExport"
+                <input type="text" class="form-control" name="codeExport" formControlName="codeExport" placeholder="VD: MC-xx"
                        (change)="checkCode($event.target.value)">
                 <div class="validate"
                      *ngIf="exportForm.controls.codeExport.hasError('required') && exportForm.controls.codeExport.touched">
@@ -149,8 +149,8 @@
               <div class="col-6">
                 <!--                                phần này chỉ để show ra màn hình total-->
                 <label class="form-label">Tổng tiền (VNĐ) <span style="color: red">*</span></label>
-                <input formControlName="total" type="number" disabled class="form-control" (change)="getTotalMoney()">
-                <div class="validate"
+                <input formControlName="total" style="display: none" type="number" disabled class="form-control">
+                <p style="background-color: #E9ECEF; opacity: 1" class="form-control">{{total  | currency :' ' :true: '1.0-3'}}</p>                <div class="validate"
                      *ngIf="exportForm.controls.total.hasError('required') && exportForm.controls.total.touched">
                   Giá tiền phải bắt buộc nhập.
                 </div>

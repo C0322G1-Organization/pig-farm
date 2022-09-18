@@ -1,7 +1,7 @@
-<div class="body">
+  <div class="body">
   <div class="vc_empty_space" style="height: 64px"><span class="vc_empty_space_inner"></span></div>
 
-  <div style="min-height: 518px;border-radius: 10px" class="container container-list  pb-2">
+  <div style="min-height: 518px;border-radius: 10px 10px 0px 0px" class="container container-list  pb-2">
     <div>
       <div style="font-family: 'Raleway', sans-serif;font-size: 32px;font-weight: bolder;text-align: center" class="employees-title">DANH SÁCH THỨC ĂN</div>
       <div class="row mt-5">
@@ -80,7 +80,7 @@
     <div style=""   class="row col-12 col-xl-6 container pagination-storage float-end " >
       <!--Phan trang-->
 
-      <div style="display: flex;justify-content: flex-end;margin-left: 20%;" class="row" *ngIf="foodList.length > 0">
+      <div style="display: flex;justify-content: flex-end;margin-left: 15%;" class="row" *ngIf="foodList.length > 0">
 
         <div class="col-xl-4 col-4" style="width: 17%">
           <select (change)="sizeTotal(select.value)" #select class="form-select"

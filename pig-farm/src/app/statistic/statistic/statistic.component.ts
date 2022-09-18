@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
 import {Chart, registerables} from 'chart.js';
 import * as html2pdf from 'html2pdf.js';
 // import * as chartJs from 'chart.js';
-// Chart.register(...registerables);
+Chart.register(...registerables);
 
 @Component({
   selector: 'app-statictis',
@@ -67,7 +67,6 @@ export class StatisticComponent implements OnInit {
       this.statisticForm.value.endDate,
       this.statisticForm.value.type).subscribe((value) => {
       this.listStatistic = value;
-      this.toast.success('Thống kê thành công !');
       this.destroyChart();
       this.createChartMonth();
     });

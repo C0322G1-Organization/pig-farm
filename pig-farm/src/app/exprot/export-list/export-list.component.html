@@ -78,24 +78,9 @@
       <div style="text-align: center; display: flex; justify-content: center" *ngIf="deleteList.length>0">
         <button class="col-3 btn btn-warning" style="width: auto; margin-right: 5%"
                 type="button" [routerLink]="['/export/update',deleteList[0].id]"
-                [disabled]="deleteList.length!=1" [hidden]="deleteList.length>=2">Chỉnh Sửa
+                [disabled]="deleteList.length!=1">Chỉnh Sửa
         </button>
-
-        <button class="col-3 btn btn-outline-warning" style="width: auto; margin-right: 5%"
-                type="button" [routerLink]="['/export/update',deleteList[0].id]"
-                [disabled]="deleteList.length!=1" [hidden]="deleteList.length<=1">Chỉnh Sửa
-        </button>
-
         <button class="col-3 btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                style="width: auto;" type="submit" [disabled]="deleteList.length<1">Xoá
-        </button>
-      </div>
-
-      <div style="text-align: center; display: flex; justify-content: center" *ngIf="deleteList.length===0">
-        <button class="col-3 btn btn-outline-warning" style="width: auto; margin-right: 5%"
-                type="button" disabled >Chỉnh Sửa
-        </button>
-        <button class="col-3 btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"
                 style="width: auto;" type="submit" [disabled]="deleteList.length<1">Xoá
         </button>
       </div>
@@ -135,13 +120,13 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Cảnh báo</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Chú ý!</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p> Xác nhận xóa dữ liệu:</p>
-          <ul *ngFor="let item of deleteList">
-            -  {{item.codeExport}}
+          <p>Bạn có muốn xóa các chuồng lợn đã xuất sau:</p>
+          <ul *ngFor="let item of deleteList, index as i">
+            {{i + 1}}. {{item.codeExport}}
           </ul>
         </div>
         <div class="modal-footer">
@@ -157,7 +142,7 @@
   </div>
   <div style="text-align: center; display: flex; justify-content: center">
     <ng-template #elseBlock>
-      <div style="color: red;min-height: 245px" class="col-12 mt-4" >
+      <div style="color: red;" class="col-12 mt-4">
         <h2 style="text-align: center">Không có dữ liệu để hiển thị.</h2>
       </div>
     </ng-template>

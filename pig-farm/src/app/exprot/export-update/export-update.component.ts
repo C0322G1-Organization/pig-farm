@@ -40,6 +40,7 @@ export class ExportUpdateComponent implements OnInit {
   employeeList: Employee[];
   id: number;
   type = '';
+  total = 0;
 
   ngOnInit(): void {
     this.employeeService.getAllEmployee().subscribe(value => {
@@ -112,6 +113,7 @@ export class ExportUpdateComponent implements OnInit {
 
   getTotal() {
     this.exportForm.patchValue({total: (+this.exportForm.value.price) * (+this.exportForm.value.kilogram)});
+    this.total = (+this.exportForm.value.price) * (+this.exportForm.value.kilogram);
   }
 
   update() {

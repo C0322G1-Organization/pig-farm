@@ -9,7 +9,7 @@ const routes: Routes = [
     component: StatisticComponent,
     canActivate: [AuthGuard],
     data: {
-      roles: ['ROLE_ADMIN', 'ROLE_USER']
+      roles: ['ROLE_ADMIN']
     }
   }
 ];

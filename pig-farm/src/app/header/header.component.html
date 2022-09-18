@@ -33,7 +33,7 @@
           <li class="nav-item" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">
             <a class="nav-link" routerLink="advertisement/page">Quảng Cáo</a>
           </li>
-          <li class="nav-item dropdown" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">
+          <li class="nav-item dropdown" *ngIf="['ROLE_ADMIN', 'ROLE_USER'].indexOf(role)!==-1">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Chuồng
             </a>
@@ -41,21 +41,21 @@
               <li class="nav-item">
                 <a class="nav-link" routerLink="pigsty/list">Chuồng Nuôi</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">
                 <a class="nav-link" routerLink="export/page">Chuồng Xuất</a>
               </li>
             </ul>
           </li>
-          <li class="nav-item" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">
+          <li class="nav-item" *ngIf="['ROLE_ADMIN', 'ROLE_USER'].indexOf(role)!==-1">
             <a class="nav-link" routerLink="pig">Cá Thể</a>
           </li>
-          <li class="nav-item" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">
+          <li class="nav-item" *ngIf="['ROLE_ADMIN', 'ROLE_USER'].indexOf(role)!==-1">
             <a class="nav-link" routerLink="food">Thức Ăn</a>
           </li>
-          <li class="nav-item" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">
+          <li class="nav-item" *ngIf="['ROLE_ADMIN', 'ROLE_USER'].indexOf(role)!==-1">
             <a class="nav-link" routerLink="storage/page">Kho</a>
           </li>
-          <li class="nav-item dropdown" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">
+          <li class="nav-item dropdown" *ngIf="['ROLE_ADMIN', 'ROLE_USER'].indexOf(role)!==-1">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Bệnh lý và sinh sản
             </a>

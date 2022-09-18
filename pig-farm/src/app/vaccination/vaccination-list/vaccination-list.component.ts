@@ -13,7 +13,7 @@ import {Title} from '@angular/platform-browser';
 })
 export class VaccinationListComponent implements OnInit {
   vaccins: Vaccination[] = [];
-  number: number;
+  number: 0;
   msg: string;
   clss: string;
   nameDelete: any = [];
@@ -22,7 +22,8 @@ export class VaccinationListComponent implements OnInit {
   nameContent = '';
   informationDelete: Vaccination[] = [];
   public e: any;
-
+  vaccinationDelete: Vaccination;
+  checkAll = false;
   displayPagination = 'inline-block';
   pageSize = 5;
   indexPagination = 0;
@@ -53,14 +54,17 @@ export class VaccinationListComponent implements OnInit {
           this.vaccins = [];
           this.displayPagination = 'none';
           this.pages = new Array(0);
-          this.toast.warning('Không có dữ liệu.', 'Chú ý');
         } else {
           this.numberOfElement = value.numberOfElements;
           this.vaccins = value.content;
           this.totalElements = value.totalElements;
           this.pages = new Array(value.totalPages);
+          this.number = value?.number;
         }
         this.checkPreviousAndNext();
+        this.isCheckedAll();
+      }, error => {
+        this.vaccins = null;
       }
     );
   }
@@ -109,7 +113,7 @@ export class VaccinationListComponent implements OnInit {
         this.indexPagination = 0;
         this.nameContent = '';
         this.getAll();
-        this.toast.success('Xóa thành công', 'Liên hệ');
+        this.toast.success('Xóa thành công', 'Tiêm phòng');
         this.informationDelete = [];
       }, err => {
         this.clss = 'rd';
@@ -117,8 +121,8 @@ export class VaccinationListComponent implements OnInit {
       });
     } else {
       this.clss = 'rd';
-      this.msg = 'Bạn phải chọn liên hệ mới thực hiện được chức năng này.';
-      this.toast.error('Bạn phải chọn mục để xóa', 'Liên hệ');
+      this.msg = 'Bạn phải lịch tiêm phòng hệ mới thực hiện được chức năng này.';
+      this.toast.error('Bạn phải chọn mục để xóa', 'Tiêm phòng');
     }
     this.nameDelete = [];
   }
@@ -126,6 +130,7 @@ export class VaccinationListComponent implements OnInit {
   resetDelete() {
     this.nameDelete = [];
     this.ids = [];
+    this.informationDelete = [];
   }
 
   getListDelete(vaccinationDelete: Vaccination) {
@@ -138,9 +143,9 @@ export class VaccinationListComponent implements OnInit {
     this.informationDelete.push(vaccinationDelete);
   }
 
-  checkbox(notificationDelete: Vaccination) {
+  checkbox(vaccination: Vaccination) {
     for (const item of this.informationDelete) {
-      if (item.id === notificationDelete.id) {
+      if (item.id === vaccination.id) {
         return true;
       }
     }
@@ -156,6 +161,11 @@ export class VaccinationListComponent implements OnInit {
         break;
       case '10' :
         this.pageSize = 10;
+        this.indexPagination = 0;
+        this.ngOnInit();
+        break;
+      case '15' :
+        this.pageSize = 15;
         this.indexPagination = 0;
         this.ngOnInit();
         break;
@@ -176,5 +186,37 @@ export class VaccinationListComponent implements OnInit {
     event.preventDefault();
     this.indexPagination++;
     this.ngOnInit();
+  }
+
+  checkList(vaccination: Vaccination) {
+    this.vaccinationDelete = this.informationDelete.find(deleteObject => deleteObject.id === vaccination.id);
+    if (this.vaccinationDelete) {
+      this.informationDelete = this.informationDelete.filter(contactDelete => contactDelete.id !== this.vaccinationDelete.id);
+    } else {
+      this.informationDelete.push(vaccination);
+    }
+    this.isCheckedAll();
+  }
+
+  checkALl(event: any) {
+    this.checkAll = event.target.checked;
+    if (this.checkAll) {
+      this.vaccins.forEach(item => {
+        if (!this.checkbox(item)) {
+          this.informationDelete.push(item);
+        }
+      });
+    } else {
+      this.informationDelete = this.informationDelete.filter(item => !this.vaccins.some(item2 => item.id === item2.id));
+    }
+  }
+
+  isCheckedAll() {
+    const listDeleted = this.informationDelete.filter((item) => this.vaccins.some(item2 => item.id === item2.id));
+    const lengthDeleted = listDeleted.filter(
+      (vaccination, index) => index === listDeleted.findIndex(
+        other => vaccination.id === other.id
+      )).length;
+    this.checkAll = lengthDeleted === this.vaccins.length;
   }
 }

@@ -33,7 +33,7 @@
           TIN TỨC TRONG NGÀY
         </div>
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-4 d-flex justify-content-end">
       <input class="form-control find" type="search" [(ngModel)]="keyword" name="keyword"
              placeholder="Nhập nội dung tìm kiếm" (keydown.enter)="search()" aria-label="Search">
     </div>
@@ -41,9 +41,9 @@
       <button class="btn btn-outline-success btn-search" (click)="search()">Tìm kiếm</button>
     </div>
   </div>
-
+  <div class="vc_empty_space" style="height: 28px"><span class="vc_empty_space_inner"></span></div>
   <div class="row" *ngIf="news && news.length > 0; else elseBlock">
-    <div class="col-lg-10 mt-5">
+    <div class="col-lg-10 ">
       <div class="row mt-3" *ngFor="let i of news">
         <div class="col-lg-2">
           <a [routerLink]="['/info-news', i.id]">
@@ -100,49 +100,73 @@
 
     </div>
 
-    <div class="col-lg-2">
-      <div class="row mt-5">
-        <img class="ads-body" src="assets/img/body/body-pigfood.png" alt="">
-      </div>
-      <div class="row mt-5">
-        <img class="ads-body" src="assets/img/body/body-chicken.png" alt="">
-      </div>
-      <div class="row mt-5">
-        <img class="ads-body" src="assets/img/body/body-chickenfood.jpg" alt="">
-      </div>
-      <div class="row mt-5">
-        <img class="ads-body" src="assets/img/body/body-pharma1.jpg" alt="">
-      </div>
-      <div class="row mt-5">
-        <img class="ads-body" src="assets/img/body/body-food.jpg" alt="">
-      </div>
+    <div class="col-lg-2" style="border-left: 1px solid #a39c9c;padding-left: 2.5%;" >
+      <a href="https://trungtambocobavi.com/mot-giong-bo-thit-o-viet-nam"> <div *ngFor="let temp of advertisement">
+        <div class="row mb-5" *ngIf="temp.placement.name==='Ở trên'">
+          <img class="ads-body" src="{{temp.image}}" alt="">
+        </div>
+      </div></a>
+      <a href="https://hanofeed.com/"> <div *ngFor="let temp of advertisement">
+        <div class="row mb-5" *ngIf="temp.placement.name==='Ở giữa trên'">
+          <img class="ads-body" src="{{temp.image}}" alt="">
+        </div>
+      </div></a>
+      <a href="https://trungtambocobavi.com/mot-giong-bo-thit-o-viet-nam"> <div *ngFor="let temp of advertisement">
+        <div class="row mb-5" *ngIf="temp.placement.name==='Ở giữa'">
+          <img class="ads-body" src="{{temp.image}}" alt="">
+        </div>
+      </div></a>
+      <a href="https://trungtambocobavi.com/mot-giong-bo-thit-o-viet-nam"> <div *ngFor="let temp of advertisement">
+        <div class="row mb-5" *ngIf="temp.placement.name==='Ở giữa cuối'">
+          <img class="ads-body" src="{{temp.image}}" alt="">
+        </div>
+      </div></a>
+      <a href="https://trungtambocobavi.com/mot-giong-bo-thit-o-viet-nam"> <div *ngFor="let temp of advertisement">
+        <div class="row mb-5" *ngIf="temp.placement.name==='Ở cuối'">
+          <img class="ads-body" src="{{temp.image}}" alt="">
+        </div>
+      </div></a>
+
+
     </div>
+
   </div>
 
 
   <ng-template #elseBlock>
     <div class="row">
       <div class="col-lg-10 mt-5">
-        <div style="color: red;" class="col-12">
-          <h1>Không tìm thấy dữ liệu.</h1>
-        </div>
+        <div class="mt-4" style="text-align: center;font-size: 20px;color: red">Không tìm thấy dữ liệu.</div>
       </div>
-      <div class="col-lg-2">
-        <div class="row mt-5">
-          <img class="ads-body" src="assets/img/body/body-pigfood.png" alt="">
-        </div>
-        <div class="row mt-5">
-          <img class="ads-body" src="assets/img/body/body-chicken.png" alt="">
-        </div>
-        <div class="row mt-5">
-          <img class="ads-body" src="assets/img/body/body-chickenfood.jpg" alt="">
-        </div>
-        <div class="row mt-5">
-          <img class="ads-body" src="assets/img/body/body-pharma1.jpg" alt="">
-        </div>
-        <div class="row mt-5">
-          <img class="ads-body" src="assets/img/body/body-food.jpg" alt="">
-        </div>
+
+      <div class="col-lg-2" style="border-left: 1px solid #a39c9c;padding-left: 2.5%;" >
+        <a href="https://trungtambocobavi.com/mot-giong-bo-thit-o-viet-nam"> <div *ngFor="let temp of advertisement">
+          <div class="row mb-5" *ngIf="temp.placement.name==='Ở trên'">
+            <img class="ads-body" src="{{temp.image}}" alt="">
+          </div>
+        </div></a>
+        <a href="https://hanofeed.com/"> <div *ngFor="let temp of advertisement">
+          <div class="row mb-5" *ngIf="temp.placement.name==='Ở giữa trên'">
+            <img class="ads-body" src="{{temp.image}}" alt="">
+          </div>
+        </div></a>
+        <a href="https://trungtambocobavi.com/mot-giong-bo-thit-o-viet-nam"> <div *ngFor="let temp of advertisement">
+          <div class="row mb-5" *ngIf="temp.placement.name==='Ở giữa'">
+            <img class="ads-body" src="{{temp.image}}" alt="">
+          </div>
+        </div></a>
+        <a href="https://trungtambocobavi.com/mot-giong-bo-thit-o-viet-nam"> <div *ngFor="let temp of advertisement">
+          <div class="row mb-5" *ngIf="temp.placement.name==='Ở giữa cuối'">
+            <img class="ads-body" src="{{temp.image}}" alt="">
+          </div>
+        </div></a>
+        <a href="https://trungtambocobavi.com/mot-giong-bo-thit-o-viet-nam"> <div *ngFor="let temp of advertisement">
+          <div class="row mb-5" *ngIf="temp.placement.name==='Ở cuối'">
+            <img class="ads-body" src="{{temp.image}}" alt="">
+          </div>
+        </div></a>
+
+
       </div>
     </div>
   </ng-template>
