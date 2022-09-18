@@ -12,16 +12,14 @@
             <div class="mb-3">
               <label for="pigstyCode">Mã chuồng nuôi <span style="color: red">*</span></label>
               <input formControlName="code" type="text" id="pigstyCode" class="form-control"
-                     placeholder="VD: C001" (change)="checkCode($event.target.value)">
-              <p style="color: red" *ngIf="isExitsCode == true">Mã chuồng heo đã tồn tại.</p>
+                     placeholder="Nhập mã chuồng heo" (keyup)="checkCode($event.target.value)">
+              <p style="color: red" *ngIf="isExitsCode == 'false'">Mã chuồng heo đã tồn tại.</p>
               <p style="color: red" *ngIf="formPigsty.controls.code.hasError('required') && formPigsty.controls.code.touched">Vui lòng nhập thông tin.</p>
               <p style="color: red" *ngIf="formPigsty.controls.code.hasError('pattern')">Nhập sai định dạng CXXX.</p>
-
             </div>
-
             <div class="mb-3">
               <label for="employeeCode">Mã nhân viên</label>
-              <input formControlName="employee" type="text" id="employeeCode" class="form-control">
+              <input value="{{employee.code}}" disabled type="text" id="employeeCode" class="form-control">
             </div>
 
             <div class="mb-3">
@@ -40,7 +38,7 @@
                 <div class="col-6">
                   <label for="typePigs">Loại lợn <span style="color: red">*</span></label>
                   <select formControlName="typePigs" class="form-control" id="typePigs" ngModel="">
-                    <option value="">--Vui lòng chọn--</option>
+                    <option selected value="">--Vui lòng chọn--</option>
                     <option value="0">Lợn thịt</option>
                     <option value="1">Lợn giống</option>
                   </select>
@@ -54,20 +52,20 @@
               <div class="row">
                 <div class="col-6">
                   <label>Ngày tạo chuồng <span style="color: red">*</span></label>
-                  <input formControlName="creationDate" type="date" class="form-control" required >
+                  <input formControlName="creationDate" id="createDate" type="date" class="form-control" required >
                   <p style="color: red" *ngIf="formPigsty.controls.creationDate.hasError('required') && formPigsty.controls.creationDate.touched">Vui lòng nhập thông tin.</p>
-
                 </div>
                 <div class="col-6">
                   <label for="closeTime">Ngày đóng chuồng</label>
                   <input formControlName="buildDate" type="date" id="closeTime" class="form-control">
+                  <p style="color: red" *ngIf="formPigsty.hasError('dateError') && formPigsty.controls.creationDate.touched">Vui lòng nhập ngày đóng chuồng sau ngày tạo chuồng.</p>
                 </div>
               </div>
             </div>
             <div class="d-grid gap-2 d-md-flex justify-content-md-around">
               <button class="btn btn-outline-danger button " [routerLink]="['/pigsty/list']">Quay Lại</button>
-              <button class="btn btn-outline-success button" [disabled]="formPigsty.invalid" type="submit">Thêm mới</button>
-              <button class="btn btn-outline-secondary button " (click)="resetPigsty()" type="button">Nhập lại</button>
+              <button class="btn btn-outline-success button" [disabled]="formPigsty.invalid||isExitsCode==='false'" type="submit">Thêm mới</button>
+              <button class="btn btn-outline-secondary button " (click)="getForm()" type="button">Nhập lại</button>
             </div>
           </div>
         </form>

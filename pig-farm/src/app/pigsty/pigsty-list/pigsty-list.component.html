@@ -11,7 +11,7 @@
             </div>
             <div class="col-3 mx-auto me-0" style="display: flex; width: 350px">
               <input formControlName="name" class="form-control bg-transparent me-1" type="search"
-                     placeholder="Nhập Tên Nhân Viên" aria-label="Search">
+                     placeholder="Tìm kiếm" aria-label="Search" placeholder="Mã chuồng/Tên nhân viên">
               <button class="btn btn-outline-success me-0" type="submit" style="width: 130px">Tìm kiếm</button>
             </div>
           </div>
@@ -36,7 +36,7 @@
         </thead>
         <tbody>
         <tr *ngFor=" let pigsty of pigstyList; index as i">
-          <td>{{(i + 1)+(indexPagination*pageSize)}}</td>
+          <td>{{(i + 1) + (indexPagination * pageSize)}}</td>
           <td style="text-align: center">{{pigsty.code}}</td>
           <td style="text-align: center">{{pigsty.employeeCode}}</td>
           <td>{{pigsty.employeeName}}</td>
@@ -54,39 +54,29 @@
   <div style="background: white;opacity: 90%;height: 100px;position: relative;border-radius: 0 0 10px 10px"
        class="container">
     <!--Phan trang-->
-    <div *ngIf="!checkContent" [ngStyle]="{'display':displayPagination}">
-      <div style="position: absolute;bottom: 26px;right: 49px">
-        <div style="display: flex;align-items: center;justify-content: flex-end">
-
-          <span style="margin: 0 10px 0 0">Số phần tử của trang:</span>
-          <select (change)="changePageSize($event)" style="width: 80px" class="form-select">
-            <option value="5">5</option>
-            <option value="10">10</option>
-          </select>
-          <span style="margin: 0 20px 0 40px">
-                {{pageSize * indexPagination + 1}} - {{pageSize * indexPagination + numberOfElement}}
-            trên {{totalElements}}
-      </span>
-          <button (click)="previousPage($event)" [ngStyle]="{'display':previousPageStyle}" type="button"
-                  class="btn btn-outline-primary">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                 class="bi bi-chevron-left" viewBox="0 0 16 16">
-              <path fill-rule="evenodd"
-                    d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-            </svg>
-          </button>
-          <button (click)="nextPage($event)" [ngStyle]="{'display':nextPageStyle}" style="margin-left: 10px"
-                  type="button"
-                  class="btn btn-outline-primary">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                 class="bi bi-chevron-right" viewBox="0 0 16 16">
-              <path fill-rule="evenodd"
-                    d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-            </svg>
-          </button>
-        </div>
-      </div>
-    </div>
+    <ul *ngIf="!checkContent" class="pagination justify-content-end" style="text-align: right">
+      <li>
+        <select class="form-select" (change)="changePageSize($event)">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="{{totalElements}}">Tất Cả</option>
+        </select>
+      </li>
+      <li class="page-item"><span style="margin: 0 20px 0 40px">
+             {{pageSize * indexPagination + 1}} - {{pageSize * indexPagination + numberOfElement}}
+        trên {{totalElements}} </span>
+        <button (click)="previousPage($event)" [ngStyle]="{'display':previousPageStyle}" type="button"
+                class="btn btn-outline-primary">
+          <i class="bi bi-chevron-left"></i>
+        </button>
+        <button (click)="nextPage($event)" [ngStyle]="{'display':nextPageStyle}" style="margin-left: 10px"
+                type="button"
+                class="btn btn-outline-primary">
+          <i class="bi bi-chevron-right"></i>
+        </button>
+      </li>
+    </ul>
   </div>
   <div style="text-align: center; display: flex ;  justify-content: center">
     <ng-template #elseBlock>

@@ -60,4 +60,8 @@ export class EmployeeService {
   checkEmail(email: string): Observable<string> {
     return this.http.get<string>(API_URL + '/employee/checkEmail/' + email);
   }
+
+  finByUser(user: string): Observable<Employee> {
+    return this.http.get<Employee>(API_URL + '/employee/findUser/' + user);
+  }
 }

@@ -7,8 +7,9 @@ import {PigstyService} from '../../service/pigsty.service';
 import {Title} from '@angular/platform-browser';
 import {ToastrService} from 'ngx-toastr';
 
+
 @Component({
-  selector: 'app-pigsty-list',
+  selector: 'app-item-list',
   templateUrl: './pigsty-list.component.html',
   styleUrls: ['./pigsty-list.component.css']
 })
@@ -101,18 +102,8 @@ export class PigstyListComponent implements OnInit {
   }
 
   changePageSize(event: any) {
-    switch (event.target.value) {
-      case '5' :
-        this.pageSize = 5;
-        this.indexPagination = 0;
-        this.ngOnInit();
-        break;
-      case '10' :
-        this.pageSize = 10;
-        this.indexPagination = 0;
-        this.ngOnInit();
-        break;
-    }
+    this.pageSize = +event.target.value;
+    this.ngOnInit();
   }
 
   previousPage(event: any) {
