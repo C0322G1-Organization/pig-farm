@@ -99,8 +99,6 @@ export class NotificationCreateComponent implements OnInit {
         finalize(() => {
           fileRef.getDownloadURL().subscribe((url) => {
             this.notificationForm.patchValue({image: url});
-            console.log(url);
-            console.log(this.notificationForm.value);
             this.notificationService.save(this.notificationForm.value).subscribe(
               () => {
                 this.toast.success('Tạo mới thành công');

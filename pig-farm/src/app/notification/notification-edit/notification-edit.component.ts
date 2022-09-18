@@ -72,8 +72,6 @@ export class NotificationEditComponent implements OnInit {
           this.buttonNotification = false;
           fileRef.getDownloadURL().subscribe((url) => {
             this.notificationForm.patchValue({image: url});
-            console.log(url);
-            console.log(this.notificationForm.value);
             this.notificationService.update(this.id, this.notificationForm.value).subscribe(
               () => {
                 this.toast.success('Cập nhật thành công');

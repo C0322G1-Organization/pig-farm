@@ -72,7 +72,6 @@ export class PigstyCreateComponent implements OnInit {
   }
 
   createPigsty() {
-    console.log(this.formPigsty);
     if (this.formPigsty.valid) {
       const pigstyCreate: Pigsty = this.formPigsty.value;
       pigstyCreate.employee = {

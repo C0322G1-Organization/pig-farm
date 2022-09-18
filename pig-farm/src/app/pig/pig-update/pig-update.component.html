@@ -4,7 +4,7 @@
     <div class="row formRow">
       <form class="col-lg-6 formRow_create" [formGroup]="formPig" (ngSubmit)="submit()">
         <div class="mb-3 formRow_create_title">
-          <h5> Chỉnh sửa cá thể</h5>
+          <h5> CHỈNH SỬA CÁ THỂ</h5>
         </div>
         <hr>
         <div class="formRow_create_content">
@@ -76,13 +76,11 @@
             </div>
           </div>
           <div class="d-grid gap-2 d-md-flex justify-content-md-around">
-            <button type="button" (click)="cancel()" class="btn btn-outline-danger"><i class="bi bi-backspace"></i> Quay
-              Lại
+            <button type="button" (click)="cancel()" class="btn btn-outline-danger"> Quay Lại
             </button>
-            <button type="submit" [disabled]="formPig.invalid" class="btn btn-outline-success"><i
-              class="bi bi-plus-circle"></i> Chỉnh Sửa
+            <button type="submit" [disabled]="formPig.invalid" class="btn btn-outline-success"> Chỉnh Sửa
             </button>
-            <button type="button" (click)="reset(id)" class="btn btn-outline-secondary"><i class="bi bi-x-octagon"></i>
+            <button type="button" (click)="reset(id)" class="btn btn-outline-secondary">
               Nhập Lại
             </button>
           </div>

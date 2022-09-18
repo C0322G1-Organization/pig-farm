@@ -200,7 +200,6 @@ export class ExportListComponent implements OnInit {
       });
       for (const item of this.deleteList) {
         this.ids.push(item.id);
-        console.log(this.ids + ' ids delete');
       }
     } else {
       this.deleteList = this.deleteList.filter(item => !this.listExport.some(item2 => item.id === item2.id));

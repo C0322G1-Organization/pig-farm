@@ -139,7 +139,6 @@ export class FoodListComponent implements OnInit {
 
   sizeTotal(size: string) {
     this.size = size;
-    console.log(this.totalElements);
     if (this.totalElements > Number(size)) {
       this.getAllFood(this.page, this.searchName, this.sort, size);
     } else {

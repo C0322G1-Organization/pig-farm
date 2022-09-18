@@ -61,7 +61,6 @@ export class FoodEditComponent implements OnInit {
         storage: new FormControl(food.storage.id, [Validators.required]),
         pigsty: new FormControl(food.pigsty.id, [Validators.required]),
       });
-      console.log(this.foodForm);
     });
 
   }

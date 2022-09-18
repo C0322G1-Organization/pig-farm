@@ -47,7 +47,6 @@ export class VaccinationCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllPigsty();
-    console.log(this.vaccinationForm);
   }
 
   submit() {
@@ -84,11 +83,7 @@ export class VaccinationCreateComponent implements OnInit {
     let day1: string[];
     day1 = this.createPigsty?.split('/');
     const newDay = day1[1] + '-' + day1[0] + '-' + day1[2];
-    // console.log(newDay);
     const day = new Date(newDay);
-    // console.log(this.createPigsty);
-    // console.log(day);
-    // const day = new Date(this.createPigsty);
     const vaccineType = this.vaccinationForm.controls.vaccineType.value;
     if (vaccineType === 'PRRS') {
       const d2 = this.datePipe.transform(new Date(day.setDate(day.getDate() + 10)), 'dd/MM/yyyy');

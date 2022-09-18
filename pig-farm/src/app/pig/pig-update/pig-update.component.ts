@@ -71,7 +71,6 @@ export class PigUpdateComponent implements OnInit {
       },
       error => {
         this.toast.error('Sửa thất bại');
-        console.log(error);
       });
   }
 
@@ -82,14 +81,14 @@ export class PigUpdateComponent implements OnInit {
   checkDateEnd(abstractControl: AbstractControl): any {
     const start = new Date(abstractControl.value.dateIn);
     const now = new Date(abstractControl.value.dateOut);
-    if (now.getFullYear() > start.getFullYear()) {
+    if (now > start) {
       return null;
-    } else if (now.getFullYear() < start.getFullYear()) {
+    } else if (now < start) {
       return {checkDate: true};
     }
-    if (now.getMonth() > start.getMonth()) {
+    if (now > start) {
       return null;
-    } else if (now.getDate() < start.getDate()) {
+    } else if (now < start) {
       return {checkDate: true};
     } else {
       return null;
@@ -97,7 +96,6 @@ export class PigUpdateComponent implements OnInit {
   }
 
   reset(id: number) {
-    console.log(id);
     this.pigService.findById(id).subscribe(next => {
       this.formPig.setValue(next);
     });

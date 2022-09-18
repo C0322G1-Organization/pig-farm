@@ -57,9 +57,7 @@ export class ExportUpdateComponent implements OnInit {
             this.exportForm.patchValue({kilogram: next.kilogram});
             this.exportForm.patchValue({price: next.price});
             this.changEmployeeName(this.exportForm.value.employee);
-            console.log(this.exportForm.value);
             this.getTotal();
-            console.log(this.exportForm.value);
           });
         });
       });

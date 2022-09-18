@@ -52,7 +52,6 @@ export class BodyComponent implements OnInit {
         this.pageSize = result?.size;
         this.numberOfElement = result?.numberOfElements;
         this.news = result.content;
-        console.log(this.news);
         this.totalElements = result?.totalElements;
         this.totalPage = new Array(result?.totalPages);
       }

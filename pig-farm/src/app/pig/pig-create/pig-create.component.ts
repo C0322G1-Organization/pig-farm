@@ -83,14 +83,14 @@ export class PigCreateComponent implements OnInit {
   checkDateEnd(abstractControl: AbstractControl): any {
     const start = new Date(abstractControl.value.dateIn);
     const now = new Date(abstractControl.value.dateOut);
-    if (now.getFullYear() > start.getFullYear()) {
+    if (now > start) {
       return null;
-    } else if (now.getFullYear() < start.getFullYear()) {
+    } else if (now < start) {
       return {checkDate: true};
     }
-    if (now.getMonth() > start.getMonth()) {
+    if (now > start) {
       return null;
-    } else if (now.getDate() < start.getDate()) {
+    } else if (now < start) {
       return {checkDate: true};
     } else {
       return null;

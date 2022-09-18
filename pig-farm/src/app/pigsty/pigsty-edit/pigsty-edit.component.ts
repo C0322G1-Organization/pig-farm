@@ -47,7 +47,6 @@ export class PigstyEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // document.getElementById('creationDate').click();
     this.loadHeader();
     this.pigstyService.getAllPigsty().subscribe(value => {
       this.pigstys = value;

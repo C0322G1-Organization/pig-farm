@@ -35,7 +35,6 @@ export class AdvertisementEditComponent implements OnInit {
               private title: Title) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.advertisementId = +paramMap.get('id');
-      console.log(this.advertisementId);
       this.getAdvertisement(this.advertisementId);
     });
     this.title.setTitle(' Sửa quảng cáo ');
@@ -70,8 +69,6 @@ export class AdvertisementEditComponent implements OnInit {
         this.buttonAdvertisementStatus = false;
         fileRef.getDownloadURL().subscribe((url) => {
           this.formAdvertisement.patchValue({image: url});
-          console.log(url);
-          console.log(this.formAdvertisement.value);
           this.placementService.update(this.advertisementId, this.formAdvertisement.value).subscribe(
             () => {
               this.route.navigateByUrl('/advertisement/page');
@@ -134,8 +131,6 @@ export class AdvertisementEditComponent implements OnInit {
 
   compare(value, option): boolean {
     return value.id === option.id;
-    console.log(value);
-    console.log(option);
   }
 
 

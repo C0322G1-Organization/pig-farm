@@ -82,7 +82,6 @@ export class ExportCreateComponent implements OnInit {
     for (let i = 0; i < this.employeeList.length; i++) {
       if (this.exportForm.value.employee === '' + this.employeeList[i].id) {
         this.exportForm.patchValue({employeeName: this.employeeList[i].name});
-        console.log(this.exportForm.value);
       }
     }
   }
@@ -107,7 +106,6 @@ export class ExportCreateComponent implements OnInit {
 
   createExport() {
     const exports: Export = this.exportForm.value;
-    console.log(this.exportForm.value);
     if (this.exportForm.value.typePigs === 'Lợn thịt') {
       exports.typePigs = 0;
     } else {

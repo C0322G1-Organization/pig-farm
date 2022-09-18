@@ -77,7 +77,6 @@ export class EmployeeCreateComponent implements OnInit {
     this.storage.upload(filePath, this.selectedImage).snapshotChanges().pipe(finalize(() => {
         fileRef.getDownloadURL().subscribe((url) => {
           this.employeeForm.patchValue({image: url});
-          console.log(url);
           employee = {
             code: this.employeeForm.value.code,
             name: this.employeeForm.value.name,
