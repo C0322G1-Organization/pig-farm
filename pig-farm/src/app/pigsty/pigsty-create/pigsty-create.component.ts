@@ -81,7 +81,7 @@ export class PigstyCreateComponent implements OnInit {
         }, error => {
         },
         () => {
-          this.router.navigateByUrl('/pigsty/list').then(next => this.toastrService.success('Thêm mới thành công'));
+          this.router.navigateByUrl('/pigsty/list').then(next => this.toastrService.success('Thêm mới thành công.', 'Thông Báo'));
         });
     }
   }

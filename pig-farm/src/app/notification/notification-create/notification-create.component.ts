@@ -87,7 +87,6 @@ export class NotificationCreateComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.notificationForm);
     if (this.selectedImage.name == null || this.notificationForm.invalid) {
       this.buttonNotification = true;
     } else {

@@ -52,7 +52,7 @@
         </thead>
         <tbody *ngFor="let item of listExport, index as i">
         <tr>
-          <td>{{(i + 1) + 5 * number}}</td>
+          <td>{{(i + 1) + (indexPagination * pageSize)}}</td>
           <td>{{item.codeExport}}</td>
           <td>{{item.codeEmployee}}</td>
           <td>{{item.nameEmployee}}</td>

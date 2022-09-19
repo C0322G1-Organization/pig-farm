@@ -14,8 +14,6 @@ const URL_PIG = 'http://localhost:8080/pig';
   styleUrls: ['./pig-list.component.css']
 })
 export class PigListComponent implements OnInit {
-
-
   pigs: Pig[] = [];
   code: string;
   dateIn: string;
@@ -52,6 +50,7 @@ export class PigListComponent implements OnInit {
   pageSize = 5;
   displayPagination = 'inline-block';
   numberOfElement = 0;
+  checkDelete = true;
 
   constructor(private pigService: PigService,
               private toastrService: ToastrService,
@@ -67,6 +66,7 @@ export class PigListComponent implements OnInit {
       dateInSearch: new FormControl(''),
       statusSearch: new FormControl(''),
     });
+    // this.getListBySearchAndPagination();
   }
 
   getList() {
@@ -75,7 +75,7 @@ export class PigListComponent implements OnInit {
         this.totalPage = new Array(0);
         this.pigs = [];
         this.displayPagination = 'none';
-        this.toastrService.warning('Không có dữ liệu.', 'Chú ý');
+        // this.toastrService.warning('Không có dữ liệu.', 'Chú ý');
       } else {
         this.number = data?.number;
         this.pageSize = data?.size;
@@ -120,6 +120,7 @@ export class PigListComponent implements OnInit {
 
   searchPig() {
     this.codeSearch = this.searchForm.value.codeSearch;
+    this.dateInSearch = this.searchForm.value.dateInSearch;
     this.statusSearch = this.searchForm.value.statusSearch;
     if (this.checkRegex(this.searchForm.value.codeSearch, this.searchForm.value.statusSearch)) {
       this.indexPagination = 0;
@@ -152,7 +153,7 @@ export class PigListComponent implements OnInit {
         this.indexPagination = 0;
         this.ngOnInit();
         break;
-      case 'full':
+      case 'full list':
         this.pageSize = this.totalElements;
         this.indexPagination = 0;
         this.ngOnInit();
@@ -168,8 +169,10 @@ export class PigListComponent implements OnInit {
   deleteId() {
     if (this.ids.length > 0) {
       this.pigService.deletePig(this.ids).subscribe(value1 => {
+        // @ts-ignore
+        this.indexPagination = 0;
         this.getList();
-        this.toastrService.success('Xóa thành công!', 'Thông báo');
+        this.toastrService.success('Xóa thành công !!!', 'Thông báo');
         this.ids = [];
       }, err => {
         this.clss = 'rd';
@@ -178,44 +181,25 @@ export class PigListComponent implements OnInit {
     } else {
       this.clss = 'rd';
       this.msg = 'Bạn phải chọn cá thể mới thực hiện được chức năng này';
-      this.toastrService.error('Bạn phải chọn mục để xóa !!!', 'Cá thể');
+      this.toastrService.error('Bạn phải chọn mục để xóa !!!', 'Thông báo');
     }
     this.nameDelete = [];
   }
 
-  checkDelete(value: any) {
-    this.ids = [];
-    this.msg = '';
-    this.nameDelete = [];
-    // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < this.pigs.length; i++) {
-      if (value[this.pigs[i].id] === true) {
-        this.ids.push(this.pigs[i].id);
-        this.nameDelete.push(this.pigs[i].code);
-      }
-    }
-    this.pigService.getAllPig(0, '', '', '', 0).subscribe(() => {
-    });
-  }
-
-  checkButton(value: any) {
-    this.msg = '';
-    if (this.check.includes(value)) {
-      this.check.filter(item => item !== value);
-      for (let i = 0; i < this.check.length; i++) {
-        if (this.check[i] === value) {
-          this.check.splice(i, 1);
-        }
-      }
-    } else {
-      this.check.push(value);
-    }
-    if (this.check.length > 1) {
-      this.editId = null;
-    } else {
-      this.editId = this.check[0];
-    }
-  }
+// checkDelete(value: any) {
+//     this.ids = [];
+//     this.msg = '';
+//     this.nameDelete = [];
+//     // tslint:disable-next-line:prefer-for-of
+//     for (let i = 0; i < this.pigs.length; i++) {
+//         if (value[this.pigs[i].id] === true) {
+//             this.ids.push(this.pigs[i].id);
+//             this.nameDelete.push(this.pigs[i].code);
+//         }
+//     }
+//     this.pigService.getAllPig(0, '', '', '', 0).subscribe(() => {
+//     });
+// }
 
   getListDelete(pigDelete: Pig) {
     for (let i = 0; i < this.nameDelete.length; i++) {
@@ -242,19 +226,9 @@ export class PigListComponent implements OnInit {
     return false;
   }
 
-  showEdit() {
-    return (this.deleteList.length === 1);
-  }
-
   edit() {
     if (this.deleteList.length === 1) {
-      this.router.navigateByUrl('pig/update/' + this.deleteList[0]).then(r => console.log(r));
+      this.router.navigateByUrl('pig/update/' + this.deleteList[0]);
     }
-  }
-
-  omit_special_char(event) {
-    let k;
-    k = event.charCode;  //         k = event.keyCode;  (Both can be used)
-    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k === 8 || k === 32 || (k >= 48 && k <= 57));
   }
 }

@@ -57,7 +57,7 @@
           </thead>
           <tbody>
           <tr *ngFor="let item of foodList; let i=index">
-            <td>{{1 + i + page * 5}}</td>
+            <td>{{(i + 1) + (page * sizePage)}}</td>
             <td>{{item.pigsty.code}}</td>
             <td>{{item.amount}}</td>
             <td>{{item.storage.foodType}}</td>
@@ -88,7 +88,7 @@
             <option value="5">5</option>
             <option value="10">10</option>
             <option value="15">15</option>
-            <option [value]="totalElements">full list</option>
+            <option [value]="totalElements">Tất Cả</option>
           </select>
         </div>
         <div class="col-xl-4 col-4">

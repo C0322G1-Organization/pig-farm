@@ -101,7 +101,6 @@ export class StorageListComponent implements OnInit {
       this.displayPagination = 'inline-block';
       this.getList();
     }
-    console.log(this.foodTypes);
   }
 
   totalElement($event: any) {

@@ -4,10 +4,16 @@ body, h2 {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;
+
 }
 
 .bg{
-  background-image: url('src/assets/img/body/backgroup.jpg');
+  background-image: url('src/assets/img/notification-backgroup-list.jpg');
+  margin: 0 auto;
+  /*background-image: url("../../../assets/img/notification-backgroup-list.jpg");*/
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
 }
 
 .container {
@@ -15,19 +21,13 @@ body, h2 {
   border-radius: 5px;
   padding: 20px;
   opacity: 94%;
+  /*background-image: url('src/assets/img/body/backgroup.jpg');*/
 }
 
 td, th{
-  text-align: left;
+  text-align: center;
 }
 
 th{
   color: white;
-}
-
-pig-title{
-  font-weight: bolder;
-  text-align: center;
-  font-size: 32px;
-  font-family: "Raleway", sans-serif;
 }

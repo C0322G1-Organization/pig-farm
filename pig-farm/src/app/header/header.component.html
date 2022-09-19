@@ -71,7 +71,7 @@
           <li class="nav-item" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">
             <a class="nav-link" routerLink="statistic">Thống Kê</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">
             <a class="nav-link" routerLink="contact/list">Liên Hệ</a>
           </li>
           <li class="nav-item dropdown" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">

@@ -103,7 +103,12 @@ export class PigstyListComponent implements OnInit {
 
   changePageSize(event: any) {
     this.pageSize = +event.target.value;
-    this.ngOnInit();
+    if (this.totalElements > Number(this.pageSize)) {
+      this.ngOnInit();
+    } else {
+      this.indexPagination = 0;
+      this.ngOnInit();
+    }
   }
 
   previousPage(event: any) {

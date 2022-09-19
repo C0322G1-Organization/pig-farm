@@ -60,14 +60,13 @@ export class PigUpdateComponent implements OnInit {
   }
 
   cancel() {
-    this.toast.error('Sửa thất bại');
-    this.router.navigateByUrl('/pig').then(r => console.log(r));
+    this.router.navigateByUrl('/pig');
   }
 
   submit() {
     this.pigService.updatePig(this.formPig.value).subscribe(value => {
-        this.toast.success('Sửa thành công');
-        this.router.navigateByUrl('/pig').then(r => console.log(r));
+        this.toast.success('Sửa thành công', 'Thông Báo');
+        this.router.navigateByUrl('/pig');
       },
       error => {
         this.toast.error('Sửa thất bại');

@@ -99,7 +99,7 @@ export class PigstyEditComponent implements OnInit {
         }, error => {
         },
         () => {
-          this.router.navigateByUrl('/pigsty/list').then(next => this.toastrService.success('Chỉnh sửa thành công'));
+          this.router.navigateByUrl('/pigsty/list').then(next => this.toastrService.success('Chỉnh sửa thành công.', 'Thông Báo'));
         });
     }
   }
