@@ -187,7 +187,8 @@ export class ContactListComponent implements OnInit {
   }
 
   changePageSize(event: any) {
-
+    this.informationDelete = [];
+    this.isCheckedAll();
     switch (event.target.value) {
       case '5':
         this.pageSize = 5;

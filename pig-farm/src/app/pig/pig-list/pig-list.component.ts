@@ -25,7 +25,7 @@ export class PigListComponent implements OnInit {
   countTotalPages: number[];
   idDelete: number;
   formCheckBox: FormGroup;
-  nameDelete: any = [];
+  nameDelete: Pig[] = [];
   ids: number[] = [];
   msg: string;
   clss: string;
@@ -37,10 +37,8 @@ export class PigListComponent implements OnInit {
   codeSearch = '';
   check: string[] = [];
   editId: string;
-  informationDelete: Pig[];
-  deleteList: number[] = [];
+  deleteList: Pig[] = [];
   checkNext: boolean;
-  checkPrevious: boolean;
   totalPage: Array<number>;
   indexPagination = 0;
   pages: Array<number>;
@@ -50,7 +48,8 @@ export class PigListComponent implements OnInit {
   pageSize = 5;
   displayPagination = 'inline-block';
   numberOfElement = 0;
-  checkDelete = true;
+  checkedAll = false;
+  pigDeleted: Pig;
 
   constructor(private pigService: PigService,
               private toastrService: ToastrService,
@@ -60,13 +59,13 @@ export class PigListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.ids.length);
     this.getList();
     this.searchForm = new FormGroup({
       codeSearch: new FormControl(''),
       dateInSearch: new FormControl(''),
       statusSearch: new FormControl(''),
     });
-    // this.getListBySearchAndPagination();
   }
 
   getList() {
@@ -75,7 +74,6 @@ export class PigListComponent implements OnInit {
         this.totalPage = new Array(0);
         this.pigs = [];
         this.displayPagination = 'none';
-        // this.toastrService.warning('Không có dữ liệu.', 'Chú ý');
       } else {
         this.number = data?.number;
         this.pageSize = data?.size;
@@ -85,6 +83,9 @@ export class PigListComponent implements OnInit {
         this.totalPage = new Array(data?.totalPages);
       }
       this.checkPreviousAndNext();
+      this.isCheckedAll();
+    }, error => {
+      this.pigs = null;
     });
   }
 
@@ -137,6 +138,8 @@ export class PigListComponent implements OnInit {
   }
 
   totalElement($event: any) {
+    this.nameDelete = [];
+    this.isCheckedAll();
     switch ($event.target.value) {
       case '5':
         this.pageSize = 5;
@@ -167,13 +170,16 @@ export class PigListComponent implements OnInit {
   }
 
   deleteId() {
-    if (this.ids.length > 0) {
-      this.pigService.deletePig(this.ids).subscribe(value1 => {
-        // @ts-ignore
+    const id: number[] = [];
+    for (const argument of this.nameDelete) {
+      id.push(argument.id);
+    }
+    if (id.length > 0) {
+      this.pigService.deletePig(id).subscribe(value1 => {
         this.indexPagination = 0;
         this.getList();
         this.toastrService.success('Xóa thành công !!!', 'Thông báo');
-        this.ids = [];
+        this.nameDelete = [];
       }, err => {
         this.clss = 'rd';
         this.msg = 'Có sự cố khi xóa cá thể';
@@ -186,49 +192,48 @@ export class PigListComponent implements OnInit {
     this.nameDelete = [];
   }
 
-// checkDelete(value: any) {
-//     this.ids = [];
-//     this.msg = '';
-//     this.nameDelete = [];
-//     // tslint:disable-next-line:prefer-for-of
-//     for (let i = 0; i < this.pigs.length; i++) {
-//         if (value[this.pigs[i].id] === true) {
-//             this.ids.push(this.pigs[i].id);
-//             this.nameDelete.push(this.pigs[i].code);
-//         }
-//     }
-//     this.pigService.getAllPig(0, '', '', '', 0).subscribe(() => {
-//     });
-// }
-
-  getListDelete(pigDelete: Pig) {
-    for (let i = 0; i < this.nameDelete.length; i++) {
-      if (this.nameDelete[i].id === pigDelete.id) {
-        this.nameDelete.splice(i, 1);
-        return;
-      }
+  edit() {
+    if (this.deleteList.length === 1) {
+      this.router.navigateByUrl('pig/update/' + this.deleteList[0]).then(r => console.log(r));
     }
-    this.nameDelete.push(pigDelete);
-    this.ids = [];
-    this.informationDelete = [];
-    for (const item of this.nameDelete) {
-      this.ids.push(item.id);
-      this.informationDelete.push(item.title);
+  }
+  checkAll(event: any) {
+    this.checkedAll = event.target.checked;
+    if (this.checkedAll) {
+      this.pigs.forEach(item => {
+        this.nameDelete.push(item);
+      });
+    } else {
+      this.nameDelete = this.nameDelete.filter(item => !this.pigs.some(item2 => item.id === item2.id));
     }
   }
 
-  checkbox(pigDelete: Pig) {
+  isCheckedAll() {
+    const listDeleted = this.nameDelete.filter((item) => this.pigs.some(item2 => item.id === item2.id));
+    const lengthDeleted = listDeleted.filter(
+      (pig, index) => index === listDeleted.findIndex(
+        other => pig.id === other.id
+      )).length;
+    this.checkedAll = lengthDeleted === this.pigs.length;
+  }
+
+  checkbox(pig: Pig) {
     for (const item of this.nameDelete) {
-      if (item.id === pigDelete.id) {
+      if (item.id === pig.id) {
         return true;
       }
     }
     return false;
   }
 
-  edit() {
-    if (this.deleteList.length === 1) {
-      this.router.navigateByUrl('pig/update/' + this.deleteList[0]);
+  checkList(pig: Pig) {
+    this.pigDeleted = this.nameDelete.find(deleteObject => deleteObject.id === pig.id);
+    if (this.pigDeleted) {
+      this.nameDelete = this.nameDelete.filter(contactDelete => contactDelete.id !== this.pigDeleted.id);
+    } else {
+      this.nameDelete.push(pig);
     }
+
+    this.isCheckedAll();
   }
 }

@@ -6,6 +6,7 @@ import {ToastrService} from 'ngx-toastr';
 import {TokenStorageService} from '../../service/token-storage.service';
 import {AuthService} from '../../service/auth.service';
 import {ShareService} from '../../service/share.service';
+import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute,
               private toastr: ToastrService,
-              private shareService: ShareService) {
+              private shareService: ShareService,
+              private cookieService: CookieService) {
   }
 
   ngOnInit(): void {

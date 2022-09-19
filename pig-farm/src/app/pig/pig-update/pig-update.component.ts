@@ -36,12 +36,12 @@ export class PigUpdateComponent implements OnInit {
               private router: Router,
               private activeRouter: ActivatedRoute) {
   }
-
   getAllPigsty() {
-    this.pigstyService.getAllPigsty().subscribe(value => {
+    this.pigstyService.getAllPigstyAdd().subscribe(value => {
       this.pigsty = value;
     });
   }
+q
 
   ngOnInit(): void {
     this.getAllPigsty();

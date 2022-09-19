@@ -88,7 +88,7 @@ export class NotificationEditComponent implements OnInit {
       this.notificationService.update(this.id, this.notificationForm.value).subscribe(
         () => {
           this.router.navigateByUrl('/notification/list');
-          this.toast.success('Cập nhật thàng công.');
+          this.toast.success('Cập nhật thành công.');
         },
         error => {
           this.toast.error('Cập nhật thất bại, hãy thử lại.');

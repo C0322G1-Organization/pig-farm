@@ -63,7 +63,7 @@ export class PigstyCreateComponent implements OnInit {
 
   getForm() {
     this.formPigsty = new FormGroup({
-      buildDate: new FormControl(),
+      buildDate: new FormControl(''),
       code: new FormControl('', [Validators.required, Validators.pattern('^C\\d{3}$')]),
       creationDate: new FormControl(this.now, [Validators.required]),
       maxNumber: new FormControl('', [Validators.required, Validators.min(1), Validators.max(20)]),

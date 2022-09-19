@@ -42,4 +42,8 @@ export class PigstyService {
   checkCode(code: string): Observable<string> {
     return this.http.get<string>(this.URL_PIGSTY + '/checkCode/' + code);
   }
+  getAllPigstyAdd(): Observable<Pigsty[]> {
+    return this.http.get<Pigsty[]>(API_URL + '/list/addPig');
+  }
+
 }

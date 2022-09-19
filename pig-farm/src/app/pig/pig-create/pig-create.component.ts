@@ -35,12 +35,12 @@ export class PigCreateComponent implements OnInit {
               private toast: ToastrService,
               private router: Router) {
   }
-
   getAllPigsty() {
-    this.pigstyService.getAllPigsty().subscribe(value => {
+    this.pigstyService.getAllPigstyAdd().subscribe(value => {
       this.pigsty = value;
     });
   }
+
 
   reset() {
     this.formPig = new FormGroup({

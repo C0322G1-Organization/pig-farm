@@ -27,6 +27,7 @@ import {FoodModule} from './food/food.module';
 import {SecurityModule} from './security/security.module';
 import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
 import {ExportModule} from './exprot/export.module';
+import {CookieService} from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,7 @@ import {ExportModule} from './exprot/export.module';
     CKEditorModule,
     ExportModule
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
