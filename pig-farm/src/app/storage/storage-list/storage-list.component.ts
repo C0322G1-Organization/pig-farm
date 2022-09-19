@@ -44,7 +44,6 @@ export class StorageListComponent implements OnInit {
         this.totalPage = new Array(0);
         this.storageList = [];
         this.displayPagination = 'none';
-        this.toastrService.warning('Không có dữ liệu.', 'Chú ý');
       } else {
         this.number = data?.number;
         this.pageSize = data?.size;

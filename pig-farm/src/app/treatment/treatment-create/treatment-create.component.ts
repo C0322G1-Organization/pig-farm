@@ -39,7 +39,10 @@ export class TreatmentCreateComponent implements OnInit {
     const v = abstractControl.value;
     const start = new Date(v);
     if (!isDate(start)) {
-      return {dateNotExist: true, message: 'Nhập ngày hợp lệ'};
+      return {dateNotExist: true, message: 'Vui lòng nhập ngày hợp lệ'};
+    }
+    if (start > new Date()) {
+      return {dateNotExist: true, message: 'Nhập ngày hiện tại hoặc ngày nhỏ hơn.'};
     }
   }
   ngOnInit(): void {

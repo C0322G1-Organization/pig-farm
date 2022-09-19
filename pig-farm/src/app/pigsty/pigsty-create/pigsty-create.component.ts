@@ -41,7 +41,7 @@ export class PigstyCreateComponent implements OnInit {
     this.shareService.getClickEvent().subscribe(() => {
       this.loadHeader();
     });
-    this.title.setTitle('Tạo chuồng nuôi');
+    this.title.setTitle('Tạo Chuồng Nuôi');
   }
 
   ngOnInit(): void {

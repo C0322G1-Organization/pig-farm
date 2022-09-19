@@ -145,7 +145,7 @@ export class VaccinationListComponent implements OnInit {
         this.indexPagination = 0;
         this.nameContent = '';
         this.getAll();
-        this.toast.success('Xóa thành công', 'Tiêm phòng');
+        this.toast.success('Xóa thành công.', 'Thông Báo');
       }, err => {
         this.clss = 'rd';
         this.msg = 'Có sự cố khi xóa liên hệ';

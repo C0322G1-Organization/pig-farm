@@ -23,6 +23,8 @@ export class FoodEditComponent implements OnInit {
   pigsties: Pig[] = [];
   id: number;
   storages: Storage[] = [];
+  amountStorages: Storage;
+
 
   constructor(private pigstyService: PigstyService,
               private storageService: StorageService,
@@ -64,6 +66,12 @@ export class FoodEditComponent implements OnInit {
     });
 
   }
+  getAmount(id: number) {
+    return this.storageService.findById(id).subscribe((amount: any) => {
+      this.amountStorages = amount;
+    });
+
+  }
 
   editFood(id: number) {
     const food = this.foodForm.value;
@@ -73,9 +81,10 @@ export class FoodEditComponent implements OnInit {
     food.pigsty = {
       id: +food.pigsty
     };
+    this.getAmount(food.storage.id);
     this.foodService.editFood(id, food).subscribe(() => {
     }, error => {
-      this.toast.error('Chỉ nhập số và không dc nhập quá số lượng trong kho', 'Thông báo');
+      this.toast.error('Số lượng trong kho không đủ.   ' + this.amountStorages.foodType + ' còn : ' + this.amountStorages.amount + ' Kg', 'Thông Báo');
     }, () => {
       this.foodForm.reset();
       this.router.navigate(['/food']);

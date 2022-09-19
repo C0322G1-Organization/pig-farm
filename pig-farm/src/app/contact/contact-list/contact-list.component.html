@@ -49,7 +49,7 @@
     </div>
   </div>
   <div style="background: white;opacity: 90%;height: 100px;position: relative;border-radius: 0 0 10px 10px"
-       class="container">
+       class="container" *ngIf="contactList?.length>0">
 
     <div style="text-align: center;margin-bottom: 5px">
       <button class="col-3 btn btn-outline-success" style="width: auto; margin-right: 5%" data-bs-toggle="modal"
@@ -71,7 +71,7 @@
       </button>
     </div>
     <!--Phan trang-->
-    <div [ngStyle]="{'display':displayPagination}">
+    <div [ngStyle]="{'display':displayPagination}" *ngIf="contactList?.length>0">
       <div style="position: absolute;bottom: 26px;right: 49px">
         <div style="display: flex;align-items: center;justify-content: flex-end">
 
@@ -137,8 +137,7 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content" style="width: 650px">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel1">Thông tin nhân
-            viên </h5>
+          <h5 class="modal-title" id="staticBackdropLabel1">Thông Tin Người Liên Hệ</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 

@@ -37,7 +37,7 @@
           </thead>
           <tbody>
           <tr *ngFor="let storage of storageList ; index as i">
-            <td>{{(i + 1) + 5 * number}}</td>
+            <td>{{(i + 1) + (indexPagination * pageSize)}}</td>
             <td>{{storage.foodType}}</td>
             <td>{{storage.amount}}</td>
             <td>{{storage.unit}}</td>

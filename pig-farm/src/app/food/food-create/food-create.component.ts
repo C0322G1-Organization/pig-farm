@@ -16,6 +16,7 @@ import {FoodService} from '../../service/food.service';
 export class FoodCreateComponent implements OnInit {
   pigsties: Pigsty[] = [];
   storages: Storage[] = [];
+  amountStorages: Storage;
 
   foodForm: FormGroup = new FormGroup({
     amount: new FormControl('', [Validators.required, Validators.min(1)]),
@@ -56,6 +57,12 @@ export class FoodCreateComponent implements OnInit {
       this.storages = storageService;
     });
   }
+  getAmount(id: number) {
+    return this.storageService.findById(id).subscribe((amount: any) => {
+      this.amountStorages = amount;
+    });
+
+  }
 
   submit() {
     const food = this.foodForm.value;
@@ -65,9 +72,10 @@ export class FoodCreateComponent implements OnInit {
     food.pigsty = {
       id: +food.pigsty
     };
+    this.getAmount(food.storage.id);
     this.foodService.saveFood(food).subscribe(() => {
     }, error => {
-      this.toast.error('Chỉ nhập số và không dc nhập quá số lượng trong kho', 'Thông báo');
+      this.toast.error('Số lượng trong kho không đủ.   ' + this.amountStorages.foodType + ' còn : ' + this.amountStorages.amount + ' Kg', 'Thông Báo');
     }, () => {
       this.foodForm.reset();
       this.router.navigate(['/food']);

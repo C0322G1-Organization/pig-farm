@@ -24,4 +24,7 @@ export class StorageService {
   saveStorage(storage): Observable<Storage> {
     return this.http.post<Storage>(`${API_URL}/storage/create`, storage);
   }
+  findById(id: number): Observable<Storage> {
+    return this.http.get<Storage>(API_URL + `/api/food/showStorage/${id}`);
+  }
 }

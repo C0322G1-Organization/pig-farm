@@ -58,7 +58,7 @@
                 <div class="col-6">
                   <label for="closeTime">Ngày đóng chuồng</label>
                   <input formControlName="buildDate" type="date" id="closeTime" class="form-control">
-                  <p style="color: red" *ngIf="getFormEdit.hasError('dateError') && getFormEdit.controls.creationDate.touched">Vui lòng nhập ngày đóng chuồng sau ngày tạo chuồng.</p>
+                  <p style="color: red" *ngIf="getFormEdit.hasError('dateError')">Vui lòng nhập ngày đóng chuồng sau ngày tạo chuồng.</p>
                 </div>
               </div>
             </div>

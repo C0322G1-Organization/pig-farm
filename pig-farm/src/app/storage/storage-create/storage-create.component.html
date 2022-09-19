@@ -23,8 +23,7 @@
             <div class="row">
               <div class="col-md">
                 <label class="form-label">Số Lượng <span class="text-danger">*</span></label>
-                <input type="number" class="form-control" formControlName="amount"
-                       onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'">
+                <input type="number" class="form-control" formControlName="amount">
                 <p style="color:red"
                    *ngIf="storageForm.controls.amount.hasError('required') && storageForm.controls.amount.touched">
                   Vui lòng nhập thông tin.</p>

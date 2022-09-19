@@ -135,11 +135,16 @@ export class StatisticComponent implements OnInit {
             this.statisticForm.value.startDate,
             this.statisticForm.value.endDate,
             this.statisticForm.value.type).subscribe((value) => {
-            this.listStatistic = value;
-            this.toast.success('Thống kê thành công !');
-            this.destroyChart();
-            this.createChartMonth();
-          });
+              this.toast.success('Thống kê thành công', 'Thông báo');
+              this.listStatistic = value;
+              this.destroyChart();
+              this.createChartMonth();
+            },
+            error => {
+              this.toast.warning('Không có dữ liệu', 'Thông báo');
+              this.destroyChart();
+            },
+          );
         } else {
           this.hiddenChart = true;
           this.hiddenPieChart = false;
@@ -147,10 +152,15 @@ export class StatisticComponent implements OnInit {
             this.statisticForm.value.startDate,
             this.statisticForm.value.endDate,
             this.statisticForm.value.type).subscribe((value) => {
+            this.toast.success('Thống kê thành công', 'Thông báo');
             this.listStatistic = value;
-            this.toast.success('Thống kê thành công !');
             this.resetValueAndDrawPieChart();
-          });
+            },
+            error => {
+              this.toast.warning('Không có dữ liệu', 'Thông báo');
+              this.destroyChart();
+            },
+          );
         }
       } else {
         if (this.statisticForm.value.chartStyle === 'bar') {
@@ -161,11 +171,16 @@ export class StatisticComponent implements OnInit {
             this.statisticForm.value.endDate,
             this.statisticForm.value.type,
             this.statisticForm.value.company).subscribe((value) => {
+            this.toast.success('Thống kê thành công', 'Thông báo');
             this.listStatistic = value;
-            this.toast.success('Thống kê thành công !');
             this.destroyChart();
             this.createChartMonth();
-          });
+            },
+            error => {
+              this.toast.warning('Không có dữ liệu', 'Thông báo');
+              this.destroyChart();
+            },
+          );
         } else {
           this.hiddenChart = true;
           this.hiddenPieChart = false;
@@ -174,10 +189,15 @@ export class StatisticComponent implements OnInit {
             this.statisticForm.value.endDate,
             this.statisticForm.value.type,
             this.statisticForm.value.company).subscribe((value) => {
+            this.toast.success('Thống kê thành công', 'Thông báo');
             this.listStatistic = value;
-            this.toast.success('Thống kê thành công !');
             this.resetValueAndDrawPieChart();
-          });
+            },
+            error => {
+              this.toast.warning('Không có dữ liệu', 'Thông báo');
+              this.destroyChart();
+            },
+          );
         }
       }
     }
@@ -190,11 +210,16 @@ export class StatisticComponent implements OnInit {
             this.statisticForm.value.startDate,
             this.statisticForm.value.endDate,
             this.statisticForm.value.type).subscribe((value) => {
+            this.toast.success('Thống kê thành công', 'Thông báo');
             this.listStatistic = value;
-            this.toast.success('Thống kê thành công !');
             this.destroyChart();
             this.createChartYear();
-          });
+            },
+            error => {
+              this.toast.warning('Không có dữ liệu', 'Thông báo');
+              this.destroyChart();
+            },
+          );
         } else {
           this.hiddenChart = true;
           this.hiddenPieChart = false;
@@ -203,10 +228,15 @@ export class StatisticComponent implements OnInit {
             this.statisticForm.value.endDate,
             this.statisticForm.value.type).subscribe((value) => {
             this.listStatistic = value;
-            this.toast.success('Get Value success !');
+            this.toast.success('Thống kê thành công', 'Thông báo');
             this.destroyChart();
             this.resetValueAndDrawPieChart();
-          });
+            },
+            error => {
+              this.toast.warning('Không có dữ liệu', 'Thông báo');
+              this.destroyChart();
+            },
+          );
         }
       } else {
         if (this.statisticForm.value.chartStyle === 'bar') {
@@ -217,11 +247,16 @@ export class StatisticComponent implements OnInit {
             this.statisticForm.value.endDate,
             this.statisticForm.value.type,
             this.statisticForm.value.company).subscribe((value) => {
+            this.toast.success('Thống kê thành công', 'Thông báo');
             this.listStatistic = value;
-            this.toast.success('Thống kê thành công !');
             this.destroyChart();
             this.createChartYear();
-          });
+            },
+            error => {
+              this.toast.warning('Không có dữ liệu', 'Thông báo');
+              this.destroyChart();
+            },
+          );
         } else {
           this.hiddenChart = true;
           this.hiddenPieChart = false;
@@ -230,11 +265,16 @@ export class StatisticComponent implements OnInit {
             this.statisticForm.value.endDate,
             this.statisticForm.value.type,
             this.statisticForm.value.company).subscribe((value) => {
+            this.toast.success('Thống kê thành công', 'Thông báo');
             this.listStatistic = value;
-            this.toast.success('Thống kê thành công !');
             this.destroyChart();
             this.resetValueAndDrawPieChart();
-          });
+            },
+            error => {
+              this.toast.warning('Không có dữ liệu', 'Thông báo');
+              this.destroyChart();
+            },
+          );
         }
       }
     }

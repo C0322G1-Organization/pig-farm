@@ -140,9 +140,6 @@ export class ExportListComponent implements OnInit {
     this.ids = [];
     this.ngOnInit();
     this.check = [];
-    this.toast.error('Đã hủy yêu cầu xóa.', 'Chú ý', {
-      timeOut: 2500, progressBar: false
-    });
   }
 
   deleteId() {

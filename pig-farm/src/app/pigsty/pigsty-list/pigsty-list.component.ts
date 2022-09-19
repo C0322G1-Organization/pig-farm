@@ -37,7 +37,7 @@ export class PigstyListComponent implements OnInit {
   constructor(private pigstyService: PigstyService,
               private router: Router,
               private title: Title, private toast: ToastrService) {
-    this.title.setTitle('Danh Sách Liên Hệ');
+    this.title.setTitle('Danh Sách Chuồng');
   }
 
   ngOnInit(): void {

@@ -43,7 +43,7 @@ export class PigstyEditComponent implements OnInit {
     this.shareService.getClickEvent().subscribe(() => {
       this.loadHeader();
     });
-    this.title.setTitle('Tạo chuồng nuôi');
+    this.title.setTitle('Chỉnh Sửa Chuồng Nuôi');
   }
 
   ngOnInit(): void {
