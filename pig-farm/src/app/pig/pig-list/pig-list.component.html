@@ -67,32 +67,34 @@
             <td>{{item.weight}}</td>
             <!--        <td><input *ngIf="item" type="checkbox" ngModel [name]="''+item.id" (ngModelChange)="checkButton(item.id)"></td>-->
             <td><input class="form-check-input" type="checkbox" [checked]="checkbox(item)"
-                       (change)="checkList(item)">
+                       (change)="getListDelete(item)">
           </tr>
           </tbody>
         </table>
       </div>
-      <div>
-        <div style="text-align: center; display: flex; justify-content: center" *ngIf="nameDelete.length>0">
-          <button class="col-3 btn btn-warning" style="width: auto; margin-right: 5%; margin-top: 2%;"
-                  type="button" [routerLink]="['update',ids[0]]"
-                  [disabled]="nameDelete.length>1" [hidden]="nameDelete.length>1">Chỉnh Sửa
+      <div style="background: white;opacity: 94%;height: 100px;position: relative;border-radius: 0 0 10px 10px"
+           class="container">
+        <div style="text-align: center; display: flex; justify-content: center" *ngIf="deleteList.length>0">
+          <button class="col-3 btn btn-warning" style="width: auto; margin-right: 5%"
+                  type="button" [routerLink]="['/pig/update',deleteList[0].id]"
+                  [hidden]="deleteList.length>1 ">Chỉnh Sửa
           </button>
-          <button class="col-3 btn btn-outline-warning" style="width: auto; margin-right: 5%; margin-top: 2%;"
-                  type="button" [routerLink]="['update',ids[0]]"
-                  [disabled]="nameDelete.length>1" [hidden]="nameDelete.length===1">Chỉnh Sửa
+          <button class="col-3 btn btn-outline-warning" style="width: auto; margin-right: 5%"
+                  type="button" [routerLink]="['/pig/update',deleteList[0].id]"
+                  [disabled]="deleteList.length>1" [hidden]="deleteList.length<=1">Chỉnh Sửa
           </button>
-          <button class="col-3 btn btn-danger" style="width: auto; margin-top: 2%" data-bs-toggle="modal"
-                  data-bs-target="#exampleModal" [disabled]="nameDelete.length<1">
-            Xoá
+          <button class="col-3 btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                  style="width: auto;" type="submit" [hidden]="deleteList.length<1">Xoá
           </button>
         </div>
-        <div style="text-align: center; display: flex; justify-content: center" *ngIf="nameDelete.length===0">
-          <button class="col-3 btn btn-outline-warning" style="width: auto; margin-right: 5%; margin-top: 2%;"
-                  type="button" disabled>Chỉnh Sửa
+        <div style="text-align: center; display: flex; justify-content: center" *ngIf="deleteList.length===0">
+
+          <button class="col-3 btn btn-outline-warning" style="width: auto; margin-right: 5%"
+                  type="button"
+                  disabled>Chỉnh Sửa
           </button>
-          <button class="col-3 btn btn-outline-danger" style="width: auto; margin-top: 2%" disabled>
-            Xoá
+          <button class="col-3 btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                  style="width: auto;" type="submit" disabled>Xoá
           </button>
         </div>
         <!--      phân trang-->
@@ -135,7 +137,7 @@
         </div>
         <div class="modal-body">
           <table>
-            <tr *ngFor="let item of nameDelete;let i = index ">
+            <tr *ngFor="let item of deleteList;let i = index ">
               <td>{{i + 1}}. <span style="color: red">{{item.code}}</span></td>
             </tr>
           </table>

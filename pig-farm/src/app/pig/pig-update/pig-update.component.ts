@@ -36,15 +36,8 @@ export class PigUpdateComponent implements OnInit {
               private router: Router,
               private activeRouter: ActivatedRoute) {
   }
-  getAllPigsty() {
-    this.pigstyService.getAllPigstyAdd().subscribe(value => {
-      this.pigsty = value;
-    });
-  }
-q
 
   ngOnInit(): void {
-    this.getAllPigsty();
     this.activeRouter.paramMap.subscribe(param => {
       this.findById(param.get('id'));
       this.id = +param.get('id');
@@ -54,6 +47,10 @@ q
   findById(id) {
     this.pigService.findById(id).subscribe(value => {
       this.formPig.setValue(value);
+      this.pigstyService.getAllPigstyAdd(this.formPig.value.pigsty.id).subscribe(pigsty => {
+        this.pigsty = pigsty;
+      });
+
     }, error => {
       this.router.navigateByUrl('/500');
     });

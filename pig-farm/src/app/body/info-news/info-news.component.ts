@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {BodyService} from '../body.service';
 import {ActivatedRoute, ParamMap} from '@angular/router';
+import {Advertisement} from '../../model/advertisement';
+import {AdvertisementService} from '../../service/advertisement.service';
 
 @Component({
   selector: 'app-info-news',
@@ -8,7 +10,7 @@ import {ActivatedRoute, ParamMap} from '@angular/router';
   styleUrls: ['./info-news.component.css']
 })
 export class InfoNewsComponent implements OnInit {
-
+  advertisement: Advertisement[] = [];
   titleNew: string;
   contentNew: string;
   dateSubmitted: string;
@@ -16,7 +18,8 @@ export class InfoNewsComponent implements OnInit {
   id: number;
 
   constructor(private newsService: BodyService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private advertisementList: AdvertisementService) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = +paramMap.get('id');
       this.findById(this.id);
@@ -24,6 +27,13 @@ export class InfoNewsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getAllAdvertisement();
+  }
+
+  getAllAdvertisement(): void {
+    this.advertisementList.getListAdvertisement().subscribe(next => {
+      this.advertisement = next;
+    });
   }
 
   findById(id: number) {

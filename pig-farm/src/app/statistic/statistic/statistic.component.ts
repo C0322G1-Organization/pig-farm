@@ -26,7 +26,7 @@ export class StatisticComponent implements OnInit {
   valuePricePieChart: number[] = [];
   namePieChart: string[] = [];
 
-  pastDay = this.datePipe.transform(new Date().setDate(new Date().getDate() - 1000), 'yyyy-MM-dd');
+  pastDay = this.datePipe.transform(new Date().setDate(new Date().getDate() - 2000), 'yyyy-MM-dd');
   today = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
 
   myChart: Chart;

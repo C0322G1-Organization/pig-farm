@@ -43,7 +43,7 @@
   </div>
   <div class="vc_empty_space" style="height: 28px"><span class="vc_empty_space_inner"></span></div>
   <div class="row" *ngIf="news && news.length > 0; else elseBlock">
-    <div class="col-lg-10 ">
+    <div class="col-lg-10">
       <div class="row mt-3" *ngFor="let i of news">
         <div class="col-lg-2">
           <a [routerLink]="['/info-news', i.id]">
@@ -101,27 +101,32 @@
     </div>
 
     <div class="col-lg-2" style="border-left: 1px solid #a39c9c;padding-left: 2.5%;" >
-      <a href="https://trungtambocobavi.com/mot-giong-bo-thit-o-viet-nam"> <div *ngFor="let temp of advertisement">
-        <div class="row mb-5" *ngIf="temp.placement.name==='Ở trên'">
+      <a href="https://trungtambocobavi.com/mot-giong-bo-thit-o-viet-nam" target="_blank">
+        <div *ngFor="let temp of advertisement">
+        <div class="row mb-5" *ngIf="temp.placement.name==='Ở trên'" >
           <img class="ads-body" src="{{temp.image}}" alt="">
         </div>
       </div></a>
-      <a href="https://hanofeed.com/"> <div *ngFor="let temp of advertisement">
-        <div class="row mb-5" *ngIf="temp.placement.name==='Ở giữa trên'">
+      <a href="https://hanofeed.com/" target="_blank">
+        <div *ngFor="let temp of advertisement">
+        <div class="row mb-5" *ngIf="temp.placement.name==='Ở giữa trên'" >
           <img class="ads-body" src="{{temp.image}}" alt="">
         </div>
       </div></a>
-      <a href="https://trungtambocobavi.com/mot-giong-bo-thit-o-viet-nam"> <div *ngFor="let temp of advertisement">
+      <a href="https://trungtambocobavi.com/mot-giong-bo-thit-o-viet-nam" target="_blank">
+        <div *ngFor="let temp of advertisement">
         <div class="row mb-5" *ngIf="temp.placement.name==='Ở giữa'">
           <img class="ads-body" src="{{temp.image}}" alt="">
         </div>
       </div></a>
-      <a href="https://trungtambocobavi.com/mot-giong-bo-thit-o-viet-nam"> <div *ngFor="let temp of advertisement">
+      <a href="https://trungtambocobavi.com/mot-giong-bo-thit-o-viet-nam" target="_blank">
+        <div *ngFor="let temp of advertisement">
         <div class="row mb-5" *ngIf="temp.placement.name==='Ở giữa cuối'">
           <img class="ads-body" src="{{temp.image}}" alt="">
         </div>
       </div></a>
-      <a href="https://trungtambocobavi.com/mot-giong-bo-thit-o-viet-nam"> <div *ngFor="let temp of advertisement">
+      <a href="https://trungtambocobavi.com/mot-giong-bo-thit-o-viet-nam" target="_blank">
+        <div *ngFor="let temp of advertisement">
         <div class="row mb-5" *ngIf="temp.placement.name==='Ở cuối'">
           <img class="ads-body" src="{{temp.image}}" alt="">
         </div>
@@ -132,7 +137,6 @@
 
   </div>
 
-
   <ng-template #elseBlock>
     <div class="row">
       <div class="col-lg-10 mt-5">
@@ -140,27 +144,32 @@
       </div>
 
       <div class="col-lg-2" style="border-left: 1px solid #a39c9c;padding-left: 2.5%;" >
-        <a href="https://trungtambocobavi.com/mot-giong-bo-thit-o-viet-nam"> <div *ngFor="let temp of advertisement">
-          <div class="row mb-5" *ngIf="temp.placement.name==='Ở trên'">
+        <a href="https://trungtambocobavi.com/mot-giong-bo-thit-o-viet-nam" target="_blank">
+          <div *ngFor="let temp of advertisement">
+          <div class="row mb-5" *ngIf="temp.placement.name==='Ở trên'" >
             <img class="ads-body" src="{{temp.image}}" alt="">
           </div>
         </div></a>
-        <a href="https://hanofeed.com/"> <div *ngFor="let temp of advertisement">
-          <div class="row mb-5" *ngIf="temp.placement.name==='Ở giữa trên'">
+        <a href="https://hanofeed.com/" target="_blank">
+          <div *ngFor="let temp of advertisement">
+          <div class="row mb-5" *ngIf="temp.placement.name==='Ở giữa trên'" >
             <img class="ads-body" src="{{temp.image}}" alt="">
           </div>
         </div></a>
-        <a href="https://trungtambocobavi.com/mot-giong-bo-thit-o-viet-nam"> <div *ngFor="let temp of advertisement">
-          <div class="row mb-5" *ngIf="temp.placement.name==='Ở giữa'">
+        <a href="https://trungtambocobavi.com/mot-giong-bo-thit-o-viet-nam" target="_blank">
+          <div *ngFor="let temp of advertisement">
+          <div class="row mb-5" *ngIf="temp.placement.name==='Ở giữa'" >
             <img class="ads-body" src="{{temp.image}}" alt="">
           </div>
         </div></a>
-        <a href="https://trungtambocobavi.com/mot-giong-bo-thit-o-viet-nam"> <div *ngFor="let temp of advertisement">
+        <a href="https://trungtambocobavi.com/mot-giong-bo-thit-o-viet-nam" target="_blank">
+          <div *ngFor="let temp of advertisement">
           <div class="row mb-5" *ngIf="temp.placement.name==='Ở giữa cuối'">
             <img class="ads-body" src="{{temp.image}}" alt="">
           </div>
         </div></a>
-        <a href="https://trungtambocobavi.com/mot-giong-bo-thit-o-viet-nam"> <div *ngFor="let temp of advertisement">
+        <a href="https://trungtambocobavi.com/mot-giong-bo-thit-o-viet-nam" target="_blank">
+          <div *ngFor="let temp of advertisement">
           <div class="row mb-5" *ngIf="temp.placement.name==='Ở cuối'">
             <img class="ads-body" src="{{temp.image}}" alt="">
           </div>

@@ -36,10 +36,11 @@ export class PigCreateComponent implements OnInit {
               private router: Router) {
   }
   getAllPigsty() {
-    this.pigstyService.getAllPigstyAdd().subscribe(value => {
+    this.pigstyService.getAllPigstyAdd(-1).subscribe(value => {
       this.pigsty = value;
     });
   }
+
 
 
   reset() {

@@ -17,7 +17,7 @@
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;
-
+  min-height: 100vh;
 }
 .formRow_create_title{
   text-align: center;

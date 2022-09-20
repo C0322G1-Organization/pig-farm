@@ -28,6 +28,7 @@
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;
+  min-height: 100vh;
 
 }
 hr {
@@ -42,3 +43,10 @@ hr {
   display: flex;
   justify-content: center
 }
+.tableFixHead          { overflow: auto; }
+.tableFixHead thead th { position: sticky; top: 0; z-index: 1; }
+
+/* Just common table stuff. Really. */
+table  { border-collapse: collapse; width: 100%; }
+th, td { padding: 8px 16px; }
+th     { background:#017428; }
